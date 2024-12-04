@@ -1,0 +1,10 @@
+@ThePatho_HostAddress = https://localhost:7276
+
+GET {{ThePatho_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
+
+GET {{ThePatho_HostAddress}}/api/adscategory
+
+###

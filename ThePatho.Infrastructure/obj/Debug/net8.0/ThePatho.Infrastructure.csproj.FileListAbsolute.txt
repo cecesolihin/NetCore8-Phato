@@ -1,0 +1,17 @@
+D:\COURSES\ThePatho\ThePatho.Infrastructure\bin\Debug\net8.0\ThePatho.Infrastructure.deps.json
+D:\COURSES\ThePatho\ThePatho.Infrastructure\bin\Debug\net8.0\ThePatho.Infrastructure.runtimeconfig.json
+D:\COURSES\ThePatho\ThePatho.Infrastructure\bin\Debug\net8.0\ThePatho.Infrastructure.dll
+D:\COURSES\ThePatho\ThePatho.Infrastructure\bin\Debug\net8.0\ThePatho.Infrastructure.pdb
+D:\COURSES\ThePatho\ThePatho.Infrastructure\bin\Debug\net8.0\ThePatho.Domain.dll
+D:\COURSES\ThePatho\ThePatho.Infrastructure\bin\Debug\net8.0\ThePatho.Domain.pdb
+D:\COURSES\ThePatho\ThePatho.Infrastructure\obj\Debug\net8.0\ThePatho.Infrastructure.csproj.AssemblyReference.cache
+D:\COURSES\ThePatho\ThePatho.Infrastructure\obj\Debug\net8.0\ThePatho.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+D:\COURSES\ThePatho\ThePatho.Infrastructure\obj\Debug\net8.0\ThePatho.Infrastructure.AssemblyInfoInputs.cache
+D:\COURSES\ThePatho\ThePatho.Infrastructure\obj\Debug\net8.0\ThePatho.Infrastructure.AssemblyInfo.cs
+D:\COURSES\ThePatho\ThePatho.Infrastructure\obj\Debug\net8.0\ThePatho.Infrastructure.csproj.CoreCompileInputs.cache
+D:\COURSES\ThePatho\ThePatho.Infrastructure\obj\Debug\net8.0\ThePatho.A5629F97.Up2Date
+D:\COURSES\ThePatho\ThePatho.Infrastructure\obj\Debug\net8.0\ThePatho.Infrastructure.dll
+D:\COURSES\ThePatho\ThePatho.Infrastructure\obj\Debug\net8.0\refint\ThePatho.Infrastructure.dll
+D:\COURSES\ThePatho\ThePatho.Infrastructure\obj\Debug\net8.0\ThePatho.Infrastructure.pdb
+D:\COURSES\ThePatho\ThePatho.Infrastructure\obj\Debug\net8.0\ThePatho.Infrastructure.genruntimeconfig.cache
+D:\COURSES\ThePatho\ThePatho.Infrastructure\obj\Debug\net8.0\ref\ThePatho.Infrastructure.dll

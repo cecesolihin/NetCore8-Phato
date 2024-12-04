@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ThePatho.Domain\ThePatho.Domain.csproj" />
+    <ProjectReference Include="..\ThePatho.Features\ThePatho.Features.csproj" />
+    <ProjectReference Include="..\ThePatho.Infrastructure\ThePatho.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\MasterData\" />
+    <Folder Include="Controllers\MasterSetting\" />
+    <Folder Include="Controllers\Applicant\" />
+  </ItemGroup>
+
+</Project>

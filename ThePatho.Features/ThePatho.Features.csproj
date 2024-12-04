@@ -1,0 +1,75 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ThePatho.Infrastructure\ThePatho.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Applicant\ApplicantAddress\Service\" />
+    <Folder Include="Applicant\ApplicantDocument\DTO\" />
+    <Folder Include="Applicant\ApplicantDocument\Service\" />
+    <Folder Include="Applicant\ApplicantEducation\DTO\" />
+    <Folder Include="Applicant\ApplicantEducation\Service\" />
+    <Folder Include="Applicant\ApplicantIdentity\DTO\" />
+    <Folder Include="Applicant\ApplicantIdentity\Service\" />
+    <Folder Include="Applicant\ApplicantOnlineTestAnswer\DTO\" />
+    <Folder Include="Applicant\ApplicantOnlineTestAnswer\Service\" />
+    <Folder Include="Applicant\ApplicantOnlineTestResult\DTO\" />
+    <Folder Include="Applicant\ApplicantOnlineTestResult\Service\" />
+    <Folder Include="Applicant\ApplicantPersonalData\DTO\" />
+    <Folder Include="Applicant\ApplicantPersonalData\Service\" />
+    <Folder Include="Applicant\ApplicantRecruitStep\DTO\" />
+    <Folder Include="Applicant\ApplicantRecruitStep\Service\" />
+    <Folder Include="Applicant\ApplicantSkill\DTO\" />
+    <Folder Include="Applicant\ApplicantSkill\Service\" />
+    <Folder Include="Applicant\ApplicantWorkExperience\DTO\" />
+    <Folder Include="Applicant\ApplicantWorkExperience\Service\" />
+    <Folder Include="Applicant\Applicant\Service\" />
+    <Folder Include="Applicant\ApplicationApplicant\DTO\" />
+    <Folder Include="Applicant\ApplicationApplicant\Service\" />
+    <Folder Include="Applicant\ReasonStepFailed\DTO\" />
+    <Folder Include="Applicant\ReasonStepFailed\Service\" />
+    <Folder Include="Category\DTO\DTO\" />
+    <Folder Include="Category\DTO\Service\" />
+    <Folder Include="MasterData\AdsCategory\DTO\" />
+    <Folder Include="MasterData\AdsCategory\Service\" />
+    <Folder Include="MasterData\AdsMedia\DTO\" />
+    <Folder Include="MasterData\AdsMedia\Service\" />
+    <Folder Include="MasterData\JobCategory\DTO\" />
+    <Folder Include="MasterData\JobCategory\Service\" />
+    <Folder Include="MasterSetting\OnlineTestSetting\DTO\" />
+    <Folder Include="MasterSetting\OnlineTestSetting\Service\" />
+    <Folder Include="MasterSetting\QuestionSettingDetail\DTO\" />
+    <Folder Include="MasterSetting\QuestionSettingDetail\Service\" />
+    <Folder Include="MasterSetting\QuestionSetting\DTO\" />
+    <Folder Include="MasterSetting\QuestionSetting\Service\" />
+    <Folder Include="MasterSetting\ScoringSettingDetail\DTO\" />
+    <Folder Include="MasterSetting\ScoringSettingDetail\Service\" />
+    <Folder Include="MasterSetting\ScoringSetting\DTO\" />
+    <Folder Include="MasterSetting\ScoringSetting\Service\" />
+    <Folder Include="Recruitment\RecruitmentReqStep\DTO\" />
+    <Folder Include="Recruitment\RecruitmentReqStep\Service\" />
+    <Folder Include="Recruitment\RecruitmentRequest\DTO\" />
+    <Folder Include="Recruitment\RecruitmentRequest\Service\" />
+    <Folder Include="Recruitment\RecruitStepGroupDetail\DTO\" />
+    <Folder Include="Recruitment\RecruitStepGroupDetail\Service\" />
+    <Folder Include="Recruitment\RecruitStepGroup\DTO\" />
+    <Folder Include="Recruitment\RecruitStepGroup\Service\" />
+    <Folder Include="Recruitment\RecruitStep\DTO\" />
+    <Folder Include="Recruitment\RecruitStep\Service\" />
+    <Folder Include="Recruitment\RequirementRecRequest\DTO\" />
+    <Folder Include="Recruitment\RequirementRecRequest\Service\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SqlKata" Version="2.4.0" />
+    <PackageReference Include="SqlKata.Execution" Version="2.4.0" />
+  </ItemGroup>
+
+</Project>
