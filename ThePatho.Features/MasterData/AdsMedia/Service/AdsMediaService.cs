@@ -1,5 +1,12 @@
+using Azure.Core;
+using Dapper;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 using System.Numerics;
+using ThePatho.Domain.Models.MasterData;
+using ThePatho.Features.MasterData.AdsCategory.Commands;
+using ThePatho.Features.MasterData.AdsCategory.DTO;
 using ThePatho.Features.MasterData.AdsMedia.DTO;
 using ThePatho.Features.MasterData.AdsMedia.Service;
 using ThePatho.Infrastructure.Persistance;
@@ -8,80 +15,57 @@ namespace ThePatho.Features.MasterData.AdsMedia.Service
 {
     public class AdsMediaService : IAdsMediaService
     {
+        private readonly SqlQueryLoader _queryLoader;
+        private readonly IDbConnection _dbConnection;
+        private readonly DapperContext _dappercontext;
         private readonly ApplicationDbContext _context;
-
-        public AdsMediaService(ApplicationDbContext context)
+        public AdsMediaService(ApplicationDbContext context, DapperContext dappercontext, SqlQueryLoader queryLoader, IDbConnection dbConnection)
         {
             _context = context;
+            _dappercontext = dappercontext;
+            _queryLoader = queryLoader;
+            _dbConnection = dbConnection;
         }
 
-        public async Task<List<AdsMediaDto>> GetAllAdsMediaAsync()
+        public async Task<List<AdsMediaDto>> GetAdsMedia(GetAdsMediaCommand request)
         {
-            var adsMediaDtoList = new List<AdsMediaDto>();
-            var data = await _context.AdsMedias.ToListAsync();
-            foreach (var adsMedia in data)
-            {
-                adsMediaDtoList.Add(new AdsMediaDto
-                {
-                    AdsCode = adsMedia.AdsCode,
-                    AdsName = adsMedia.AdsName,
-                    AdsCategoryCode = adsMedia.AdsCategoryCode,
-                    Phone = adsMedia.Phone,
-                    ContactPerson = adsMedia.ContactPerson,
-                    Remarks = adsMedia.Remarks,
-                    UseRecruitmentFee = adsMedia.UseRecruitmentFee,
-                    RecruitmentFee = adsMedia.RecruitmentFee,
-                    RecruitmentFee2 = adsMedia.RecruitmentFee2,
-                    RecruitmentFee3 = adsMedia.RecruitmentFee3,
-                    InsertedBy = adsMedia.InsertedBy,
-                    InsertedDate = adsMedia.InsertedDate,
-                    ModifiedBy = adsMedia.ModifiedBy,
-                    ModifiedDate = adsMedia.ModifiedDate,
-                });
-            }
-            return adsMediaDtoList;
+            var parameters = new DynamicParameters();
+            parameters.Add("@PageNumber", request.PageNumber);
+            parameters.Add("@PageSize", request.PageSize);
+            parameters.Add("@FilterAdsCode", request.FilterAdsCode ?? (object)DBNull.Value);
+            parameters.Add("@FilterAdsName", request.FilterAdsName ?? (object)DBNull.Value);
+            parameters.Add("@FilterAdsCategoryCode", request.FilterAdsCategoryCode ?? (object)DBNull.Value);
+            parameters.Add("@SortBy", request.SortBy);
+            parameters.Add("@OrderBy", request.OrderBy);
+
+            var query = await _queryLoader.LoadQueryAsync("MasterData/AdsMedia/Sql/search_ads_media");
+            var adsMedia = await _dbConnection.QueryAsync<AdsMediaDto>(query, parameters);
+
+            return adsMedia.ToList();
         }
 
-        public async Task<AdsMediaDto?> GetAdsMediaByCodeAsync(string adsMediaCode)
+        public async Task<AdsMediaDto> GetAdsMediaByCode(GetAdsMediaByCodeCommand request)
         {
-            var adsMedia = await _context.AdsMedias
-                .FirstOrDefaultAsync(a => a.AdsCode == adsMediaCode);
+            var parameters = new DynamicParameters();
+            parameters.Add("@FilterAdsCode", request.FilterAdsCode ?? (object)DBNull.Value);
 
-            if (adsMedia == null)
-                return null;
+            var query = await _queryLoader.LoadQueryAsync("MasterData/AdsMedia/Sql/search_ads_media_by_code");
 
-            return new AdsMediaDto
-            {
-                AdsCode = adsMedia.AdsCode,
-                AdsName = adsMedia.AdsName,
-                AdsCategoryCode = adsMedia.AdsCategoryCode,
-                Phone = adsMedia.Phone,
-                ContactPerson = adsMedia.ContactPerson,
-                Remarks = adsMedia.Remarks,
-                UseRecruitmentFee = adsMedia.UseRecruitmentFee,
-                RecruitmentFee = adsMedia.RecruitmentFee,
-                RecruitmentFee2 = adsMedia.RecruitmentFee2,
-                RecruitmentFee3 = adsMedia.RecruitmentFee3,
-                InsertedBy = adsMedia.InsertedBy,
-                InsertedDate = adsMedia.InsertedDate,
-                ModifiedBy = adsMedia.ModifiedBy,
-                ModifiedDate = adsMedia.ModifiedDate,
-            };
+            var adsMedia = await _dbConnection.QueryFirstOrDefaultAsync<AdsMediaDto>(query, parameters);
+
+            return adsMedia;
         }
 
-        public async Task<AdsMediaDto> AddAdsMediaAsync(AdsMediaDto adsMediaDto)
+        public async Task<List<AdsMediaDto>> GetAdsMediaDdl(GetAdsMediaDdlCommand request)
         {
-            throw new NotImplementedException();
-        }
+            var parameters = new DynamicParameters();
 
-        public async Task<AdsMediaDto?> UpdateAdsMediaAsync(AdsMediaDto adsMediaDto)
-        {
-            throw new NotImplementedException();
-        }
+            parameters.Add("@FilterAdsCategoryCode", request.FilterAdsCategoryCode ?? (object)DBNull.Value);
 
-        public async Task<bool> DeleteAdsMediaAsync(string adsMediaCode)
-        {
-            throw new NotImplementedException();
+            var query = await _queryLoader.LoadQueryAsync("MasterData/AdsMedia/Sql/search_ads_media_ddl");
+            var adsMedia = await _dbConnection.QueryAsync<AdsMediaDto>(query, parameters);
+
+            return adsMedia.ToList();
         }
     }
 }

@@ -4,6 +4,9 @@ using ThePatho.Infrastructure.Persistance;
 using Microsoft.EntityFrameworkCore;
 using Dapper;
 using System.Data;
+using Azure.Core;
+using ThePatho.Features.MasterData.AdsCategory.Commands;
+using MediatR;
 
 namespace ThePatho.Features.MasterData.AdsCategory.Service
 {
@@ -22,22 +25,45 @@ namespace ThePatho.Features.MasterData.AdsCategory.Service
             _dbConnection = dbConnection;
         }
 
-        public async Task<List<AdsCategoryDto>> GetAllAdsCategoriesAsync()
+        public async Task<List<AdsCategoryDto>> GetAllAdsCategoriesAsync(GetAdsCategoryCommand request)
         {
-            var adsCategoryDto = new List<AdsCategoryDto>();
-            
-            var query = await _queryLoader.LoadQueryAsync("MasterData/AdsCategory/Sql/search_all_ads_category");
+            var parameters = new DynamicParameters();
+            parameters.Add("@PageNumber", request.PageNumber);
+            parameters.Add("@PageSize", request.PageSize);
+            parameters.Add("@FilterAdsCategoryCode", request.FilterAdsCategoryCode ?? (object)DBNull.Value);
+            parameters.Add("@FilterAdsCategoryName", request.FilterAdsCategoryName ?? (object)DBNull.Value);
+            parameters.Add("@SortBy", request.SortBy);
+            parameters.Add("@OrderBy", request.OrderBy);
 
-            var adsCategories = await _dbConnection.QueryAsync<AdsCategoryDto>(query);
-     
+            var query = await _queryLoader.LoadQueryAsync("MasterData/AdsCategory/Sql/search_all_ads_category");
+            var adsCategories = await _dbConnection.QueryAsync<AdsCategoryDto>(query, parameters);
+
             return adsCategories.ToList();
         }
 
-        public Task<AdsCategoryDto?> GetAdsCategoryByCodeAsync(string adsCategoryCode)
+        public async Task<AdsCategoryDto> GetAdsCategoryByCode(GetAdsCategoryByCodeCommand request)
         {
-            throw new NotImplementedException();
-        }
+            var parameters = new DynamicParameters();
+            parameters.Add("@FilterAdsCategoryCode", request.FilterAdsCategoryCode ?? (object)DBNull.Value);
 
+            var query = await _queryLoader.LoadQueryAsync("MasterData/AdsCategory/Sql/search_ads_category_by_code");
+
+            var adsCategory = await _dbConnection.QueryFirstOrDefaultAsync<AdsCategoryDto>(query, parameters);
+
+            return adsCategory;
+        }
+        public async Task<List<AdsCategoryDto>> GetAdsCategoriesDdl(GetAdsCategoryDdlCommand request)
+        {
+            var parameters = new DynamicParameters();
+
+            parameters.Add("@FilterAdsCategoryCode", request.FilterAdsCategoryCode ?? (object)DBNull.Value);
+            parameters.Add("@FilterAdsCategoryName", request.FilterAdsCategoryName ?? (object)DBNull.Value);
+
+            var query = await _queryLoader.LoadQueryAsync("MasterData/AdsCategory/Sql/search_ads_category_ddl");
+            var adsCategories = await _dbConnection.QueryAsync<AdsCategoryDto>(query, parameters);
+
+            return adsCategories.ToList();
+        }
         public Task<AdsCategoryDto> AddAdsCategoryAsync(AdsCategoryDto adsCategory)
         {
             throw new NotImplementedException();

@@ -1,6 +1,13 @@
 
+using ThePatho.Features.MasterData.AdsCategory.DTO;
+
 namespace ThePatho.Features.MasterData.JobCategory.DTO
 {
+    public class JobCategoryItemDto
+    {
+        public int DataOfRecords { get; set; }
+        public List<JobCategoryDto> JobCategoryList { get; set; } = new();
+    }
     public class JobCategoryDto
     {
         public int JobCategoryId { get; set; }

@@ -5,6 +5,7 @@ D:\COURSES\ThePatho\ThePatho.Domain\obj\Debug\net8.0\ThePatho.Domain.GeneratedMS
 D:\COURSES\ThePatho\ThePatho.Domain\obj\Debug\net8.0\ThePatho.Domain.AssemblyInfoInputs.cache
 D:\COURSES\ThePatho\ThePatho.Domain\obj\Debug\net8.0\ThePatho.Domain.AssemblyInfo.cs
 D:\COURSES\ThePatho\ThePatho.Domain\obj\Debug\net8.0\ThePatho.Domain.csproj.CoreCompileInputs.cache
+D:\COURSES\ThePatho\ThePatho.Domain\obj\Debug\net8.0\ThePatho.Domain.sourcelink.json
 D:\COURSES\ThePatho\ThePatho.Domain\obj\Debug\net8.0\ThePatho.Domain.dll
 D:\COURSES\ThePatho\ThePatho.Domain\obj\Debug\net8.0\refint\ThePatho.Domain.dll
 D:\COURSES\ThePatho\ThePatho.Domain\obj\Debug\net8.0\ThePatho.Domain.pdb

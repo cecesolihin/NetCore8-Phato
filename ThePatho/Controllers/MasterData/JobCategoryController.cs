@@ -1,5 +1,10 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using ThePatho.Domain.Models;
+using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Features.MasterData.AdsCategory.Commands;
+using ThePatho.Features.MasterData.JobCategory.DTO;
 using ThePatho.Features.MasterData.JobCategory.DTO;
 using ThePatho.Features.MasterData.JobCategory.Service;
 
@@ -7,56 +12,83 @@ using ThePatho.Features.MasterData.JobCategory.Service;
 namespace ThePatho.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/master-data/job-category")]
     public class JobCategoryController : ControllerBase
     {
-        private readonly IJobCategoryService _JobCategoryService;
+        private readonly IMediator _mediator;
 
-        public JobCategoryController(IJobCategoryService JobCategoryService)
+        public JobCategoryController(IMediator mediator)
         {
-            _JobCategoryService = JobCategoryService;
+            _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
+        [HttpPost("get-job-category-list")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetJobCategoryList([FromBody] GetJobCategoryCommand command,
+            CancellationToken cancellationToken)
         {
-            var categories = await _JobCategoryService.GetAllJobCategoriesAsync();
-            return Ok(categories);
+            try
+            {
+                var result = await _mediator.Send(command, cancellationToken);
+
+                var response = new ApiResponse<List<JobCategoryDto>>(HttpStatusCode.OK, result.JobCategoryList, "Process Successed");
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new ApiResponse<List<JobCategoryDto>>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
+
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+            }
         }
 
-        [HttpGet("{code}")]
-        public async Task<IActionResult> GetByCode(string code)
+        [HttpPost("get-job-category-by-code")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetJobCategoryByCode([FromBody] GetJobCategoryByCodeCommand command,
+            CancellationToken cancellationToken)
         {
-            var JobCategory = await _JobCategoryService.GetJobCategoryByCodeAsync(code);
-            if (JobCategory == null) return NotFound();
-            return Ok(JobCategory);
+            try
+            {
+                var result = await _mediator.Send(command, cancellationToken);
+
+                var response = new ApiResponse<JobCategoryDto>(HttpStatusCode.OK, result, "Process Successed");
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new ApiResponse<JobCategoryDto>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
+
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+            }
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Create(JobCategoryDto JobCategory)
+        [HttpPost("get-job-category-ddl")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetJobCategoryDdl([FromBody] GetJobCategoryDdlCommand command,
+            CancellationToken cancellationToken)
         {
-            var createdJobCategory = await _JobCategoryService.AddJobCategoryAsync(JobCategory);
-            return CreatedAtAction(nameof(GetByCode), new { code = createdJobCategory.JobCategoryCode }, createdJobCategory);
-        }
+            try
+            {
+                var result = await _mediator.Send(command, cancellationToken);
 
-        [HttpPut("{code}")]
-        public async Task<IActionResult> Update(string code, JobCategoryDto JobCategory)
-        {
-            if (code != JobCategory.JobCategoryCode) return BadRequest();
+                var response = new ApiResponse<List<JobCategoryDto>>(HttpStatusCode.OK, result.JobCategoryList, "Process Successed");
 
-            var updatedJobCategory = await _JobCategoryService.UpdateJobCategoryAsync(JobCategory);
-            if (updatedJobCategory == null) return NotFound();
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new ApiResponse<List<JobCategoryDto>>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
 
-            return Ok(updatedJobCategory);
-        }
-
-        [HttpDelete("{code}")]
-        public async Task<IActionResult> Delete(string code)
-        {
-            var success = await _JobCategoryService.DeleteJobCategoryAsync(code);
-            if (!success) return NotFound();
-
-            return NoContent();
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+            }
         }
     }
 }

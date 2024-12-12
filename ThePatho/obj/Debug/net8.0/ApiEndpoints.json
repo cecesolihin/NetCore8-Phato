@@ -1,163 +1,5 @@
 [
   {
-    "ContainingType": "ThePatho.Controllers.AdsCategoryController",
-    "Method": "GetAll",
-    "RelativePath": "api/AdsCategory",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ThePatho.Controllers.AdsCategoryController",
-    "Method": "Create",
-    "RelativePath": "api/AdsCategory",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "AdsCategory",
-        "Type": "ThePatho.Features.MasterData.AdsCategory.DTO.AdsCategoryDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ThePatho.Controllers.AdsCategoryController",
-    "Method": "GetByCode",
-    "RelativePath": "api/AdsCategory/{code}",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "code",
-        "Type": "System.String",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ThePatho.Controllers.AdsCategoryController",
-    "Method": "Update",
-    "RelativePath": "api/AdsCategory/{code}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "code",
-        "Type": "System.String",
-        "IsRequired": true
-      },
-      {
-        "Name": "AdsCategory",
-        "Type": "ThePatho.Features.MasterData.AdsCategory.DTO.AdsCategoryDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ThePatho.Controllers.AdsCategoryController",
-    "Method": "Delete",
-    "RelativePath": "api/AdsCategory/{code}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "code",
-        "Type": "System.String",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ThePatho.Controllers.AdsMediaController",
-    "Method": "GetAll",
-    "RelativePath": "api/AdsMedia",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ThePatho.Controllers.AdsMediaController",
-    "Method": "Create",
-    "RelativePath": "api/AdsMedia",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "AdsMedia",
-        "Type": "ThePatho.Features.MasterData.AdsMedia.DTO.AdsMediaDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ThePatho.Controllers.AdsMediaController",
-    "Method": "GetByCode",
-    "RelativePath": "api/AdsMedia/{code}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "code",
-        "Type": "System.String",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ThePatho.Controllers.AdsMediaController",
-    "Method": "Update",
-    "RelativePath": "api/AdsMedia/{code}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "code",
-        "Type": "System.String",
-        "IsRequired": true
-      },
-      {
-        "Name": "AdsMedia",
-        "Type": "ThePatho.Features.MasterData.AdsMedia.DTO.AdsMediaDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ThePatho.Controllers.AdsMediaController",
-    "Method": "Delete",
-    "RelativePath": "api/AdsMedia/{code}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "code",
-        "Type": "System.String",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
     "ContainingType": "ThePatho.Controllers.ApplicantAddressController",
     "Method": "GetAll",
     "RelativePath": "api/ApplicantAddress",
@@ -1106,83 +948,328 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "ThePatho.Controllers.JobCategoryController",
-    "Method": "GetAll",
-    "RelativePath": "api/JobCategory",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ThePatho.Controllers.JobCategoryController",
-    "Method": "Create",
-    "RelativePath": "api/JobCategory",
+    "ContainingType": "ThePatho.Controllers.AdsCategoryController",
+    "Method": "GetAdsCategoryByCode",
+    "RelativePath": "api/master-data/ads-category/get-ads-category-by-code",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "JobCategory",
-        "Type": "ThePatho.Features.MasterData.JobCategory.DTO.JobCategoryDto",
+        "Name": "command",
+        "Type": "ThePatho.Features.MasterData.AdsCategory.Commands.GetAdsCategoryByCodeCommand",
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ThePatho.Controllers.JobCategoryController",
-    "Method": "GetByCode",
-    "RelativePath": "api/JobCategory/{code}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
+    "ReturnTypes": [
       {
-        "Name": "code",
-        "Type": "System.String",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ThePatho.Controllers.JobCategoryController",
-    "Method": "Update",
-    "RelativePath": "api/JobCategory/{code}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "code",
-        "Type": "System.String",
-        "IsRequired": true
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
       },
       {
-        "Name": "JobCategory",
-        "Type": "ThePatho.Features.MasterData.JobCategory.DTO.JobCategoryDto",
-        "IsRequired": true
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
       }
-    ],
-    "ReturnTypes": []
+    ]
   },
   {
-    "ContainingType": "ThePatho.Controllers.JobCategoryController",
-    "Method": "Delete",
-    "RelativePath": "api/JobCategory/{code}",
-    "HttpMethod": "DELETE",
+    "ContainingType": "ThePatho.Controllers.AdsCategoryController",
+    "Method": "GetAdsCategoryDdl",
+    "RelativePath": "api/master-data/ads-category/get-ads-category-ddl",
+    "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "code",
-        "Type": "System.String",
+        "Name": "command",
+        "Type": "ThePatho.Features.MasterData.AdsCategory.Commands.GetAdsCategoryDdlCommand",
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.AdsCategoryController",
+    "Method": "GetAdsCategoryList",
+    "RelativePath": "api/master-data/ads-category/get-ads-category-list",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.MasterData.AdsCategory.Commands.GetAdsCategoryCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.AdsMediaController",
+    "Method": "GetAdsMediaByCode",
+    "RelativePath": "api/master-data/ads-media/get-ads-media-by-code",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.MasterData.AdsCategory.Commands.GetAdsMediaByCodeCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.AdsMediaController",
+    "Method": "GetAdsMediaDdl",
+    "RelativePath": "api/master-data/ads-media/get-ads-media-ddl",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.MasterData.AdsCategory.Commands.GetAdsMediaDdlCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.AdsMediaController",
+    "Method": "GetAdsMediaList",
+    "RelativePath": "api/master-data/ads-media/get-ads-media-list",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.MasterData.AdsCategory.Commands.GetAdsMediaCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.JobCategoryController",
+    "Method": "GetJobCategoryByCode",
+    "RelativePath": "api/master-data/job-category/get-job-category-by-code",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.MasterData.AdsCategory.Commands.GetJobCategoryByCodeCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.JobCategoryController",
+    "Method": "GetJobCategoryDdl",
+    "RelativePath": "api/master-data/job-category/get-job-category-ddl",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.MasterData.AdsCategory.Commands.GetJobCategoryDdlCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.JobCategoryController",
+    "Method": "GetJobCategoryList",
+    "RelativePath": "api/master-data/job-category/get-job-category-list",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.MasterData.AdsCategory.Commands.GetJobCategoryCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
   },
   {
     "ContainingType": "ThePatho.Controllers.OnlineTestSettingController",

@@ -1,5 +1,9 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using ThePatho.Domain.Models;
+using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Features.MasterData.AdsCategory.Commands;
 using ThePatho.Features.MasterData.AdsCategory.DTO;
 using ThePatho.Features.MasterData.AdsCategory.Service;
 
@@ -7,56 +11,103 @@ using ThePatho.Features.MasterData.AdsCategory.Service;
 namespace ThePatho.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/master-data/ads-category")]
     public class AdsCategoryController : ControllerBase
     {
-        private readonly IAdsCategoryService _AdsCategoryService;
+        private readonly IMediator _mediator;
 
-        public AdsCategoryController(IAdsCategoryService AdsCategoryService)
+        public AdsCategoryController(IMediator mediator)
         {
-            _AdsCategoryService = AdsCategoryService;
+            _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
+        [HttpPost("get-ads-category-list")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetAdsCategoryList([FromBody] GetAdsCategoryCommand command,
+            CancellationToken cancellationToken)
         {
-            var categories = await _AdsCategoryService.GetAllAdsCategoriesAsync();
-            return Ok(categories);
+            try
+            {
+                var result = await _mediator.Send(command, cancellationToken);
+
+                var response = new ApiResponse<List<AdsCategoryDto>>(HttpStatusCode.OK, result.AdsCategoryList, "Process Successed");
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new ApiResponse<List<AdsCategoryDto>>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
+
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+            }
         }
 
-        [HttpGet("{code}")]
-        public async Task<IActionResult> GetByCode(string code)
+        [HttpPost("get-ads-category-by-code")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetAdsCategoryByCode([FromBody] GetAdsCategoryByCodeCommand command,
+            CancellationToken cancellationToken)
         {
-            var AdsCategory = await _AdsCategoryService.GetAdsCategoryByCodeAsync(code);
-            if (AdsCategory == null) return NotFound();
-            return Ok(AdsCategory);
+            try
+            {
+                var result = await _mediator.Send(command, cancellationToken);
+
+                var response = new ApiResponse<AdsCategoryDto>(HttpStatusCode.OK, result, "Process Successed");
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new ApiResponse<AdsCategoryDto>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
+
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+            }
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Create(AdsCategoryDto AdsCategory)
+        [HttpPost("get-ads-category-ddl")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetAdsCategoryDdl([FromBody] GetAdsCategoryDdlCommand command,
+            CancellationToken cancellationToken)
         {
-            var createdAdsCategory = await _AdsCategoryService.AddAdsCategoryAsync(AdsCategory);
-            return CreatedAtAction(nameof(GetByCode), new { code = createdAdsCategory.AdsCategoryCode }, createdAdsCategory);
+            try
+            {
+                var result = await _mediator.Send(command, cancellationToken);
+
+                var response = new ApiResponse<List<AdsCategoryDto>>(HttpStatusCode.OK, result.AdsCategoryList, "Process Successed");
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new ApiResponse<List<AdsCategoryDto>>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
+
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+            }
         }
 
-        [HttpPut("{code}")]
-        public async Task<IActionResult> Update(string code, AdsCategoryDto AdsCategory)
-        {
-            if (code != AdsCategory.AdsCategoryCode) return BadRequest();
+        //[HttpPut("{code}")]
+        //public async Task<IActionResult> Update(string code, AdsCategoryDto AdsCategory)
+        //{
+        //    if (code != AdsCategory.AdsCategoryCode) return BadRequest();
 
-            var updatedAdsCategory = await _AdsCategoryService.UpdateAdsCategoryAsync(AdsCategory);
-            if (updatedAdsCategory == null) return NotFound();
+        //    var updatedAdsCategory = await _AdsCategoryService.UpdateAdsCategoryAsync(AdsCategory);
+        //    if (updatedAdsCategory == null) return NotFound();
 
-            return Ok(updatedAdsCategory);
-        }
+        //    return Ok(updatedAdsCategory);
+        //}
 
-        [HttpDelete("{code}")]
-        public async Task<IActionResult> Delete(string code)
-        {
-            var success = await _AdsCategoryService.DeleteAdsCategoryAsync(code);
-            if (!success) return NotFound();
+        //[HttpDelete("{code}")]
+        //public async Task<IActionResult> Delete(string code)
+        //{
+        //    var success = await _AdsCategoryService.DeleteAdsCategoryAsync(code);
+        //    if (!success) return NotFound();
 
-            return NoContent();
-        }
+        //    return NoContent();
+        //}
     }
 }

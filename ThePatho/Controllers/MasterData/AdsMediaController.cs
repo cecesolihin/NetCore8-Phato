@@ -1,5 +1,10 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using ThePatho.Domain.Models;
+using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Features.MasterData.AdsCategory.Commands;
+using ThePatho.Features.MasterData.AdsMedia.Commands;
 using ThePatho.Features.MasterData.AdsMedia.DTO;
 using ThePatho.Features.MasterData.AdsMedia.Service;
 
@@ -7,56 +12,83 @@ using ThePatho.Features.MasterData.AdsMedia.Service;
 namespace ThePatho.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/master-data/ads-media")]
     public class AdsMediaController : ControllerBase
     {
-        private readonly IAdsMediaService _AdsMediaService;
+        private readonly IMediator _mediator;
 
-        public AdsMediaController(IAdsMediaService AdsMediaService)
+        public AdsMediaController(IMediator mediator)
         {
-            _AdsMediaService = AdsMediaService;
+            _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
+        [HttpPost("get-ads-media-list")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetAdsMediaList([FromBody] GetAdsMediaCommand command,
+            CancellationToken cancellationToken)
         {
-            var categories = await _AdsMediaService.GetAllAdsMediaAsync();
-            return Ok(categories);
+            try
+            {
+                var result = await _mediator.Send(command, cancellationToken);
+
+                var response = new ApiResponse<List<AdsMediaDto>>(HttpStatusCode.OK, result.AdsMediaList, "Process Successed");
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new ApiResponse<List<AdsMediaDto>>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
+
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+            }
         }
 
-        [HttpGet("{code}")]
-        public async Task<IActionResult> GetByCode(string code)
+        [HttpPost("get-ads-media-by-code")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetAdsMediaByCode([FromBody] GetAdsMediaByCodeCommand command,
+            CancellationToken cancellationToken)
         {
-            var AdsMedia = await _AdsMediaService.GetAdsMediaByCodeAsync(code);
-            if (AdsMedia == null) return NotFound();
-            return Ok(AdsMedia);
+            try
+            {
+                var result = await _mediator.Send(command, cancellationToken);
+
+                var response = new ApiResponse<AdsMediaDto>(HttpStatusCode.OK, result, "Process Successed");
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new ApiResponse<AdsMediaDto>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
+
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+            }
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Create(AdsMediaDto AdsMedia)
+        [HttpPost("get-ads-media-ddl")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetAdsMediaDdl([FromBody] GetAdsMediaDdlCommand command,
+            CancellationToken cancellationToken)
         {
-            var createdAdsMedia = await _AdsMediaService.AddAdsMediaAsync(AdsMedia);
-            return CreatedAtAction(nameof(GetByCode), new { code = createdAdsMedia.AdsCode }, createdAdsMedia);
-        }
+            try
+            {
+                var result = await _mediator.Send(command, cancellationToken);
 
-        [HttpPut("{code}")]
-        public async Task<IActionResult> Update(string code, AdsMediaDto AdsMedia)
-        {
-            if (code != AdsMedia.AdsCode) return BadRequest();
+                var response = new ApiResponse<List<AdsMediaDto>>(HttpStatusCode.OK, result.AdsMediaList, "Process Successed");
 
-            var updatedAdsMedia = await _AdsMediaService.UpdateAdsMediaAsync(AdsMedia);
-            if (updatedAdsMedia == null) return NotFound();
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new ApiResponse<List<AdsMediaDto>>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
 
-            return Ok(updatedAdsMedia);
-        }
-
-        [HttpDelete("{code}")]
-        public async Task<IActionResult> Delete(string code)
-        {
-            var success = await _AdsMediaService.DeleteAdsMediaAsync(code);
-            if (!success) return NotFound();
-
-            return NoContent();
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+            }
         }
     }
 }

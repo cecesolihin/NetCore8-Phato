@@ -1,13 +1,13 @@
+using ThePatho.Features.MasterData.AdsCategory.Commands;
 using ThePatho.Features.MasterData.AdsMedia.DTO;
 
 namespace ThePatho.Features.MasterData.AdsMedia.Service
 {
     public interface IAdsMediaService
     {
-        Task<List<AdsMediaDto>> GetAllAdsMediaAsync();
-        Task<AdsMediaDto?> GetAdsMediaByCodeAsync(string adsMediaCode);
-        Task<AdsMediaDto> AddAdsMediaAsync(AdsMediaDto adsMedia);
-        Task<AdsMediaDto?> UpdateAdsMediaAsync(AdsMediaDto adsMedia);
-        Task<bool> DeleteAdsMediaAsync(string adsMediaCode);
+        Task<List<AdsMediaDto>> GetAdsMedia(GetAdsMediaCommand request);
+        Task<AdsMediaDto> GetAdsMediaByCode(GetAdsMediaByCodeCommand request);
+        Task<List<AdsMediaDto>> GetAdsMediaDdl(GetAdsMediaDdlCommand request);
+    
     }
 }
