@@ -1,13 +1,14 @@
+
+using ThePatho.Features.MasterSetting.QuestionSetting.Commands;
 using ThePatho.Features.MasterSetting.QuestionSetting.DTO;
+using ThePatho.Features.MasterSetting.QuestionSettingDetail.Commands;
 
 namespace ThePatho.Features.MasterSetting.QuestionSetting.Service
 {
     public interface IQuestionSettingService
     {
-        Task<List<QuestionSettingDto>> GetAllQuestionSettingAsync();
-        Task<QuestionSettingDto?> GetQuestionSettingByCodeAsync(string code);
-        Task<QuestionSettingDto> AddQuestionSettingAsync(QuestionSettingDto questionSetting);
-        Task<QuestionSettingDto?> UpdateQuestionSettingAsync(QuestionSettingDto questionSetting);
-        Task<bool> DeleteQuestionSettingAsync(string code);
+        Task<List<QuestionSettingDto>> GetQuestionSetting(GetQuestionSettingCommand request);
+        Task<QuestionSettingDto> GetQuestionSettingByCode(GetQuestionSettingByCodeCommand request);
+        Task<List<QuestionSettingDto>> GetQuestionSettingDdl(GetQuestionSettingDdlCommand request);
     }
 }

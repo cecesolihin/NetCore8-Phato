@@ -15,11 +15,11 @@ namespace ThePatho.Controllers
     [Route("api/master-data/ads-media")]
     public class AdsMediaController : ControllerBase
     {
-        private readonly IMediator _mediator;
+        private readonly IMediator mediator;
 
-        public AdsMediaController(IMediator mediator)
+        public AdsMediaController(IMediator _mediator)
         {
-            _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+            mediator = _mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
         [HttpPost("get-ads-media-list")]
@@ -31,7 +31,7 @@ namespace ThePatho.Controllers
         {
             try
             {
-                var result = await _mediator.Send(command, cancellationToken);
+                var result = await mediator.Send(command, cancellationToken);
 
                 var response = new ApiResponse<List<AdsMediaDto>>(HttpStatusCode.OK, result.AdsMediaList, "Process Successed");
 
@@ -54,7 +54,7 @@ namespace ThePatho.Controllers
         {
             try
             {
-                var result = await _mediator.Send(command, cancellationToken);
+                var result = await mediator.Send(command, cancellationToken);
 
                 var response = new ApiResponse<AdsMediaDto>(HttpStatusCode.OK, result, "Process Successed");
 
@@ -77,7 +77,7 @@ namespace ThePatho.Controllers
         {
             try
             {
-                var result = await _mediator.Send(command, cancellationToken);
+                var result = await mediator.Send(command, cancellationToken);
 
                 var response = new ApiResponse<List<AdsMediaDto>>(HttpStatusCode.OK, result.AdsMediaList, "Process Successed");
 

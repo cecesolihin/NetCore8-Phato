@@ -1,5 +1,4 @@
 @ThePatho_HostAddress = https://localhost:7276
-
 GET {{ThePatho_HostAddress}}/weatherforecast/
 Accept: application/json
 

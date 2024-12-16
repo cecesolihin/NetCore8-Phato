@@ -1,13 +1,13 @@
+
+using ThePatho.Features.MasterSetting.ScoringSetting.Commands;
 using ThePatho.Features.MasterSetting.ScoringSetting.DTO;
 
 namespace ThePatho.Features.MasterSetting.ScoringSetting.Service
 {
     public interface IScoringSettingService
     {
-        Task<List<ScoringSettingDto>> GetAllScoringSettingAsync();
-        Task<ScoringSettingDto?> GetScoringSettingByCodeAsync(string code);
-        Task<ScoringSettingDto> AddScoringSettingAsync(ScoringSettingDto scoringSetting);
-        Task<ScoringSettingDto?> UpdateScoringSettingAsync(ScoringSettingDto scoringSetting);
-        Task<bool> DeleteScoringSettingAsync(string code);
+        Task<List<ScoringSettingDto>> GetScoringSetting(GetScoringSettingCommand request);
+        Task<ScoringSettingDto> GetScoringSettingByCode(GetScoringSettingByCodeCommand request);
+        Task<List<ScoringSettingDto>> GetScoringSettingDdl(GetScoringSettingDdlCommand request);
     }
 }

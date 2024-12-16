@@ -1273,240 +1273,543 @@
   },
   {
     "ContainingType": "ThePatho.Controllers.OnlineTestSettingController",
-    "Method": "GetAll",
-    "RelativePath": "api/OnlineTestSetting",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ThePatho.Controllers.OnlineTestSettingController",
-    "Method": "Create",
-    "RelativePath": "api/OnlineTestSetting",
+    "Method": "GetOnlineTestSettingByCode",
+    "RelativePath": "api/master-setting/online-test-setting/get-online-test-setting-by-code",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "OnlineTestSetting",
-        "Type": "ThePatho.Features.MasterSetting.OnlineTestSetting.DTO.OnlineTestSettingDto",
+        "Name": "command",
+        "Type": "ThePatho.Features.MasterSetting.OnlineTestSetting.Commands.GetOnlineTestSettingByCodeCommand",
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ThePatho.Controllers.OnlineTestSettingController",
-    "Method": "GetByCode",
-    "RelativePath": "api/OnlineTestSetting/{code}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
+    "ReturnTypes": [
       {
-        "Name": "code",
-        "Type": "System.String",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ThePatho.Controllers.OnlineTestSettingController",
-    "Method": "Update",
-    "RelativePath": "api/OnlineTestSetting/{code}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "code",
-        "Type": "System.String",
-        "IsRequired": true
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
       },
       {
-        "Name": "OnlineTestSetting",
-        "Type": "ThePatho.Features.MasterSetting.OnlineTestSetting.DTO.OnlineTestSettingDto",
-        "IsRequired": true
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
       }
-    ],
-    "ReturnTypes": []
+    ]
   },
   {
     "ContainingType": "ThePatho.Controllers.OnlineTestSettingController",
-    "Method": "Delete",
-    "RelativePath": "api/OnlineTestSetting/{code}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "code",
-        "Type": "System.String",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ThePatho.Controllers.QuestionSettingController",
-    "Method": "GetAll",
-    "RelativePath": "api/QuestionSetting",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ThePatho.Controllers.QuestionSettingController",
-    "Method": "Create",
-    "RelativePath": "api/QuestionSetting",
+    "Method": "GetOnlineTestSettingDdl",
+    "RelativePath": "api/master-setting/online-test-setting/get-online-test-setting-ddl",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "QuestionSetting",
-        "Type": "ThePatho.Features.MasterSetting.QuestionSetting.DTO.QuestionSettingDto",
+        "Name": "command",
+        "Type": "ThePatho.Features.MasterSetting.OnlineTestSetting.Commands.GetOnlineTestSettingDdlCommand",
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ThePatho.Controllers.QuestionSettingController",
-    "Method": "GetByCode",
-    "RelativePath": "api/QuestionSetting/{code}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
+    "ReturnTypes": [
       {
-        "Name": "code",
-        "Type": "System.String",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ThePatho.Controllers.QuestionSettingController",
-    "Method": "Update",
-    "RelativePath": "api/QuestionSetting/{code}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "code",
-        "Type": "System.String",
-        "IsRequired": true
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
       },
       {
-        "Name": "QuestionSetting",
-        "Type": "ThePatho.Features.MasterSetting.QuestionSetting.DTO.QuestionSettingDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ThePatho.Controllers.QuestionSettingController",
-    "Method": "Delete",
-    "RelativePath": "api/QuestionSetting/{code}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
+      },
       {
-        "Name": "code",
-        "Type": "System.String",
-        "IsRequired": true
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
       }
-    ],
-    "ReturnTypes": []
+    ]
   },
   {
-    "ContainingType": "ThePatho.Controllers.QuestionSettingDetailController",
-    "Method": "GetAll",
-    "RelativePath": "api/QuestionSettingDetail",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ThePatho.Controllers.QuestionSettingDetailController",
-    "Method": "Create",
-    "RelativePath": "api/QuestionSettingDetail",
+    "ContainingType": "ThePatho.Controllers.OnlineTestSettingController",
+    "Method": "GetOnlineTestSettingList",
+    "RelativePath": "api/master-setting/online-test-setting/get-online-test-setting-list",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "QuestionSettingDetail",
-        "Type": "ThePatho.Features.MasterSetting.QuestionSettingDetail.DTO.QuestionSettingDetailDto",
+        "Name": "command",
+        "Type": "ThePatho.Features.MasterSetting.OnlineTestSetting.Commands.GetOnlineTestSettingCommand",
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ThePatho.Controllers.QuestionSettingDetailController",
-    "Method": "GetByCode",
-    "RelativePath": "api/QuestionSettingDetail/{code}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
+    "ReturnTypes": [
       {
-        "Name": "code",
-        "Type": "System.String",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ThePatho.Controllers.QuestionSettingDetailController",
-    "Method": "Update",
-    "RelativePath": "api/QuestionSettingDetail/{code}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "code",
-        "Type": "System.String",
-        "IsRequired": true
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
       },
       {
-        "Name": "QuestionSettingDetail",
-        "Type": "ThePatho.Features.MasterSetting.QuestionSettingDetail.DTO.QuestionSettingDetailDto",
-        "IsRequired": true
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
       }
-    ],
-    "ReturnTypes": []
+    ]
   },
   {
     "ContainingType": "ThePatho.Controllers.QuestionSettingDetailController",
-    "Method": "Delete",
-    "RelativePath": "api/QuestionSettingDetail/{code}",
-    "HttpMethod": "DELETE",
+    "Method": "GetQuestionSettingDetailByCode",
+    "RelativePath": "api/master-setting/question-setting-detail/get-question-setting-detail-by-code",
+    "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "code",
-        "Type": "System.String",
+        "Name": "command",
+        "Type": "ThePatho.Features.MasterSetting.QuestionSettingDetail.Commands.GetQuestionSettingDetailByCodeCommand",
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.QuestionSettingDetailController",
+    "Method": "GetQuestionSettingDetailDdl",
+    "RelativePath": "api/master-setting/question-setting-detail/get-question-setting-detail-ddl",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.MasterSetting.QuestionSetting.Commands.GetQuestionSettingDetailDdlCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.QuestionSettingDetailController",
+    "Method": "GetQuestionSettingDetailList",
+    "RelativePath": "api/master-setting/question-setting-detail/get-question-setting-detail-list",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.MasterSetting.QuestionSettingDetail.Commands.GetQuestionSettingDetailCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.QuestionSettingController",
+    "Method": "GetQuestionSettingByCode",
+    "RelativePath": "api/master-setting/question-setting/get-question-setting-by-code",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.MasterSetting.QuestionSetting.Commands.GetQuestionSettingByCodeCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.QuestionSettingController",
+    "Method": "GetQuestionSettingDdl",
+    "RelativePath": "api/master-setting/question-setting/get-question-setting-ddl",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.MasterSetting.QuestionSettingDetail.Commands.GetQuestionSettingDdlCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.QuestionSettingController",
+    "Method": "GetQuestionSettingList",
+    "RelativePath": "api/master-setting/question-setting/get-question-setting-list",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.MasterSetting.QuestionSetting.Commands.GetQuestionSettingCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ScoringSettingDetailController",
+    "Method": "GetScoringSettingDetailByCode",
+    "RelativePath": "api/master-setting/scoring-setting-detail/get-scoring-setting-detail-by-code",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.MasterSetting.ScoringSettingDetail.Commands.GetScoringSettingDetailByCodeCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ScoringSettingDetailController",
+    "Method": "GetScoringSettingDetailDdl",
+    "RelativePath": "api/master-setting/scoring-setting-detail/get-scoring-setting-detail-ddl",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.MasterSetting.ScoringSettingDetail.Commands.GetScoringSettingDetailDdlCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ScoringSettingDetailController",
+    "Method": "GetScoringSettingDetailList",
+    "RelativePath": "api/master-setting/scoring-setting-detail/get-scoring-setting-detail-list",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.MasterSetting.ScoringSettingDetail.Commands.GetScoringSettingDetailCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ScoringSettingController",
+    "Method": "GetScoringSettingByCode",
+    "RelativePath": "api/master-setting/scoring-setting/get-scoring-setting-by-code",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.MasterSetting.ScoringSetting.Commands.GetScoringSettingByCodeCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ScoringSettingController",
+    "Method": "GetScoringSettingDdl",
+    "RelativePath": "api/master-setting/scoring-setting/get-scoring-setting-ddl",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.MasterSetting.ScoringSetting.Commands.GetScoringSettingDdlCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ScoringSettingController",
+    "Method": "GetScoringSettingList",
+    "RelativePath": "api/master-setting/scoring-setting/get-scoring-setting-list",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.MasterSetting.ScoringSetting.Commands.GetScoringSettingCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
   },
   {
     "ContainingType": "ThePatho.Controllers.ReasonStepFailedController",
@@ -2049,164 +2352,6 @@
     "ContainingType": "ThePatho.Controllers.RequirementRecRequestController",
     "Method": "Delete",
     "RelativePath": "api/RequirementRecRequest/{code}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "code",
-        "Type": "System.String",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ThePatho.Controllers.ScoringSettingController",
-    "Method": "GetAll",
-    "RelativePath": "api/ScoringSetting",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ThePatho.Controllers.ScoringSettingController",
-    "Method": "Create",
-    "RelativePath": "api/ScoringSetting",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "ScoringSetting",
-        "Type": "ThePatho.Features.MasterSetting.ScoringSetting.DTO.ScoringSettingDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ThePatho.Controllers.ScoringSettingController",
-    "Method": "GetByCode",
-    "RelativePath": "api/ScoringSetting/{code}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "code",
-        "Type": "System.String",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ThePatho.Controllers.ScoringSettingController",
-    "Method": "Update",
-    "RelativePath": "api/ScoringSetting/{code}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "code",
-        "Type": "System.String",
-        "IsRequired": true
-      },
-      {
-        "Name": "ScoringSetting",
-        "Type": "ThePatho.Features.MasterSetting.ScoringSetting.DTO.ScoringSettingDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ThePatho.Controllers.ScoringSettingController",
-    "Method": "Delete",
-    "RelativePath": "api/ScoringSetting/{code}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "code",
-        "Type": "System.String",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ThePatho.Controllers.ScoringSettingDetailController",
-    "Method": "GetAll",
-    "RelativePath": "api/ScoringSettingDetail",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ThePatho.Controllers.ScoringSettingDetailController",
-    "Method": "Create",
-    "RelativePath": "api/ScoringSettingDetail",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "ScoringSettingDetail",
-        "Type": "ThePatho.Features.MasterSetting.ScoringSettingDetail.DTO.ScoringSettingDetailDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ThePatho.Controllers.ScoringSettingDetailController",
-    "Method": "GetByCode",
-    "RelativePath": "api/ScoringSettingDetail/{code}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "code",
-        "Type": "System.String",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ThePatho.Controllers.ScoringSettingDetailController",
-    "Method": "Update",
-    "RelativePath": "api/ScoringSettingDetail/{code}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "code",
-        "Type": "System.String",
-        "IsRequired": true
-      },
-      {
-        "Name": "ScoringSettingDetail",
-        "Type": "ThePatho.Features.MasterSetting.ScoringSettingDetail.DTO.ScoringSettingDetailDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ThePatho.Controllers.ScoringSettingDetailController",
-    "Method": "Delete",
-    "RelativePath": "api/ScoringSettingDetail/{code}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,

@@ -1,61 +1,92 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using ThePatho.Domain.Models;
+using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Features.MasterSetting.ScoringSettingDetail.Commands;
 using ThePatho.Features.MasterSetting.ScoringSettingDetail.DTO;
 using ThePatho.Features.MasterSetting.ScoringSettingDetail.Service;
 
 namespace ThePatho.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/master-setting/scoring-setting-detail")]
     public class ScoringSettingDetailController : ControllerBase
     {
-        private readonly IScoringSettingDetailService _ScoringSettingDetailService;
+        private readonly IMediator mediator;
 
-        public ScoringSettingDetailController(IScoringSettingDetailService ScoringSettingDetailService)
+        public ScoringSettingDetailController(IMediator _mediator)
         {
-            _ScoringSettingDetailService = ScoringSettingDetailService;
+            mediator = _mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
+        [HttpPost("get-scoring-setting-detail-list")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetScoringSettingDetailList([FromBody] GetScoringSettingDetailCommand command,
+            CancellationToken cancellationToken)
         {
-            var categories = await _ScoringSettingDetailService.GetAllScoringSettingDetailAsync();
-            return Ok(categories);
+            try
+            {
+                var result = await mediator.Send(command, cancellationToken);
+
+                var response = new ApiResponse<List<ScoringSettingDetailDto>>(HttpStatusCode.OK, result.ScoringSettingDetailList, "Process Successed");
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new ApiResponse<List<ScoringSettingDetailDto>>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
+
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+            }
         }
 
-        [HttpGet("{code}")]
-        public async Task<IActionResult> GetByCode(string code)
+        [HttpPost("get-scoring-setting-detail-by-code")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetScoringSettingDetailByCode([FromBody] GetScoringSettingDetailByCodeCommand command,
+            CancellationToken cancellationToken)
         {
-            var ScoringSettingDetail = await _ScoringSettingDetailService.GetScoringSettingDetailByCodeAsync(code);
-            if (ScoringSettingDetail == null) return NotFound();
-            return Ok(ScoringSettingDetail);
+            try
+            {
+                var result = await mediator.Send(command, cancellationToken);
+
+                var response = new ApiResponse<ScoringSettingDetailDto>(HttpStatusCode.OK, result, "Process Successed");
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new ApiResponse<ScoringSettingDetailDto>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
+
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+            }
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Create(ScoringSettingDetailDto ScoringSettingDetail)
+        [HttpPost("get-scoring-setting-detail-ddl")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetScoringSettingDetailDdl([FromBody] GetScoringSettingDetailDdlCommand command,
+            CancellationToken cancellationToken)
         {
-            var createdScoringSettingDetail = await _ScoringSettingDetailService.AddScoringSettingDetailAsync(ScoringSettingDetail);
-            return CreatedAtAction(nameof(GetByCode), new { code = createdScoringSettingDetail.ScoringCode }, createdScoringSettingDetail);
-        }
+            try
+            {
+                var result = await mediator.Send(command, cancellationToken);
 
-        [HttpPut("{code}")]
-        public async Task<IActionResult> Update(string code, ScoringSettingDetailDto ScoringSettingDetail)
-        {
-            if (code != ScoringSettingDetail.ScoringCode) return BadRequest();
+                var response = new ApiResponse<List<ScoringSettingDetailDto>>(HttpStatusCode.OK, result.ScoringSettingDetailList, "Process Successed");
 
-            var updatedScoringSettingDetail = await _ScoringSettingDetailService.UpdateScoringSettingDetailAsync(ScoringSettingDetail);
-            if (updatedScoringSettingDetail == null) return NotFound();
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new ApiResponse<List<ScoringSettingDetailDto>>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
 
-            return Ok(updatedScoringSettingDetail);
-        }
-
-        [HttpDelete("{code}")]
-        public async Task<IActionResult> Delete(string code)
-        {
-            var success = await _ScoringSettingDetailService.DeleteScoringSettingDetailAsync(code);
-            if (!success) return NotFound();
-
-            return NoContent();
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+            }
         }
     }
 }

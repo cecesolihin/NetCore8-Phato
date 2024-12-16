@@ -15,6 +15,5 @@ namespace ThePatho.Features.MasterData.AdsCategory.Commands
         [JsonPropertyName("filter_JobCategoryCode")]
         public string? FilterJobCategoryCode { get; set; }
 
-
     }
 }

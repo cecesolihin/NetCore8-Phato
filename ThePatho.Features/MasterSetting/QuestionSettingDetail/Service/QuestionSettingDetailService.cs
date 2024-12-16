@@ -1,4 +1,8 @@
+using Dapper;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
+using ThePatho.Features.MasterSetting.QuestionSetting.Commands;
+using ThePatho.Features.MasterSetting.QuestionSettingDetail.Commands;
 using ThePatho.Features.MasterSetting.QuestionSettingDetail.DTO;
 using ThePatho.Infrastructure.Persistance;
 
@@ -6,39 +10,56 @@ namespace ThePatho.Features.MasterSetting.QuestionSettingDetail.Service
 {
     public class QuestionSettingDetailService : IQuestionSettingDetailService
     {
+        private readonly SqlQueryLoader _queryLoader;
+        private readonly IDbConnection _dbConnection;
+        private readonly DapperContext _dappercontext;
         private readonly ApplicationDbContext _context;
-
-        public QuestionSettingDetailService(ApplicationDbContext context)
+        public QuestionSettingDetailService(ApplicationDbContext context, DapperContext dappercontext, SqlQueryLoader queryLoader, IDbConnection dbConnection)
         {
             _context = context;
+            _dappercontext = dappercontext;
+            _queryLoader = queryLoader;
+            _dbConnection = dbConnection;
         }
 
-        public Task<QuestionSettingDetailDto> AddQuestionSettingDetailAsync(QuestionSettingDetailDto detail)
+        public async Task<List<QuestionSettingDetailDto>> GetQuestionSettingDetail(GetQuestionSettingDetailCommand request)
         {
-            throw new NotImplementedException();
+            var parameters = new DynamicParameters();
+            parameters.Add("@PageNumber", request.PageNumber);
+            parameters.Add("@PageSize", request.PageSize);
+            parameters.Add("@FilterQuestionCode", request.FilterQuestionCode ?? (object)DBNull.Value);
+            parameters.Add("@FilterQuestionName", request.FilterQuestionName ?? (object)DBNull.Value);
+            parameters.Add("@SortBy", request.SortBy);
+            parameters.Add("@OrderBy", request.OrderBy);
+
+            var query = await _queryLoader.LoadQueryAsync("MasterSetting/QuestionSettingDetail/Sql/search_question_setting_detail");
+            var QuestionSettingDetail = await _dbConnection.QueryAsync<QuestionSettingDetailDto>(query, parameters);
+
+            return QuestionSettingDetail.ToList();
         }
 
-        public Task<bool> DeleteQuestionSettingDetailAsync(string code)
+        public async Task<QuestionSettingDetailDto> GetQuestionSettingDetailByCode(GetQuestionSettingDetailByCodeCommand request)
         {
-            throw new NotImplementedException();
+            var parameters = new DynamicParameters();
+            parameters.Add("@FilterQuestionCode", request.FilterQuestionCode ?? (object)DBNull.Value);
+
+            var query = await _queryLoader.LoadQueryAsync("MasterSetting/QuestionSettingDetail/Sql/search_question_setting_detail_by_code");
+
+            var QuestionSettingDetail = await _dbConnection.QueryFirstOrDefaultAsync<QuestionSettingDetailDto>(query, parameters);
+
+            return QuestionSettingDetail;
         }
 
-        public async Task<List<QuestionSettingDetailDto>> GetAllQuestionSettingDetailAsync()
+        public async Task<List<QuestionSettingDetailDto>> GetQuestionSettingDetailDdl(GetQuestionSettingDetailDdlCommand request)
         {
-            return await _context.QuestionSettingDetails.Select(x => new QuestionSettingDetailDto
-            {
-                QuestDetailId = x.QuestDetailId,
-            }).ToListAsync();
-        }
+            var parameters = new DynamicParameters();
 
-        public Task<QuestionSettingDetailDto?> GetQuestionSettingDetailByCodeAsync(string code)
-        {
-            throw new NotImplementedException();
-        }
+            parameters.Add("@FilterQuestionCode", request.FilterQuestionCode ?? (object)DBNull.Value);
 
-        public Task<QuestionSettingDetailDto?> UpdateQuestionSettingDetailAsync(QuestionSettingDetailDto detail)
-        {
-            throw new NotImplementedException();
+            var query = await _queryLoader.LoadQueryAsync("MasterSetting/QuestionSettingDetail/Sql/search_question_setting_Detail_ddl");
+            var QuestionSettingDetail = await _dbConnection.QueryAsync<QuestionSettingDetailDto>(query, parameters);
+
+            return QuestionSettingDetail.ToList();
         }
     }
 }

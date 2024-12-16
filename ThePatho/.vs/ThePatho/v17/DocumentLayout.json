@@ -3,48 +3,58 @@
   "WorkspaceRootPath": "D:\\COURSES\\ThePatho\\ThePatho\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\masterdata\\jobcategory\\commands\\getjobcategorybycodecommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\mastersetting\\questionsetting\\service\\questionsettingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\mastersetting\\scoringsettingdetail\\service\\scoringsettingdetailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\mastersetting\\scoringsetting\\service\\scoringsettingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\mastersetting\\questionsettingdetail\\service\\questionsettingdetailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\mastersetting\\onlinetestsetting\\service\\onlinetestsettingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\masterdata\\jobcategory\\commands\\getjobcategoryddlcommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\masterdata\\jobcategory\\service\\jobcategoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1D5A67AE-AFE0-4F7C-AEEE-D4C843B8D035}|ThePatho.csproj|d:\\courses\\thepatho\\thepatho\\controllers\\mastersetting\\onlinetestsettingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1D5A67AE-AFE0-4F7C-AEEE-D4C843B8D035}|ThePatho.csproj|solutionrelative:controllers\\mastersetting\\onlinetestsettingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\masterdata\\jobcategory\\commands\\getjobcategorycommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1D5A67AE-AFE0-4F7C-AEEE-D4C843B8D035}|ThePatho.csproj|d:\\courses\\thepatho\\thepatho\\controllers\\mastersetting\\scoringsettingdetailcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1D5A67AE-AFE0-4F7C-AEEE-D4C843B8D035}|ThePatho.csproj|solutionrelative:controllers\\mastersetting\\scoringsettingdetailcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\masterdata\\jobcategory\\sql\\search_job_category.sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}"
+      "AbsoluteMoniker": "D:0:0:{1D5A67AE-AFE0-4F7C-AEEE-D4C843B8D035}|ThePatho.csproj|d:\\courses\\thepatho\\thepatho\\controllers\\mastersetting\\scoringsettingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1D5A67AE-AFE0-4F7C-AEEE-D4C843B8D035}|ThePatho.csproj|solutionrelative:controllers\\mastersetting\\scoringsettingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\masterdata\\jobcategory\\sql\\search_job_category_by_code.sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}"
+      "AbsoluteMoniker": "D:0:0:{1D5A67AE-AFE0-4F7C-AEEE-D4C843B8D035}|ThePatho.csproj|d:\\courses\\thepatho\\thepatho\\controllers\\mastersetting\\questionsettingdetailcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1D5A67AE-AFE0-4F7C-AEEE-D4C843B8D035}|ThePatho.csproj|solutionrelative:controllers\\mastersetting\\questionsettingdetailcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\masterdata\\jobcategory\\sql\\search_job_category_ddl.sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}"
+      "AbsoluteMoniker": "D:0:0:{1D5A67AE-AFE0-4F7C-AEEE-D4C843B8D035}|ThePatho.csproj|d:\\courses\\thepatho\\thepatho\\controllers\\mastersetting\\questionsettingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1D5A67AE-AFE0-4F7C-AEEE-D4C843B8D035}|ThePatho.csproj|solutionrelative:controllers\\mastersetting\\questionsettingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{1D5A67AE-AFE0-4F7C-AEEE-D4C843B8D035}|ThePatho.csproj|d:\\courses\\thepatho\\thepatho\\controllers\\masterdata\\jobcategorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1D5A67AE-AFE0-4F7C-AEEE-D4C843B8D035}|ThePatho.csproj|solutionrelative:controllers\\masterdata\\jobcategorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\masterdata\\jobcategory\\commands\\getjobcategorycommandhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\masterdata\\jobcategory\\commands\\getjobcategorybycodecommandhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\masterdata\\adsmedia\\service\\adsmediaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\masterdata\\jobcategory\\service\\ijobcategoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\masterdata\\adsmedia\\service\\iadsmediaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{1D5A67AE-AFE0-4F7C-AEEE-D4C843B8D035}|ThePatho.csproj|d:\\courses\\thepatho\\thepatho\\controllers\\masterdata\\adsmediacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1D5A67AE-AFE0-4F7C-AEEE-D4C843B8D035}|ThePatho.csproj|solutionrelative:controllers\\masterdata\\adsmediacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1D5A67AE-AFE0-4F7C-AEEE-D4C843B8D035}|ThePatho.csproj|d:\\courses\\thepatho\\thepatho\\controllers\\masterdata\\adscategorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1D5A67AE-AFE0-4F7C-AEEE-D4C843B8D035}|ThePatho.csproj|solutionrelative:controllers\\masterdata\\adscategorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1D5A67AE-AFE0-4F7C-AEEE-D4C843B8D035}|ThePatho.csproj|d:\\courses\\thepatho\\thepatho\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{1D5A67AE-AFE0-4F7C-AEEE-D4C843B8D035}|ThePatho.csproj|solutionrelative:properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     }
   ],
   "DocumentGroupContainers": [
@@ -74,169 +84,184 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "JobCategoryService.cs",
-              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\MasterData\\JobCategory\\Service\\JobCategoryService.cs",
-              "RelativeDocumentMoniker": "..\\ThePatho.Features\\MasterData\\JobCategory\\Service\\JobCategoryService.cs",
-              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\MasterData\\JobCategory\\Service\\JobCategoryService.cs",
-              "RelativeToolTip": "..\\ThePatho.Features\\MasterData\\JobCategory\\Service\\JobCategoryService.cs",
-              "ViewState": "AQIAAAkAAAAAAAAAAAAewBkAAAA/AAAA",
+              "DocumentIndex": 1,
+              "Title": "ScoringSettingDetailService.cs",
+              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\MasterSetting\\ScoringSettingDetail\\Service\\ScoringSettingDetailService.cs",
+              "RelativeDocumentMoniker": "..\\ThePatho.Features\\MasterSetting\\ScoringSettingDetail\\Service\\ScoringSettingDetailService.cs",
+              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\MasterSetting\\ScoringSettingDetail\\Service\\ScoringSettingDetailService.cs",
+              "RelativeToolTip": "..\\ThePatho.Features\\MasterSetting\\ScoringSettingDetail\\Service\\ScoringSettingDetailService.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAADkAAABIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-11T16:51:58.464Z"
+              "WhenOpened": "2024-12-13T09:40:21.528Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ScoringSettingService.cs",
+              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\MasterSetting\\ScoringSetting\\Service\\ScoringSettingService.cs",
+              "RelativeDocumentMoniker": "..\\ThePatho.Features\\MasterSetting\\ScoringSetting\\Service\\ScoringSettingService.cs",
+              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\MasterSetting\\ScoringSetting\\Service\\ScoringSettingService.cs",
+              "RelativeToolTip": "..\\ThePatho.Features\\MasterSetting\\ScoringSetting\\Service\\ScoringSettingService.cs",
+              "ViewState": "AQIAABsAAAAAAAAAAAAYwDkAAABIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-13T09:40:09.352Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "GetJobCategoryCommand.cs",
-              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\MasterData\\JobCategory\\Commands\\GetJobCategoryCommand.cs",
-              "RelativeDocumentMoniker": "..\\ThePatho.Features\\MasterData\\JobCategory\\Commands\\GetJobCategoryCommand.cs",
-              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\MasterData\\JobCategory\\Commands\\GetJobCategoryCommand.cs",
-              "RelativeToolTip": "..\\ThePatho.Features\\MasterData\\JobCategory\\Commands\\GetJobCategoryCommand.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAuwBAAAAAxAAAA",
+              "Title": "QuestionSettingDetailService.cs",
+              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\MasterSetting\\QuestionSettingDetail\\Service\\QuestionSettingDetailService.cs",
+              "RelativeDocumentMoniker": "..\\ThePatho.Features\\MasterSetting\\QuestionSettingDetail\\Service\\QuestionSettingDetailService.cs",
+              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\MasterSetting\\QuestionSettingDetail\\Service\\QuestionSettingDetailService.cs",
+              "RelativeToolTip": "..\\ThePatho.Features\\MasterSetting\\QuestionSettingDetail\\Service\\QuestionSettingDetailService.cs",
+              "ViewState": "AQIAAB4AAAAAAAAAAAAYwDoAAABIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-11T16:55:23.223Z"
+              "WhenOpened": "2024-12-13T09:39:46.377Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
+              "Title": "QuestionSettingService.cs",
+              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\MasterSetting\\QuestionSetting\\Service\\QuestionSettingService.cs",
+              "RelativeDocumentMoniker": "..\\ThePatho.Features\\MasterSetting\\QuestionSetting\\Service\\QuestionSettingService.cs",
+              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\MasterSetting\\QuestionSetting\\Service\\QuestionSettingService.cs",
+              "RelativeToolTip": "..\\ThePatho.Features\\MasterSetting\\QuestionSetting\\Service\\QuestionSettingService.cs",
+              "ViewState": "AQIAAA4AAAAAAAAAAAAAwCIAAAB0AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-13T09:39:23.655Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "OnlineTestSettingService.cs",
+              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\MasterSetting\\OnlineTestSetting\\Service\\OnlineTestSettingService.cs",
+              "RelativeDocumentMoniker": "..\\ThePatho.Features\\MasterSetting\\OnlineTestSetting\\Service\\OnlineTestSettingService.cs",
+              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\MasterSetting\\OnlineTestSetting\\Service\\OnlineTestSettingService.cs",
+              "RelativeToolTip": "..\\ThePatho.Features\\MasterSetting\\OnlineTestSetting\\Service\\OnlineTestSettingService.cs",
+              "ViewState": "AQIAACQAAAAAAAAAAAAYwDsAAABIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-13T09:37:48.903Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "GetJobCategoryDdlCommand.cs",
               "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\MasterData\\JobCategory\\Commands\\GetJobCategoryDdlCommand.cs",
               "RelativeDocumentMoniker": "..\\ThePatho.Features\\MasterData\\JobCategory\\Commands\\GetJobCategoryDdlCommand.cs",
               "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\MasterData\\JobCategory\\Commands\\GetJobCategoryDdlCommand.cs",
               "RelativeToolTip": "..\\ThePatho.Features\\MasterData\\JobCategory\\Commands\\GetJobCategoryDdlCommand.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAbAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-12T01:57:35.48Z"
+              "WhenOpened": "2024-12-13T09:35:12.065Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "GetJobCategoryByCodeCommand.cs",
-              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\MasterData\\JobCategory\\Commands\\GetJobCategoryByCodeCommand.cs",
-              "RelativeDocumentMoniker": "..\\ThePatho.Features\\MasterData\\JobCategory\\Commands\\GetJobCategoryByCodeCommand.cs",
-              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\MasterData\\JobCategory\\Commands\\GetJobCategoryByCodeCommand.cs",
-              "RelativeToolTip": "..\\ThePatho.Features\\MasterData\\JobCategory\\Commands\\GetJobCategoryByCodeCommand.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAAAAAAA",
+              "DocumentIndex": 9,
+              "Title": "QuestionSettingDetailController.cs",
+              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho\\Controllers\\MasterSetting\\QuestionSettingDetailController.cs",
+              "RelativeDocumentMoniker": "Controllers\\MasterSetting\\QuestionSettingDetailController.cs",
+              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho\\Controllers\\MasterSetting\\QuestionSettingDetailController.cs",
+              "RelativeToolTip": "Controllers\\MasterSetting\\QuestionSettingDetailController.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAABYAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-11T16:53:28.692Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-13T09:24:54.776Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "search_job_category_by_code.sql",
-              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\MasterData\\JobCategory\\Sql\\search_job_category_by_code.sql",
-              "RelativeDocumentMoniker": "..\\ThePatho.Features\\MasterData\\JobCategory\\Sql\\search_job_category_by_code.sql",
-              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\MasterData\\JobCategory\\Sql\\search_job_category_by_code.sql",
-              "RelativeToolTip": "..\\ThePatho.Features\\MasterData\\JobCategory\\Sql\\search_job_category_by_code.sql",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2024-12-12T01:50:18.121Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "search_job_category.sql",
-              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\MasterData\\JobCategory\\Sql\\search_job_category.sql",
-              "RelativeDocumentMoniker": "..\\ThePatho.Features\\MasterData\\JobCategory\\Sql\\search_job_category.sql",
-              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\MasterData\\JobCategory\\Sql\\search_job_category.sql",
-              "RelativeToolTip": "..\\ThePatho.Features\\MasterData\\JobCategory\\Sql\\search_job_category.sql",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2024-12-12T01:55:49.911Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "search_job_category_ddl.sql",
-              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\MasterData\\JobCategory\\Sql\\search_job_category_ddl.sql",
-              "RelativeDocumentMoniker": "..\\ThePatho.Features\\MasterData\\JobCategory\\Sql\\search_job_category_ddl.sql",
-              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\MasterData\\JobCategory\\Sql\\search_job_category_ddl.sql",
-              "RelativeToolTip": "..\\ThePatho.Features\\MasterData\\JobCategory\\Sql\\search_job_category_ddl.sql",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2024-12-12T01:47:27.796Z"
+              "DocumentIndex": 8,
+              "Title": "ScoringSettingController.cs",
+              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho\\Controllers\\MasterSetting\\ScoringSettingController.cs",
+              "RelativeDocumentMoniker": "Controllers\\MasterSetting\\ScoringSettingController.cs",
+              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho\\Controllers\\MasterSetting\\ScoringSettingController.cs",
+              "RelativeToolTip": "Controllers\\MasterSetting\\ScoringSettingController.cs",
+              "ViewState": "AQIAACQAAAAAAAAAAAAYwBAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-13T09:25:10.721Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 7,
+              "Title": "ScoringSettingDetailController.cs",
+              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho\\Controllers\\MasterSetting\\ScoringSettingDetailController.cs",
+              "RelativeDocumentMoniker": "Controllers\\MasterSetting\\ScoringSettingDetailController.cs",
+              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho\\Controllers\\MasterSetting\\ScoringSettingDetailController.cs",
+              "RelativeToolTip": "Controllers\\MasterSetting\\ScoringSettingDetailController.cs",
+              "ViewState": "AQIAADgAAAAAAAAAAAAgwBIAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-13T09:26:03.736Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "OnlineTestSettingController.cs",
+              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho\\Controllers\\MasterSetting\\OnlineTestSettingController.cs",
+              "RelativeDocumentMoniker": "Controllers\\MasterSetting\\OnlineTestSettingController.cs",
+              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho\\Controllers\\MasterSetting\\OnlineTestSettingController.cs",
+              "RelativeToolTip": "Controllers\\MasterSetting\\OnlineTestSettingController.cs",
+              "ViewState": "AQIAACcAAAAAAAAAAAAYwBEAAAA/AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-13T09:24:17.384Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "QuestionSettingController.cs",
+              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho\\Controllers\\MasterSetting\\QuestionSettingController.cs",
+              "RelativeDocumentMoniker": "Controllers\\MasterSetting\\QuestionSettingController.cs",
+              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho\\Controllers\\MasterSetting\\QuestionSettingController.cs",
+              "RelativeToolTip": "Controllers\\MasterSetting\\QuestionSettingController.cs",
+              "ViewState": "AQIAAA4AAAAAAAAAAAAxwBIAAAA9AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-13T09:24:46.673Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
               "Title": "JobCategoryController.cs",
               "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho\\Controllers\\MasterData\\JobCategoryController.cs",
               "RelativeDocumentMoniker": "Controllers\\MasterData\\JobCategoryController.cs",
               "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho\\Controllers\\MasterData\\JobCategoryController.cs",
               "RelativeToolTip": "Controllers\\MasterData\\JobCategoryController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAEoAAAA3AAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-11T16:48:39.972Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "GetJobCategoryCommandHandler.cs",
-              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\MasterData\\JobCategory\\Commands\\GetJobCategoryCommandHandler.cs",
-              "RelativeDocumentMoniker": "..\\ThePatho.Features\\MasterData\\JobCategory\\Commands\\GetJobCategoryCommandHandler.cs",
-              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\MasterData\\JobCategory\\Commands\\GetJobCategoryCommandHandler.cs",
-              "RelativeToolTip": "..\\ThePatho.Features\\MasterData\\JobCategory\\Commands\\GetJobCategoryCommandHandler.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABgAAAAOAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-12T01:41:31.8Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "GetJobCategoryByCodeCommandHandler.cs",
-              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\MasterData\\JobCategory\\Commands\\GetJobCategoryByCodeCommandHandler.cs",
-              "RelativeDocumentMoniker": "..\\ThePatho.Features\\MasterData\\JobCategory\\Commands\\GetJobCategoryByCodeCommandHandler.cs",
-              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\MasterData\\JobCategory\\Commands\\GetJobCategoryByCodeCommandHandler.cs",
-              "RelativeToolTip": "..\\ThePatho.Features\\MasterData\\JobCategory\\Commands\\GetJobCategoryByCodeCommandHandler.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABgAAAABAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-11T16:53:57.854Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "AdsMediaService.cs",
-              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\MasterData\\AdsMedia\\Service\\AdsMediaService.cs",
-              "RelativeDocumentMoniker": "..\\ThePatho.Features\\MasterData\\AdsMedia\\Service\\AdsMediaService.cs",
-              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\MasterData\\AdsMedia\\Service\\AdsMediaService.cs",
-              "RelativeToolTip": "..\\ThePatho.Features\\MasterData\\AdsMedia\\Service\\AdsMediaService.cs",
-              "ViewState": "AQIAAC8AAAAAAAAAAAAgwEQAAAAJAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-11T16:52:03.486Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "IJobCategoryService.cs",
-              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\MasterData\\JobCategory\\Service\\IJobCategoryService.cs",
-              "RelativeDocumentMoniker": "..\\ThePatho.Features\\MasterData\\JobCategory\\Service\\IJobCategoryService.cs",
-              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\MasterData\\JobCategory\\Service\\IJobCategoryService.cs",
-              "RelativeToolTip": "..\\ThePatho.Features\\MasterData\\JobCategory\\Service\\IJobCategoryService.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAABXAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-11T16:51:39.372Z"
+              "WhenOpened": "2024-12-13T09:23:58.343Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 12,
-              "Title": "IAdsMediaService.cs",
-              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\MasterData\\AdsMedia\\Service\\IAdsMediaService.cs",
-              "RelativeDocumentMoniker": "..\\ThePatho.Features\\MasterData\\AdsMedia\\Service\\IAdsMediaService.cs",
-              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\MasterData\\AdsMedia\\Service\\IAdsMediaService.cs",
-              "RelativeToolTip": "..\\ThePatho.Features\\MasterData\\AdsMedia\\Service\\IAdsMediaService.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAABOAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-11T16:51:29.757Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
               "Title": "AdsMediaController.cs",
               "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho\\Controllers\\MasterData\\AdsMediaController.cs",
               "RelativeDocumentMoniker": "Controllers\\MasterData\\AdsMediaController.cs",
               "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho\\Controllers\\MasterData\\AdsMediaController.cs",
               "RelativeToolTip": "Controllers\\MasterData\\AdsMediaController.cs",
-              "ViewState": "AQIAAEEAAAAAAAAAAAAgwFsAAAAJAAAA",
+              "ViewState": "AQIAAAwAAAAAAAAAAAAAABMAAAAtAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-11T16:48:28.854Z"
+              "WhenOpened": "2024-12-13T09:23:31.111Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "AdsCategoryController.cs",
+              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho\\Controllers\\MasterData\\AdsCategoryController.cs",
+              "RelativeDocumentMoniker": "Controllers\\MasterData\\AdsCategoryController.cs",
+              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho\\Controllers\\MasterData\\AdsCategoryController.cs",
+              "RelativeToolTip": "Controllers\\MasterData\\AdsCategoryController.cs",
+              "ViewState": "AQIAAAwAAAAAAAAAAAAYwBQAAAAYAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-13T09:22:37.102Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "Properties\\launchSettings.json",
+              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho\\Properties\\launchSettings.json",
+              "RelativeToolTip": "Properties\\launchSettings.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-12-13T09:22:39.343Z"
             }
           ]
         },

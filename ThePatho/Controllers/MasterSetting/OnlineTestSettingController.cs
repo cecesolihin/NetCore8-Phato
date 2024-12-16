@@ -1,61 +1,92 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using ThePatho.Domain.Models;
+using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Features.MasterSetting.OnlineTestSetting.Commands;
 using ThePatho.Features.MasterSetting.OnlineTestSetting.DTO;
 using ThePatho.Features.MasterSetting.OnlineTestSetting.Service;
 
 namespace ThePatho.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/master-setting/online-test-setting")]
     public class OnlineTestSettingController : ControllerBase
     {
-        private readonly IOnlineTestSettingService _OnlineTestSettingService;
+        private readonly IMediator mediator;
 
-        public OnlineTestSettingController(IOnlineTestSettingService OnlineTestSettingService)
+        public OnlineTestSettingController(IMediator _mediator)
         {
-            _OnlineTestSettingService = OnlineTestSettingService;
+            mediator = _mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
+        [HttpPost("get-online-test-setting-list")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetOnlineTestSettingList([FromBody] GetOnlineTestSettingCommand command,
+            CancellationToken cancellationToken)
         {
-            var categories = await _OnlineTestSettingService.GetAllOnlineTestSettingAsync();
-            return Ok(categories);
+            try
+            {
+                var result = await mediator.Send(command, cancellationToken);
+
+                var response = new ApiResponse<List<OnlineTestSettingDto>>(HttpStatusCode.OK, result.OnlineTestSettingList, "Process Successed");
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new ApiResponse<List<OnlineTestSettingDto>>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
+
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+            }
         }
 
-        [HttpGet("{code}")]
-        public async Task<IActionResult> GetByCode(string code)
+        [HttpPost("get-online-test-setting-by-code")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetOnlineTestSettingByCode([FromBody] GetOnlineTestSettingByCodeCommand command,
+            CancellationToken cancellationToken)
         {
-            var OnlineTestSetting = await _OnlineTestSettingService.GetOnlineTestSettingByCodeAsync(code);
-            if (OnlineTestSetting == null) return NotFound();
-            return Ok(OnlineTestSetting);
+            try
+            {
+                var result = await mediator.Send(command, cancellationToken);
+
+                var response = new ApiResponse<OnlineTestSettingDto>(HttpStatusCode.OK, result, "Process Successed");
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new ApiResponse<OnlineTestSettingDto>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
+
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+            }
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Create(OnlineTestSettingDto OnlineTestSetting)
+        [HttpPost("get-online-test-setting-ddl")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetOnlineTestSettingDdl([FromBody] GetOnlineTestSettingDdlCommand command,
+            CancellationToken cancellationToken)
         {
-            var createdOnlineTestSetting = await _OnlineTestSettingService.AddOnlineTestSettingAsync(OnlineTestSetting);
-            return CreatedAtAction(nameof(GetByCode), new { code = createdOnlineTestSetting.OnlineTestCode }, createdOnlineTestSetting);
-        }
+            try
+            {
+                var result = await mediator.Send(command, cancellationToken);
 
-        [HttpPut("{code}")]
-        public async Task<IActionResult> Update(string code, OnlineTestSettingDto OnlineTestSetting)
-        {
-            if (code != OnlineTestSetting.OnlineTestCode) return BadRequest();
+                var response = new ApiResponse<List<OnlineTestSettingDto>>(HttpStatusCode.OK, result.OnlineTestSettingList, "Process Successed");
 
-            var updatedOnlineTestSetting = await _OnlineTestSettingService.UpdateOnlineTestSettingAsync(OnlineTestSetting);
-            if (updatedOnlineTestSetting == null) return NotFound();
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new ApiResponse<List<OnlineTestSettingDto>>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
 
-            return Ok(updatedOnlineTestSetting);
-        }
-
-        [HttpDelete("{code}")]
-        public async Task<IActionResult> Delete(string code)
-        {
-            var success = await _OnlineTestSettingService.DeleteOnlineTestSettingAsync(code);
-            if (!success) return NotFound();
-
-            return NoContent();
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+            }
         }
     }
 }

@@ -5,8 +5,6 @@ using ThePatho.Domain.Models;
 using ThePatho.Features.ConfigurationExtensions;
 using ThePatho.Features.MasterData.AdsCategory.Commands;
 using ThePatho.Features.MasterData.JobCategory.DTO;
-using ThePatho.Features.MasterData.JobCategory.DTO;
-using ThePatho.Features.MasterData.JobCategory.Service;
 
 
 namespace ThePatho.Controllers
@@ -15,11 +13,11 @@ namespace ThePatho.Controllers
     [Route("api/master-data/job-category")]
     public class JobCategoryController : ControllerBase
     {
-        private readonly IMediator _mediator;
+        private readonly IMediator mediator;
 
-        public JobCategoryController(IMediator mediator)
+        public JobCategoryController(IMediator _mediator)
         {
-            _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+            mediator = _mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
         [HttpPost("get-job-category-list")]
@@ -31,7 +29,7 @@ namespace ThePatho.Controllers
         {
             try
             {
-                var result = await _mediator.Send(command, cancellationToken);
+                var result = await mediator.Send(command, cancellationToken);
 
                 var response = new ApiResponse<List<JobCategoryDto>>(HttpStatusCode.OK, result.JobCategoryList, "Process Successed");
 
@@ -54,7 +52,7 @@ namespace ThePatho.Controllers
         {
             try
             {
-                var result = await _mediator.Send(command, cancellationToken);
+                var result = await mediator.Send(command, cancellationToken);
 
                 var response = new ApiResponse<JobCategoryDto>(HttpStatusCode.OK, result, "Process Successed");
 
@@ -77,7 +75,7 @@ namespace ThePatho.Controllers
         {
             try
             {
-                var result = await _mediator.Send(command, cancellationToken);
+                var result = await mediator.Send(command, cancellationToken);
 
                 var response = new ApiResponse<List<JobCategoryDto>>(HttpStatusCode.OK, result.JobCategoryList, "Process Successed");
 

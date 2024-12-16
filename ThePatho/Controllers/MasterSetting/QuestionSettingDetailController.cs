@@ -1,61 +1,93 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using ThePatho.Domain.Models;
+using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Features.MasterSetting.QuestionSetting.Commands;
+using ThePatho.Features.MasterSetting.QuestionSettingDetail.Commands;
 using ThePatho.Features.MasterSetting.QuestionSettingDetail.DTO;
 using ThePatho.Features.MasterSetting.QuestionSettingDetail.Service;
 
 namespace ThePatho.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/master-setting/question-setting-detail")]
     public class QuestionSettingDetailController : ControllerBase
     {
-        private readonly IQuestionSettingDetailService _QuestionSettingDetailService;
+        private readonly IMediator mediator;
 
-        public QuestionSettingDetailController(IQuestionSettingDetailService QuestionSettingDetailService)
+        public QuestionSettingDetailController(IMediator _mediator)
         {
-            _QuestionSettingDetailService = QuestionSettingDetailService;
+            mediator = _mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
+        [HttpPost("get-question-setting-detail-list")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetQuestionSettingDetailList([FromBody] GetQuestionSettingDetailCommand command,
+            CancellationToken cancellationToken)
         {
-            var categories = await _QuestionSettingDetailService.GetAllQuestionSettingDetailAsync();
-            return Ok(categories);
+            try
+            {
+                var result = await mediator.Send(command, cancellationToken);
+
+                var response = new ApiResponse<List<QuestionSettingDetailDto>>(HttpStatusCode.OK, result.QuestionSettingDetailList, "Process Successed");
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new ApiResponse<List<QuestionSettingDetailDto>>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
+
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+            }
         }
 
-        [HttpGet("{code}")]
-        public async Task<IActionResult> GetByCode(string code)
+        [HttpPost("get-question-setting-detail-by-code")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetQuestionSettingDetailByCode([FromBody] GetQuestionSettingDetailByCodeCommand command,
+            CancellationToken cancellationToken)
         {
-            var QuestionSettingDetail = await _QuestionSettingDetailService.GetQuestionSettingDetailByCodeAsync(code);
-            if (QuestionSettingDetail == null) return NotFound();
-            return Ok(QuestionSettingDetail);
+            try
+            {
+                var result = await mediator.Send(command, cancellationToken);
+
+                var response = new ApiResponse<QuestionSettingDetailDto>(HttpStatusCode.OK, result, "Process Successed");
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new ApiResponse<QuestionSettingDetailDto>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
+
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+            }
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Create(QuestionSettingDetailDto QuestionSettingDetail)
+        [HttpPost("get-question-setting-detail-ddl")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetQuestionSettingDetailDdl([FromBody] GetQuestionSettingDetailDdlCommand command,
+            CancellationToken cancellationToken)
         {
-            var createdQuestionSettingDetail = await _QuestionSettingDetailService.AddQuestionSettingDetailAsync(QuestionSettingDetail);
-            return CreatedAtAction(nameof(GetByCode), new { code = createdQuestionSettingDetail.QuestionnaireCode }, createdQuestionSettingDetail);
-        }
+            try
+            {
+                var result = await mediator.Send(command, cancellationToken);
 
-        [HttpPut("{code}")]
-        public async Task<IActionResult> Update(string code, QuestionSettingDetailDto QuestionSettingDetail)
-        {
-            if (code != QuestionSettingDetail.QuestionnaireCode) return BadRequest();
+                var response = new ApiResponse<List<QuestionSettingDetailDto>>(HttpStatusCode.OK, result.QuestionSettingDetailList, "Process Successed");
 
-            var updatedQuestionSettingDetail = await _QuestionSettingDetailService.UpdateQuestionSettingDetailAsync(QuestionSettingDetail);
-            if (updatedQuestionSettingDetail == null) return NotFound();
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new ApiResponse<List<QuestionSettingDetailDto>>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
 
-            return Ok(updatedQuestionSettingDetail);
-        }
-
-        [HttpDelete("{code}")]
-        public async Task<IActionResult> Delete(string code)
-        {
-            var success = await _QuestionSettingDetailService.DeleteQuestionSettingDetailAsync(code);
-            if (!success) return NotFound();
-
-            return NoContent();
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+            }
         }
     }
 }
