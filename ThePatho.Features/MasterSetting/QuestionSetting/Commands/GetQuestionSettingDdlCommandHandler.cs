@@ -24,12 +24,12 @@ namespace ThePatho.Features.MasterSetting.QuestionSetting.Commands
 
         public async Task<QuestionSettingItemDto> Handle(GetQuestionSettingDdlCommand request, CancellationToken cancellationToken)
         {
-            var questionSetting = await questionSettingService.GetQuestionSettingDdl(request);
+            var data = await questionSettingService.GetQuestionSettingDdl(request);
 
             return new QuestionSettingItemDto
             {
-                DataOfRecords = questionSetting.Count,
-                QuestionSettingList = questionSetting
+                DataOfRecords = data.Count,
+                QuestionSettingList = data
             };
         }
     }

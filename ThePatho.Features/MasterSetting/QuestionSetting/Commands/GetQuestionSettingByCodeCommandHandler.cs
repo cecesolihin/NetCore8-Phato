@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 using ThePatho.Features.MasterSetting.QuestionSetting.DTO;
 using ThePatho.Features.MasterSetting.QuestionSetting.Service;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using ThePatho.Features.MasterSetting.QuestionSettingDetail.DTO;
 
 namespace ThePatho.Features.MasterSetting.QuestionSetting.Commands
 {
@@ -21,9 +23,9 @@ namespace ThePatho.Features.MasterSetting.QuestionSetting.Commands
 
         public async Task<QuestionSettingDto> Handle(GetQuestionSettingByCodeCommand request, CancellationToken cancellationToken)
         {
-            var questionSetting = await questionSettingService.GetQuestionSettingByCode(request);
+            var data = await questionSettingService.GetQuestionSettingByCode(request);
 
-            return questionSetting;
+            return data;
         }
     }
 }

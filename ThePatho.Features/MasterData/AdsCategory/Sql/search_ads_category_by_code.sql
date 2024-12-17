@@ -8,5 +8,4 @@
 
 FROM 
     dbo.TMAdsCategory
-WHERE
-    @FilterAdsCategoryCode IS NULL OR ads_category_code LIKE '%' + @FilterAdsCategoryCode + '%'
+WHERE  ads_category_code = @FilterAdsCategoryCode

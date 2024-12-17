@@ -23,9 +23,9 @@ namespace ThePatho.Features.MasterSetting.OnlineTestSetting.Commands
 
         public async Task<OnlineTestSettingDto> Handle(GetOnlineTestSettingByCodeCommand request, CancellationToken cancellationToken)
         {
-            var onlineTestSetting = await onlineTestSettingService.GetOnlineTestSettingByCode(request);
+            var data = await onlineTestSettingService.GetOnlineTestSettingByCode(request);
 
-            return onlineTestSetting;
+            return data;
         }
     }
 }

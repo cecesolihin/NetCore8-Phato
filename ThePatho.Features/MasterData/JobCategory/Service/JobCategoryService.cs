@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using System.Data;
 using ThePatho.Features.MasterData.AdsCategory.Commands;
 using ThePatho.Features.MasterData.JobCategory.DTO;
-using ThePatho.Features.MasterData.JobCategory.DTO;
 using ThePatho.Features.MasterData.JobCategory.Service;
 using ThePatho.Infrastructure.Persistance;
 
@@ -11,16 +10,16 @@ namespace ThePatho.Features.MasterData.JobCategory.Service
 {
     public class JobCategoryService : IJobCategoryService
     {
-        private readonly SqlQueryLoader _queryLoader;
-        private readonly IDbConnection _dbConnection;
-        private readonly DapperContext _dappercontext;
-        private readonly ApplicationDbContext _context;
-        public JobCategoryService(ApplicationDbContext context, DapperContext dappercontext, SqlQueryLoader queryLoader, IDbConnection dbConnection)
+        private readonly SqlQueryLoader queryLoader;
+        private readonly IDbConnection dbConnection;
+        private readonly DapperContext dappercontext;
+        private readonly ApplicationDbContext context;
+        public JobCategoryService(ApplicationDbContext _context, DapperContext _dappercontext, SqlQueryLoader _queryLoader, IDbConnection _dbConnection)
         {
-            _context = context;
-            _dappercontext = dappercontext;
-            _queryLoader = queryLoader;
-            _dbConnection = dbConnection;
+            context = _context;
+            dappercontext = _dappercontext;
+            queryLoader = _queryLoader;
+            dbConnection = _dbConnection;
         }
 
         public async Task<List<JobCategoryDto>> GetJobCategory(GetJobCategoryCommand request)
@@ -28,39 +27,39 @@ namespace ThePatho.Features.MasterData.JobCategory.Service
             var parameters = new DynamicParameters();
             parameters.Add("@PageNumber", request.PageNumber);
             parameters.Add("@PageSize", request.PageSize);
-            parameters.Add("@FilterJobCategoryCode", request.FilterJobCategoryCode ?? (object)DBNull.Value);
-            parameters.Add("@FilterJobCategoryName", request.FilterJobCategoryName ?? (object)DBNull.Value);
+            parameters.Add("@JobCategoryCode", request.FilterJobCategoryCode ?? (object)DBNull.Value);
+            parameters.Add("@JobCategoryName", request.FilterJobCategoryName ?? (object)DBNull.Value);
             parameters.Add("@SortBy", request.SortBy);
             parameters.Add("@OrderBy", request.OrderBy);
 
-            var query = await _queryLoader.LoadQueryAsync("MasterData/JobCategory/Sql/search_job_category");
-            var JobCategory = await _dbConnection.QueryAsync<JobCategoryDto>(query, parameters);
+            var query = await queryLoader.LoadQueryAsync("MasterData/JobCategory/Sql/search_job_category");
+            var data = await dbConnection.QueryAsync<JobCategoryDto>(query, parameters);
 
-            return JobCategory.ToList();
+            return data.ToList();
         }
 
         public async Task<JobCategoryDto> GetJobCategoryByCode(GetJobCategoryByCodeCommand request)
         {
             var parameters = new DynamicParameters();
-            parameters.Add("@FilterJobCategoryCode", request.@FilterJobCategoryCode ?? (object)DBNull.Value);
+            parameters.Add("@JobCategoryCode", request.@FilterJobCategoryCode ?? (object)DBNull.Value);
 
-            var query = await _queryLoader.LoadQueryAsync("MasterData/JobCategory/Sql/search_job_category_by_code");
+            var query = await queryLoader.LoadQueryAsync("MasterData/JobCategory/Sql/search_job_category_by_code");
 
-            var JobCategory = await _dbConnection.QueryFirstOrDefaultAsync<JobCategoryDto>(query, parameters);
+            var data = await dbConnection.QueryFirstOrDefaultAsync<JobCategoryDto>(query, parameters);
 
-            return JobCategory;
+            return data;
         }
 
         public async Task<List<JobCategoryDto>> GetJobCategoryDdl(GetJobCategoryDdlCommand request)
         {
             var parameters = new DynamicParameters();
 
-            parameters.Add("@FilterJobCategoryCode", request.@FilterJobCategoryCode ?? (object)DBNull.Value);
+            parameters.Add("@JobCategoryCode", request.@FilterJobCategoryCode ?? (object)DBNull.Value);
 
-            var query = await _queryLoader.LoadQueryAsync("MasterData/JobCategory/Sql/search_job_category_ddl");
-            var JobCategory = await _dbConnection.QueryAsync<JobCategoryDto>(query, parameters);
+            var query = await queryLoader.LoadQueryAsync("MasterData/JobCategory/Sql/search_job_category_ddl");
+            var data = await dbConnection.QueryAsync<JobCategoryDto>(query, parameters);
 
-            return JobCategory.ToList();
+            return data.ToList();
         }
     }
 }

@@ -1,14 +1,26 @@
-﻿DECLARE @AdsCategoryCode VARCHAR(30);
-DECLARE @AdsCategoryName VARCHAR(30);
+﻿DECLARE @Offset INT = @PageNumber * @PageSize;
 
 SELECT 
-    [ads_category_code] AS AdsCategoryCode,
-    [ads_category_name] as AdsCategoryName,
-    [inserted_by] AS InsertedBy,
-    [inserted_date] AS InsertedDate,
-    [modified_by] AS ModifiedBy,
-    [modified_date] AS ModifiedDate
-FROM [dbo].[TMAdsCategory]
-WHERE 1 = 1
-  AND (NULLIF(@AdsCategoryCode, '') IS NULL OR ads_category_code LIKE '%' + @AdsCategoryCode + '%')
-  AND (NULLIF(@AdsCategoryName, '') IS NULL OR ads_category_name LIKE '%' + @AdsCategoryName + '%');
+    ads_category_code AS AdsCategoryCode,
+    ads_category_name AS AdsCategoryName,
+    inserted_by AS InsertedBy,
+    CONVERT(VARCHAR, inserted_date, 120) AS InsertedDate,
+    modified_by AS ModifiedBy,
+    CONVERT(VARCHAR, modified_date, 120) AS ModifiedDate
+
+FROM 
+    dbo.TMAdsCategory
+WHERE
+    (@CategoryCode IS NULL OR ads_category_code LIKE '%' + @AdsCategoryCode + '%') AND
+    (@CategoryName IS NULL OR ads_category_name LIKE '%' + @AdsCategoryName + '%')
+ORDER BY
+    CASE WHEN @SortBy = 'AdsCategoryCode' THEN ads_category_code END,
+    CASE WHEN @SortBy = 'AdsCategoryName' THEN ads_category_name END,
+    CASE WHEN @SortBy = 'InsertedDate' THEN CONVERT(DATETIME, inserted_date, 120) END
+    , CASE @OrderBy
+        WHEN 'ASC' THEN 1
+        WHEN 'DESC' THEN -1
+      END
+OFFSET @Offset ROWS FETCH NEXT @PageSize ROWS ONLY;
+
+

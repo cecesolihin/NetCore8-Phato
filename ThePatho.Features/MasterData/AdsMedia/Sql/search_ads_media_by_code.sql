@@ -15,6 +15,4 @@
     recruitment_fee_3 AS RecruitmentFee3
 FROM 
     dbo.TMAdsMedia
-WHERE
-@FilterAdsCode IS NULL 
-    OR ads_code LIKE '%' + @FilterAdsCode + '%';
+WHERE ads_code = @FilterAdsCode 

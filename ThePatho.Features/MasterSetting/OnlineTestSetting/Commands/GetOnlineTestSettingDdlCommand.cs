@@ -12,8 +12,6 @@ namespace ThePatho.Features.MasterSetting.OnlineTestSetting.Commands
 {
     public class GetOnlineTestSettingDdlCommand : IRequest<OnlineTestSettingItemDto>
     {
-        [JsonPropertyName("filter_Question")]
-        public string? FilterQuestion { get; set; }
         [JsonPropertyName("filter_RecruitmentRequestNo")]
         public string? FilterRecruitmentRequestNo { get; set; }
     }

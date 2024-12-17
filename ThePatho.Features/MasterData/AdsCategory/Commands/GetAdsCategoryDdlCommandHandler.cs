@@ -12,21 +12,21 @@ namespace ThePatho.Features.MasterData.AdsCategory.Commands
 {
     public class GetAdsCategoryDdlCommandHandler : IRequestHandler<GetAdsCategoryDdlCommand, AdsCategoryItemDto>
     {
-        private readonly IAdsCategoryService _adsCategoryService;
+        private readonly IAdsCategoryService adsCategoryService;
 
-        public GetAdsCategoryDdlCommandHandler(IAdsCategoryService adsCategoryService)
+        public GetAdsCategoryDdlCommandHandler(IAdsCategoryService _adsCategoryService)
         {
-            _adsCategoryService = adsCategoryService;
+            adsCategoryService = _adsCategoryService;
         }
 
         public async Task<AdsCategoryItemDto> Handle(GetAdsCategoryDdlCommand request, CancellationToken cancellationToken)
         {
-            var categories = await _adsCategoryService.GetAdsCategoriesDdl(request);
+            var data = await adsCategoryService.GetAdsCategoriesDdl(request);
 
             return new AdsCategoryItemDto
             {
-                DataOfRecords = categories.Count,
-                AdsCategoryList = categories
+                DataOfRecords = data.Count,
+                AdsCategoryList = data
             };
         }
     }

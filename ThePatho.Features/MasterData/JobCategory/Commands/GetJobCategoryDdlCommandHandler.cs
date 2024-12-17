@@ -17,12 +17,12 @@ namespace ThePatho.Features.MasterData.JobCategory.Commands
 
         public async Task<JobCategoryItemDto> Handle(GetJobCategoryDdlCommand request, CancellationToken cancellationToken)
         {
-            var categories = await jobCategoryService.GetJobCategoryDdl(request);
+            var data = await jobCategoryService.GetJobCategoryDdl(request);
 
             return new JobCategoryItemDto
             {
-                DataOfRecords = categories.Count,
-                JobCategoryList = categories
+                DataOfRecords = data.Count,
+                JobCategoryList = data
             };
         }
     }

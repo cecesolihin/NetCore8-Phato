@@ -8,5 +8,4 @@
       ,modified_by AS ModifiedBy
       ,CONVERT(VARCHAR, modified_date, 120) AS ModifiedDate
   FROM dbo.TMJobCategory
-  where @FilterJobCategoryCode IS NULL 
-OR job_category_code LIKE '%' + @FilterJobCategoryCode + '%';
+  where job_category_code = @FilterJobCategoryCode 

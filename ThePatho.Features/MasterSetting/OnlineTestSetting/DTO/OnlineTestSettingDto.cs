@@ -11,10 +11,10 @@ namespace ThePatho.Features.MasterSetting.OnlineTestSetting.DTO
         public string TestLocation { get; set; } = null!;
         public bool Status { get; set; }
         public string RecruitmentReqNo { get; set; }
-        public DateTime OnlineTestDateFrom { get; set; }
-        public DateTime OnlineTestDateTo { get; set; }
-        public TimeSpan OnlineTestTimeFrom { get; set; }
-        public TimeSpan OnlineTestTimeTo { get; set; }
+        public string OnlineTestDateFrom { get; set; }
+        public string OnlineTestDateTo { get; set; }
+        public string OnlineTestTimeFrom { get; set; }
+        public string OnlineTestTimeTo { get; set; }
         public string ScoringType { get; set; }
         public string EmailTemplate { get; set; }
         public string RecruitmentStep { get; set; }

@@ -7,21 +7,21 @@ namespace ThePatho.Features.MasterSetting.QuestionSetting.Commands
 {
     public class GetQuestionSettingCommandHandler : IRequestHandler<GetQuestionSettingCommand, QuestionSettingItemDto>
     {
-        private readonly IQuestionSettingService QuestionSettingService;
+        private readonly IQuestionSettingService questionSettingService;
 
-        public GetQuestionSettingCommandHandler(IQuestionSettingService _QuestionSettingService)
+        public GetQuestionSettingCommandHandler(IQuestionSettingService _questionSettingService)
         {
-            QuestionSettingService = _QuestionSettingService;
+            questionSettingService = _questionSettingService;
         }
 
         public async Task<QuestionSettingItemDto> Handle(GetQuestionSettingCommand request, CancellationToken cancellationToken)
         {
-            var questionSettings = await QuestionSettingService.GetQuestionSetting(request);
+            var data = await questionSettingService.GetQuestionSetting(request);
 
             return new QuestionSettingItemDto
             {
-                DataOfRecords = questionSettings.Count,
-                QuestionSettingList = questionSettings
+                DataOfRecords = data.Count,
+                QuestionSettingList = data
             };
         }
     }

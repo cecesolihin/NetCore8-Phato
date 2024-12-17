@@ -23,12 +23,12 @@ namespace ThePatho.Features.MasterSetting.OnlineTestSetting.Commands
 
         public async Task<OnlineTestSettingItemDto> Handle(GetOnlineTestSettingCommand request, CancellationToken cancellationToken)
         {
-            var onlineTestSettings = await onlineTestSettingService.GetOnlineTestSetting(request);
+            var data = await onlineTestSettingService.GetOnlineTestSetting(request);
 
             return new OnlineTestSettingItemDto
             {
-                DataOfRecords = onlineTestSettings.Count,
-                OnlineTestSettingList = onlineTestSettings
+                DataOfRecords = data.Count,
+                OnlineTestSettingList = data
             };
         }
     }

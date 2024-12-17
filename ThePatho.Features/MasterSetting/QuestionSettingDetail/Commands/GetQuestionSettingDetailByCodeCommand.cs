@@ -9,7 +9,7 @@ using ThePatho.Features.MasterSetting.QuestionSettingDetail.DTO;
 
 namespace ThePatho.Features.MasterSetting.QuestionSettingDetail.Commands
 {
-    public class GetQuestionSettingDetailByCodeCommand : IRequest<QuestionSettingDetailDto>
+    public class GetQuestionSettingDetailByCodeCommand : IRequest<QuestionSettingDetailItemDto>
     {
         [JsonPropertyName("filter_QuestionCode")]
         public string? FilterQuestionCode { get; set; }

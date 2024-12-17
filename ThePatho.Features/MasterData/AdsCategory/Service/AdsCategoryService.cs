@@ -13,16 +13,16 @@ namespace ThePatho.Features.MasterData.AdsCategory.Service
     public class AdsCategoryService : IAdsCategoryService
     {
         
-        private readonly SqlQueryLoader _queryLoader;
-        private readonly IDbConnection _dbConnection;
-        private readonly DapperContext _dappercontext;
-        private readonly ApplicationDbContext _context;
-        public AdsCategoryService(ApplicationDbContext context,DapperContext dappercontext ,SqlQueryLoader queryLoader, IDbConnection dbConnection)
+        private readonly SqlQueryLoader queryLoader;
+        private readonly IDbConnection dbConnection;
+        private readonly DapperContext dappercontext;
+        private readonly ApplicationDbContext context;
+        public AdsCategoryService(ApplicationDbContext _context,DapperContext _dappercontext ,SqlQueryLoader _queryLoader, IDbConnection _dbConnection)
         {
-            _context = context;
-            _dappercontext = dappercontext;
-            _queryLoader = queryLoader;
-            _dbConnection = dbConnection;
+            context = _context;
+            dappercontext = _dappercontext;
+            queryLoader = _queryLoader;
+            dbConnection = _dbConnection;
         }
 
         public async Task<List<AdsCategoryDto>> GetAllAdsCategoriesAsync(GetAdsCategoryCommand request)
@@ -30,53 +30,39 @@ namespace ThePatho.Features.MasterData.AdsCategory.Service
             var parameters = new DynamicParameters();
             parameters.Add("@PageNumber", request.PageNumber);
             parameters.Add("@PageSize", request.PageSize);
-            parameters.Add("@FilterAdsCategoryCode", request.FilterAdsCategoryCode ?? (object)DBNull.Value);
-            parameters.Add("@FilterAdsCategoryName", request.FilterAdsCategoryName ?? (object)DBNull.Value);
+            parameters.Add("@AdsCategoryCode", request.FilterAdsCategoryCode ?? (object)DBNull.Value);
+            parameters.Add("@AdsCategoryName", request.FilterAdsCategoryName ?? (object)DBNull.Value);
             parameters.Add("@SortBy", request.SortBy);
             parameters.Add("@OrderBy", request.OrderBy);
 
-            var query = await _queryLoader.LoadQueryAsync("MasterData/AdsCategory/Sql/search_all_ads_category");
-            var adsCategories = await _dbConnection.QueryAsync<AdsCategoryDto>(query, parameters);
+            var query = await queryLoader.LoadQueryAsync("MasterData/AdsCategory/Sql/search_ads_category");
+            var data = await dbConnection.QueryAsync<AdsCategoryDto>(query, parameters);
 
-            return adsCategories.ToList();
+            return data.ToList();
         }
 
         public async Task<AdsCategoryDto> GetAdsCategoryByCode(GetAdsCategoryByCodeCommand request)
         {
             var parameters = new DynamicParameters();
-            parameters.Add("@FilterAdsCategoryCode", request.FilterAdsCategoryCode ?? (object)DBNull.Value);
+            parameters.Add("@AdsCategoryCode", request.FilterAdsCategoryCode ?? (object)DBNull.Value);
 
-            var query = await _queryLoader.LoadQueryAsync("MasterData/AdsCategory/Sql/search_ads_category_by_code");
+            var query = await queryLoader.LoadQueryAsync("MasterData/AdsCategory/Sql/search_ads_category_by_code");
 
-            var adsCategory = await _dbConnection.QueryFirstOrDefaultAsync<AdsCategoryDto>(query, parameters);
+            var data = await dbConnection.QueryFirstOrDefaultAsync<AdsCategoryDto>(query, parameters);
 
-            return adsCategory;
+            return data;
         }
         public async Task<List<AdsCategoryDto>> GetAdsCategoriesDdl(GetAdsCategoryDdlCommand request)
         {
             var parameters = new DynamicParameters();
 
-            parameters.Add("@FilterAdsCategoryCode", request.FilterAdsCategoryCode ?? (object)DBNull.Value);
-            parameters.Add("@FilterAdsCategoryName", request.FilterAdsCategoryName ?? (object)DBNull.Value);
+            parameters.Add("@AdsCategoryCode", request.FilterAdsCategoryCode ?? (object)DBNull.Value);
+            parameters.Add("@AdsCategoryName", request.FilterAdsCategoryName ?? (object)DBNull.Value);
 
-            var query = await _queryLoader.LoadQueryAsync("MasterData/AdsCategory/Sql/search_ads_category_ddl");
-            var adsCategories = await _dbConnection.QueryAsync<AdsCategoryDto>(query, parameters);
+            var query = await queryLoader.LoadQueryAsync("MasterData/AdsCategory/Sql/search_ads_category_ddl");
+            var data = await dbConnection.QueryAsync<AdsCategoryDto>(query, parameters);
 
-            return adsCategories.ToList();
-        }
-        public Task<AdsCategoryDto> AddAdsCategoryAsync(AdsCategoryDto adsCategory)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<AdsCategoryDto?> UpdateAdsCategoryAsync(AdsCategoryDto adsCategory)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> DeleteAdsCategoryAsync(string adsCategoryCode)
-        {
-            throw new NotImplementedException();
+            return data.ToList();
         }
     }
 }

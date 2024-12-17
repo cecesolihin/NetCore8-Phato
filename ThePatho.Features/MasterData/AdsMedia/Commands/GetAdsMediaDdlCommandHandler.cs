@@ -17,12 +17,12 @@ namespace ThePatho.Features.MasterData.AdsMedia.Commands
 
         public async Task<AdsMediaItemDto> Handle(GetAdsMediaDdlCommand request, CancellationToken cancellationToken)
         {
-            var categories = await adsMediaService.GetAdsMediaDdl(request);
+            var data = await adsMediaService.GetAdsMediaDdl(request);
 
             return new AdsMediaItemDto
             {
-                DataOfRecords = categories.Count,
-                AdsMediaList = categories
+                DataOfRecords = data.Count,
+                AdsMediaList = data
             };
         }
     }

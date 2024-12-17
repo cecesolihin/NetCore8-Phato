@@ -4,5 +4,5 @@
 FROM 
     dbo.TMAdsMedia
 WHERE
-    @FilterAdsCategoryCode IS NULL 
-    OR ads_category_code LIKE '%' + @FilterAdsCategoryCode + '%';
+    @AdsCategoryCode IS NULL 
+    OR ads_category_code LIKE '%' + @AdsCategoryCode + '%';

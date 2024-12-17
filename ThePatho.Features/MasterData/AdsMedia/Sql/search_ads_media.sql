@@ -18,9 +18,9 @@ SELECT
 FROM 
     dbo.TMAdsMedia
 WHERE
-    (@FilterAdsCode IS NULL OR ads_code LIKE '%' + @FilterAdsCode + '%') AND
-    (@FilterAdsName IS NULL OR ads_name LIKE '%' + @FilterAdsName + '%') AND
-    (@FilterAdsCategoryCode IS NULL OR ads_category_code LIKE '%' + @FilterAdsCategoryCode + '%') 
+    (@AdsCode IS NULL OR ads_code LIKE '%' + @AdsCode + '%') AND
+    (@AdsName IS NULL OR ads_name LIKE '%' + @AdsName + '%') AND
+    (@AdsCategoryCode IS NULL OR ads_category_code LIKE '%' + @AdsCategoryCode + '%') 
     ORDER BY
     CASE WHEN @SortBy = 'AdsCode' THEN ads_code END,
     CASE WHEN @SortBy = 'AdsName' THEN ads_name END,

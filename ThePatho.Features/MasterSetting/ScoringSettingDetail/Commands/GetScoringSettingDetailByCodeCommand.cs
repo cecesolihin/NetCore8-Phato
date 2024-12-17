@@ -9,7 +9,7 @@ using ThePatho.Features.MasterSetting.ScoringSettingDetail.DTO;
 
 namespace ThePatho.Features.MasterSetting.ScoringSettingDetail.Commands
 {
-    public class GetScoringSettingDetailByCodeCommand : IRequest<ScoringSettingDetailDto>
+    public class GetScoringSettingDetailByCodeCommand : IRequest<ScoringSettingDetailItemDto>
     {
         [JsonPropertyName("filter_ScoringCode")]
         public string? FilterScoringCode { get; set; }

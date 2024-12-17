@@ -54,7 +54,7 @@ namespace ThePatho.Controllers
             {
                 var result = await mediator.Send(command, cancellationToken);
 
-                var response = new ApiResponse<ScoringSettingDetailDto>(HttpStatusCode.OK, result, "Process Successed");
+                var response = new ApiResponse<List<ScoringSettingDetailDto>>(HttpStatusCode.OK, result.ScoringSettingDetailList, "Process Successed");
 
                 return Ok(response);
             }

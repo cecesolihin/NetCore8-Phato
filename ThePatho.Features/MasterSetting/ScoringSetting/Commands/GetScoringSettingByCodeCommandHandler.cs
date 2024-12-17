@@ -12,18 +12,18 @@ namespace ThePatho.Features.MasterSetting.ScoringSetting.Commands
 {
     public class GetScoringSettingByCodeCommandHandler : IRequestHandler<GetScoringSettingByCodeCommand, ScoringSettingDto>
     {
-        private readonly IScoringSettingService ScoringSettingService;
+        private readonly IScoringSettingService scoringSettingService;
 
-        public GetScoringSettingByCodeCommandHandler(IScoringSettingService _ScoringSettingService)
+        public GetScoringSettingByCodeCommandHandler(IScoringSettingService _scoringSettingService)
         {
-            ScoringSettingService = _ScoringSettingService;
+            scoringSettingService = _scoringSettingService;
         }
 
         public async Task<ScoringSettingDto> Handle(GetScoringSettingByCodeCommand request, CancellationToken cancellationToken)
         {
-            var ScoringSetting = await ScoringSettingService.GetScoringSettingByCode(request);
+            var data = await scoringSettingService.GetScoringSettingByCode(request);
 
-            return ScoringSetting;
+            return data;
         }
     }
 }

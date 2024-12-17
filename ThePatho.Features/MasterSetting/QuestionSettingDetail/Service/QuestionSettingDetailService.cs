@@ -10,16 +10,16 @@ namespace ThePatho.Features.MasterSetting.QuestionSettingDetail.Service
 {
     public class QuestionSettingDetailService : IQuestionSettingDetailService
     {
-        private readonly SqlQueryLoader _queryLoader;
-        private readonly IDbConnection _dbConnection;
-        private readonly DapperContext _dappercontext;
-        private readonly ApplicationDbContext _context;
-        public QuestionSettingDetailService(ApplicationDbContext context, DapperContext dappercontext, SqlQueryLoader queryLoader, IDbConnection dbConnection)
+        private readonly SqlQueryLoader queryLoader;
+        private readonly IDbConnection dbConnection;
+        private readonly DapperContext dappercontext;
+        private readonly ApplicationDbContext context;
+        public QuestionSettingDetailService(ApplicationDbContext _context, DapperContext _dappercontext, SqlQueryLoader _queryLoader, IDbConnection _dbConnection)
         {
-            _context = context;
-            _dappercontext = dappercontext;
-            _queryLoader = queryLoader;
-            _dbConnection = dbConnection;
+            context = _context;
+            dappercontext = _dappercontext;
+            queryLoader = _queryLoader;
+            dbConnection = _dbConnection;
         }
 
         public async Task<List<QuestionSettingDetailDto>> GetQuestionSettingDetail(GetQuestionSettingDetailCommand request)
@@ -27,39 +27,39 @@ namespace ThePatho.Features.MasterSetting.QuestionSettingDetail.Service
             var parameters = new DynamicParameters();
             parameters.Add("@PageNumber", request.PageNumber);
             parameters.Add("@PageSize", request.PageSize);
-            parameters.Add("@FilterQuestionCode", request.FilterQuestionCode ?? (object)DBNull.Value);
-            parameters.Add("@FilterQuestionName", request.FilterQuestionName ?? (object)DBNull.Value);
+            parameters.Add("@QuestionCode", request.FilterQuestionCode ?? (object)DBNull.Value);
+            parameters.Add("@QuestionName", request.FilterQuestionName ?? (object)DBNull.Value);
             parameters.Add("@SortBy", request.SortBy);
             parameters.Add("@OrderBy", request.OrderBy);
 
-            var query = await _queryLoader.LoadQueryAsync("MasterSetting/QuestionSettingDetail/Sql/search_question_setting_detail");
-            var QuestionSettingDetail = await _dbConnection.QueryAsync<QuestionSettingDetailDto>(query, parameters);
+            var query = await queryLoader.LoadQueryAsync("MasterSetting/QuestionSettingDetail/Sql/search_question_setting_detail");
+            var data = await dbConnection.QueryAsync<QuestionSettingDetailDto>(query, parameters);
 
-            return QuestionSettingDetail.ToList();
+            return data.ToList();
         }
 
-        public async Task<QuestionSettingDetailDto> GetQuestionSettingDetailByCode(GetQuestionSettingDetailByCodeCommand request)
+        public async Task<List<QuestionSettingDetailDto>> GetQuestionSettingDetailByCode(GetQuestionSettingDetailByCodeCommand request)
         {
             var parameters = new DynamicParameters();
-            parameters.Add("@FilterQuestionCode", request.FilterQuestionCode ?? (object)DBNull.Value);
+            parameters.Add("@QuestionCode", request.FilterQuestionCode ?? (object)DBNull.Value);
 
-            var query = await _queryLoader.LoadQueryAsync("MasterSetting/QuestionSettingDetail/Sql/search_question_setting_detail_by_code");
+            var query = await queryLoader.LoadQueryAsync("MasterSetting/QuestionSettingDetail/Sql/search_question_setting_detail_by_code");
 
-            var QuestionSettingDetail = await _dbConnection.QueryFirstOrDefaultAsync<QuestionSettingDetailDto>(query, parameters);
+            var data = await dbConnection.QueryAsync<QuestionSettingDetailDto>(query, parameters);
 
-            return QuestionSettingDetail;
+            return data.ToList();
         }
 
         public async Task<List<QuestionSettingDetailDto>> GetQuestionSettingDetailDdl(GetQuestionSettingDetailDdlCommand request)
         {
             var parameters = new DynamicParameters();
 
-            parameters.Add("@FilterQuestionCode", request.FilterQuestionCode ?? (object)DBNull.Value);
+            parameters.Add("@QuestionCode", request.FilterQuestionCode ?? (object)DBNull.Value);
 
-            var query = await _queryLoader.LoadQueryAsync("MasterSetting/QuestionSettingDetail/Sql/search_question_setting_Detail_ddl");
-            var QuestionSettingDetail = await _dbConnection.QueryAsync<QuestionSettingDetailDto>(query, parameters);
+            var query = await queryLoader.LoadQueryAsync("MasterSetting/QuestionSettingDetail/Sql/search_question_setting_Detail_ddl");
+            var data = await dbConnection.QueryAsync<QuestionSettingDetailDto>(query, parameters);
 
-            return QuestionSettingDetail.ToList();
+            return data.ToList();
         }
     }
 }

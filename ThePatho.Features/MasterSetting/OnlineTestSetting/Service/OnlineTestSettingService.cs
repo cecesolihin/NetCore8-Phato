@@ -9,16 +9,14 @@ namespace ThePatho.Features.MasterSetting.OnlineTestSetting.Service
 {
     public class OnlineTestSettingService : IOnlineTestSettingService
     {
-        private readonly SqlQueryLoader _queryLoader;
-        private readonly IDbConnection _dbConnection;
-        private readonly DapperContext _dappercontext;
-        private readonly ApplicationDbContext _context;
-        public OnlineTestSettingService(ApplicationDbContext context, DapperContext dappercontext, SqlQueryLoader queryLoader, IDbConnection dbConnection)
+        private readonly SqlQueryLoader queryLoader;
+        private readonly IDbConnection dbConnection;
+        //private readonly DapperContext dappercontext;
+        //private readonly ApplicationDbContext _context;
+        public OnlineTestSettingService(SqlQueryLoader _queryLoader, IDbConnection _dbConnection)
         {
-            _context = context;
-            _dappercontext = dappercontext;
-            _queryLoader = queryLoader;
-            _dbConnection = dbConnection;
+            queryLoader = _queryLoader;
+            dbConnection = _dbConnection;
         }
 
         public async Task<List<OnlineTestSettingDto>> GetOnlineTestSetting(GetOnlineTestSettingCommand request)
@@ -26,41 +24,40 @@ namespace ThePatho.Features.MasterSetting.OnlineTestSetting.Service
             var parameters = new DynamicParameters();
             parameters.Add("@PageNumber", request.PageNumber);
             parameters.Add("@PageSize", request.PageSize);
-            parameters.Add("@FilterOnlineTestCode", request.FilterOnlineTestCode ?? (object)DBNull.Value);
-            parameters.Add("@FilterOnlineTestName", request.FilterOnlineTestName ?? (object)DBNull.Value);
-            parameters.Add("@FilterTestQuestion", request.FilterTestQuestion ?? (object)DBNull.Value);
+            parameters.Add("@OnlineTestCode", request.FilterOnlineTestCode ?? (object)DBNull.Value);
+            parameters.Add("@OnlineTestName", request.FilterOnlineTestName ?? (object)DBNull.Value);
+            parameters.Add("@TestQuestion", request.FilterTestQuestion ?? (object)DBNull.Value);
             parameters.Add("@SortBy", request.SortBy);
             parameters.Add("@OrderBy", request.OrderBy);
 
-            var query = await _queryLoader.LoadQueryAsync("MasterSetting/OnlineTestSetting/Sql/search_online_setting");
-            var OnlineTestSetting = await _dbConnection.QueryAsync<OnlineTestSettingDto>(query, parameters);
+            var query = await queryLoader.LoadQueryAsync("MasterSetting/OnlineTestSetting/Sql/search_online_setting");
+            var data = await dbConnection.QueryAsync<OnlineTestSettingDto>(query, parameters);
 
-            return OnlineTestSetting.ToList();
+            return data.ToList();
         }
 
         public async Task<OnlineTestSettingDto> GetOnlineTestSettingByCode(GetOnlineTestSettingByCodeCommand request)
         {
             var parameters = new DynamicParameters();
-            parameters.Add("@FilterOnlineTestCode", request.FilterOnlineTestCode ?? (object)DBNull.Value);
+            parameters.Add("@OnlineTestCode", request.FilterOnlineTestCode ?? (object)DBNull.Value);
 
-            var query = await _queryLoader.LoadQueryAsync("MasterSetting/OnlineTestSetting/Sql/search_online_setting_by_code");
+            var query = await queryLoader.LoadQueryAsync("MasterSetting/OnlineTestSetting/Sql/search_online_setting_by_code");
 
-            var OnlineTestSetting = await _dbConnection.QueryFirstOrDefaultAsync<OnlineTestSettingDto>(query, parameters);
+            var data = await dbConnection.QueryFirstOrDefaultAsync<OnlineTestSettingDto>(query, parameters);
 
-            return OnlineTestSetting;
+            return data;
         }
 
         public async Task<List<OnlineTestSettingDto>> GetOnlineTestSettingDdl(GetOnlineTestSettingDdlCommand request)
         {
             var parameters = new DynamicParameters();
 
-            parameters.Add("@FilterQuestion", request.FilterQuestion ?? (object)DBNull.Value);
-            parameters.Add("@FilterRecruitmentRequestNo", request.FilterRecruitmentRequestNo ?? (object)DBNull.Value);
+            parameters.Add("@RecruitmentRequestNo", request.FilterRecruitmentRequestNo ?? (object)DBNull.Value);
 
-            var query = await _queryLoader.LoadQueryAsync("MasterSetting/OnlineTestSetting/Sql/search_online_setting_ddl");
-            var OnlineTestSetting = await _dbConnection.QueryAsync<OnlineTestSettingDto>(query, parameters);
+            var query = await queryLoader.LoadQueryAsync("MasterSetting/OnlineTestSetting/Sql/search_online_setting_ddl");
+            var data = await dbConnection.QueryAsync<OnlineTestSettingDto>(query, parameters);
 
-            return OnlineTestSetting.ToList();
+            return data.ToList();
         }
     }
 }

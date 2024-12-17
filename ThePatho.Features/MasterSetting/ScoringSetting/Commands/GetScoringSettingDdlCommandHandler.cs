@@ -14,21 +14,21 @@ namespace ThePatho.Features.MasterSetting.ScoringSetting.Commands
 {
     public class GetScoringSettingDdlCommandHandler : IRequestHandler<GetScoringSettingDdlCommand, ScoringSettingItemDto>
     {
-        private readonly IScoringSettingService ScoringSettingService;
+        private readonly IScoringSettingService scoringSettingService;
 
-        public GetScoringSettingDdlCommandHandler(IScoringSettingService _ScoringSetting)
+        public GetScoringSettingDdlCommandHandler(IScoringSettingService _ScoringSettingService)
         {
-            ScoringSettingService = _ScoringSetting;
+            scoringSettingService = _ScoringSettingService;
         }
 
         public async Task<ScoringSettingItemDto> Handle(GetScoringSettingDdlCommand request, CancellationToken cancellationToken)
         {
-            var ScoringSetting = await ScoringSettingService.GetScoringSettingDdl(request);
+            var data = await scoringSettingService.GetScoringSettingDdl(request);
 
             return new ScoringSettingItemDto
             {
-                DataOfRecords = ScoringSetting.Count,
-                ScoringSettingList = ScoringSetting
+                DataOfRecords = data.Count,
+                ScoringSettingList = data
             };
         }
     }

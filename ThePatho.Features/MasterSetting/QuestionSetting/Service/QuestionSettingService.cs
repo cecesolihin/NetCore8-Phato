@@ -10,16 +10,16 @@ namespace ThePatho.Features.MasterSetting.QuestionSetting.Service
 {
     public class QuestionSettingService : IQuestionSettingService
     {
-        private readonly SqlQueryLoader _queryLoader;
-        private readonly IDbConnection _dbConnection;
-        private readonly DapperContext _dappercontext;
-        private readonly ApplicationDbContext _context;
-        public QuestionSettingService(ApplicationDbContext context, DapperContext dappercontext, SqlQueryLoader queryLoader, IDbConnection dbConnection)
+        private readonly SqlQueryLoader queryLoader;
+        private readonly IDbConnection dbConnection;
+        private readonly DapperContext dappercontext;
+        private readonly ApplicationDbContext context;
+        public QuestionSettingService(ApplicationDbContext _context, DapperContext _dappercontext, SqlQueryLoader _queryLoader, IDbConnection _dbConnection)
         {
-            _context = context;
-            _dappercontext = dappercontext;
-            _queryLoader = queryLoader;
-            _dbConnection = dbConnection;
+            context = _context;
+            dappercontext = _dappercontext;
+            queryLoader = _queryLoader;
+            dbConnection = _dbConnection;
         }
 
         public async Task<List<QuestionSettingDto>> GetQuestionSetting(GetQuestionSettingCommand request)
@@ -27,39 +27,39 @@ namespace ThePatho.Features.MasterSetting.QuestionSetting.Service
             var parameters = new DynamicParameters();
             parameters.Add("@PageNumber", request.PageNumber);
             parameters.Add("@PageSize", request.PageSize);
-            parameters.Add("@FilterQuestionCode", request.FilterQuestionCode ?? (object)DBNull.Value);
-            parameters.Add("@FilterQuestionName", request.FilterQuestionName ?? (object)DBNull.Value);
+            parameters.Add("@QuestionCode", request.FilterQuestionCode ?? (object)DBNull.Value);
+            parameters.Add("@QuestionName", request.FilterQuestionName ?? (object)DBNull.Value);
             parameters.Add("@SortBy", request.SortBy);
             parameters.Add("@OrderBy", request.OrderBy);
 
-            var query = await _queryLoader.LoadQueryAsync("MasterSetting/QuestionSetting/Sql/search_question_setting");
-            var QuestionSetting = await _dbConnection.QueryAsync<QuestionSettingDto>(query, parameters);
+            var query = await queryLoader.LoadQueryAsync("MasterSetting/QuestionSetting/Sql/search_question_setting");
+            var data = await dbConnection.QueryAsync<QuestionSettingDto>(query, parameters);
 
-            return QuestionSetting.ToList();
+            return data.ToList();
         }
 
         public async Task<QuestionSettingDto> GetQuestionSettingByCode(GetQuestionSettingByCodeCommand request)
         {
             var parameters = new DynamicParameters();
-            parameters.Add("@FilterQuestionCode", request.FilterQuestionCode ?? (object)DBNull.Value);
+            parameters.Add("@QuestionCode", request.FilterQuestionCode ?? (object)DBNull.Value);
 
-            var query = await _queryLoader.LoadQueryAsync("MasterSetting/QuestionSetting/Sql/search_question_setting_by_code");
+            var query = await queryLoader.LoadQueryAsync("MasterSetting/QuestionSetting/Sql/search_question_setting_by_code");
 
-            var QuestionSetting = await _dbConnection.QueryFirstOrDefaultAsync<QuestionSettingDto>(query, parameters);
+            var data = await dbConnection.QueryFirstAsync<QuestionSettingDto>(query, parameters);
 
-            return QuestionSetting;
+            return data;
         }
 
         public async Task<List<QuestionSettingDto>> GetQuestionSettingDdl(GetQuestionSettingDdlCommand request)
         {
             var parameters = new DynamicParameters();
 
-            parameters.Add("@FilterQuestionCode", request.FilterQuestionCode ?? (object)DBNull.Value);
+            parameters.Add("@QuestionCode", request.FilterQuestionCode ?? (object)DBNull.Value);
 
-            var query = await _queryLoader.LoadQueryAsync("MasterSetting/QuestionSetting/Sql/search_question_setting_ddl");
-            var QuestionSetting = await _dbConnection.QueryAsync<QuestionSettingDto>(query, parameters);
+            var query = await queryLoader.LoadQueryAsync("MasterSetting/QuestionSetting/Sql/search_question_setting_ddl");
+            var data = await dbConnection.QueryAsync<QuestionSettingDto>(query, parameters);
 
-            return QuestionSetting.ToList();
+            return data.ToList();
         }
     }
 }

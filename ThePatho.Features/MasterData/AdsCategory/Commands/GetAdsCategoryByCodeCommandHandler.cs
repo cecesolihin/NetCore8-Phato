@@ -12,18 +12,18 @@ namespace ThePatho.Features.MasterData.AdsCategory.Commands
 {
     public class GetAdsCategoryByCodeCommandHandler : IRequestHandler<GetAdsCategoryByCodeCommand, AdsCategoryDto>
     {
-        private readonly IAdsCategoryService _adsCategoryService;
+        private readonly IAdsCategoryService adsCategoryService;
 
-        public GetAdsCategoryByCodeCommandHandler(IAdsCategoryService adsCategoryService)
+        public GetAdsCategoryByCodeCommandHandler(IAdsCategoryService _adsCategoryService)
         {
-            _adsCategoryService = adsCategoryService;
+            adsCategoryService = _adsCategoryService;
         }
 
         public async Task<AdsCategoryDto> Handle(GetAdsCategoryByCodeCommand request, CancellationToken cancellationToken)
         {
-            var categories = await _adsCategoryService.GetAdsCategoryByCode(request);
+            var data = await adsCategoryService.GetAdsCategoryByCode(request);
 
-            return categories;
+            return data;
         }
     }
 }

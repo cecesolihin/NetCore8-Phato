@@ -15,21 +15,21 @@ namespace ThePatho.Features.MasterSetting.QuestionSettingDetail.Commands
 {
     public class GetQuestionSettingDetailDdlCommandHandler : IRequestHandler<GetQuestionSettingDetailDdlCommand, QuestionSettingDetailItemDto>
     {
-        private readonly IQuestionSettingDetailService QuestionSettingDetailService;
+        private readonly IQuestionSettingDetailService questionSettingDetailService;
 
         public GetQuestionSettingDetailDdlCommandHandler(IQuestionSettingDetailService _QuestionSettingDetail)
         {
-            QuestionSettingDetailService = _QuestionSettingDetail;
+            questionSettingDetailService = _QuestionSettingDetail;
         }
 
         public async Task<QuestionSettingDetailItemDto> Handle(GetQuestionSettingDetailDdlCommand request, CancellationToken cancellationToken)
         {
-            var QuestionSettingDetail = await QuestionSettingDetailService.GetQuestionSettingDetailDdl(request);
+            var data = await questionSettingDetailService.GetQuestionSettingDetailDdl(request);
 
             return new QuestionSettingDetailItemDto
             {
-                DataOfRecords = QuestionSettingDetail.Count,
-                QuestionSettingDetailList = QuestionSettingDetail
+                DataOfRecords = data.Count,
+                QuestionSettingDetailList = data
             };
         }
     }

@@ -10,7 +10,7 @@ using ThePatho.Features.MasterSetting.QuestionSettingDetail.Service;
 
 namespace ThePatho.Features.MasterSetting.QuestionSettingDetail.Commands
 {
-    public class GetQuestionSettingDetailByCodeCommandHandler : IRequestHandler<GetQuestionSettingDetailByCodeCommand, QuestionSettingDetailDto>
+    public class GetQuestionSettingDetailByCodeCommandHandler : IRequestHandler<GetQuestionSettingDetailByCodeCommand, QuestionSettingDetailItemDto>
     {
         private readonly IQuestionSettingDetailService questionSettingDetailService;
 
@@ -19,11 +19,15 @@ namespace ThePatho.Features.MasterSetting.QuestionSettingDetail.Commands
             questionSettingDetailService = _questionSettingDetailService;
         }
 
-        public async Task<QuestionSettingDetailDto> Handle(GetQuestionSettingDetailByCodeCommand request, CancellationToken cancellationToken)
+        public async Task<QuestionSettingDetailItemDto> Handle(GetQuestionSettingDetailByCodeCommand request, CancellationToken cancellationToken)
         {
-            var questionSettingDetail = await questionSettingDetailService.GetQuestionSettingDetailByCode(request);
+            var data = await questionSettingDetailService.GetQuestionSettingDetailByCode(request);
 
-            return questionSettingDetail;
+            return new QuestionSettingDetailItemDto
+            {
+                DataOfRecords = data.Count,
+                QuestionSettingDetailList = data
+            };
         }
     }
 }

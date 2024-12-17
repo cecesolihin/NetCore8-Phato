@@ -10,20 +10,24 @@ using ThePatho.Features.MasterSetting.ScoringSettingDetail.Service;
 
 namespace ThePatho.Features.MasterSetting.ScoringSettingDetail.Commands
 {
-    public class GetScoringSettingDetailByCodeCommandHandler : IRequestHandler<GetScoringSettingDetailByCodeCommand, ScoringSettingDetailDto>
+    public class GetScoringSettingDetailByCodeCommandHandler : IRequestHandler<GetScoringSettingDetailByCodeCommand, ScoringSettingDetailItemDto>
     {
-        private readonly IScoringSettingDetailService ScoringSettingDetailService;
+        private readonly IScoringSettingDetailService scoringSettingDetailService;
 
-        public GetScoringSettingDetailByCodeCommandHandler(IScoringSettingDetailService _ScoringSettingDetailService)
+        public GetScoringSettingDetailByCodeCommandHandler(IScoringSettingDetailService _scoringSettingDetailService)
         {
-            ScoringSettingDetailService = _ScoringSettingDetailService;
+            scoringSettingDetailService = _scoringSettingDetailService;
         }
 
-        public async Task<ScoringSettingDetailDto> Handle(GetScoringSettingDetailByCodeCommand request, CancellationToken cancellationToken)
+        public async Task<ScoringSettingDetailItemDto> Handle(GetScoringSettingDetailByCodeCommand request, CancellationToken cancellationToken)
         {
-            var ScoringSettingDetail = await ScoringSettingDetailService.GetScoringSettingDetailByCode(request);
+            var data = await scoringSettingDetailService.GetScoringSettingDetailByCode(request);
 
-            return ScoringSettingDetail;
+            return new ScoringSettingDetailItemDto
+            {
+                DataOfRecords = data.Count,
+                ScoringSettingDetailList = data
+            };
         }
     }
 }

@@ -9,16 +9,16 @@ namespace ThePatho.Features.MasterSetting.ScoringSettingDetail.Service
 {
     public class ScoringSettingDetailService : IScoringSettingDetailService
     {
-        private readonly SqlQueryLoader _queryLoader;
-        private readonly IDbConnection _dbConnection;
-        private readonly DapperContext _dappercontext;
-        private readonly ApplicationDbContext _context;
-        public ScoringSettingDetailService(ApplicationDbContext context, DapperContext dappercontext, SqlQueryLoader queryLoader, IDbConnection dbConnection)
+        private readonly SqlQueryLoader queryLoader;
+        private readonly IDbConnection dbConnection;
+        private readonly DapperContext dappercontext;
+        private readonly ApplicationDbContext context;
+        public ScoringSettingDetailService(ApplicationDbContext _context, DapperContext _dappercontext, SqlQueryLoader _queryLoader, IDbConnection _dbConnection)
         {
-            _context = context;
-            _dappercontext = dappercontext;
-            _queryLoader = queryLoader;
-            _dbConnection = dbConnection;
+            context = _context;
+            dappercontext = _dappercontext;
+            queryLoader = _queryLoader;
+            dbConnection = _dbConnection;
         }
 
         public async Task<List<ScoringSettingDetailDto>> GetScoringSettingDetail(GetScoringSettingDetailCommand request)
@@ -26,39 +26,39 @@ namespace ThePatho.Features.MasterSetting.ScoringSettingDetail.Service
             var parameters = new DynamicParameters();
             parameters.Add("@PageNumber", request.PageNumber);
             parameters.Add("@PageSize", request.PageSize);
-            parameters.Add("@FilterScoringCode", request.FilterScoringCode ?? (object)DBNull.Value);
-            parameters.Add("@FilterScoringName", request.FilterScoringName ?? (object)DBNull.Value);
+            parameters.Add("@ScoringCode", request.FilterScoringCode ?? (object)DBNull.Value);
+            parameters.Add("@ScoringName", request.FilterScoringName ?? (object)DBNull.Value);
             parameters.Add("@SortBy", request.SortBy);
             parameters.Add("@OrderBy", request.OrderBy);
 
-            var query = await _queryLoader.LoadQueryAsync("MasterSetting/ScoringSettingDetail/Sql/search_scoring_setting_detail");
-            var ScoringSettingDetail = await _dbConnection.QueryAsync<ScoringSettingDetailDto>(query, parameters);
+            var query = await queryLoader.LoadQueryAsync("MasterSetting/ScoringSettingDetail/Sql/search_scoring_setting_detail");
+            var data = await dbConnection.QueryAsync<ScoringSettingDetailDto>(query, parameters);
 
-            return ScoringSettingDetail.ToList();
+            return data.ToList();
         }
 
-        public async Task<ScoringSettingDetailDto> GetScoringSettingDetailByCode(GetScoringSettingDetailByCodeCommand request)
+        public async Task<List<ScoringSettingDetailDto>> GetScoringSettingDetailByCode(GetScoringSettingDetailByCodeCommand request)
         {
             var parameters = new DynamicParameters();
-            parameters.Add("@FilterScoringCode", request.FilterScoringCode ?? (object)DBNull.Value);
+            parameters.Add("@ScoringCode", request.FilterScoringCode ?? (object)DBNull.Value);
 
-            var query = await _queryLoader.LoadQueryAsync("MasterSetting/ScoringSettingDetail/Sql/search_scoring_setting_detail_by_code");
+            var query = await queryLoader.LoadQueryAsync("MasterSetting/ScoringSettingDetail/Sql/search_scoring_setting_detail_by_code");
 
-            var ScoringSettingDetail = await _dbConnection.QueryFirstOrDefaultAsync<ScoringSettingDetailDto>(query, parameters);
+            var data = await dbConnection.QueryAsync<ScoringSettingDetailDto>(query, parameters);
 
-            return ScoringSettingDetail;
+            return data.ToList();
         }
 
         public async Task<List<ScoringSettingDetailDto>> GetScoringSettingDetailDdl(GetScoringSettingDetailDdlCommand request)
         {
             var parameters = new DynamicParameters();
 
-            parameters.Add("@FilterScoringCode", request.FilterScoringCode ?? (object)DBNull.Value);
+            parameters.Add("@ScoringCode", request.FilterScoringCode ?? (object)DBNull.Value);
 
-            var query = await _queryLoader.LoadQueryAsync("MasterSetting/ScoringSettingDetail/Sql/search_scoring_setting_detail_ddl");
-            var ScoringSettingDetail = await _dbConnection.QueryAsync<ScoringSettingDetailDto>(query, parameters);
+            var query = await queryLoader.LoadQueryAsync("MasterSetting/ScoringSettingDetail/Sql/search_scoring_setting_detail_ddl");
+            var data = await dbConnection.QueryAsync<ScoringSettingDetailDto>(query, parameters);
 
-            return ScoringSettingDetail.ToList();
+            return data.ToList();
         }
     }
 }
