@@ -21,5 +21,10 @@ namespace ThePatho.Features.Recruitment.RecruitStepGroupDetail.DTO
         public RecruitStepGroupDto RecruitStepGroup { get; set; }
         public RecruitStepDto RecruitStep { get; set; }
     }
+    public class RecruitStepGroupDetailItemDto
+    {
+        public int DataOfRecords { get; set; }
+        public List<RecruitStepGroupDetailDto> RecruitStepGroupDetailList { get; set; } = new();
+    }
 
 }

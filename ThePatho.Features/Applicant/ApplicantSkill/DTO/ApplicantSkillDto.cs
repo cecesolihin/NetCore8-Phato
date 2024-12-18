@@ -1,4 +1,6 @@
 
+using ThePatho.Features.Recruitment.RecruitmentRequest.DTO;
+
 namespace ThePatho.Features.Applicant.ApplicantSkill.DTO
 {
     public class ApplicantSkillDto
@@ -15,5 +17,9 @@ namespace ThePatho.Features.Applicant.ApplicantSkill.DTO
         public string ModifiedBy { get; set; }
         public DateTime? ModifiedDate { get; set; }
     }
-
+    public class ApplicantSkillItemDto
+    {
+        public int DataOfRecords { get; set; }
+        public List<ApplicantSkillDto> ApplicantSkillList { get; set; } = new();
+    }
 }

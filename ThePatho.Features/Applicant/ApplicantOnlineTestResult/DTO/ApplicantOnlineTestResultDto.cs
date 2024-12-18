@@ -1,4 +1,5 @@
 using ThePatho.Features.Applicant.ApplicantOnlineTestAnswer.DTO;
+using ThePatho.Features.Recruitment.RecruitmentRequest.DTO;
 
 namespace ThePatho.Features.Applicant.ApplicantOnlineTestResult.DTO
 {
@@ -21,5 +22,9 @@ namespace ThePatho.Features.Applicant.ApplicantOnlineTestResult.DTO
 
         public virtual ICollection<ApplicantOnlineTestAnswerDto> AppAnswers { get; set; }
     }
-
+    public class ApplicantOnlineTestResultItemDto
+    {
+        public int DataOfRecords { get; set; }
+        public List<ApplicantOnlineTestResultDto> ApplicantOnlineTestResultList { get; set; } = new();
+    }
 }

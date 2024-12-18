@@ -1,4 +1,6 @@
 
+using ThePatho.Features.Recruitment.RecruitmentReqStep.DTO;
+
 namespace ThePatho.Features.Recruitment.RecruitmentRequest.DTO
 {
     public class RecruitmentRequestDto
@@ -41,5 +43,9 @@ namespace ThePatho.Features.Recruitment.RecruitmentRequest.DTO
         public string ModifiedBy { get; set; }
         public DateTime? ModifiedDate { get; set; }
     }
-
+    public class RecruitmentRequestItemDto
+    {
+        public int DataOfRecords { get; set; }
+        public List<RecruitmentRequestDto> RecruitmentRequestList { get; set; } = new();
+    }
 }

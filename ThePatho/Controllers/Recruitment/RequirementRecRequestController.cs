@@ -1,60 +1,62 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
+using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Features.Recruitment.RequirementRecRequest.Commands;
 using ThePatho.Features.Recruitment.RequirementRecRequest.DTO;
 using ThePatho.Features.Recruitment.RequirementRecRequest.Service;
 
 namespace ThePatho.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/recruitment/recruitment-rec-request")]
     public class RequirementRecRequestController : ControllerBase
     {
-        private readonly IRequirementRecRequestService _RequirementRecRequestService;
+        private readonly IMediator mediator;
 
-        public RequirementRecRequestController(IRequirementRecRequestService RequirementRecRequestService)
+        public RequirementRecRequestController(IMediator _mediator)
         {
-            _RequirementRecRequestService = RequirementRecRequestService;
+            mediator = _mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
+        [HttpPost("recruitment-rec-list")]
+        public async Task<IActionResult> GetRequirementRecRequestList([FromBody] GetRequirementRecRequestCommand command,
+            CancellationToken cancellationToken)
         {
-            var categories = await _RequirementRecRequestService.GetAllRequirementRecRequestAsync();
-            return Ok(categories);
+            try
+            {
+                var result = await mediator.Send(command, cancellationToken);
+
+                var response = new ApiResponse<List<RequirementRecRequestDto>>(HttpStatusCode.OK, result.RequirementRecRequestList, "Process Successed");
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new ApiResponse<List<RequirementRecRequestDto>>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
+
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+            }
         }
 
-        [HttpGet("{code}")]
-        public async Task<IActionResult> GetByCode(string code)
+        [HttpPost("recruitment-rec-by-code")]
+        public async Task<IActionResult> GetRequirementRecRequestByCode([FromBody] GetRequirementRecRequestByCodeCommand command,
+            CancellationToken cancellationToken)
         {
-            var RequirementRecRequest = await _RequirementRecRequestService.GetRequirementRecRequestByCodeAsync(code);
-            if (RequirementRecRequest == null) return NotFound();
-            return Ok(RequirementRecRequest);
-        }
+            try
+            {
+                var result = await mediator.Send(command, cancellationToken);
 
-        [HttpPost]
-        public async Task<IActionResult> Create(RequirementRecRequestDto RequirementRecRequest)
-        {
-            var createdRequirementRecRequest = await _RequirementRecRequestService.AddRequirementRecRequestAsync(RequirementRecRequest);
-            return CreatedAtAction(nameof(GetByCode), new { code = createdRequirementRecRequest.RequestNo }, createdRequirementRecRequest);
-        }
+                var response = new ApiResponse<List<RequirementRecRequestDto>>(HttpStatusCode.OK, result.RequirementRecRequestList, "Process Successed");
 
-        [HttpPut("{code}")]
-        public async Task<IActionResult> Update(string code, RequirementRecRequestDto RequirementRecRequest)
-        {
-            if (code != RequirementRecRequest.RequestNo) return BadRequest();
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new ApiResponse<RequirementRecRequestDto>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
 
-            var updatedRequirementRecRequest = await _RequirementRecRequestService.UpdateRequirementRecRequestAsync(RequirementRecRequest);
-            if (updatedRequirementRecRequest == null) return NotFound();
-
-            return Ok(updatedRequirementRecRequest);
-        }
-
-        [HttpDelete("{code}")]
-        public async Task<IActionResult> Delete(string code)
-        {
-            var success = await _RequirementRecRequestService.DeleteRequirementRecRequestAsync(code);
-            if (!success) return NotFound();
-
-            return NoContent();
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+            }
         }
     }
 }

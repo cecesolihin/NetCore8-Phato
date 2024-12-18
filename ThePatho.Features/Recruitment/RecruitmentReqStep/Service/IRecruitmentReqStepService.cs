@@ -1,13 +1,11 @@
 using ThePatho.Features.Recruitment.RecruitmentReqStep.DTO;
+using ThePatho.Features.Recruitment.RecruitmentReqStep.Commands;
 
 namespace ThePatho.Features.Recruitment.RecruitmentReqStep.Service
 {
     public interface IRecruitmentReqStepService
     {
-        Task<List<RecruitmentReqStepDto>> GetAllRecruitmentReqStepAsync();
-        Task<RecruitmentReqStepDto?> GetRecruitmentReqStepByCodeAsync(string code);
-        Task<RecruitmentReqStepDto> AddRecruitmentReqStepAsync(RecruitmentReqStepDto reqStep);
-        Task<RecruitmentReqStepDto?> UpdateRecruitmentReqStepAsync(RecruitmentReqStepDto reqStep);
-        Task<bool> DeleteRecruitmentReqStepAsync(string code);
+        Task<List<RecruitmentReqStepDto>> GetRecruitmentReqStep(GetRecruitmentReqStepCommand request);
+        Task<List<RecruitmentReqStepDto>> GetRecruitmentReqStepByCode(GetRecruitmentReqStepByCodeCommand request);
     }
 }

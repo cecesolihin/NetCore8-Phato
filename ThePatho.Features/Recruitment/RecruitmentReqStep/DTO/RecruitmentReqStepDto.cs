@@ -1,5 +1,7 @@
 
 
+using ThePatho.Features.MasterSetting.OnlineTestSetting.DTO;
+
 namespace ThePatho.Features.Recruitment.RecruitmentReqStep.DTO
 {
     public class RecruitmentReqStepDto
@@ -13,5 +15,9 @@ namespace ThePatho.Features.Recruitment.RecruitmentReqStep.DTO
         public string ModifiedBy { get; set; }
         public DateTime? ModifiedDate { get; set; }
     }
-
+    public class RecruitmentReqStepItemDto
+    {
+        public int DataOfRecords { get; set; }
+        public List<RecruitmentReqStepDto> RecruitmentReqStepList { get; set; } = new();
+    }
 }

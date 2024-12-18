@@ -1,4 +1,6 @@
 
+using ThePatho.Features.Recruitment.RecruitmentRequest.DTO;
+
 namespace ThePatho.Features.Applicant.ApplicantRecruitStep.DTO
 {
     public class ApplicantRecruitStepDto
@@ -17,6 +19,11 @@ namespace ThePatho.Features.Applicant.ApplicantRecruitStep.DTO
         public DateTime? InsertedDate { get; set; }
         public string ModifiedBy { get; set; }
         public DateTime? ModifiedDate { get; set; }
+    }
+    public class ApplicantRecruitStepItemDto
+    {
+        public int DataOfRecords { get; set; }
+        public List<ApplicantRecruitStepDto> ApplicantRecruitStepList { get; set; } = new();
     }
 
 }

@@ -3618,6 +3618,8 @@
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
           "Microsoft.EntityFrameworkCore.SqlServer": "9.0.0",
+          "SqlKata": "2.4.0",
+          "SqlKata.Execution": "2.4.0",
           "ThePatho.Domain": "1.0.0"
         },
         "compile": {

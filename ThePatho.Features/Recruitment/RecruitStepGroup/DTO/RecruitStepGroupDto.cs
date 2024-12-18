@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ThePatho.Features.Recruitment.RecruitStep.DTO;
 using ThePatho.Features.Recruitment.RecruitStepGroupDetail.DTO;
 
 namespace ThePatho.Features.Recruitment.RecruitStepGroup.DTO
@@ -18,6 +19,11 @@ namespace ThePatho.Features.Recruitment.RecruitStepGroup.DTO
 
         // Navigation property
         public ICollection<RecruitStepGroupDetailDto> RecruitStepGroupDetails { get; set; }
+    }
+    public class RecruitStepGroupItemDto
+    {
+        public int DataOfRecords { get; set; }
+        public List<RecruitStepGroupDto> RecruitStepGroupList { get; set; } = new();
     }
 
 }

@@ -1,61 +1,64 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using ThePatho.Domain.Models;
+using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Features.Recruitment.RecruitStep.Commands;
+using ThePatho.Features.Recruitment.RecruitStep.DTO;
 using ThePatho.Features.Recruitment.RecruitStepGroupDetail.DTO;
 using ThePatho.Features.Recruitment.RecruitStepGroupDetail.Service;
 
 namespace ThePatho.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/recruitment/recruit-step-group")]
     public class RecruitStepGroupDetailController : ControllerBase
     {
-        private readonly IRecruitStepGroupDetailService _RecruitStepGroupDetailService;
+        private readonly IMediator mediator;
 
-        public RecruitStepGroupDetailController(IRecruitStepGroupDetailService RecruitStepGroupDetailService)
+        public RecruitStepGroupDetailController(IMediator _mediator)
         {
-            _RecruitStepGroupDetailService = RecruitStepGroupDetailService;
+            mediator = _mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
+        [HttpPost("recruit-step-group-detail-list")]
+        public async Task<IActionResult> GetRecruitStepList([FromBody] GetRecruitStepCommand command,
+            CancellationToken cancellationToken)
         {
-            var categories = await _RecruitStepGroupDetailService.GetAllRecruitStepGroupDetailAsync();
-            return Ok(categories);
+            try
+            {
+                var result = await mediator.Send(command, cancellationToken);
+
+                var response = new ApiResponse<List<RecruitStepDto>>(HttpStatusCode.OK, result.RecruitStepList, "Process Successed");
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new ApiResponse<List<RecruitStepDto>>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
+
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+            }
         }
 
-        [HttpGet("{code}")]
-        public async Task<IActionResult> GetByCode(string code)
+        [HttpPost("recruit-step-group-detail-by-code")]
+        public async Task<IActionResult> GetRecruitStepDetailByCode([FromBody] GetRecruitStepByCodeCommand command,
+            CancellationToken cancellationToken)
         {
-            var RecruitStepGroupDetail = await _RecruitStepGroupDetailService.GetRecruitStepGroupDetailByCodeAsync(code);
-            if (RecruitStepGroupDetail == null) return NotFound();
-            return Ok(RecruitStepGroupDetail);
-        }
+            try
+            {
+                var result = await mediator.Send(command, cancellationToken);
 
-        [HttpPost]
-        public async Task<IActionResult> Create(RecruitStepGroupDetailDto RecruitStepGroupDetail)
-        {
-            var createdRecruitStepGroupDetail = await _RecruitStepGroupDetailService.AddRecruitStepGroupDetailAsync(RecruitStepGroupDetail);
-            return CreatedAtAction(nameof(GetByCode), new { code = createdRecruitStepGroupDetail.RecStepGroupCode }, createdRecruitStepGroupDetail);
-        }
+                var response = new ApiResponse<RecruitStepDto>(HttpStatusCode.OK, result, "Process Successed");
 
-        [HttpPut("{code}")]
-        public async Task<IActionResult> Update(string code, RecruitStepGroupDetailDto RecruitStepGroupDetail)
-        {
-            if (code != RecruitStepGroupDetail.RecStepGroupCode) return BadRequest();
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new ApiResponse<RecruitStepDto>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
 
-            var updatedRecruitStepGroupDetail = await _RecruitStepGroupDetailService.UpdateRecruitStepGroupDetailAsync(RecruitStepGroupDetail);
-            if (updatedRecruitStepGroupDetail == null) return NotFound();
-
-            return Ok(updatedRecruitStepGroupDetail);
-        }
-
-        [HttpDelete("{code}")]
-        public async Task<IActionResult> Delete(string code)
-        {
-            var success = await _RecruitStepGroupDetailService.DeleteRecruitStepGroupDetailAsync(code);
-            if (!success) return NotFound();
-
-            return NoContent();
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+            }
         }
     }
 }

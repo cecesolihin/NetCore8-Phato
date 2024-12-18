@@ -1,13 +1,11 @@
 using ThePatho.Features.Recruitment.RecruitmentRequest.DTO;
+using ThePatho.Features.Recruitment.RecruitmentRequest.Commands;
 
 namespace ThePatho.Features.Recruitment.RecruitmentRequest.Service
 {
     public interface IRecruitmentRequestService
     {
-        Task<List<RecruitmentRequestDto>> GetAllRecruitmentRequestAsync();
-        Task<RecruitmentRequestDto?> GetRecruitmentRequestByCodeAsync(string code);
-        Task<RecruitmentRequestDto> AddRecruitmentRequestAsync(RecruitmentRequestDto request);
-        Task<RecruitmentRequestDto?> UpdateRecruitmentRequestAsync(RecruitmentRequestDto request);
-        Task<bool> DeleteRecruitmentRequestAsync(string code);
+        Task<List<RecruitmentRequestDto>> GetRecruitmentRequest(GetRecruitmentRequestCommand request);
+        Task<RecruitmentRequestDto> GetRecruitmentRequestByCode(GetRecruitmentRequestByCodeCommand request);
     }
 }

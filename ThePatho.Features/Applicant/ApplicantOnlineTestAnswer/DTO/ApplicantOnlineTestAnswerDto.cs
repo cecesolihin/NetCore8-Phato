@@ -1,4 +1,5 @@
 using ThePatho.Features.Applicant.ApplicantOnlineTestResult.DTO;
+using ThePatho.Features.Recruitment.RecruitmentRequest.DTO;
 
 namespace ThePatho.Features.Applicant.ApplicantOnlineTestAnswer.DTO
 {
@@ -16,6 +17,11 @@ namespace ThePatho.Features.Applicant.ApplicantOnlineTestAnswer.DTO
         public DateTime? ModifiedDate { get; set; }
 
         public virtual ApplicantOnlineTestResultDto AppResult { get; set; }
+    }
+    public class ApplicantOnlineTestAnswerItemDto
+    {
+        public int DataOfRecords { get; set; }
+        public List<ApplicantOnlineTestAnswerDto> ApplicantOnlineTestAnswerList { get; set; } = new();
     }
 
 }

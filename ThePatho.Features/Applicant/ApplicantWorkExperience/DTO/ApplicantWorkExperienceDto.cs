@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ThePatho.Features.Recruitment.RecruitmentRequest.DTO;
 
 namespace ThePatho.Features.Applicant.ApplicantWorkExperience.DTO
 {
@@ -33,5 +34,9 @@ namespace ThePatho.Features.Applicant.ApplicantWorkExperience.DTO
         public string ModifiedBy { get; set; }
         public DateTime? ModifiedDate { get; set; }
     }
-
+    public class ApplicantWorkExperienceItemDto
+    {
+        public int DataOfRecords { get; set; }
+        public List<ApplicantWorkExperienceDto> ApplicantWorkExperienceList { get; set; } = new();
+    }
 }

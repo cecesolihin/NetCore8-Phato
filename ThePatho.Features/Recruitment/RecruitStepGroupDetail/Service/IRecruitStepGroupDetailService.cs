@@ -1,13 +1,13 @@
+using ThePatho.Features.Recruitment.RecruitStep.Commands;
+using ThePatho.Features.Recruitment.RecruitStepGroup.Commands;
+using ThePatho.Features.Recruitment.RecruitStepGroup.DTO;
 using ThePatho.Features.Recruitment.RecruitStepGroupDetail.DTO;
 
 namespace ThePatho.Features.Recruitment.RecruitStepGroupDetail.Service
 {
     public interface IRecruitStepGroupDetailService
     {
-        Task<List<RecruitStepGroupDetailDto>> GetAllRecruitStepGroupDetailAsync();
-        Task<RecruitStepGroupDetailDto?> GetRecruitStepGroupDetailByCodeAsync(string code);
-        Task<RecruitStepGroupDetailDto> AddRecruitStepGroupDetailAsync(RecruitStepGroupDetailDto detail);
-        Task<RecruitStepGroupDetailDto?> UpdateRecruitStepGroupDetailAsync(RecruitStepGroupDetailDto detail);
-        Task<bool> DeleteRecruitStepGroupDetailAsync(string code);
+        Task<List<RecruitStepGroupDetailDto>> GetRecruitStepGroupDetail(GetRecruitStepGroupDetailCommand request);
+        Task<List<RecruitStepGroupDetailDto>> GetRecruitStepGroupDetailByCode(GetRecruitStepGroupDetailByCodeCommand request);
     }
 }

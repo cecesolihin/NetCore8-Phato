@@ -1,60 +1,62 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
+using ThePatho.Features.ConfigurationExtensions;
 using ThePatho.Features.Recruitment.RecruitmentRequest.DTO;
 using ThePatho.Features.Recruitment.RecruitmentRequest.Service;
+using ThePatho.Features.Recruitment.RecruitmentRequest.Commands;
 
 namespace ThePatho.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/recruitment/recruitment-request")]
     public class RecruitmentRequestController : ControllerBase
     {
-        private readonly IRecruitmentRequestService _RecruitmentRequestService;
+        private readonly IMediator mediator;
 
-        public RecruitmentRequestController(IRecruitmentRequestService RecruitmentRequestService)
+        public RecruitmentRequestController(IMediator _mediator)
         {
-            _RecruitmentRequestService = RecruitmentRequestService;
+            mediator = _mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
+        [HttpPost("recruitment-request-list")]
+        public async Task<IActionResult> GetRecruitmentRequestList([FromBody] GetRecruitmentRequestCommand command,
+            CancellationToken cancellationToken)
         {
-            var categories = await _RecruitmentRequestService.GetAllRecruitmentRequestAsync();
-            return Ok(categories);
+            try
+            {
+                var result = await mediator.Send(command, cancellationToken);
+
+                var response = new ApiResponse<List<RecruitmentRequestDto>>(HttpStatusCode.OK, result.RecruitmentRequestList, "Process Successed");
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new ApiResponse<List<RecruitmentRequestDto>>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
+
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+            }
         }
 
-        [HttpGet("{code}")]
-        public async Task<IActionResult> GetByCode(string code)
+        [HttpPost("recruitment-request-by-code")]
+        public async Task<IActionResult> GetRecruitmentRequestByCode([FromBody] GetRecruitmentRequestByCodeCommand command,
+            CancellationToken cancellationToken)
         {
-            var RecruitmentRequest = await _RecruitmentRequestService.GetRecruitmentRequestByCodeAsync(code);
-            if (RecruitmentRequest == null) return NotFound();
-            return Ok(RecruitmentRequest);
-        }
+            try
+            {
+                var result = await mediator.Send(command, cancellationToken);
 
-        [HttpPost]
-        public async Task<IActionResult> Create(RecruitmentRequestDto RecruitmentRequest)
-        {
-            var createdRecruitmentRequest = await _RecruitmentRequestService.AddRecruitmentRequestAsync(RecruitmentRequest);
-            return CreatedAtAction(nameof(GetByCode), new { code = createdRecruitmentRequest.RecStepGroupCode }, createdRecruitmentRequest);
-        }
+                var response = new ApiResponse<RecruitmentRequestDto>(HttpStatusCode.OK, result, "Process Successed");
 
-        [HttpPut("{code}")]
-        public async Task<IActionResult> Update(string code, RecruitmentRequestDto RecruitmentRequest)
-        {
-            if (code != RecruitmentRequest.RecStepGroupCode) return BadRequest();
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new ApiResponse<RecruitmentRequestDto>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
 
-            var updatedRecruitmentRequest = await _RecruitmentRequestService.UpdateRecruitmentRequestAsync(RecruitmentRequest);
-            if (updatedRecruitmentRequest == null) return NotFound();
-
-            return Ok(updatedRecruitmentRequest);
-        }
-
-        [HttpDelete("{code}")]
-        public async Task<IActionResult> Delete(string code)
-        {
-            var success = await _RecruitmentRequestService.DeleteRecruitmentRequestAsync(code);
-            if (!success) return NotFound();
-
-            return NoContent();
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+            }
         }
     }
 }

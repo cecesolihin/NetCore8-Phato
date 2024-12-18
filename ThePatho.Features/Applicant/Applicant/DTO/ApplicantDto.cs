@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ThePatho.Features.Recruitment.RecruitmentRequest.DTO;
 
 namespace ThePatho.Features.Applicant.Applicant.DTO
 {
@@ -26,5 +27,9 @@ namespace ThePatho.Features.Applicant.Applicant.DTO
         public bool? IsRehire { get; set; } // is_rehire
         public bool? HiredAsEmp { get; set; } // hired_as_emp
     }
-
+    public class ApplicantItemDto
+    {
+        public int DataOfRecords { get; set; }
+        public List<ApplicantDto> ApplicantDtoList { get; set; } = new();
+    }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ThePatho.Features.Recruitment.RecruitmentRequest.DTO;
 
 namespace ThePatho.Features.Applicant.ApplicantAddress.DTO
 {
@@ -33,5 +34,10 @@ namespace ThePatho.Features.Applicant.ApplicantAddress.DTO
         public DateTime? InsertedDate { get; set; }
         public string ModifiedBy { get; set; }
         public DateTime? ModifiedDate { get; set; }
+    }
+    public class ApplicantAddressItemDto
+    {
+        public int DataOfRecords { get; set; }
+        public List<ApplicantAddressDto> ApplicantAddressDtoList { get; set; } = new();
     }
 }

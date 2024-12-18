@@ -1,3 +1,5 @@
+using ThePatho.Features.Recruitment.RecruitmentRequest.DTO;
+
 namespace ThePatho.Features.Applicant.ApplicantEducation.DTO
 {
     public class ApplicantEducationDto
@@ -22,5 +24,9 @@ namespace ThePatho.Features.Applicant.ApplicantEducation.DTO
         public string ModifiedBy { get; set; }
         public DateTime? ModifiedDate { get; set; }
     }
-
+    public class ApplicantEducationItemDto
+    {
+        public int DataOfRecords { get; set; }
+        public List<ApplicantEducationDto> ApplicantEducationList { get; set; } = new();
+    }
 }

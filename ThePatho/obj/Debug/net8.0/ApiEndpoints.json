@@ -1891,6 +1891,102 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "ThePatho.Controllers.RecruitStepGroupController",
+    "Method": "GetRecruitStepByCode",
+    "RelativePath": "api/recruitment/recruit-step-group/recruit-step-group-by-code",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Recruitment.RecruitStep.Commands.GetRecruitStepByCodeCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.RecruitStepGroupDetailController",
+    "Method": "GetRecruitStepDetailByCode",
+    "RelativePath": "api/recruitment/recruit-step-group/recruit-step-group-detail-by-code",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Recruitment.RecruitStep.Commands.GetRecruitStepByCodeCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.RecruitStepGroupDetailController",
+    "Method": "GetRecruitStepList",
+    "RelativePath": "api/recruitment/recruit-step-group/recruit-step-group-detail-list",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Recruitment.RecruitStep.Commands.GetRecruitStepCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.RecruitStepGroupController",
+    "Method": "GetRecruitStepList",
+    "RelativePath": "api/recruitment/recruit-step-group/recruit-step-group-list",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Recruitment.RecruitStep.Commands.GetRecruitStepCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.RecruitStepController",
+    "Method": "GetRecruitStepByCode",
+    "RelativePath": "api/recruitment/recruit-step/recruit-step-by-code",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Recruitment.RecruitStep.Commands.GetRecruitStepByCodeCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.RecruitStepController",
+    "Method": "GetRecruitStepList",
+    "RelativePath": "api/recruitment/recruit-step/recruit-step-list",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Recruitment.RecruitStep.Commands.GetRecruitStepCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "ThePatho.Controllers.RecruitmentReqStepController",
     "Method": "GetAll",
     "RelativePath": "api/RecruitmentReqStep",
@@ -2036,243 +2132,6 @@
     "ContainingType": "ThePatho.Controllers.RecruitmentRequestController",
     "Method": "Delete",
     "RelativePath": "api/RecruitmentRequest/{code}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "code",
-        "Type": "System.String",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ThePatho.Controllers.RecruitStepController",
-    "Method": "GetAll",
-    "RelativePath": "api/RecruitStep",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ThePatho.Controllers.RecruitStepController",
-    "Method": "Create",
-    "RelativePath": "api/RecruitStep",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "RecruitStep",
-        "Type": "ThePatho.Features.Recruitment.RecruitStep.DTO.RecruitStepDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ThePatho.Controllers.RecruitStepController",
-    "Method": "GetByCode",
-    "RelativePath": "api/RecruitStep/{code}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "code",
-        "Type": "System.String",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ThePatho.Controllers.RecruitStepController",
-    "Method": "Update",
-    "RelativePath": "api/RecruitStep/{code}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "code",
-        "Type": "System.String",
-        "IsRequired": true
-      },
-      {
-        "Name": "RecruitStep",
-        "Type": "ThePatho.Features.Recruitment.RecruitStep.DTO.RecruitStepDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ThePatho.Controllers.RecruitStepController",
-    "Method": "Delete",
-    "RelativePath": "api/RecruitStep/{code}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "code",
-        "Type": "System.String",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ThePatho.Controllers.RecruitStepGroupController",
-    "Method": "GetAll",
-    "RelativePath": "api/RecruitStepGroup",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ThePatho.Controllers.RecruitStepGroupController",
-    "Method": "Create",
-    "RelativePath": "api/RecruitStepGroup",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "RecruitStepGroup",
-        "Type": "ThePatho.Features.Recruitment.RecruitStepGroup.DTO.RecruitStepGroupDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ThePatho.Controllers.RecruitStepGroupController",
-    "Method": "GetByCode",
-    "RelativePath": "api/RecruitStepGroup/{code}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "code",
-        "Type": "System.String",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ThePatho.Controllers.RecruitStepGroupController",
-    "Method": "Update",
-    "RelativePath": "api/RecruitStepGroup/{code}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "code",
-        "Type": "System.String",
-        "IsRequired": true
-      },
-      {
-        "Name": "RecruitStepGroup",
-        "Type": "ThePatho.Features.Recruitment.RecruitStepGroup.DTO.RecruitStepGroupDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ThePatho.Controllers.RecruitStepGroupController",
-    "Method": "Delete",
-    "RelativePath": "api/RecruitStepGroup/{code}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "code",
-        "Type": "System.String",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ThePatho.Controllers.RecruitStepGroupDetailController",
-    "Method": "GetAll",
-    "RelativePath": "api/RecruitStepGroupDetail",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ThePatho.Controllers.RecruitStepGroupDetailController",
-    "Method": "Create",
-    "RelativePath": "api/RecruitStepGroupDetail",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "RecruitStepGroupDetail",
-        "Type": "ThePatho.Features.Recruitment.RecruitStepGroupDetail.DTO.RecruitStepGroupDetailDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ThePatho.Controllers.RecruitStepGroupDetailController",
-    "Method": "GetByCode",
-    "RelativePath": "api/RecruitStepGroupDetail/{code}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "code",
-        "Type": "System.String",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ThePatho.Controllers.RecruitStepGroupDetailController",
-    "Method": "Update",
-    "RelativePath": "api/RecruitStepGroupDetail/{code}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "code",
-        "Type": "System.String",
-        "IsRequired": true
-      },
-      {
-        "Name": "RecruitStepGroupDetail",
-        "Type": "ThePatho.Features.Recruitment.RecruitStepGroupDetail.DTO.RecruitStepGroupDetailDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ThePatho.Controllers.RecruitStepGroupDetailController",
-    "Method": "Delete",
-    "RelativePath": "api/RecruitStepGroupDetail/{code}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,

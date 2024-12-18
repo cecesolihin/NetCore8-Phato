@@ -1,60 +1,63 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
+using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Features.Recruitment.RecruitStep.Commands;
 using ThePatho.Features.Recruitment.RecruitStep.DTO;
 using ThePatho.Features.Recruitment.RecruitStep.Service;
 
 namespace ThePatho.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/recruitment/recruit-step")]
     public class RecruitStepController : ControllerBase
     {
-        private readonly IRecruitStepService _RecruitStepService;
+        private readonly IMediator mediator;
 
-        public RecruitStepController(IRecruitStepService RecruitStepService)
+        public RecruitStepController(IMediator _mediator)
         {
-            _RecruitStepService = RecruitStepService;
+            mediator = _mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
+        [HttpPost("recruit-step-list")]
+        public async Task<IActionResult> GetRecruitStepList([FromBody] GetRecruitStepCommand command,
+            CancellationToken cancellationToken)
         {
-            var categories = await _RecruitStepService.GetAllRecruitStepAsync();
-            return Ok(categories);
+            try
+            {
+                var result = await mediator.Send(command, cancellationToken);
+
+                var response = new ApiResponse<List<RecruitStepDto>>(HttpStatusCode.OK, result.RecruitStepList, "Process Successed");
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new ApiResponse<List<RecruitStepDto>>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
+
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+            }
         }
 
-        [HttpGet("{code}")]
-        public async Task<IActionResult> GetByCode(string code)
+        [HttpPost("recruit-step-by-code")]
+        public async Task<IActionResult> GetRecruitStepByCode([FromBody] GetRecruitStepByCodeCommand command,
+            CancellationToken cancellationToken)
         {
-            var RecruitStep = await _RecruitStepService.GetRecruitStepByCodeAsync(code);
-            if (RecruitStep == null) return NotFound();
-            return Ok(RecruitStep);
+            try
+            {
+                var result = await mediator.Send(command, cancellationToken);
+
+                var response = new ApiResponse<RecruitStepDto>(HttpStatusCode.OK, result, "Process Successed");
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new ApiResponse<RecruitStepDto>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
+
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+            }
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Create(RecruitStepDto RecruitStep)
-        {
-            var createdRecruitStep = await _RecruitStepService.AddRecruitStepAsync(RecruitStep);
-            return CreatedAtAction(nameof(GetByCode), new { code = createdRecruitStep.RecruitStepCode }, createdRecruitStep);
-        }
-
-        [HttpPut("{code}")]
-        public async Task<IActionResult> Update(string code, RecruitStepDto RecruitStep)
-        {
-            if (code != RecruitStep.RecruitStepCode) return BadRequest();
-
-            var updatedRecruitStep = await _RecruitStepService.UpdateRecruitStepAsync(RecruitStep);
-            if (updatedRecruitStep == null) return NotFound();
-
-            return Ok(updatedRecruitStep);
-        }
-
-        [HttpDelete("{code}")]
-        public async Task<IActionResult> Delete(string code)
-        {
-            var success = await _RecruitStepService.DeleteRecruitStepAsync(code);
-            if (!success) return NotFound();
-
-            return NoContent();
-        }
     }
 }

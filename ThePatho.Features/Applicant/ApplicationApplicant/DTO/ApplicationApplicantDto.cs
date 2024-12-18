@@ -1,5 +1,7 @@
 
 
+using ThePatho.Features.Recruitment.RecruitmentRequest.DTO;
+
 namespace ThePatho.Features.Applicant.ApplicationApplicant.DTO
 {
     public class ApplicationApplicantDto
@@ -21,6 +23,11 @@ namespace ThePatho.Features.Applicant.ApplicationApplicant.DTO
         public DateTime? ModifiedDate { get; set; }
         public bool? InternalApplicant { get; set; }
         public bool? EmailConfirm { get; set; }
+    }
+    public class ApplicationApplicantItemDto
+    {
+        public int DataOfRecords { get; set; }
+        public List<ApplicationApplicantDto> ApplicationApplicantList { get; set; } = new();
     }
 
 }

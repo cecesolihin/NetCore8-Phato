@@ -1,11 +1,8 @@
 ﻿using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
+using SqlKata.Compilers;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace ThePatho.Infrastructure.Persistance
 {
@@ -24,5 +21,6 @@ namespace ThePatho.Infrastructure.Persistance
         {
             return new SqlConnection(_connectionString);
         }
+        public SqlServerCompiler Compiler => new SqlServerCompiler();
     }
 }
