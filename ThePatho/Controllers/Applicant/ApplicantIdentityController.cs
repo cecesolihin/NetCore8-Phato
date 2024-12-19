@@ -1,61 +1,63 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using ThePatho.Domain.Models;
+using ThePatho.Features.Applicant.ApplicantIdentity.Commands;
 using ThePatho.Features.Applicant.ApplicantIdentity.DTO;
 using ThePatho.Features.Applicant.ApplicantIdentity.Service;
+using ThePatho.Features.ConfigurationExtensions;
 
 namespace ThePatho.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/applicant/applicant-identity")]
     public class ApplicantIdentityController : ControllerBase
     {
-        private readonly IApplicantIdentityService _applicantIdentityService;
+        private readonly IMediator mediator;
 
-        public ApplicantIdentityController(IApplicantIdentityService applicantIdentityService)
+        public ApplicantIdentityController(IMediator _mediator)
         {
-            _applicantIdentityService = applicantIdentityService;
+            mediator = _mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
+        [HttpPost("applicant-identity-list")]
+        public async Task<IActionResult> GetApplicantIdentityList([FromBody] GetApplicantIdentityCommand command,
+            CancellationToken cancellationToken)
         {
-            var categories = await _applicantIdentityService.GetAllApplicantIdentitiesAsync();
-            return Ok(categories);
+            try
+            {
+                var result = await mediator.Send(command, cancellationToken);
+
+                var response = new ApiResponse<List<ApplicantIdentityDto>>(HttpStatusCode.OK, result.ApplicantIdentityList, "Process Successed");
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new ApiResponse<List<ApplicantIdentityDto>>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
+
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+            }
         }
 
-        [HttpGet("{code}")]
-        public async Task<IActionResult> GetByCode(string code)
+        [HttpPost("applicant-identity-by-criteria")]
+        public async Task<IActionResult> GetApplicantIdentityByCriteria([FromBody] GetApplicantIdentityByCriteriaCommand command,
+            CancellationToken cancellationToken)
         {
-            var ApplicantIdentity = await _applicantIdentityService.GetApplicantIdentityByCodeAsync(code);
-            if (ApplicantIdentity == null) return NotFound();
-            return Ok(ApplicantIdentity);
-        }
+            try
+            {
+                var result = await mediator.Send(command, cancellationToken);
 
-        [HttpPost]
-        public async Task<IActionResult> Create(ApplicantIdentityDto ApplicantIdentity)
-        {
-            var createdApplicantIdentity = await _applicantIdentityService.AddApplicantIdentityAsync(ApplicantIdentity);
-            return CreatedAtAction(nameof(GetByCode), new { code = createdApplicantIdentity.ApplicantNo }, createdApplicantIdentity);
-        }
+                var response = new ApiResponse<ApplicantIdentityDto>(HttpStatusCode.OK, result, "Process Successed");
 
-        [HttpPut("{code}")]
-        public async Task<IActionResult> Update(string code, ApplicantIdentityDto applicantIdentity)
-        {
-            if (code != applicantIdentity.ApplicantNo) return BadRequest();
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new ApiResponse<ApplicantIdentityDto>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
 
-            var updatedApplicantIdentity = await _applicantIdentityService.UpdateApplicantIdentityAsync(applicantIdentity);
-            if (updatedApplicantIdentity == null) return NotFound();
-
-            return Ok(updatedApplicantIdentity);
-        }
-
-        [HttpDelete("{code}")]
-        public async Task<IActionResult> Delete(string code)
-        {
-            var success = await _applicantIdentityService.DeleteApplicantIdentityAsync(code);
-            if (!success) return NotFound();
-
-            return NoContent();
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+            }
         }
     }
 }

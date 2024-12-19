@@ -1,61 +1,62 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using ThePatho.Domain.Models;
+using ThePatho.Features.Applicant.ApplicantRecruitStep.Commands;
 using ThePatho.Features.Applicant.ApplicantRecruitStep.DTO;
-using ThePatho.Features.Applicant.ApplicantRecruitStep.Service;
+using ThePatho.Features.ConfigurationExtensions;
 
 namespace ThePatho.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/applicant/applicant-recruit-step")]
     public class ApplicantRecruitStepController : ControllerBase
     {
-        private readonly IApplicantRecruitStepService _applicantRecruitStepService;
+        private readonly IMediator mediator;
 
-        public ApplicantRecruitStepController(IApplicantRecruitStepService applicantRecruitStepService)
+        public ApplicantRecruitStepController(IMediator _mediator)
         {
-            _applicantRecruitStepService = applicantRecruitStepService;
+            mediator = _mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
+        [HttpPost("applicant-recruit-step-list")]
+        public async Task<IActionResult> GetApplicantRecruitStepList([FromBody] GetApplicantRecruitStepCommand command,
+            CancellationToken cancellationToken)
         {
-            var categories = await _applicantRecruitStepService.GetAllApplicantRecruitStepAsync();
-            return Ok(categories);
+            try
+            {
+                var result = await mediator.Send(command, cancellationToken);
+
+                var response = new ApiResponse<List<ApplicantRecruitStepDto>>(HttpStatusCode.OK, result.ApplicantRecruitStepList, "Process Successed");
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new ApiResponse<List<ApplicantRecruitStepDto>>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
+
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+            }
         }
 
-        [HttpGet("{code}")]
-        public async Task<IActionResult> GetByCode(string code)
+        [HttpPost("applicant-recruit-step-by-criteria")]
+        public async Task<IActionResult> GetApplicantRecruitStepByCriteria([FromBody] GetApplicantRecruitStepByCriteriaCommand command,
+            CancellationToken cancellationToken)
         {
-            var ApplicantRecruitStep = await _applicantRecruitStepService.GetApplicantRecruitStepByCodeAsync(code);
-            if (ApplicantRecruitStep == null) return NotFound();
-            return Ok(ApplicantRecruitStep);
-        }
+            try
+            {
+                var result = await mediator.Send(command, cancellationToken);
 
-        [HttpPost]
-        public async Task<IActionResult> Create(ApplicantRecruitStepDto applicantRecruitStep)
-        {
-            var createdApplicantRecruitStep = await _applicantRecruitStepService.AddApplicantRecruitStepAsync(applicantRecruitStep);
-            return CreatedAtAction(nameof(GetByCode), new { code = createdApplicantRecruitStep.AppRecStepId.ToString() }, createdApplicantRecruitStep);
-        }
+                var response = new ApiResponse<ApplicantRecruitStepDto>(HttpStatusCode.OK, result, "Process Successed");
 
-        [HttpPut("{code}")]
-        public async Task<IActionResult> Update(string code, ApplicantRecruitStepDto applicantRecruitStep)
-        {
-            if (code != applicantRecruitStep.AppRecStepId.ToString()) return BadRequest();
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new ApiResponse<ApplicantRecruitStepDto>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
 
-            var updatedApplicantRecruitStep = await _applicantRecruitStepService.UpdateApplicantRecruitStepAsync(applicantRecruitStep);
-            if (updatedApplicantRecruitStep == null) return NotFound();
-
-            return Ok(updatedApplicantRecruitStep);
-        }
-
-        [HttpDelete("{code}")]
-        public async Task<IActionResult> Delete(string code)
-        {
-            var success = await _applicantRecruitStepService.DeleteApplicantRecruitStepAsync(code);
-            if (!success) return NotFound();
-
-            return NoContent();
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+            }
         }
     }
 }

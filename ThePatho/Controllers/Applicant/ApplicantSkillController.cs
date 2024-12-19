@@ -1,61 +1,63 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using ThePatho.Domain.Models;
+using ThePatho.Features.Applicant.ApplicantSkill.Commands;
 using ThePatho.Features.Applicant.ApplicantSkill.DTO;
 using ThePatho.Features.Applicant.ApplicantSkill.Service;
+using ThePatho.Features.ConfigurationExtensions;
 
 namespace ThePatho.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/applicant/applicant-skill")]
     public class ApplicantSkillController : ControllerBase
     {
-        private readonly IApplicantSkillService _applicantSkillService;
+        private readonly IMediator mediator;
 
-        public ApplicantSkillController(IApplicantSkillService applicantSkillService)
+        public ApplicantSkillController(IMediator _mediator)
         {
-            _applicantSkillService = applicantSkillService;
+            mediator = _mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
+        [HttpPost("applicant-skill-list")]
+        public async Task<IActionResult> GetApplicantSkillList([FromBody] GetApplicantSkillCommand command,
+            CancellationToken cancellationToken)
         {
-            var categories = await _applicantSkillService.GetAllApplicantSkillAsync();
-            return Ok(categories);
+            try
+            {
+                var result = await mediator.Send(command, cancellationToken);
+
+                var response = new ApiResponse<List<ApplicantSkillDto>>(HttpStatusCode.OK, result.ApplicantSkillList, "Process Successed");
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new ApiResponse<List<ApplicantSkillDto>>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
+
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+            }
         }
 
-        [HttpGet("{code}")]
-        public async Task<IActionResult> GetByCode(string code)
+        [HttpPost("applicant-skill-by-criteria")]
+        public async Task<IActionResult> GetApplicantSkillByCriteria([FromBody] GetApplicantSkillByCriteriaCommand command,
+            CancellationToken cancellationToken)
         {
-            var ApplicantSkill = await _applicantSkillService.GetApplicantSkillByCodeAsync(code);
-            if (ApplicantSkill == null) return NotFound();
-            return Ok(ApplicantSkill);
-        }
+            try
+            {
+                var result = await mediator.Send(command, cancellationToken);
 
-        [HttpPost]
-        public async Task<IActionResult> Create(ApplicantSkillDto ApplicantSkill)
-        {
-            var createdApplicantSkill = await _applicantSkillService.AddApplicantSkillAsync(ApplicantSkill);
-            return CreatedAtAction(nameof(GetByCode), new { code = createdApplicantSkill.ApplicantNo }, createdApplicantSkill);
-        }
+                var response = new ApiResponse<ApplicantSkillDto>(HttpStatusCode.OK, result, "Process Successed");
 
-        [HttpPut("{code}")]
-        public async Task<IActionResult> Update(string code, ApplicantSkillDto applicantSkill)
-        {
-            if (code != applicantSkill.ApplicantNo) return BadRequest();
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new ApiResponse<ApplicantSkillDto>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
 
-            var updatedApplicantSkill = await _applicantSkillService.UpdateApplicantSkillAsync(applicantSkill);
-            if (updatedApplicantSkill == null) return NotFound();
-
-            return Ok(updatedApplicantSkill);
-        }
-
-        [HttpDelete("{code}")]
-        public async Task<IActionResult> Delete(string code)
-        {
-            var success = await _applicantSkillService.DeleteApplicantSkillAsync(code);
-            if (!success) return NotFound();
-
-            return NoContent();
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+            }
         }
     }
 }

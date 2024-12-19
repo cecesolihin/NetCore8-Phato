@@ -1,61 +1,63 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using ThePatho.Domain.Models;
+using ThePatho.Features.Applicant.ApplicantWorkExperience.Commands;
 using ThePatho.Features.Applicant.ApplicantWorkExperience.DTO;
 using ThePatho.Features.Applicant.ApplicantWorkExperience.Service;
+using ThePatho.Features.ConfigurationExtensions;
 
 namespace ThePatho.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/applicant/applicant-work-experience")]
     public class ApplicantWorkExperienceController : ControllerBase
     {
-        private readonly IApplicantWorkExperienceService _applicantWorkExperienceService;
+        private readonly IMediator mediator;
 
-        public ApplicantWorkExperienceController(IApplicantWorkExperienceService applicantWorkExperienceService)
+        public ApplicantWorkExperienceController(IMediator _mediator)
         {
-            _applicantWorkExperienceService = applicantWorkExperienceService;
+            mediator = _mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
+        [HttpPost("applicant-work-experience-list")]
+        public async Task<IActionResult> GetApplicationWorkExperienceList([FromBody] GetApplicantWorkExperienceCommand command,
+            CancellationToken cancellationToken)
         {
-            var categories = await _applicantWorkExperienceService.GetAllApplicantWorkExperienceAsync();
-            return Ok(categories);
+            try
+            {
+                var result = await mediator.Send(command, cancellationToken);
+
+                var response = new ApiResponse<List<ApplicantWorkExperienceDto>>(HttpStatusCode.OK, result.ApplicantWorkExperienceList, "Process Successed");
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new ApiResponse<List<ApplicantWorkExperienceDto>>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
+
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+            }
         }
 
-        [HttpGet("{code}")]
-        public async Task<IActionResult> GetByCode(string code)
+        [HttpPost("applicant-work-experience-by-criteria")]
+        public async Task<IActionResult> GetApplicationWorkExperienceByCriteria([FromBody] GetApplicantWorkExperienceByCriteriaCommand command,
+            CancellationToken cancellationToken)
         {
-            var ApplicantWorkExperience = await _applicantWorkExperienceService.GetApplicantWorkExperienceByCodeAsync(code);
-            if (ApplicantWorkExperience == null) return NotFound();
-            return Ok(ApplicantWorkExperience);
-        }
+            try
+            {
+                var result = await mediator.Send(command, cancellationToken);
 
-        [HttpPost]
-        public async Task<IActionResult> Create(ApplicantWorkExperienceDto ApplicantWorkExperience)
-        {
-            var createdApplicantWorkExperience = await _applicantWorkExperienceService.AddApplicantWorkExperienceAsync(ApplicantWorkExperience);
-            return CreatedAtAction(nameof(GetByCode), new { code = createdApplicantWorkExperience.ApplicantNo }, createdApplicantWorkExperience);
-        }
+                var response = new ApiResponse<ApplicantWorkExperienceDto>(HttpStatusCode.OK, result, "Process Successed");
 
-        [HttpPut("{code}")]
-        public async Task<IActionResult> Update(string code, ApplicantWorkExperienceDto applicantWorkExperience)
-        {
-            if (code != applicantWorkExperience.ApplicantNo) return BadRequest();
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new ApiResponse<ApplicantWorkExperienceDto>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
 
-            var updatedApplicantWorkExperience = await _applicantWorkExperienceService.UpdateApplicantWorkExperienceAsync(applicantWorkExperience);
-            if (updatedApplicantWorkExperience == null) return NotFound();
-
-            return Ok(updatedApplicantWorkExperience);
-        }
-
-        [HttpDelete("{code}")]
-        public async Task<IActionResult> Delete(string code)
-        {
-            var success = await _applicantWorkExperienceService.DeleteApplicantWorkExperienceAsync(code);
-            if (!success) return NotFound();
-
-            return NoContent();
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+            }
         }
     }
 }

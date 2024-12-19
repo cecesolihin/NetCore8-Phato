@@ -1,61 +1,63 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using ThePatho.Domain.Models;
+using ThePatho.Features.Applicant.ApplicantEducation.Commands;
 using ThePatho.Features.Applicant.ApplicantEducation.DTO;
 using ThePatho.Features.Applicant.ApplicantEducation.Service;
+using ThePatho.Features.ConfigurationExtensions;
 
 namespace ThePatho.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/applicant/applicant-education")]
     public class ApplicantEducationController : ControllerBase
     {
-        private readonly IApplicantEducationService _applicantEducationService;
+        private readonly IMediator mediator;
 
-        public ApplicantEducationController(IApplicantEducationService applicantEducationService)
+        public ApplicantEducationController(IMediator _mediator)
         {
-            _applicantEducationService = applicantEducationService;
+            mediator = _mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
+        [HttpPost("applicant-education-list")]
+        public async Task<IActionResult> GetApplicantEducationList([FromBody] GetApplicantEducationCommand command,
+            CancellationToken cancellationToken)
         {
-            var categories = await _applicantEducationService.GetAllApplicantEducationsAsync();
-            return Ok(categories);
+            try
+            {
+                var result = await mediator.Send(command, cancellationToken);
+
+                var response = new ApiResponse<List<ApplicantEducationDto>>(HttpStatusCode.OK, result.ApplicantEducationList, "Process Successed");
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new ApiResponse<List<ApplicantEducationDto>>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
+
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+            }
         }
 
-        [HttpGet("{code}")]
-        public async Task<IActionResult> GetByCode(string code)
+        [HttpPost("applicant-education-by-criteria")]
+        public async Task<IActionResult> GetApplicantEducationByCriteria([FromBody] GetApplicantEducationByCriteriaCommand command,
+            CancellationToken cancellationToken)
         {
-            var ApplicantEducation = await _applicantEducationService.GetApplicantEducationByCodeAsync(code);
-            if (ApplicantEducation == null) return NotFound();
-            return Ok(ApplicantEducation);
-        }
+            try
+            {
+                var result = await mediator.Send(command, cancellationToken);
 
-        [HttpPost]
-        public async Task<IActionResult> Create(ApplicantEducationDto ApplicantEducation)
-        {
-            var createdApplicantEducation = await _applicantEducationService.AddApplicantEducationAsync(ApplicantEducation);
-            return CreatedAtAction(nameof(GetByCode), new { code = createdApplicantEducation.ApplicantNo }, createdApplicantEducation);
-        }
+                var response = new ApiResponse<ApplicantEducationDto>(HttpStatusCode.OK, result, "Process Successed");
 
-        [HttpPut("{code}")]
-        public async Task<IActionResult> Update(string code, ApplicantEducationDto applicantEducation)
-        {
-            if (code != applicantEducation.ApplicantNo) return BadRequest();
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new ApiResponse<ApplicantEducationDto>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
 
-            var updatedApplicantEducation = await _applicantEducationService.UpdateApplicantEducationAsync(applicantEducation);
-            if (updatedApplicantEducation == null) return NotFound();
-
-            return Ok(updatedApplicantEducation);
-        }
-
-        [HttpDelete("{code}")]
-        public async Task<IActionResult> Delete(string code)
-        {
-            var success = await _applicantEducationService.DeleteApplicantEducationAsync(code);
-            if (!success) return NotFound();
-
-            return NoContent();
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+            }
         }
     }
 }

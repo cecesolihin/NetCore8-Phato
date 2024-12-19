@@ -1,61 +1,63 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using ThePatho.Domain.Models;
+using ThePatho.Features.Applicant.ApplicationApplicant.Commands;
 using ThePatho.Features.Applicant.ApplicationApplicant.DTO;
 using ThePatho.Features.Applicant.ApplicationApplicant.Service;
+using ThePatho.Features.ConfigurationExtensions;
 
 namespace ThePatho.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/applicant/application-applicant")]
     public class ApplicationApplicantController : ControllerBase
     {
-        private readonly IApplicationApplicantService _ApplicationApplicantService;
+        private readonly IMediator mediator;
 
-        public ApplicationApplicantController(IApplicationApplicantService ApplicationApplicantService)
+        public ApplicationApplicantController(IMediator _mediator)
         {
-            _ApplicationApplicantService = ApplicationApplicantService;
+            mediator = _mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
+        [HttpPost("application-applicant-list")]
+        public async Task<IActionResult> GetApplicationApplicantList([FromBody] GetApplicationApplicantCommand command,
+            CancellationToken cancellationToken)
         {
-            var categories = await _ApplicationApplicantService.GetAllApplicationApplicantAsync();
-            return Ok(categories);
+            try
+            {
+                var result = await mediator.Send(command, cancellationToken);
+
+                var response = new ApiResponse<List<ApplicationApplicantDto>>(HttpStatusCode.OK, result.ApplicationApplicantList, "Process Successed");
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new ApiResponse<List<ApplicationApplicantDto>>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
+
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+            }
         }
 
-        [HttpGet("{code}")]
-        public async Task<IActionResult> GetByCode(string code)
+        [HttpPost("application-applicant-by-criteria")]
+        public async Task<IActionResult> GetApplicationApplicantByCriteria([FromBody] GetApplicationApplicantByCriteriaCommand command,
+            CancellationToken cancellationToken)
         {
-            var ApplicationApplicant = await _ApplicationApplicantService.GetApplicationApplicantByCodeAsync(code);
-            if (ApplicationApplicant == null) return NotFound();
-            return Ok(ApplicationApplicant);
-        }
+            try
+            {
+                var result = await mediator.Send(command, cancellationToken);
 
-        [HttpPost]
-        public async Task<IActionResult> Create(ApplicationApplicantDto ApplicationApplicant)
-        {
-            var createdApplicationApplicant = await _ApplicationApplicantService.AddApplicationApplicantAsync(ApplicationApplicant);
-            return CreatedAtAction(nameof(GetByCode), new { code = createdApplicationApplicant.ApplicantNo }, createdApplicationApplicant);
-        }
+                var response = new ApiResponse<ApplicationApplicantDto>(HttpStatusCode.OK, result, "Process Successed");
 
-        [HttpPut("{code}")]
-        public async Task<IActionResult> Update(string code, ApplicationApplicantDto ApplicationApplicant)
-        {
-            if (code != ApplicationApplicant.ApplicantNo) return BadRequest();
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new ApiResponse<ApplicationApplicantDto>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
 
-            var updatedApplicationApplicant = await _ApplicationApplicantService.UpdateApplicationApplicantAsync(ApplicationApplicant);
-            if (updatedApplicationApplicant == null) return NotFound();
-
-            return Ok(updatedApplicationApplicant);
-        }
-
-        [HttpDelete("{code}")]
-        public async Task<IActionResult> Delete(string code)
-        {
-            var success = await _ApplicationApplicantService.DeleteApplicationApplicantAsync(code);
-            if (!success) return NotFound();
-
-            return NoContent();
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+            }
         }
     }
 }

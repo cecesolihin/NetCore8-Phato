@@ -1,61 +1,63 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using ThePatho.Domain.Models;
+using ThePatho.Features.Applicant.ApplicantAddress.Commands;
 using ThePatho.Features.Applicant.ApplicantAddress.DTO;
 using ThePatho.Features.Applicant.ApplicantAddress.Service;
+using ThePatho.Features.ConfigurationExtensions;
 
 namespace ThePatho.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/applicant/applicant-address")]
     public class ApplicantAddressController : ControllerBase
     {
-        private readonly IApplicantAddressService _applicantAddressService;
+        private readonly IMediator mediator;
 
-        public ApplicantAddressController(IApplicantAddressService applicantAddressService)
+        public ApplicantAddressController(IMediator _mediator)
         {
-            _applicantAddressService = applicantAddressService;
+            mediator = _mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
+        [HttpPost("applicant-address-list")]
+        public async Task<IActionResult> GetApplicantAddressList([FromBody] GetApplicantAddressCommand command,
+            CancellationToken cancellationToken)
         {
-            var categories = await _applicantAddressService.GetAllApplicantAddressesAsync();
-            return Ok(categories);
+            try
+            {
+                var result = await mediator.Send(command, cancellationToken);
+
+                var response = new ApiResponse<List<ApplicantAddressDto>>(HttpStatusCode.OK, result.ApplicantAddressList, "Process Successed");
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new ApiResponse<List<ApplicantAddressDto>>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
+
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+            }
         }
 
-        [HttpGet("{code}")]
-        public async Task<IActionResult> GetByCode(string code)
+        [HttpPost("applicant-address-by-criteria")]
+        public async Task<IActionResult> GetApplicantAddressByCriteria([FromBody] GetApplicantAddressByCriteriaCommand command,
+            CancellationToken cancellationToken)
         {
-            var ApplicantAddress = await _applicantAddressService.GetApplicantAddressByCodeAsync(code);
-            if (ApplicantAddress == null) return NotFound();
-            return Ok(ApplicantAddress);
-        }
+            try
+            {
+                var result = await mediator.Send(command, cancellationToken);
 
-        [HttpPost]
-        public async Task<IActionResult> Create(ApplicantAddressDto ApplicantAddress)
-        {
-            var createdApplicantAddress = await _applicantAddressService.AddApplicantAddressAsync(ApplicantAddress);
-            return CreatedAtAction(nameof(GetByCode), new { code = createdApplicantAddress.ApplicantNo }, createdApplicantAddress);
-        }
+                var response = new ApiResponse<ApplicantAddressDto>(HttpStatusCode.OK, result, "Process Successed");
 
-        [HttpPut("{code}")]
-        public async Task<IActionResult> Update(string code, ApplicantAddressDto applicantAddress)
-        {
-            if (code != applicantAddress.ApplicantNo) return BadRequest();
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new ApiResponse<ApplicantAddressDto>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
 
-            var updatedApplicantAddress = await _applicantAddressService.UpdateApplicantAddressAsync(applicantAddress);
-            if (updatedApplicantAddress == null) return NotFound();
-
-            return Ok(updatedApplicantAddress);
-        }
-
-        [HttpDelete("{code}")]
-        public async Task<IActionResult> Delete(string code)
-        {
-            var success = await _applicantAddressService.DeleteApplicantAddressAsync(code);
-            if (!success) return NotFound();
-
-            return NoContent();
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+            }
         }
     }
 }

@@ -1,61 +1,63 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using ThePatho.Domain.Models;
+using ThePatho.Features.Applicant.ApplicantPersonalData.Commands;
 using ThePatho.Features.Applicant.ApplicantPersonalData.DTO;
 using ThePatho.Features.Applicant.ApplicantPersonalData.Service;
+using ThePatho.Features.ConfigurationExtensions;
 
 namespace ThePatho.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/applicant/applicant-personal-data")]
     public class ApplicantPersonalDataController : ControllerBase
     {
-        private readonly IApplicantPersonalDataService _applicantPersonalDataService;
+        private readonly IMediator mediator;
 
-        public ApplicantPersonalDataController(IApplicantPersonalDataService applicantPersonalDataService)
+        public ApplicantPersonalDataController(IMediator _mediator)
         {
-            _applicantPersonalDataService = applicantPersonalDataService;
+            mediator = _mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
+        [HttpPost("applicant-personal-data-list")]
+        public async Task<IActionResult> GetApplicantPersonalDataList([FromBody] GetApplicantPersonalDataCommand command,
+            CancellationToken cancellationToken)
         {
-            var categories = await _applicantPersonalDataService.GetAllApplicantPersonalDataAsync();
-            return Ok(categories);
+            try
+            {
+                var result = await mediator.Send(command, cancellationToken);
+
+                var response = new ApiResponse<List<ApplicantPersonalDataDto>>(HttpStatusCode.OK, result.ApplicantPersonalDataList, "Process Successed");
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new ApiResponse<List<ApplicantPersonalDataDto>>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
+
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+            }
         }
 
-        [HttpGet("{code}")]
-        public async Task<IActionResult> GetByCode(string code)
+        [HttpPost("applicant-personal-data-by-criteria")]
+        public async Task<IActionResult> GetApplicantPersonalDataByCriteria([FromBody] GetApplicantPersonalDataByCriteriaCommand command,
+            CancellationToken cancellationToken)
         {
-            var ApplicantPersonalData = await _applicantPersonalDataService.GetApplicantPersonalDataByCodeAsync(code);
-            if (ApplicantPersonalData == null) return NotFound();
-            return Ok(ApplicantPersonalData);
-        }
+            try
+            {
+                var result = await mediator.Send(command, cancellationToken);
 
-        [HttpPost]
-        public async Task<IActionResult> Create(ApplicantPersonalDataDto ApplicantPersonalData)
-        {
-            var createdApplicantPersonalData = await _applicantPersonalDataService.AddApplicantPersonalDataAsync(ApplicantPersonalData);
-            return CreatedAtAction(nameof(GetByCode), new { code = createdApplicantPersonalData.ApplicantNo }, createdApplicantPersonalData);
-        }
+                var response = new ApiResponse<ApplicantPersonalDataDto>(HttpStatusCode.OK, result, "Process Successed");
 
-        [HttpPut("{code}")]
-        public async Task<IActionResult> Update(string code, ApplicantPersonalDataDto applicantPersonalData)
-        {
-            if (code != applicantPersonalData.ApplicantNo) return BadRequest();
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new ApiResponse<ApplicantPersonalDataDto>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
 
-            var updatedApplicantPersonalData = await _applicantPersonalDataService.UpdateApplicantPersonalDataAsync(applicantPersonalData);
-            if (updatedApplicantPersonalData == null) return NotFound();
-
-            return Ok(updatedApplicantPersonalData);
-        }
-
-        [HttpDelete("{code}")]
-        public async Task<IActionResult> Delete(string code)
-        {
-            var success = await _applicantPersonalDataService.DeleteApplicantPersonalDataAsync(code);
-            if (!success) return NotFound();
-
-            return NoContent();
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+            }
         }
     }
 }

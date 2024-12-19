@@ -1,61 +1,63 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using ThePatho.Domain.Models;
+using ThePatho.Features.Applicant.ApplicantOnlineTestResult.Commands;
 using ThePatho.Features.Applicant.ApplicantOnlineTestResult.DTO;
 using ThePatho.Features.Applicant.ApplicantOnlineTestResult.Service;
+using ThePatho.Features.ConfigurationExtensions;
 
 namespace ThePatho.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/applicant/applicant-online-test-result")]
     public class ApplicantOnlineTestResultController : ControllerBase
     {
-        private readonly IApplicantOnlineTestResultService _applicantOnlineTestResultService;
+        private readonly IMediator mediator;
 
-        public ApplicantOnlineTestResultController(IApplicantOnlineTestResultService applicantOnlineTestResultService)
+        public ApplicantOnlineTestResultController(IMediator _mediator)
         {
-            _applicantOnlineTestResultService = applicantOnlineTestResultService;
+            mediator = _mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
+        [HttpPost("applicant-online-test-result-list")]
+        public async Task<IActionResult> GetApplicantOnlineTestResultList([FromBody] GetApplicantOnlineTestResultCommand command,
+            CancellationToken cancellationToken)
         {
-            var categories = await _applicantOnlineTestResultService.GetAllApplicantOnlineTestResultsAsync();
-            return Ok(categories);
+            try
+            {
+                var result = await mediator.Send(command, cancellationToken);
+
+                var response = new ApiResponse<List<ApplicantOnlineTestResultDto>>(HttpStatusCode.OK, result.ApplicantOnlineTestResultList, "Process Successed");
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new ApiResponse<List<ApplicantOnlineTestResultDto>>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
+
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+            }
         }
 
-        [HttpGet("{code}")]
-        public async Task<IActionResult> GetByCode(string code)
+        [HttpPost("applicant-online-test-result-by-criteria")]
+        public async Task<IActionResult> GetApplicantOnlineTestResultByCriteria([FromBody] GetApplicantOnlineTestResultByCriteriaCommand command,
+            CancellationToken cancellationToken)
         {
-            var ApplicantOnlineTestResult = await _applicantOnlineTestResultService.GetApplicantOnlineTestResultByCodeAsync(code);
-            if (ApplicantOnlineTestResult == null) return NotFound();
-            return Ok(ApplicantOnlineTestResult);
-        }
+            try
+            {
+                var result = await mediator.Send(command, cancellationToken);
 
-        [HttpPost]
-        public async Task<IActionResult> Create(ApplicantOnlineTestResultDto ApplicantOnlineTestResult)
-        {
-            var createdApplicantOnlineTestResult = await _applicantOnlineTestResultService.AddApplicantOnlineTestResultAsync(ApplicantOnlineTestResult);
-            return CreatedAtAction(nameof(GetByCode), new { code = createdApplicantOnlineTestResult.ApplicantNo }, createdApplicantOnlineTestResult);
-        }
+                var response = new ApiResponse<ApplicantOnlineTestResultDto>(HttpStatusCode.OK, result, "Process Successed");
 
-        [HttpPut("{code}")]
-        public async Task<IActionResult> Update(string code, ApplicantOnlineTestResultDto applicantOnlineTestResult)
-        {
-            if (code != applicantOnlineTestResult.ApplicantNo) return BadRequest();
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new ApiResponse<ApplicantOnlineTestResultDto>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
 
-            var updatedApplicantOnlineTestResult = await _applicantOnlineTestResultService.UpdateApplicantOnlineTestResultAsync(applicantOnlineTestResult);
-            if (updatedApplicantOnlineTestResult == null) return NotFound();
-
-            return Ok(updatedApplicantOnlineTestResult);
-        }
-
-        [HttpDelete("{code}")]
-        public async Task<IActionResult> Delete(string code)
-        {
-            var success = await _applicantOnlineTestResultService.DeleteApplicantOnlineTestResultAsync(code);
-            if (!success) return NotFound();
-
-            return NoContent();
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+            }
         }
     }
 }

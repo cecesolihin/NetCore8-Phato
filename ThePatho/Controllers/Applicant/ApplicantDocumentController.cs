@@ -1,61 +1,63 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using ThePatho.Domain.Models;
+using ThePatho.Features.Applicant.ApplicantDocument.Commands;
 using ThePatho.Features.Applicant.ApplicantDocument.DTO;
 using ThePatho.Features.Applicant.ApplicantDocument.Service;
+using ThePatho.Features.ConfigurationExtensions;
 
 namespace ThePatho.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/applicant/applicant-document")]
     public class ApplicantDocumentController : ControllerBase
     {
-        private readonly IApplicantDocumentService _applicantDocumentService;
+        private readonly IMediator mediator;
 
-        public ApplicantDocumentController(IApplicantDocumentService applicantDocumentService)
+        public ApplicantDocumentController(IMediator _mediator)
         {
-            _applicantDocumentService = applicantDocumentService;
+            mediator = _mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
+        [HttpPost("applicant-document-list")]
+        public async Task<IActionResult> GetApplicantDocumentList([FromBody] GetApplicantDocumentCommand command,
+            CancellationToken cancellationToken)
         {
-            var categories = await _applicantDocumentService.GetAllApplicantDocumentAsync();
-            return Ok(categories);
+            try
+            {
+                var result = await mediator.Send(command, cancellationToken);
+
+                var response = new ApiResponse<List<ApplicantDocumentDto>>(HttpStatusCode.OK, result.ApplicantDocumentList, "Process Successed");
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new ApiResponse<List<ApplicantDocumentDto>>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
+
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+            }
         }
 
-        [HttpGet("{code}")]
-        public async Task<IActionResult> GetByCode(string code)
+        [HttpPost("applicant-document-by-criteria")]
+        public async Task<IActionResult> GetApplicantDocumentByCriteria([FromBody] GetApplicantDocumentByCriteriaCommand command,
+            CancellationToken cancellationToken)
         {
-            var ApplicantDocument = await _applicantDocumentService.GetApplicantDocumentByCodeAsync(code);
-            if (ApplicantDocument == null) return NotFound();
-            return Ok(ApplicantDocument);
-        }
+            try
+            {
+                var result = await mediator.Send(command, cancellationToken);
 
-        [HttpPost]
-        public async Task<IActionResult> Create(ApplicantDocumentDto ApplicantDocument)
-        {
-            var createdApplicantDocument = await _applicantDocumentService.AddApplicantDocumentAsync(ApplicantDocument);
-            return CreatedAtAction(nameof(GetByCode), new { code = createdApplicantDocument.ApplicantNo }, createdApplicantDocument);
-        }
+                var response = new ApiResponse<ApplicantDocumentDto>(HttpStatusCode.OK, result, "Process Successed");
 
-        [HttpPut("{code}")]
-        public async Task<IActionResult> Update(string code, ApplicantDocumentDto applicantDocument)
-        {
-            if (code != applicantDocument.ApplicantNo) return BadRequest();
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new ApiResponse<ApplicantDocumentDto>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
 
-            var updatedApplicantDocument = await _applicantDocumentService.UpdateApplicantDocumentAsync(applicantDocument);
-            if (updatedApplicantDocument == null) return NotFound();
-
-            return Ok(updatedApplicantDocument);
-        }
-
-        [HttpDelete("{code}")]
-        public async Task<IActionResult> Delete(string code)
-        {
-            var success = await _applicantDocumentService.DeleteApplicantDocumentAsync(code);
-            if (!success) return NotFound();
-
-            return NoContent();
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+            }
         }
     }
 }
