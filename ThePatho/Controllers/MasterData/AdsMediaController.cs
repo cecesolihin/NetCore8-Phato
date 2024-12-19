@@ -1,12 +1,9 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
-using ThePatho.Domain.Models;
 using ThePatho.Features.ConfigurationExtensions;
 using ThePatho.Features.MasterData.AdsCategory.Commands;
-using ThePatho.Features.MasterData.AdsMedia.Commands;
 using ThePatho.Features.MasterData.AdsMedia.DTO;
-using ThePatho.Features.MasterData.AdsMedia.Service;
 
 
 namespace ThePatho.Controllers
@@ -45,11 +42,11 @@ namespace ThePatho.Controllers
             }
         }
 
-        [HttpPost("get-ads-media-by-code")]
+        [HttpPost("get-ads-media-by-criteria")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetAdsMediaByCode([FromBody] GetAdsMediaByCodeCommand command,
+        public async Task<IActionResult> GetAdsMediaByCode([FromBody] GetAdsMediaByCriteriaCommand command,
             CancellationToken cancellationToken)
         {
             try

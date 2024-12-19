@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using ThePatho.Domain.Models;
 using ThePatho.Features.ConfigurationExtensions;
-using ThePatho.Features.MasterData.AdsCategory.Commands;
+using ThePatho.Features.MasterData.JobCategory.Commands;
 using ThePatho.Features.MasterData.JobCategory.DTO;
 
 
@@ -43,11 +43,11 @@ namespace ThePatho.Controllers
             }
         }
 
-        [HttpPost("get-job-category-by-code")]
+        [HttpPost("get-job-category-by-criteria")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetJobCategoryByCode([FromBody] GetJobCategoryByCodeCommand command,
+        public async Task<IActionResult> GetJobCategoryByCode([FromBody] GetJobCategoryByCriteriaCommand command,
             CancellationToken cancellationToken)
         {
             try

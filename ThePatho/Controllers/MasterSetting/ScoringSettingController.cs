@@ -43,11 +43,11 @@ namespace ThePatho.Controllers
             }
         }
 
-        [HttpPost("get-scoring-setting-by-code")]
+        [HttpPost("get-scoring-setting-by-criteria")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetScoringSettingByCode([FromBody] GetScoringSettingByCodeCommand command,
+        public async Task<IActionResult> GetScoringSettingByCode([FromBody] GetScoringSettingByCriteriaCommand command,
             CancellationToken cancellationToken)
         {
             try

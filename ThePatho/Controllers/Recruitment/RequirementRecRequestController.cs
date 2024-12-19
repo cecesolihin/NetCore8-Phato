@@ -39,7 +39,7 @@ namespace ThePatho.Controllers
             }
         }
 
-        [HttpPost("recruitment-rec-by-code")]
+        [HttpPost("recruitment-rec-by-criteria")]
         public async Task<IActionResult> GetRequirementRecRequestByCode([FromBody] GetRequirementRecRequestByCodeCommand command,
             CancellationToken cancellationToken)
         {

@@ -43,11 +43,11 @@ namespace ThePatho.Controllers
             }
         }
 
-        [HttpPost("get-online-test-setting-by-code")]
+        [HttpPost("get-online-test-setting-by-criteria")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetOnlineTestSettingByCode([FromBody] GetOnlineTestSettingByCodeCommand command,
+        public async Task<IActionResult> GetOnlineTestSettingByCode([FromBody] GetOnlineTestSettingByCriteriaCommand command,
             CancellationToken cancellationToken)
         {
             try

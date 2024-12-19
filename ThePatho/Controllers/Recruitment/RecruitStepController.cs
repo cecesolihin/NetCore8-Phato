@@ -4,7 +4,6 @@ using System.Net;
 using ThePatho.Features.ConfigurationExtensions;
 using ThePatho.Features.Recruitment.RecruitStep.Commands;
 using ThePatho.Features.Recruitment.RecruitStep.DTO;
-using ThePatho.Features.Recruitment.RecruitStep.Service;
 
 namespace ThePatho.Controllers
 {
@@ -39,8 +38,8 @@ namespace ThePatho.Controllers
             }
         }
 
-        [HttpPost("recruit-step-by-code")]
-        public async Task<IActionResult> GetRecruitStepByCode([FromBody] GetRecruitStepByCodeCommand command,
+        [HttpPost("recruit-step-by-criteria")]
+        public async Task<IActionResult> GetRecruitStepByCode([FromBody] GetRecruitStepByCriteriaCommand command,
             CancellationToken cancellationToken)
         {
             try

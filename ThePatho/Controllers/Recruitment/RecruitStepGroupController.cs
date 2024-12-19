@@ -40,8 +40,8 @@ namespace ThePatho.Controllers
             }
         }
 
-        [HttpPost("recruit-step-group-by-code")]
-        public async Task<IActionResult> GetRecruitStepByCode([FromBody] GetRecruitStepByCodeCommand command,
+        [HttpPost("recruit-step-group-by-criteria")]
+        public async Task<IActionResult> GetRecruitStepByCode([FromBody] GetRecruitStepByCriteriaCommand command,
             CancellationToken cancellationToken)
         {
             try

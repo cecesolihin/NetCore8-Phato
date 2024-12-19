@@ -44,11 +44,11 @@ namespace ThePatho.Controllers
             }
         }
 
-        [HttpPost("get-question-setting-by-code")]
+        [HttpPost("get-question-setting-by-criteria")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetQuestionSettingByCode([FromBody] GetQuestionSettingByCodeCommand command,
+        public async Task<IActionResult> GetQuestionSettingByCode([FromBody] GetQuestionSettingByCriteriaCommand command,
             CancellationToken cancellationToken)
         {
             try

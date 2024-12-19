@@ -44,11 +44,11 @@ namespace ThePatho.Controllers
             }
         }
 
-        [HttpPost("get-ads-category-by-code")]
+        [HttpPost("get-ads-category-by-criteria")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetAdsCategoryByCode([FromBody] GetAdsCategoryByCodeCommand command,
+        public async Task<IActionResult> GetAdsCategoryByCode([FromBody] GetAdsCategoryByCriteriaCommand command,
             CancellationToken cancellationToken)
         {
             try
