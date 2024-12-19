@@ -8,7 +8,7 @@ namespace ThePatho.Features.MasterSetting.QuestionSetting.Service
     public interface IQuestionSettingService
     {
         Task<List<QuestionSettingDto>> GetQuestionSetting(GetQuestionSettingCommand request);
-        Task<QuestionSettingDto> GetQuestionSettingByCode(GetQuestionSettingByCodeCommand request);
+        Task<QuestionSettingDto> GetQuestionSettingByCode(GetQuestionSettingByCriteriaCommand request);
         Task<List<QuestionSettingDto>> GetQuestionSettingDdl(GetQuestionSettingDdlCommand request);
     }
 }

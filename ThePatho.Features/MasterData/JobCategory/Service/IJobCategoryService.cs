@@ -1,4 +1,4 @@
-using ThePatho.Features.MasterData.AdsCategory.Commands;
+using ThePatho.Features.MasterData.JobCategory.Commands;
 using ThePatho.Features.MasterData.JobCategory.DTO;
 
 namespace ThePatho.Features.MasterData.JobCategory.Service
@@ -6,7 +6,7 @@ namespace ThePatho.Features.MasterData.JobCategory.Service
     public interface IJobCategoryService
     {
         Task<List<JobCategoryDto>> GetJobCategory(GetJobCategoryCommand request);
-        Task<JobCategoryDto> GetJobCategoryByCode(GetJobCategoryByCodeCommand request);
+        Task<JobCategoryDto> GetJobCategoryByCode(GetJobCategoryByCriteriaCommand request);
         Task<List<JobCategoryDto>> GetJobCategoryDdl(GetJobCategoryDdlCommand request);
     }
 }

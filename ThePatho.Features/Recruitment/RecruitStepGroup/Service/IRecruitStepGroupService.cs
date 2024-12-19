@@ -6,6 +6,6 @@ namespace ThePatho.Features.Recruitment.RecruitStepGroup.Service
     public interface IRecruitStepGroupService
     {
         Task<List<RecruitStepGroupDto>> GetRecruitStepGroup(GetRecruitStepGroupCommand request);
-        Task<RecruitStepGroupDto> GetRecruitStepGroupByCode(GetRecruitStepGroupByCodeCommand request);
+        Task<RecruitStepGroupDto> GetRecruitStepGroupByCode(GetRecruitStepGroupByCriteriaCommand request);
     }
 }

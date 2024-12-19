@@ -50,7 +50,7 @@ namespace ThePatho.Features.Recruitment.RecruitStep.Service
 
         }
 
-        public async Task<RecruitStepDto> GetRecruitStepByCode(GetRecruitStepByCodeCommand request)
+        public async Task<RecruitStepDto> GetRecruitStepByCode(GetRecruitStepByCriteriaCommand request)
         {
             using var connection = dapperContext.CreateConnection();
             var db = new QueryFactory(connection, dapperContext.Compiler);

@@ -36,7 +36,7 @@ namespace ThePatho.Features.MasterSetting.OnlineTestSetting.Service
             return data.ToList();
         }
 
-        public async Task<OnlineTestSettingDto> GetOnlineTestSettingByCode(GetOnlineTestSettingByCodeCommand request)
+        public async Task<OnlineTestSettingDto> GetOnlineTestSettingByCode(GetOnlineTestSettingByCriteriaCommand request)
         {
             var parameters = new DynamicParameters();
             parameters.Add("@OnlineTestCode", request.FilterOnlineTestCode ?? (object)DBNull.Value);

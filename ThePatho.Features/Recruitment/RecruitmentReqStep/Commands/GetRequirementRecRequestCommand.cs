@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 using ThePatho.Features.Recruitment.RecruitmentReqStep.DTO;
 
 namespace ThePatho.Features.Recruitment.RecruitmentReqStep.Commands

@@ -30,6 +30,6 @@ namespace ThePatho.Features.Applicant.Applicant.DTO
     public class ApplicantItemDto
     {
         public int DataOfRecords { get; set; }
-        public List<ApplicantDto> ApplicantDtoList { get; set; } = new();
+        public List<ApplicantDto> ApplicantList { get; set; } = new();
     }
 }

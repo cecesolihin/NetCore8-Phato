@@ -37,7 +37,7 @@ namespace ThePatho.Features.MasterSetting.ScoringSettingDetail.Service
             return data.ToList();
         }
 
-        public async Task<List<ScoringSettingDetailDto>> GetScoringSettingDetailByCode(GetScoringSettingDetailByCodeCommand request)
+        public async Task<List<ScoringSettingDetailDto>> GetScoringSettingDetailByCode(GetScoringSettingDetailByCriteriaCommand request)
         {
             var parameters = new DynamicParameters();
             parameters.Add("@ScoringCode", request.FilterScoringCode ?? (object)DBNull.Value);

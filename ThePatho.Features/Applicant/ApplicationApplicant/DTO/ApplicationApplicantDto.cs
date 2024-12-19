@@ -1,6 +1,6 @@
 
 
-using ThePatho.Features.Recruitment.RecruitmentRequest.DTO;
+using ThePatho.Features.Applicant.ApplicationApplicant.DTO;
 
 namespace ThePatho.Features.Applicant.ApplicationApplicant.DTO
 {

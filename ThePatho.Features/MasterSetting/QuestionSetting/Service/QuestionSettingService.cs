@@ -38,7 +38,7 @@ namespace ThePatho.Features.MasterSetting.QuestionSetting.Service
             return data.ToList();
         }
 
-        public async Task<QuestionSettingDto> GetQuestionSettingByCode(GetQuestionSettingByCodeCommand request)
+        public async Task<QuestionSettingDto> GetQuestionSettingByCode(GetQuestionSettingByCriteriaCommand request)
         {
             var parameters = new DynamicParameters();
             parameters.Add("@QuestionCode", request.FilterQuestionCode ?? (object)DBNull.Value);

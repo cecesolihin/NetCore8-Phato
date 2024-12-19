@@ -1,9 +1,8 @@
 using Dapper;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
-using ThePatho.Features.MasterData.AdsCategory.Commands;
+using ThePatho.Features.MasterData.JobCategory.Commands;
 using ThePatho.Features.MasterData.JobCategory.DTO;
-using ThePatho.Features.MasterData.JobCategory.Service;
 using ThePatho.Infrastructure.Persistance;
 
 namespace ThePatho.Features.MasterData.JobCategory.Service
@@ -38,7 +37,7 @@ namespace ThePatho.Features.MasterData.JobCategory.Service
             return data.ToList();
         }
 
-        public async Task<JobCategoryDto> GetJobCategoryByCode(GetJobCategoryByCodeCommand request)
+        public async Task<JobCategoryDto> GetJobCategoryByCode(GetJobCategoryByCriteriaCommand request)
         {
             var parameters = new DynamicParameters();
             parameters.Add("@JobCategoryCode", request.@FilterJobCategoryCode ?? (object)DBNull.Value);

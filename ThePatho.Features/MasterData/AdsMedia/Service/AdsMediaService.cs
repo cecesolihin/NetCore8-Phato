@@ -45,7 +45,7 @@ namespace ThePatho.Features.MasterData.AdsMedia.Service
             return data.ToList();
         }
 
-        public async Task<AdsMediaDto> GetAdsMediaByCode(GetAdsMediaByCodeCommand request)
+        public async Task<AdsMediaDto> GetAdsMediaByCode(GetAdsMediaByCriteriaCommand request)
         {
             var parameters = new DynamicParameters();
             parameters.Add("@AdsCode", request.FilterAdsCode ?? (object)DBNull.Value);

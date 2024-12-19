@@ -108,7 +108,7 @@ namespace ThePatho.Features.Recruitment.RecruitmentRequest.Service
 
         }
 
-        public async Task<RecruitmentRequestDto> GetRecruitmentRequestByCode(GetRecruitmentRequestByCodeCommand request)
+        public async Task<RecruitmentRequestDto> GetRecruitmentRequestByCode(GetRecruitmentRequestByCriteriaCommand request)
         {
             using var connection = dapperContext.CreateConnection();
             var db = new QueryFactory(connection, dapperContext.Compiler);

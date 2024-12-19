@@ -11,38 +11,26 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Applicant\ApplicantAddress\Commands\" />
     <Folder Include="Applicant\ApplicantAddress\Service\" />
-    <Folder Include="Applicant\ApplicantDocument\Commands\" />
     <Folder Include="Applicant\ApplicantDocument\DTO\" />
     <Folder Include="Applicant\ApplicantDocument\Service\" />
-    <Folder Include="Applicant\ApplicantEducation\Commands\" />
     <Folder Include="Applicant\ApplicantEducation\DTO\" />
     <Folder Include="Applicant\ApplicantEducation\Service\" />
-    <Folder Include="Applicant\ApplicantIdentity\Commands\" />
     <Folder Include="Applicant\ApplicantIdentity\DTO\" />
     <Folder Include="Applicant\ApplicantIdentity\Service\" />
-    <Folder Include="Applicant\ApplicantOnlineTestAnswer\Commands\" />
     <Folder Include="Applicant\ApplicantOnlineTestAnswer\DTO\" />
     <Folder Include="Applicant\ApplicantOnlineTestAnswer\Service\" />
-    <Folder Include="Applicant\ApplicantOnlineTestResult\Commands\" />
     <Folder Include="Applicant\ApplicantOnlineTestResult\DTO\" />
     <Folder Include="Applicant\ApplicantOnlineTestResult\Service\" />
-    <Folder Include="Applicant\ApplicantPersonalData\Commands\" />
     <Folder Include="Applicant\ApplicantPersonalData\DTO\" />
     <Folder Include="Applicant\ApplicantPersonalData\Service\" />
-    <Folder Include="Applicant\ApplicantRecruitStep\Commands\" />
     <Folder Include="Applicant\ApplicantRecruitStep\DTO\" />
     <Folder Include="Applicant\ApplicantRecruitStep\Service\" />
-    <Folder Include="Applicant\ApplicantSkill\Commands\" />
     <Folder Include="Applicant\ApplicantSkill\DTO\" />
     <Folder Include="Applicant\ApplicantSkill\Service\" />
-    <Folder Include="Applicant\ApplicantWorkExperience\Commands\" />
     <Folder Include="Applicant\ApplicantWorkExperience\DTO\" />
     <Folder Include="Applicant\ApplicantWorkExperience\Service\" />
-    <Folder Include="Applicant\Applicant\Commands\" />
     <Folder Include="Applicant\Applicant\Service\" />
-    <Folder Include="Applicant\ApplicationApplicant\Commands\" />
     <Folder Include="Applicant\ApplicationApplicant\DTO\" />
     <Folder Include="Applicant\ApplicationApplicant\Service\" />
     <Folder Include="Applicant\ReasonStepFailed\Commands\" />

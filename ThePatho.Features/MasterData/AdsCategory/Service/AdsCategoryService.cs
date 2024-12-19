@@ -41,7 +41,7 @@ namespace ThePatho.Features.MasterData.AdsCategory.Service
             return data.ToList();
         }
 
-        public async Task<AdsCategoryDto> GetAdsCategoryByCode(GetAdsCategoryByCodeCommand request)
+        public async Task<AdsCategoryDto> GetAdsCategoryByCode(GetAdsCategoryByCriteriaCommand request)
         {
             var parameters = new DynamicParameters();
             parameters.Add("@AdsCategoryCode", request.FilterAdsCategoryCode ?? (object)DBNull.Value);

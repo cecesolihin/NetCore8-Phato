@@ -47,7 +47,7 @@ namespace ThePatho.Features.Recruitment.RecruitStepGroup.Service
             return results.ToList();
         }
 
-        public async Task<RecruitStepGroupDto> GetRecruitStepGroupByCode(GetRecruitStepGroupByCodeCommand request)
+        public async Task<RecruitStepGroupDto> GetRecruitStepGroupByCode(GetRecruitStepGroupByCriteriaCommand request)
         {
             using var connection = dapperContext.CreateConnection();
             var db = new QueryFactory(connection, dapperContext.Compiler);

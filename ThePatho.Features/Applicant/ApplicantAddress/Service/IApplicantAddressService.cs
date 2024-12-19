@@ -1,13 +1,11 @@
+using ThePatho.Features.Applicant.ApplicantAddress.Commands;
 using ThePatho.Features.Applicant.ApplicantAddress.DTO;
 
 namespace ThePatho.Features.Applicant.ApplicantAddress.Service
 {
     public interface IApplicantAddressService
     {
-        Task<List<ApplicantAddressDto>> GetAllApplicantAddressesAsync();
-        Task<ApplicantAddressDto?> GetApplicantAddressByCodeAsync(string code);
-        Task<ApplicantAddressDto> AddApplicantAddressAsync(ApplicantAddressDto address);
-        Task<ApplicantAddressDto?> UpdateApplicantAddressAsync(ApplicantAddressDto address);
-        Task<bool> DeleteApplicantAddressAsync(string code);
+        Task<List<ApplicantAddressDto>> GetApplicantAddress(GetApplicantAddressCommand request);
+        Task<ApplicantAddressDto> GetApplicantAddressByCriteria(GetApplicantAddressByCriteriaCommand request);
     }
 }

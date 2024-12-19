@@ -16,6 +16,6 @@ namespace ThePatho.Features.Applicant.ApplicantDocument.DTO
     public class ApplicantDocumentItemDto
     {
         public int DataOfRecords { get; set; }
-        public List<ApplicantDocumentDto> ApplicantDocumentDtoList { get; set; } = new();
+        public List<ApplicantDocumentDto> ApplicantDocumentList { get; set; } = new();
     }
 }

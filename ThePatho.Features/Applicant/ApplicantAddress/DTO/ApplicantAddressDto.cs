@@ -38,6 +38,6 @@ namespace ThePatho.Features.Applicant.ApplicantAddress.DTO
     public class ApplicantAddressItemDto
     {
         public int DataOfRecords { get; set; }
-        public List<ApplicantAddressDto> ApplicantAddressDtoList { get; set; } = new();
+        public List<ApplicantAddressDto> ApplicantAddressList { get; set; } = new();
     }
 }
