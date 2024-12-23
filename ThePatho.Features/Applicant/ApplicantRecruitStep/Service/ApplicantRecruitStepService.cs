@@ -23,46 +23,29 @@ namespace ThePatho.Features.Applicant.ApplicantRecruitStep.Service
             using var connection = dapperContext.CreateConnection();
             var db = new QueryFactory(connection, dapperContext.Compiler);
             var query = new Query(TableName.ApplicantRecruitStep)
-                .Select("applicant_no AS ApplicantNo",
-                        "address AS Address",
-                        "rt AS RT",
-                        "rw AS RW",
-                        "sub_district AS SubDistrict",
-                        "district AS District",
-                        "city AS City",
-                        "province AS Province",
-                        "country AS Country",
-                        "zip_code AS ZipCode",
-                        "ownership AS Ownership",
-                        "curr_address AS CurrentAddress",
-                        "curr_rt AS CurrentRT",
-                        "curr_rw AS CurrentRW",
-                        "curr_sub_district AS CurrentSubDistrict",
-                        "curr_district AS CurrentDistrict",
-                        "curr_city AS CurrentCity",
-                        "curr_province AS CurrentProvince",
-                        "curr_country AS CurrentCountry",
-                        "curr_zip_code AS CurrentZipCode",
-                        "curr_ownership AS CurrentOwnership",
+                .Select("app_rec_step_id AS AppRecStepId",
+                        "rec_application_id AS RecApplicationId",
+                        "recruit_step_code AS RecruitStepCode",
+                        "score AS Score",
+                        "notes AS Notes",
+                        "attachment AS Attachment",
+                        "status AS Status",
+                        "emp_scorer AS EmpScorer",
+                        "schedule_date AS ScheduleDate",
+                        "reason_code AS ReasonCode",
                         "inserted_by AS InsertedBy",
                         "inserted_date AS InsertedDate",
                         "modified_by AS ModifiedBy",
                         "modified_date AS ModifiedDate")
                 .When(
-                    !string.IsNullOrWhiteSpace(request.FilterApplicantNo),
-                    q => q.WhereIn("ApplicantNo", request.FilterApplicantNo)
+                    !string.IsNullOrWhiteSpace(request.FilterRecaApplicationId),
+                    q => q.WhereIn("rec_application_id", request.FilterRecaApplicationId)
                 ).When(
-                    !string.IsNullOrWhiteSpace(request.FilterAddress),
-                        q => q.WhereContains("Address", request.FilterAddress)
+                    !string.IsNullOrWhiteSpace(request.FilterRecruitStepCode),
+                        q => q.WhereContains("recruit_step_code", request.FilterRecruitStepCode)
                 ).When(
-                    !string.IsNullOrWhiteSpace(request.FilterCity),
-                    q => q.WhereIn("city", request.FilterCity)
-                ).When(
-                    !string.IsNullOrWhiteSpace(request.FilterProvince),
-                        q => q.WhereContains("province", request.FilterProvince)
-                 ).When(
-                    !string.IsNullOrWhiteSpace(request.FilterCountry),
-                        q => q.WhereContains("country", request.FilterCountry)
+                    !string.IsNullOrWhiteSpace(request.FilterStatus),
+                    q => q.WhereIn("status", request.FilterStatus)
                 );
 
             query = query.OrderByRaw(
@@ -81,27 +64,16 @@ namespace ThePatho.Features.Applicant.ApplicantRecruitStep.Service
             using var connection = dapperContext.CreateConnection();
             var db = new QueryFactory(connection, dapperContext.Compiler);
             var query = new Query(TableName.ApplicantRecruitStep)
-                .Select("applicant_no AS ApplicantNo",
-                        "address AS Address",
-                        "rt AS RT",
-                        "rw AS RW",
-                        "sub_district AS SubDistrict",
-                        "district AS District",
-                        "city AS City",
-                        "province AS Province",
-                        "country AS Country",
-                        "zip_code AS ZipCode",
-                        "ownership AS Ownership",
-                        "curr_address AS CurrentAddress",
-                        "curr_rt AS CurrentRT",
-                        "curr_rw AS CurrentRW",
-                        "curr_sub_district AS CurrentSubDistrict",
-                        "curr_district AS CurrentDistrict",
-                        "curr_city AS CurrentCity",
-                        "curr_province AS CurrentProvince",
-                        "curr_country AS CurrentCountry",
-                        "curr_zip_code AS CurrentZipCode",
-                        "curr_ownership AS CurrentOwnership",
+                .Select("app_rec_step_id AS AppRecStepId",
+                        "rec_application_id AS RecApplicationId",
+                        "recruit_step_code AS RecruitStepCode",
+                        "score AS Score",
+                        "notes AS Notes",
+                        "attachment AS Attachment",
+                        "status AS Status",
+                        "emp_scorer AS EmpScorer",
+                        "schedule_date AS ScheduleDate",
+                        "reason_code AS ReasonCode",
                         "inserted_by AS InsertedBy",
                         "inserted_date AS InsertedDate",
                         "modified_by AS ModifiedBy",

@@ -24,45 +24,37 @@ namespace ThePatho.Features.Applicant.ApplicantPersonalData.Service
             var db = new QueryFactory(connection, dapperContext.Compiler);
             var query = new Query(TableName.ApplicantPersonalData)
                 .Select("applicant_no AS ApplicantNo",
-                        "address AS Address",
-                        "rt AS RT",
-                        "rw AS RW",
-                        "sub_district AS SubDistrict",
-                        "district AS District",
-                        "city AS City",
-                        "province AS Province",
-                        "country AS Country",
-                        "zip_code AS ZipCode",
-                        "ownership AS Ownership",
-                        "curr_address AS CurrentAddress",
-                        "curr_rt AS CurrentRT",
-                        "curr_rw AS CurrentRW",
-                        "curr_sub_district AS CurrentSubDistrict",
-                        "curr_district AS CurrentDistrict",
-                        "curr_city AS CurrentCity",
-                        "curr_province AS CurrentProvince",
-                        "curr_country AS CurrentCountry",
-                        "curr_zip_code AS CurrentZipCode",
-                        "curr_ownership AS CurrentOwnership",
+                        "nationality_id AS NationalityId",
+                        "religion_id AS ReligionId",
+                        "marital_status AS MaritalStatus",
+                        "married_date AS MarriedDate",
+                        "nick_name AS NickName",
+                        "phone AS Phone",
+                        "mobile_phone AS MobilePhone",
+                        "email AS Email",
+                        "blood_type AS BloodType",
+                        "height AS Height",
+                        "weight AS Weight",
+                        "photo AS Photo",
+                        "reference AS Reference",
+                        "emergency_contact_name AS EmergencyContactName",
+                        "emergency_contact AS EmergencyContact",
                         "inserted_by AS InsertedBy",
                         "inserted_date AS InsertedDate",
                         "modified_by AS ModifiedBy",
                         "modified_date AS ModifiedDate")
                 .When(
                     !string.IsNullOrWhiteSpace(request.FilterApplicantNo),
-                    q => q.WhereIn("ApplicantNo", request.FilterApplicantNo)
+                    q => q.WhereIn("applicant_no", request.FilterApplicantNo)
                 ).When(
-                    !string.IsNullOrWhiteSpace(request.FilterAddress),
-                        q => q.WhereContains("Address", request.FilterAddress)
+                    !string.IsNullOrWhiteSpace(request.FilterNationalId),
+                        q => q.WhereContains("nationality_id", request.FilterNationalId)
                 ).When(
-                    !string.IsNullOrWhiteSpace(request.FilterCity),
-                    q => q.WhereIn("city", request.FilterCity)
-                ).When(
-                    !string.IsNullOrWhiteSpace(request.FilterProvince),
-                        q => q.WhereContains("province", request.FilterProvince)
+                    !string.IsNullOrWhiteSpace(request.FilterReligionId),
+                    q => q.WhereIn("religion_id", request.FilterReligionId)
                  ).When(
-                    !string.IsNullOrWhiteSpace(request.FilterCountry),
-                        q => q.WhereContains("country", request.FilterCountry)
+                    !string.IsNullOrWhiteSpace(request.FilterMaritalStatus),
+                        q => q.WhereContains("marital_status", request.FilterMaritalStatus)
                 );
 
             query = query.OrderByRaw(
@@ -82,26 +74,21 @@ namespace ThePatho.Features.Applicant.ApplicantPersonalData.Service
             var db = new QueryFactory(connection, dapperContext.Compiler);
             var query = new Query(TableName.ApplicantPersonalData)
                 .Select("applicant_no AS ApplicantNo",
-                        "address AS Address",
-                        "rt AS RT",
-                        "rw AS RW",
-                        "sub_district AS SubDistrict",
-                        "district AS District",
-                        "city AS City",
-                        "province AS Province",
-                        "country AS Country",
-                        "zip_code AS ZipCode",
-                        "ownership AS Ownership",
-                        "curr_address AS CurrentAddress",
-                        "curr_rt AS CurrentRT",
-                        "curr_rw AS CurrentRW",
-                        "curr_sub_district AS CurrentSubDistrict",
-                        "curr_district AS CurrentDistrict",
-                        "curr_city AS CurrentCity",
-                        "curr_province AS CurrentProvince",
-                        "curr_country AS CurrentCountry",
-                        "curr_zip_code AS CurrentZipCode",
-                        "curr_ownership AS CurrentOwnership",
+                        "nationality_id AS NationalityId",
+                        "religion_id AS ReligionId",
+                        "marital_status AS MaritalStatus",
+                        "married_date AS MarriedDate",
+                        "nick_name AS NickName",
+                        "phone AS Phone",
+                        "mobile_phone AS MobilePhone",
+                        "email AS Email",
+                        "blood_type AS BloodType",
+                        "height AS Height",
+                        "weight AS Weight",
+                        "photo AS Photo",
+                        "reference AS Reference",
+                        "emergency_contact_name AS EmergencyContactName",
+                        "emergency_contact AS EmergencyContact",
                         "inserted_by AS InsertedBy",
                         "inserted_date AS InsertedDate",
                         "modified_by AS ModifiedBy",

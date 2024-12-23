@@ -8,14 +8,12 @@ namespace ThePatho.Features.Applicant.ApplicantPersonalData.Commands
     {
         [JsonPropertyName("filter_ApplicantNo")]
         public string? FilterApplicantNo { get; set; }
-        [JsonPropertyName("filter_Address")]
-        public string? FilterAddress { get; set; }
-        [JsonPropertyName("filter_City")]
-        public string? FilterCity { get; set; }
-        [JsonPropertyName("filter_Province")]
-        public string? FilterProvince { get; set; }
-        [JsonPropertyName("filter_Country")]
-        public string? FilterCountry { get; set; }
+        [JsonPropertyName("filter_NationalId")]
+        public string? FilterNationalId { get; set; }
+        [JsonPropertyName("filter_ReligionId")]
+        public string? FilterReligionId { get; set; }
+        [JsonPropertyName("filter_MaritalStatus")]
+        public string? FilterMaritalStatus { get; set; }
         
         [JsonPropertyName("sortBy")]
         public string? SortBy { get; set; } = "InsertedDate";

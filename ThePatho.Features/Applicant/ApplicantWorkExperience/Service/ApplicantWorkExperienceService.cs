@@ -23,46 +23,45 @@ namespace ThePatho.Features.Applicant.ApplicantWorkExperience.Service
             using var connection = dapperContext.CreateConnection();
             var db = new QueryFactory(connection, dapperContext.Compiler);
             var query = new Query(TableName.ApplicantWorkExperience)
-                .Select("applicant_no AS ApplicantNo",
+                .Select("app_work_exp_id AS AppWorkExpId",
+                        "applicant_no AS ApplicantNo",
+                        "start_working AS StartWorking",
+                        "end_working AS EndWorking",
+                        "company AS Company",
+                        "business_field AS BusinessField",
                         "address AS Address",
-                        "rt AS RT",
-                        "rw AS RW",
-                        "sub_district AS SubDistrict",
-                        "district AS District",
-                        "city AS City",
-                        "province AS Province",
-                        "country AS Country",
-                        "zip_code AS ZipCode",
-                        "ownership AS Ownership",
-                        "curr_address AS CurrentAddress",
-                        "curr_rt AS CurrentRT",
-                        "curr_rw AS CurrentRW",
-                        "curr_sub_district AS CurrentSubDistrict",
-                        "curr_district AS CurrentDistrict",
-                        "curr_city AS CurrentCity",
-                        "curr_province AS CurrentProvince",
-                        "curr_country AS CurrentCountry",
-                        "curr_zip_code AS CurrentZipCode",
-                        "curr_ownership AS CurrentOwnership",
+                        "city_code AS CityCode",
+                        "phone AS Phone",
+                        "website AS Website",
+                        "resign_reason_code AS ResignReasonCode",
+                        "emp_type_code AS EmpTypeCode",
+                        "organization AS Organization",
+                        "job_level AS JobLevel",
+                        "job_desc AS JobDesc",
+                        "reference_name AS ReferenceName",
+                        "reference_phone AS ReferencePhone",
+                        "reference_email AS ReferenceEmail",
+                        "remark AS Remark",
+                        "is_last_work_experience AS IsLastWorkExperience",
                         "inserted_by AS InsertedBy",
                         "inserted_date AS InsertedDate",
                         "modified_by AS ModifiedBy",
                         "modified_date AS ModifiedDate")
                 .When(
                     !string.IsNullOrWhiteSpace(request.FilterApplicantNo),
-                    q => q.WhereIn("ApplicantNo", request.FilterApplicantNo)
+                    q => q.WhereIn("applicant_no", request.FilterApplicantNo)
                 ).When(
-                    !string.IsNullOrWhiteSpace(request.FilterAddress),
-                        q => q.WhereContains("Address", request.FilterAddress)
+                    !string.IsNullOrWhiteSpace(request.FilterCompany),
+                        q => q.WhereContains("company", request.FilterCompany)
                 ).When(
-                    !string.IsNullOrWhiteSpace(request.FilterCity),
-                    q => q.WhereIn("city", request.FilterCity)
+                    !string.IsNullOrWhiteSpace(request.FilterOrganization),
+                    q => q.WhereIn("organization", request.FilterOrganization)
                 ).When(
-                    !string.IsNullOrWhiteSpace(request.FilterProvince),
-                        q => q.WhereContains("province", request.FilterProvince)
+                    !string.IsNullOrWhiteSpace(request.FilterJobLevel),
+                        q => q.WhereContains("job_level", request.FilterJobLevel)
                  ).When(
-                    !string.IsNullOrWhiteSpace(request.FilterCountry),
-                        q => q.WhereContains("country", request.FilterCountry)
+                    !string.IsNullOrWhiteSpace(request.FilterJobDesc),
+                        q => q.WhereContains("job_desc", request.FilterJobDesc)
                 );
 
             query = query.OrderByRaw(
@@ -81,27 +80,26 @@ namespace ThePatho.Features.Applicant.ApplicantWorkExperience.Service
             using var connection = dapperContext.CreateConnection();
             var db = new QueryFactory(connection, dapperContext.Compiler);
             var query = new Query(TableName.ApplicantWorkExperience)
-                .Select("applicant_no AS ApplicantNo",
+                .Select("app_work_exp_id AS AppWorkExpId",
+                        "applicant_no AS ApplicantNo",
+                        "start_working AS StartWorking",
+                        "end_working AS EndWorking",
+                        "company AS Company",
+                        "business_field AS BusinessField",
                         "address AS Address",
-                        "rt AS RT",
-                        "rw AS RW",
-                        "sub_district AS SubDistrict",
-                        "district AS District",
-                        "city AS City",
-                        "province AS Province",
-                        "country AS Country",
-                        "zip_code AS ZipCode",
-                        "ownership AS Ownership",
-                        "curr_address AS CurrentAddress",
-                        "curr_rt AS CurrentRT",
-                        "curr_rw AS CurrentRW",
-                        "curr_sub_district AS CurrentSubDistrict",
-                        "curr_district AS CurrentDistrict",
-                        "curr_city AS CurrentCity",
-                        "curr_province AS CurrentProvince",
-                        "curr_country AS CurrentCountry",
-                        "curr_zip_code AS CurrentZipCode",
-                        "curr_ownership AS CurrentOwnership",
+                        "city_code AS CityCode",
+                        "phone AS Phone",
+                        "website AS Website",
+                        "resign_reason_code AS ResignReasonCode",
+                        "emp_type_code AS EmpTypeCode",
+                        "organization AS Organization",
+                        "job_level AS JobLevel",
+                        "job_desc AS JobDesc",
+                        "reference_name AS ReferenceName",
+                        "reference_phone AS ReferencePhone",
+                        "reference_email AS ReferenceEmail",
+                        "remark AS Remark",
+                        "is_last_work_experience AS IsLastWorkExperience",
                         "inserted_by AS InsertedBy",
                         "inserted_date AS InsertedDate",
                         "modified_by AS ModifiedBy",

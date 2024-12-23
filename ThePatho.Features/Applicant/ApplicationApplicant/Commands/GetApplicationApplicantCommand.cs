@@ -8,14 +8,10 @@ namespace ThePatho.Features.Applicant.ApplicationApplicant.Commands
     {
         [JsonPropertyName("filter_ApplicantNo")]
         public string? FilterApplicantNo { get; set; }
-        [JsonPropertyName("filter_Address")]
-        public string? FilterAddress { get; set; }
-        [JsonPropertyName("filter_City")]
-        public string? FilterCity { get; set; }
-        [JsonPropertyName("filter_Province")]
-        public string? FilterProvince { get; set; }
-        [JsonPropertyName("filter_Country")]
-        public string? FilterCountry { get; set; }
+        [JsonPropertyName("filter_RequestNo")]
+        public string? FilterRequestNo { get; set; }
+        [JsonPropertyName("filter_Status")]
+        public string? FilterStatus { get; set; }
         
         [JsonPropertyName("sortBy")]
         public string? SortBy { get; set; } = "InsertedDate";

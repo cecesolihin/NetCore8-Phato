@@ -29,7 +29,6 @@ namespace ThePatho.Infrastructure.Persistance
         {
         }
 
-        public DbSet<Category> Categories { get; set; }
         public DbSet<AdsCategory> AdsCategories { get; set; }
         public DbSet<AdsMedia> AdsMedias { get; set; }
         public DbSet<ApplicantNew> Applicants { get; set; }
@@ -86,7 +85,6 @@ namespace ThePatho.Infrastructure.Persistance
             modelBuilder.ApplyConfiguration(new RecruitmentReqStepConfiguration());
             modelBuilder.ApplyConfiguration(new RecruitmentRequestConfiguration());
             modelBuilder.ApplyConfiguration(new RequirementRecRequestConfiguration());
-            modelBuilder.ApplyConfiguration(new CategoryConfiguration());
 
         }
 

@@ -23,46 +23,23 @@ namespace ThePatho.Features.Applicant.ApplicantSkill.Service
             using var connection = dapperContext.CreateConnection();
             var db = new QueryFactory(connection, dapperContext.Compiler);
             var query = new Query(TableName.ApplicantSkill)
-                .Select("applicant_no AS ApplicantNo",
-                        "address AS Address",
-                        "rt AS RT",
-                        "rw AS RW",
-                        "sub_district AS SubDistrict",
-                        "district AS District",
-                        "city AS City",
-                        "province AS Province",
-                        "country AS Country",
-                        "zip_code AS ZipCode",
-                        "ownership AS Ownership",
-                        "curr_address AS CurrentAddress",
-                        "curr_rt AS CurrentRT",
-                        "curr_rw AS CurrentRW",
-                        "curr_sub_district AS CurrentSubDistrict",
-                        "curr_district AS CurrentDistrict",
-                        "curr_city AS CurrentCity",
-                        "curr_province AS CurrentProvince",
-                        "curr_country AS CurrentCountry",
-                        "curr_zip_code AS CurrentZipCode",
-                        "curr_ownership AS CurrentOwnership",
+                .Select("applicant_no as ApplicantNo",
+                        "skill_code as SkillCode",
+                        "description as Description",
+                        "proficiency_code as ProficiencyCode",
+                        "taken_date as TakenDate",
+                        "exp_date as Expdate",
+                        "remarks as Remarks",
                         "inserted_by AS InsertedBy",
                         "inserted_date AS InsertedDate",
                         "modified_by AS ModifiedBy",
                         "modified_date AS ModifiedDate")
                 .When(
                     !string.IsNullOrWhiteSpace(request.FilterApplicantNo),
-                    q => q.WhereIn("ApplicantNo", request.FilterApplicantNo)
+                    q => q.WhereIn("applicant_no", request.FilterApplicantNo)
                 ).When(
-                    !string.IsNullOrWhiteSpace(request.FilterAddress),
-                        q => q.WhereContains("Address", request.FilterAddress)
-                ).When(
-                    !string.IsNullOrWhiteSpace(request.FilterCity),
-                    q => q.WhereIn("city", request.FilterCity)
-                ).When(
-                    !string.IsNullOrWhiteSpace(request.FilterProvince),
-                        q => q.WhereContains("province", request.FilterProvince)
-                 ).When(
-                    !string.IsNullOrWhiteSpace(request.FilterCountry),
-                        q => q.WhereContains("country", request.FilterCountry)
+                    !string.IsNullOrWhiteSpace(request.FilterSkill),
+                        q => q.WhereContains("skill_code", request.FilterSkill)
                 );
 
             query = query.OrderByRaw(
@@ -81,27 +58,13 @@ namespace ThePatho.Features.Applicant.ApplicantSkill.Service
             using var connection = dapperContext.CreateConnection();
             var db = new QueryFactory(connection, dapperContext.Compiler);
             var query = new Query(TableName.ApplicantSkill)
-                .Select("applicant_no AS ApplicantNo",
-                        "address AS Address",
-                        "rt AS RT",
-                        "rw AS RW",
-                        "sub_district AS SubDistrict",
-                        "district AS District",
-                        "city AS City",
-                        "province AS Province",
-                        "country AS Country",
-                        "zip_code AS ZipCode",
-                        "ownership AS Ownership",
-                        "curr_address AS CurrentAddress",
-                        "curr_rt AS CurrentRT",
-                        "curr_rw AS CurrentRW",
-                        "curr_sub_district AS CurrentSubDistrict",
-                        "curr_district AS CurrentDistrict",
-                        "curr_city AS CurrentCity",
-                        "curr_province AS CurrentProvince",
-                        "curr_country AS CurrentCountry",
-                        "curr_zip_code AS CurrentZipCode",
-                        "curr_ownership AS CurrentOwnership",
+                .Select("applicant_no as ApplicantNo",
+                        "skill_code as SkillCode",
+                        "description as Description",
+                        "proficiency_code as ProficiencyCode",
+                        "taken_date as TakenDate",
+                        "exp_date as Expdate",
+                        "remarks as Remarks",
                         "inserted_by AS InsertedBy",
                         "inserted_date AS InsertedDate",
                         "modified_by AS ModifiedBy",

@@ -24,46 +24,32 @@ namespace ThePatho.Features.Applicant.ApplicationApplicant.Service
             using var connection = dapperContext.CreateConnection();
             var db = new QueryFactory(connection, dapperContext.Compiler);
             var query = new Query(TableName.ApplicationApplicant)
-                .Select("applicant_no AS ApplicantNo",
-                        "address AS Address",
-                        "rt AS RT",
-                        "rw AS RW",
-                        "sub_district AS SubDistrict",
-                        "district AS District",
-                        "city AS City",
-                        "province AS Province",
-                        "country AS Country",
-                        "zip_code AS ZipCode",
-                        "ownership AS Ownership",
-                        "curr_address AS CurrentAddress",
-                        "curr_rt AS CurrentRT",
-                        "curr_rw AS CurrentRW",
-                        "curr_sub_district AS CurrentSubDistrict",
-                        "curr_district AS CurrentDistrict",
-                        "curr_city AS CurrentCity",
-                        "curr_province AS CurrentProvince",
-                        "curr_country AS CurrentCountry",
-                        "curr_zip_code AS CurrentZipCode",
-                        "curr_ownership AS CurrentOwnership",
+                .Select("rec_application_id AS RecApplicationId",
+                        "applicant_no AS ApplicantNo",
+                        "request_no AS RequestNo",
+                        "applied_date AS AppliedDate",
+                        "ads_code AS AdsCode",
+                        "recruitment_fee AS RecruitmentFee",
+                        "remarks AS Remarks",
+                        "moved_from AS MovedFrom",
+                        "date_moved AS DateMoved",
+                        "status AS Status",
+                        "employee_id AS EmployeeId",
                         "inserted_by AS InsertedBy",
                         "inserted_date AS InsertedDate",
                         "modified_by AS ModifiedBy",
-                        "modified_date AS ModifiedDate")
+                        "modified_date AS ModifiedDate",
+                        "internal_applicant AS InternalApplicant",
+                        "email_confirm AS EmailConfirm")
                 .When(
                     !string.IsNullOrWhiteSpace(request.FilterApplicantNo),
-                    q => q.WhereIn("ApplicantNo", request.FilterApplicantNo)
+                    q => q.WhereIn("applicant_no", request.FilterApplicantNo)
                 ).When(
-                    !string.IsNullOrWhiteSpace(request.FilterAddress),
-                        q => q.WhereContains("Address", request.FilterAddress)
-                ).When(
-                    !string.IsNullOrWhiteSpace(request.FilterCity),
-                    q => q.WhereIn("city", request.FilterCity)
-                ).When(
-                    !string.IsNullOrWhiteSpace(request.FilterProvince),
-                        q => q.WhereContains("province", request.FilterProvince)
+                    !string.IsNullOrWhiteSpace(request.FilterRequestNo),
+                        q => q.WhereContains("request_no", request.FilterRequestNo)
                  ).When(
-                    !string.IsNullOrWhiteSpace(request.FilterCountry),
-                        q => q.WhereContains("country", request.FilterCountry)
+                    !string.IsNullOrWhiteSpace(request.FilterStatus),
+                        q => q.WhereContains("status", request.FilterStatus)
                 );
 
             query = query.OrderByRaw(
@@ -82,31 +68,23 @@ namespace ThePatho.Features.Applicant.ApplicationApplicant.Service
             using var connection = dapperContext.CreateConnection();
             var db = new QueryFactory(connection, dapperContext.Compiler);
             var query = new Query(TableName.ApplicationApplicant)
-                .Select("applicant_no AS ApplicantNo",
-                        "address AS Address",
-                        "rt AS RT",
-                        "rw AS RW",
-                        "sub_district AS SubDistrict",
-                        "district AS District",
-                        "city AS City",
-                        "province AS Province",
-                        "country AS Country",
-                        "zip_code AS ZipCode",
-                        "ownership AS Ownership",
-                        "curr_address AS CurrentAddress",
-                        "curr_rt AS CurrentRT",
-                        "curr_rw AS CurrentRW",
-                        "curr_sub_district AS CurrentSubDistrict",
-                        "curr_district AS CurrentDistrict",
-                        "curr_city AS CurrentCity",
-                        "curr_province AS CurrentProvince",
-                        "curr_country AS CurrentCountry",
-                        "curr_zip_code AS CurrentZipCode",
-                        "curr_ownership AS CurrentOwnership",
+                .Select("rec_application_id AS RecApplicationId",
+                        "applicant_no AS ApplicantNo",
+                        "request_no AS RequestNo",
+                        "applied_date AS AppliedDate",
+                        "ads_code AS AdsCode",
+                        "recruitment_fee AS RecruitmentFee",
+                        "remarks AS Remarks",
+                        "moved_from AS MovedFrom",
+                        "date_moved AS DateMoved",
+                        "status AS Status",
+                        "employee_id AS EmployeeId",
                         "inserted_by AS InsertedBy",
                         "inserted_date AS InsertedDate",
                         "modified_by AS ModifiedBy",
-                        "modified_date AS ModifiedDate")
+                        "modified_date AS ModifiedDate",
+                        "internal_applicant AS InternalApplicant",
+                        "email_confirm AS EmailConfirm")
                 .When(
                     !string.IsNullOrWhiteSpace(request.FilterApplicantNo),
                     q => q.WhereIn("applicant_no", request.FilterApplicantNo)

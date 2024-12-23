@@ -8,14 +8,14 @@ namespace ThePatho.Features.Applicant.ApplicantEducation.Commands
     {
         [JsonPropertyName("filter_ApplicantNo")]
         public string? FilterApplicantNo { get; set; }
-        [JsonPropertyName("filter_Address")]
-        public string? FilterAddress { get; set; }
-        [JsonPropertyName("filter_City")]
-        public string? FilterCity { get; set; }
-        [JsonPropertyName("filter_Province")]
-        public string? FilterProvince { get; set; }
-        [JsonPropertyName("filter_Country")]
-        public string? FilterCountry { get; set; }
+        [JsonPropertyName("filter_EdulLevel")]
+        public string? FilterEdulLevel { get; set; }
+        [JsonPropertyName("filter_Major")]
+        public string? FilterMajor { get; set; }
+        [JsonPropertyName("filter_Faculty")]
+        public string? FilterFaculty { get; set; }
+        [JsonPropertyName("filter_Institution")]
+        public string? FilterInstitution { get; set; }
         
         [JsonPropertyName("sortBy")]
         public string? SortBy { get; set; } = "InsertedDate";

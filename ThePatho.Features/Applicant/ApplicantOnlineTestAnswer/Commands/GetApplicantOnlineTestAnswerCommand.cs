@@ -6,16 +6,10 @@ namespace ThePatho.Features.Applicant.ApplicantOnlineTestAnswer.Commands
 {
     public class GetApplicantOnlineTestAnswerCommand :IRequest<ApplicantOnlineTestAnswerItemDto>
     {
-        [JsonPropertyName("filter_ApplicantNo")]
-        public string? FilterApplicantNo { get; set; }
-        [JsonPropertyName("filter_Address")]
-        public string? FilterAddress { get; set; }
-        [JsonPropertyName("filter_City")]
-        public string? FilterCity { get; set; }
-        [JsonPropertyName("filter_Province")]
-        public string? FilterProvince { get; set; }
-        [JsonPropertyName("filter_Country")]
-        public string? FilterCountry { get; set; }
+        [JsonPropertyName("filter_AppAnswerId")]
+        public string? FilterAppAnswerId { get; set; }
+        [JsonPropertyName("filter_AppResultId")]
+        public string? FilterAppResultId { get; set; }
         
         [JsonPropertyName("sortBy")]
         public string? SortBy { get; set; } = "InsertedDate";

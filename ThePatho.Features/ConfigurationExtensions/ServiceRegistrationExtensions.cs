@@ -12,7 +12,6 @@ using ThePatho.Features.Applicant.ApplicantSkill.Service;
 using ThePatho.Features.Applicant.ApplicantWorkExperience.Service;
 using ThePatho.Features.Applicant.ApplicationApplicant.Service;
 using ThePatho.Features.Applicant.ReasonStepFailed.Service;
-using ThePatho.Features.Category.Service;
 using ThePatho.Features.MasterData.AdsCategory.Service;
 using ThePatho.Features.MasterData.AdsMedia.Service;
 using ThePatho.Features.MasterData.JobCategory.Service;
@@ -32,7 +31,6 @@ public static class ServiceRegistrationExtensions
 {
     public static void AddApplicationServices(this IServiceCollection services)
     {
-        services.AddScoped<ICategoryService, CategoryService>();
         services.AddScoped<IAdsCategoryService, AdsCategoryService>();
         services.AddScoped<IAdsMediaService, AdsMediaService>();
         services.AddScoped<IJobCategoryService, JobCategoryService>();

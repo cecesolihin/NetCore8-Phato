@@ -6,12 +6,12 @@ namespace ThePatho.Features.Applicant.ApplicantRecruitStep.Commands
 {
     public class GetApplicantRecruitStepCommand :IRequest<ApplicantRecruitStepItemDto>
     {
-        [JsonPropertyName("filter_ApplicantNo")]
-        public string? FilterApplicantNo { get; set; }
-        [JsonPropertyName("filter_Address")]
-        public string? FilterAddress { get; set; }
-        [JsonPropertyName("filter_City")]
-        public string? FilterCity { get; set; }
+        [JsonPropertyName("filter_RecaApplicationId")]
+        public string? FilterRecaApplicationId { get; set; }
+        [JsonPropertyName("filter_RecruitStepCode")]
+        public string? FilterRecruitStepCode { get; set; }
+        [JsonPropertyName("filter_Status")]
+        public string? FilterStatus { get; set; }
         [JsonPropertyName("filter_Province")]
         public string? FilterProvince { get; set; }
         [JsonPropertyName("filter_Country")]

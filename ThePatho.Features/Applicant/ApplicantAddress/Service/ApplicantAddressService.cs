@@ -49,10 +49,10 @@ namespace ThePatho.Features.Applicant.ApplicantAddress.Service
                         "modified_date AS ModifiedDate")
                 .When(
                     !string.IsNullOrWhiteSpace(request.FilterApplicantNo),
-                    q => q.WhereIn("ApplicantNo", request.FilterApplicantNo)
+                    q => q.WhereIn("applicant_no", request.FilterApplicantNo)
                 ).When(
                     !string.IsNullOrWhiteSpace(request.FilterAddress),
-                        q => q.WhereContains("Address", request.FilterAddress)
+                        q => q.WhereContains("address", request.FilterAddress)
                 ).When(
                     !string.IsNullOrWhiteSpace(request.FilterCity),
                     q => q.WhereIn("city", request.FilterCity)
