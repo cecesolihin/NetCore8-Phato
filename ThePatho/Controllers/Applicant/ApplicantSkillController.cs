@@ -11,6 +11,7 @@ namespace ThePatho.Controllers
 {
     [ApiController]
     [Route("api/applicant/applicant-skill")]
+    [ApiExplorerSettings(GroupName = "Applicant")]
     public class ApplicantSkillController : ControllerBase
     {
         private readonly IMediator mediator;

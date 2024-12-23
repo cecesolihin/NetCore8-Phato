@@ -10,6 +10,7 @@ namespace ThePatho.Controllers
 {
     [ApiController]
     [Route("api/master-data/ads-media")]
+    [ApiExplorerSettings(GroupName = "MasterData")]
     public class AdsMediaController : ControllerBase
     {
         private readonly IMediator mediator;

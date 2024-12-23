@@ -11,6 +11,7 @@ namespace ThePatho.Controllers
 {
     [ApiController]
     [Route("api/master-setting/online-test-setting")]
+    [ApiExplorerSettings(GroupName = "MasterSetting")]
     public class OnlineTestSettingController : ControllerBase
     {
         private readonly IMediator mediator;

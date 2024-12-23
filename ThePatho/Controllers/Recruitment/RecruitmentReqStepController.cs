@@ -3,13 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using ThePatho.Features.ConfigurationExtensions;
 using ThePatho.Features.Recruitment.RecruitmentReqStep.DTO;
-using ThePatho.Features.Recruitment.RecruitmentReqStep.Service;
 using ThePatho.Features.Recruitment.RecruitmentReqStep.Commands;
 
 namespace ThePatho.Controllers
 {
     [ApiController]
     [Route("api/recruitment/recruitment-req-step")]
+    [ApiExplorerSettings(GroupName = "Recruitment")]
     public class RecruitmentReqStepController : ControllerBase
     {
         private readonly IMediator mediator;

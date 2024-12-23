@@ -11,6 +11,7 @@ namespace ThePatho.Controllers
 {
     [ApiController]
     [Route("api/master-setting/scoring-setting")]
+    [ApiExplorerSettings(GroupName = "MasterSetting")]
     public class ScoringSettingController : ControllerBase
     {
         private readonly IMediator mediator;

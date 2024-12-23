@@ -10,6 +10,7 @@ namespace ThePatho.Controllers
 {
     [ApiController]
     [Route("api/applicant/applicant-online-test-answer")]
+    [ApiExplorerSettings(GroupName = "Applicant")]
     public class ApplicantOnlineTestAnswerController : ControllerBase
     {
         private readonly IMediator mediator;

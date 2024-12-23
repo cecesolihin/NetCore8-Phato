@@ -11,6 +11,7 @@ namespace ThePatho.Controllers
 {
     [ApiController]
     [Route("api/applicant/applicant-personal-data")]
+    [ApiExplorerSettings(GroupName = "Applicant")]
     public class ApplicantPersonalDataController : ControllerBase
     {
         private readonly IMediator mediator;

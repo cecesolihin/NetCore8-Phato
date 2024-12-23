@@ -12,6 +12,7 @@ namespace ThePatho.Controllers
 {
     [ApiController]
     [Route("api/recruitment/recruit-step-group")]
+    [ApiExplorerSettings(GroupName = "Recruitment")]
     public class RecruitStepGroupDetailController : ControllerBase
     {
         private readonly IMediator mediator;

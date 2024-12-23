@@ -12,6 +12,7 @@ namespace ThePatho.Controllers
 {
     [ApiController]
     [Route("api/master-setting/question-setting-detail")]
+    [ApiExplorerSettings(GroupName = "MasterSetting")]
     public class QuestionSettingDetailController : ControllerBase
     {
         private readonly IMediator mediator;

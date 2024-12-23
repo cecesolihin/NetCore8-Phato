@@ -11,6 +11,7 @@ namespace ThePatho.Controllers
 {
     [ApiController]
     [Route("api/applicant/applicant-address")]
+    [ApiExplorerSettings(GroupName = "Applicant")]
     public class ApplicantAddressController : ControllerBase
     {
         private readonly IMediator mediator;

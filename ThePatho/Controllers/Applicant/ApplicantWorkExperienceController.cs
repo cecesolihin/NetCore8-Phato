@@ -11,6 +11,7 @@ namespace ThePatho.Controllers
 {
     [ApiController]
     [Route("api/applicant/applicant-work-experience")]
+    [ApiExplorerSettings(GroupName = "Applicant")]
     public class ApplicantWorkExperienceController : ControllerBase
     {
         private readonly IMediator mediator;

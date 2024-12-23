@@ -11,6 +11,7 @@ namespace ThePatho.Controllers
 {
     [ApiController]
     [Route("api/master-data/job-category")]
+    [ApiExplorerSettings(GroupName = "MasterData")]
     public class JobCategoryController : ControllerBase
     {
         private readonly IMediator mediator;
