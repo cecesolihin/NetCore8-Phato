@@ -9,7 +9,8 @@ using ThePatho.Features.Recruitment.RecruitmentRequest.Commands;
 namespace ThePatho.Controllers
 {
     [ApiController]
-    [Route("api/recruitment/recruitment-request")]
+    [Route(ApiRoutes.RecruitmentMenu.RecruitmentRequest)]
+    [ApiExplorerSettings(GroupName = "Recruitment")]
     public class RecruitmentRequestController : ControllerBase
     {
         private readonly IMediator mediator;
@@ -19,7 +20,7 @@ namespace ThePatho.Controllers
             mediator = _mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
-        [HttpPost("recruitment-request-list")]
+        [HttpPost(ApiRoutes.Methods.GetList)]
         public async Task<IActionResult> GetRecruitmentRequestList([FromBody] GetRecruitmentRequestCommand command,
             CancellationToken cancellationToken)
         {
@@ -39,7 +40,7 @@ namespace ThePatho.Controllers
             }
         }
 
-        [HttpPost("recruitment-request-by-criteria")]
+        [HttpPost(ApiRoutes.Methods.GetByCriteria)]
         public async Task<IActionResult> GetRecruitmentRequestByCode([FromBody] GetRecruitmentRequestByCriteriaCommand command,
             CancellationToken cancellationToken)
         {

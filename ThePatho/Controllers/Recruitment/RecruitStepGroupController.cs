@@ -10,7 +10,8 @@ using ThePatho.Features.Recruitment.RecruitStepGroup.Service;
 namespace ThePatho.Controllers
 {
     [ApiController]
-    [Route("api/recruitment/recruit-step-group")]
+    [Route(ApiRoutes.RecruitmentMenu.RecruitStepGroup)]
+    [ApiExplorerSettings(GroupName = "Recruitment")]
     public class RecruitStepGroupController : ControllerBase
     {
         private readonly IMediator mediator;
@@ -20,7 +21,7 @@ namespace ThePatho.Controllers
             mediator = _mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
-        [HttpPost("recruit-step-group-list")]
+        [HttpPost(ApiRoutes.Methods.GetList)]
         public async Task<IActionResult> GetRecruitStepList([FromBody] GetRecruitStepCommand command,
             CancellationToken cancellationToken)
         {
@@ -40,7 +41,7 @@ namespace ThePatho.Controllers
             }
         }
 
-        [HttpPost("recruit-step-group-by-criteria")]
+        [HttpPost(ApiRoutes.Methods.GetByCriteria)]
         public async Task<IActionResult> GetRecruitStepByCode([FromBody] GetRecruitStepByCriteriaCommand command,
             CancellationToken cancellationToken)
         {

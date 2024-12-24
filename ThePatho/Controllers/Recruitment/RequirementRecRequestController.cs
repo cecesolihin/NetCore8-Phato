@@ -9,7 +9,8 @@ using ThePatho.Features.Recruitment.RequirementRecRequest.Service;
 namespace ThePatho.Controllers
 {
     [ApiController]
-    [Route("api/recruitment/recruitment-rec-request")]
+    [Route(ApiRoutes.RecruitmentMenu.RequirementRecRequest)]
+    [ApiExplorerSettings(GroupName = "Recruitment")]
     public class RequirementRecRequestController : ControllerBase
     {
         private readonly IMediator mediator;
@@ -19,7 +20,7 @@ namespace ThePatho.Controllers
             mediator = _mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
-        [HttpPost("recruitment-rec-list")]
+        [HttpPost(ApiRoutes.Methods.GetList)]
         public async Task<IActionResult> GetRequirementRecRequestList([FromBody] GetRequirementRecRequestCommand command,
             CancellationToken cancellationToken)
         {
@@ -39,7 +40,7 @@ namespace ThePatho.Controllers
             }
         }
 
-        [HttpPost("recruitment-rec-by-criteria")]
+        [HttpPost(ApiRoutes.Methods.GetByCriteria)]
         public async Task<IActionResult> GetRequirementRecRequestByCode([FromBody] GetRequirementRecRequestByCodeCommand command,
             CancellationToken cancellationToken)
         {

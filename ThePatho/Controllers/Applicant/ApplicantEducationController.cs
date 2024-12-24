@@ -10,7 +10,8 @@ using ThePatho.Features.ConfigurationExtensions;
 namespace ThePatho.Controllers
 {
     [ApiController]
-    [Route("api/applicant/applicant-education")]
+    [Route(ApiRoutes.ApplicantMenu.ApplicantEducation)]
+    [ApiExplorerSettings(GroupName = "Applicant")]
     public class ApplicantEducationController : ControllerBase
     {
         private readonly IMediator mediator;
@@ -20,7 +21,7 @@ namespace ThePatho.Controllers
             mediator = _mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
-        [HttpPost("applicant-education-list")]
+        [HttpPost(ApiRoutes.Methods.GetList)]
         public async Task<IActionResult> GetApplicantEducationList([FromBody] GetApplicantEducationCommand command,
             CancellationToken cancellationToken)
         {
@@ -40,7 +41,7 @@ namespace ThePatho.Controllers
             }
         }
 
-        [HttpPost("applicant-education-by-criteria")]
+        [HttpPost(ApiRoutes.Methods.GetByCriteria)]
         public async Task<IActionResult> GetApplicantEducationByCriteria([FromBody] GetApplicantEducationByCriteriaCommand command,
             CancellationToken cancellationToken)
         {

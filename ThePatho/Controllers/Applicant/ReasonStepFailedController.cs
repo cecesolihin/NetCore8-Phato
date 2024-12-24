@@ -7,6 +7,7 @@ namespace ThePatho.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [ApiExplorerSettings(GroupName = "Applicant")]
     public class ReasonStepFailedController : ControllerBase
     {
         private readonly IReasonStepFailedService _ReasonStepFailedService;

@@ -9,7 +9,8 @@ using ThePatho.Features.ConfigurationExtensions;
 namespace ThePatho.Controllers
 {
     [ApiController]
-    [Route("api/applicant/applicant-recruit-step")]
+    [Route(ApiRoutes.ApplicantMenu.ApplicantRecruitStep)]
+    [ApiExplorerSettings(GroupName = "Applicant")]
     public class ApplicantRecruitStepController : ControllerBase
     {
         private readonly IMediator mediator;
@@ -19,7 +20,7 @@ namespace ThePatho.Controllers
             mediator = _mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
-        [HttpPost("applicant-recruit-step-list")]
+        [HttpPost(ApiRoutes.Methods.GetList)]
         public async Task<IActionResult> GetApplicantRecruitStepList([FromBody] GetApplicantRecruitStepCommand command,
             CancellationToken cancellationToken)
         {
@@ -39,7 +40,7 @@ namespace ThePatho.Controllers
             }
         }
 
-        [HttpPost("applicant-recruit-step-by-criteria")]
+        [HttpPost(ApiRoutes.Methods.GetByCriteria)]
         public async Task<IActionResult> GetApplicantRecruitStepByCriteria([FromBody] GetApplicantRecruitStepByCriteriaCommand command,
             CancellationToken cancellationToken)
         {

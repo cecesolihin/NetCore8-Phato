@@ -10,7 +10,8 @@ using ThePatho.Features.ConfigurationExtensions;
 namespace ThePatho.Controllers
 {
     [ApiController]
-    [Route("api/applicant/applicant-identity")]
+    [Route(ApiRoutes.ApplicantMenu.ApplicantIdentity)]
+    [ApiExplorerSettings(GroupName = "Applicant")]
     public class ApplicantIdentityController : ControllerBase
     {
         private readonly IMediator mediator;
@@ -20,7 +21,7 @@ namespace ThePatho.Controllers
             mediator = _mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
-        [HttpPost("applicant-identity-list")]
+        [HttpPost(ApiRoutes.Methods.GetList)]
         public async Task<IActionResult> GetApplicantIdentityList([FromBody] GetApplicantIdentityCommand command,
             CancellationToken cancellationToken)
         {
@@ -40,7 +41,7 @@ namespace ThePatho.Controllers
             }
         }
 
-        [HttpPost("applicant-identity-by-criteria")]
+        [HttpPost(ApiRoutes.Methods.GetByCriteria)]
         public async Task<IActionResult> GetApplicantIdentityByCriteria([FromBody] GetApplicantIdentityByCriteriaCommand command,
             CancellationToken cancellationToken)
         {

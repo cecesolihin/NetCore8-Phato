@@ -11,7 +11,8 @@ using ThePatho.Features.MasterSetting.QuestionSettingDetail.Commands;
 namespace ThePatho.Controllers
 {
     [ApiController]
-    [Route("api/master-setting/question-setting")]
+    [Route(ApiRoutes.MasterSettingMenu.QuestionSetting)]
+    [ApiExplorerSettings(GroupName = "MasterSetting")]
     public class QuestionSettingController : ControllerBase
     {
         private readonly IMediator mediator;
@@ -21,10 +22,7 @@ namespace ThePatho.Controllers
             mediator = _mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
-        [HttpPost("get-question-setting-list")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [HttpPost(ApiRoutes.Methods.GetList)]
         public async Task<IActionResult> GetQuestionSettingList([FromBody] GetQuestionSettingCommand command,
             CancellationToken cancellationToken)
         {
@@ -44,10 +42,7 @@ namespace ThePatho.Controllers
             }
         }
 
-        [HttpPost("get-question-setting-by-criteria")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [HttpPost(ApiRoutes.Methods.GetByCriteria)]
         public async Task<IActionResult> GetQuestionSettingByCode([FromBody] GetQuestionSettingByCriteriaCommand command,
             CancellationToken cancellationToken)
         {
@@ -67,10 +62,7 @@ namespace ThePatho.Controllers
             }
         }
 
-        [HttpPost("get-question-setting-ddl")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [HttpPost(ApiRoutes.Methods.GetDdl)]
         public async Task<IActionResult> GetQuestionSettingDdl([FromBody] GetQuestionSettingDdlCommand command,
             CancellationToken cancellationToken)
         {

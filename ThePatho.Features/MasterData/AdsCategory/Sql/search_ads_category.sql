@@ -11,8 +11,8 @@ SELECT
 FROM 
     dbo.TMAdsCategory
 WHERE
-    (@CategoryCode IS NULL OR ads_category_code LIKE '%' + @AdsCategoryCode + '%') AND
-    (@CategoryName IS NULL OR ads_category_name LIKE '%' + @AdsCategoryName + '%')
+    (@AdsCategoryCode IS NULL OR ads_category_code LIKE '%' + @AdsCategoryCode + '%') AND
+    (@AdsCategoryName IS NULL OR ads_category_name LIKE '%' + @AdsCategoryName + '%')
 ORDER BY
     CASE WHEN @SortBy = 'AdsCategoryCode' THEN ads_category_code END,
     CASE WHEN @SortBy = 'AdsCategoryName' THEN ads_category_name END,

@@ -10,7 +10,8 @@ using ThePatho.Features.MasterSetting.OnlineTestSetting.Service;
 namespace ThePatho.Controllers
 {
     [ApiController]
-    [Route("api/master-setting/online-test-setting")]
+    [Route(ApiRoutes.MasterSettingMenu.OnlineTestSetting)]
+    [ApiExplorerSettings(GroupName = "MasterSetting")]
     public class OnlineTestSettingController : ControllerBase
     {
         private readonly IMediator mediator;
@@ -20,10 +21,7 @@ namespace ThePatho.Controllers
             mediator = _mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
-        [HttpPost("get-online-test-setting-list")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [HttpPost(ApiRoutes.Methods.GetList)]
         public async Task<IActionResult> GetOnlineTestSettingList([FromBody] GetOnlineTestSettingCommand command,
             CancellationToken cancellationToken)
         {
@@ -43,10 +41,7 @@ namespace ThePatho.Controllers
             }
         }
 
-        [HttpPost("get-online-test-setting-by-criteria")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [HttpPost(ApiRoutes.Methods.GetByCriteria)]
         public async Task<IActionResult> GetOnlineTestSettingByCode([FromBody] GetOnlineTestSettingByCriteriaCommand command,
             CancellationToken cancellationToken)
         {
@@ -66,10 +61,7 @@ namespace ThePatho.Controllers
             }
         }
 
-        [HttpPost("get-online-test-setting-ddl")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [HttpPost(ApiRoutes.Methods.GetDdl)]
         public async Task<IActionResult> GetOnlineTestSettingDdl([FromBody] GetOnlineTestSettingDdlCommand command,
             CancellationToken cancellationToken)
         {

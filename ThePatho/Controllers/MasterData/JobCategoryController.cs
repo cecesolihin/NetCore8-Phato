@@ -10,7 +10,8 @@ using ThePatho.Features.MasterData.JobCategory.DTO;
 namespace ThePatho.Controllers
 {
     [ApiController]
-    [Route("api/master-data/job-category")]
+    [Route(ApiRoutes.MasterDataMenu.JobCategory)]
+    [ApiExplorerSettings(GroupName = "MasterData")]
     public class JobCategoryController : ControllerBase
     {
         private readonly IMediator mediator;
@@ -20,10 +21,7 @@ namespace ThePatho.Controllers
             mediator = _mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
-        [HttpPost("get-job-category-list")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [HttpPost(ApiRoutes.Methods.GetList)]
         public async Task<IActionResult> GetJobCategoryList([FromBody] GetJobCategoryCommand command,
             CancellationToken cancellationToken)
         {
@@ -43,10 +41,7 @@ namespace ThePatho.Controllers
             }
         }
 
-        [HttpPost("get-job-category-by-criteria")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [HttpPost(ApiRoutes.Methods.GetByCriteria)]
         public async Task<IActionResult> GetJobCategoryByCode([FromBody] GetJobCategoryByCriteriaCommand command,
             CancellationToken cancellationToken)
         {
@@ -66,10 +61,7 @@ namespace ThePatho.Controllers
             }
         }
 
-        [HttpPost("get-job-category-ddl")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [HttpPost(ApiRoutes.Methods.GetDdl)]
         public async Task<IActionResult> GetJobCategoryDdl([FromBody] GetJobCategoryDdlCommand command,
             CancellationToken cancellationToken)
         {
