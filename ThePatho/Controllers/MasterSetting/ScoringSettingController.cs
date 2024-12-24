@@ -10,7 +10,7 @@ using ThePatho.Features.MasterSetting.ScoringSetting.Service;
 namespace ThePatho.Controllers
 {
     [ApiController]
-    [Route("api/master-setting/scoring-setting")]
+    [Route(ApiRoutes.MasterSettingMenu.ScoringSetting)]
     [ApiExplorerSettings(GroupName = "MasterSetting")]
     public class ScoringSettingController : ControllerBase
     {
@@ -21,10 +21,7 @@ namespace ThePatho.Controllers
             mediator = _mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
-        [HttpPost("get-scoring-setting-list")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [HttpPost(ApiRoutes.Methods.GetList)]
         public async Task<IActionResult> GetScoringSettingList([FromBody] GetScoringSettingCommand command,
             CancellationToken cancellationToken)
         {
@@ -44,10 +41,7 @@ namespace ThePatho.Controllers
             }
         }
 
-        [HttpPost("get-scoring-setting-by-criteria")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [HttpPost(ApiRoutes.Methods.GetByCriteria)]
         public async Task<IActionResult> GetScoringSettingByCode([FromBody] GetScoringSettingByCriteriaCommand command,
             CancellationToken cancellationToken)
         {
@@ -67,10 +61,7 @@ namespace ThePatho.Controllers
             }
         }
 
-        [HttpPost("get-scoring-setting-ddl")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [HttpPost(ApiRoutes.Methods.GetDdl)]
         public async Task<IActionResult> GetScoringSettingDdl([FromBody] GetScoringSettingDdlCommand command,
             CancellationToken cancellationToken)
         {

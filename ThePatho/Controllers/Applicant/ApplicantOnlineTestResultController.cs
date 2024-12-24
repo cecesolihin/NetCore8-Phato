@@ -10,7 +10,7 @@ using ThePatho.Features.ConfigurationExtensions;
 namespace ThePatho.Controllers
 {
     [ApiController]
-    [Route("api/applicant/applicant-online-test-result")]
+    [Route(ApiRoutes.ApplicantMenu.ApplicantOnlineTestResult)]
     [ApiExplorerSettings(GroupName = "Applicant")]
     public class ApplicantOnlineTestResultController : ControllerBase
     {
@@ -21,7 +21,7 @@ namespace ThePatho.Controllers
             mediator = _mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
-        [HttpPost("applicant-online-test-result-list")]
+        [HttpPost(ApiRoutes.Methods.GetList)]
         public async Task<IActionResult> GetApplicantOnlineTestResultList([FromBody] GetApplicantOnlineTestResultCommand command,
             CancellationToken cancellationToken)
         {
@@ -41,7 +41,7 @@ namespace ThePatho.Controllers
             }
         }
 
-        [HttpPost("applicant-online-test-result-by-criteria")]
+        [HttpPost(ApiRoutes.Methods.GetByCriteria)]
         public async Task<IActionResult> GetApplicantOnlineTestResultByCriteria([FromBody] GetApplicantOnlineTestResultByCriteriaCommand command,
             CancellationToken cancellationToken)
         {

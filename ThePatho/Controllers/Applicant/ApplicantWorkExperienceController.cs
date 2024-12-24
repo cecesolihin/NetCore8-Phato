@@ -10,7 +10,7 @@ using ThePatho.Features.ConfigurationExtensions;
 namespace ThePatho.Controllers
 {
     [ApiController]
-    [Route("api/applicant/applicant-work-experience")]
+    [Route(ApiRoutes.ApplicantMenu.ApplicantWorkExperience)]
     [ApiExplorerSettings(GroupName = "Applicant")]
     public class ApplicantWorkExperienceController : ControllerBase
     {
@@ -21,7 +21,7 @@ namespace ThePatho.Controllers
             mediator = _mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
-        [HttpPost("applicant-work-experience-list")]
+        [HttpPost(ApiRoutes.Methods.GetList)]
         public async Task<IActionResult> GetApplicationWorkExperienceList([FromBody] GetApplicantWorkExperienceCommand command,
             CancellationToken cancellationToken)
         {
@@ -41,7 +41,7 @@ namespace ThePatho.Controllers
             }
         }
 
-        [HttpPost("applicant-work-experience-by-criteria")]
+        [HttpPost(ApiRoutes.Methods.GetByCriteria)]
         public async Task<IActionResult> GetApplicationWorkExperienceByCriteria([FromBody] GetApplicantWorkExperienceByCriteriaCommand command,
             CancellationToken cancellationToken)
         {

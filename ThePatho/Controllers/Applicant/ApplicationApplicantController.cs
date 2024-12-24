@@ -10,7 +10,7 @@ using ThePatho.Features.ConfigurationExtensions;
 namespace ThePatho.Controllers
 {
     [ApiController]
-    [Route("api/applicant/application-applicant")]
+    [Route(ApiRoutes.ApplicantMenu.ApplicationApplicant)]
     [ApiExplorerSettings(GroupName = "Applicant")]
     public class ApplicationApplicantController : ControllerBase
     {
@@ -21,7 +21,7 @@ namespace ThePatho.Controllers
             mediator = _mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
-        [HttpPost("application-applicant-list")]
+        [HttpPost(ApiRoutes.Methods.GetList)]
         public async Task<IActionResult> GetApplicationApplicantList([FromBody] GetApplicationApplicantCommand command,
             CancellationToken cancellationToken)
         {
@@ -41,7 +41,7 @@ namespace ThePatho.Controllers
             }
         }
 
-        [HttpPost("application-applicant-by-criteria")]
+        [HttpPost(ApiRoutes.Methods.GetByCriteria)]
         public async Task<IActionResult> GetApplicationApplicantByCriteria([FromBody] GetApplicationApplicantByCriteriaCommand command,
             CancellationToken cancellationToken)
         {

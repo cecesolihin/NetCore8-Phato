@@ -8,4 +8,4 @@
 
 FROM 
     dbo.TMAdsCategory
-WHERE  ads_category_code = @FilterAdsCategoryCode
+WHERE  ads_category_code = @AdsCategoryCode

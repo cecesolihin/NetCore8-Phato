@@ -8,7 +8,7 @@ using ThePatho.Features.Recruitment.RecruitmentReqStep.Commands;
 namespace ThePatho.Controllers
 {
     [ApiController]
-    [Route("api/recruitment/recruitment-req-step")]
+    [Route(ApiRoutes.RecruitmentMenu.RecruitmentReqStep)]
     [ApiExplorerSettings(GroupName = "Recruitment")]
     public class RecruitmentReqStepController : ControllerBase
     {
@@ -19,7 +19,7 @@ namespace ThePatho.Controllers
             mediator = _mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
-        [HttpPost("recruitment-req-step-list")]
+        [HttpPost(ApiRoutes.Methods.GetList)]
         public async Task<IActionResult> GetRecruitmentReqStepList([FromBody] GetRecruitmentReqStepCommand command,
             CancellationToken cancellationToken)
         {
@@ -39,7 +39,7 @@ namespace ThePatho.Controllers
             }
         }
 
-        [HttpPost("recruitment-req-step-by-criteria")]
+        [HttpPost(ApiRoutes.Methods.GetByCriteria)]
         public async Task<IActionResult> GetRecruitmentReqStepByCode([FromBody] GetRecruitmentReqStepByCriteriaCommand command,
             CancellationToken cancellationToken)
         {

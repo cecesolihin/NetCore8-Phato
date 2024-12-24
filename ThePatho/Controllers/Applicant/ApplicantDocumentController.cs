@@ -10,7 +10,7 @@ using ThePatho.Features.ConfigurationExtensions;
 namespace ThePatho.Controllers
 {
     [ApiController]
-    [Route("api/applicant/applicant-document")]
+    [Route(ApiRoutes.ApplicantMenu.ApplicantDocument)]
     [ApiExplorerSettings(GroupName = "Applicant")]
     public class ApplicantDocumentController : ControllerBase
     {
@@ -21,7 +21,7 @@ namespace ThePatho.Controllers
             mediator = _mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
-        [HttpPost("applicant-document-list")]
+        [HttpPost(ApiRoutes.Methods.GetList)]
         public async Task<IActionResult> GetApplicantDocumentList([FromBody] GetApplicantDocumentCommand command,
             CancellationToken cancellationToken)
         {
@@ -41,7 +41,7 @@ namespace ThePatho.Controllers
             }
         }
 
-        [HttpPost("applicant-document-by-criteria")]
+        [HttpPost(ApiRoutes.Methods.GetByCriteria)]
         public async Task<IActionResult> GetApplicantDocumentByCriteria([FromBody] GetApplicantDocumentByCriteriaCommand command,
             CancellationToken cancellationToken)
         {
