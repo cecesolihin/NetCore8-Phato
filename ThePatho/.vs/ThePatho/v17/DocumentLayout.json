@@ -1,64 +1,15 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\COURSES\\ThePatho\\ThePatho\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{1D5A67AE-AFE0-4F7C-AEEE-D4C843B8D035}|ThePatho.csproj|d:\\courses\\thepatho\\thepatho\\controllers\\applicant\\applicanteducationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1D5A67AE-AFE0-4F7C-AEEE-D4C843B8D035}|ThePatho.csproj|solutionrelative:controllers\\applicant\\applicanteducationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1D5A67AE-AFE0-4F7C-AEEE-D4C843B8D035}|ThePatho.csproj|d:\\courses\\thepatho\\thepatho\\controllers\\applicant\\applicantdocumentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1D5A67AE-AFE0-4F7C-AEEE-D4C843B8D035}|ThePatho.csproj|solutionrelative:controllers\\applicant\\applicantdocumentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1D5A67AE-AFE0-4F7C-AEEE-D4C843B8D035}|ThePatho.csproj|d:\\courses\\thepatho\\thepatho\\controllers\\applicant\\applicantcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1D5A67AE-AFE0-4F7C-AEEE-D4C843B8D035}|ThePatho.csproj|solutionrelative:controllers\\applicant\\applicantcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1D5A67AE-AFE0-4F7C-AEEE-D4C843B8D035}|ThePatho.csproj|d:\\courses\\thepatho\\thepatho\\controllers\\applicant\\applicantaddresscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1D5A67AE-AFE0-4F7C-AEEE-D4C843B8D035}|ThePatho.csproj|solutionrelative:controllers\\applicant\\applicantaddresscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1D5A67AE-AFE0-4F7C-AEEE-D4C843B8D035}|ThePatho.csproj|d:\\courses\\thepatho\\thepatho\\controllers\\applicant\\applicationapplicantcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1D5A67AE-AFE0-4F7C-AEEE-D4C843B8D035}|ThePatho.csproj|solutionrelative:controllers\\applicant\\applicationapplicantcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1D5A67AE-AFE0-4F7C-AEEE-D4C843B8D035}|ThePatho.csproj|d:\\courses\\thepatho\\thepatho\\controllers\\applicant\\applicantworkexperiencecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1D5A67AE-AFE0-4F7C-AEEE-D4C843B8D035}|ThePatho.csproj|solutionrelative:controllers\\applicant\\applicantworkexperiencecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1D5A67AE-AFE0-4F7C-AEEE-D4C843B8D035}|ThePatho.csproj|d:\\courses\\thepatho\\thepatho\\controllers\\applicant\\applicantskillcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1D5A67AE-AFE0-4F7C-AEEE-D4C843B8D035}|ThePatho.csproj|solutionrelative:controllers\\applicant\\applicantskillcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1D5A67AE-AFE0-4F7C-AEEE-D4C843B8D035}|ThePatho.csproj|d:\\courses\\thepatho\\thepatho\\controllers\\applicant\\applicantrecruitstepcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1D5A67AE-AFE0-4F7C-AEEE-D4C843B8D035}|ThePatho.csproj|solutionrelative:controllers\\applicant\\applicantrecruitstepcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1D5A67AE-AFE0-4F7C-AEEE-D4C843B8D035}|ThePatho.csproj|d:\\courses\\thepatho\\thepatho\\controllers\\applicant\\applicantpersonaldatacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1D5A67AE-AFE0-4F7C-AEEE-D4C843B8D035}|ThePatho.csproj|solutionrelative:controllers\\applicant\\applicantpersonaldatacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1D5A67AE-AFE0-4F7C-AEEE-D4C843B8D035}|ThePatho.csproj|d:\\courses\\thepatho\\thepatho\\controllers\\applicant\\applicantonlinetestresultcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1D5A67AE-AFE0-4F7C-AEEE-D4C843B8D035}|ThePatho.csproj|solutionrelative:controllers\\applicant\\applicantonlinetestresultcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1D5A67AE-AFE0-4F7C-AEEE-D4C843B8D035}|ThePatho.csproj|d:\\courses\\thepatho\\thepatho\\controllers\\applicant\\applicantonlinetestanswercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1D5A67AE-AFE0-4F7C-AEEE-D4C843B8D035}|ThePatho.csproj|solutionrelative:controllers\\applicant\\applicantonlinetestanswercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1D5A67AE-AFE0-4F7C-AEEE-D4C843B8D035}|ThePatho.csproj|d:\\courses\\thepatho\\thepatho\\controllers\\applicant\\applicantidentitycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1D5A67AE-AFE0-4F7C-AEEE-D4C843B8D035}|ThePatho.csproj|solutionrelative:controllers\\applicant\\applicantidentitycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
-      "Orientation": 1,
+      "Orientation": 0,
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedHeight": 200,
-          "SelectedChildIndex": 7,
+          "DockedWidth": 327,
+          "SelectedChildIndex": -1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -75,167 +26,11 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "ApplicantOnlineTestResultController.cs",
-              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho\\Controllers\\Applicant\\ApplicantOnlineTestResultController.cs",
-              "RelativeDocumentMoniker": "Controllers\\Applicant\\ApplicantOnlineTestResultController.cs",
-              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho\\Controllers\\Applicant\\ApplicantOnlineTestResultController.cs",
-              "RelativeToolTip": "Controllers\\Applicant\\ApplicantOnlineTestResultController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAA8AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-24T00:04:20.133Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "ApplicantAddressController.cs",
-              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho\\Controllers\\Applicant\\ApplicantAddressController.cs",
-              "RelativeDocumentMoniker": "Controllers\\Applicant\\ApplicantAddressController.cs",
-              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho\\Controllers\\Applicant\\ApplicantAddressController.cs",
-              "RelativeToolTip": "Controllers\\Applicant\\ApplicantAddressController.cs",
-              "ViewState": "AQIAABsAAAAAAAAAAAAYwAwAAAAzAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-24T00:03:03.668Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "ApplicantController.cs",
-              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho\\Controllers\\Applicant\\ApplicantController.cs",
-              "RelativeDocumentMoniker": "Controllers\\Applicant\\ApplicantController.cs",
-              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho\\Controllers\\Applicant\\ApplicantController.cs",
-              "RelativeToolTip": "Controllers\\Applicant\\ApplicantController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAsAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-24T00:03:27.381Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "ApplicantEducationController.cs",
-              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho\\Controllers\\Applicant\\ApplicantEducationController.cs",
-              "RelativeDocumentMoniker": "Controllers\\Applicant\\ApplicantEducationController.cs",
-              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho\\Controllers\\Applicant\\ApplicantEducationController.cs",
-              "RelativeToolTip": "Controllers\\Applicant\\ApplicantEducationController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAA1AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-24T00:03:45.011Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "ApplicantPersonalDataController.cs",
-              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho\\Controllers\\Applicant\\ApplicantPersonalDataController.cs",
-              "RelativeDocumentMoniker": "Controllers\\Applicant\\ApplicantPersonalDataController.cs",
-              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho\\Controllers\\Applicant\\ApplicantPersonalDataController.cs",
-              "RelativeToolTip": "Controllers\\Applicant\\ApplicantPersonalDataController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAA4AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-24T00:04:27.524Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "ApplicationApplicantController.cs",
-              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho\\Controllers\\Applicant\\ApplicationApplicantController.cs",
-              "RelativeDocumentMoniker": "Controllers\\Applicant\\ApplicationApplicantController.cs",
-              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho\\Controllers\\Applicant\\ApplicationApplicantController.cs",
-              "RelativeToolTip": "Controllers\\Applicant\\ApplicationApplicantController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAA3AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-24T00:05:27.3Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ApplicantDocumentController.cs",
-              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho\\Controllers\\Applicant\\ApplicantDocumentController.cs",
-              "RelativeDocumentMoniker": "Controllers\\Applicant\\ApplicantDocumentController.cs",
-              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho\\Controllers\\Applicant\\ApplicantDocumentController.cs",
-              "RelativeToolTip": "Controllers\\Applicant\\ApplicantDocumentController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAA0AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-24T00:03:35.716Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "ApplicantRecruitStepController.cs",
-              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho\\Controllers\\Applicant\\ApplicantRecruitStepController.cs",
-              "RelativeDocumentMoniker": "Controllers\\Applicant\\ApplicantRecruitStepController.cs",
-              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho\\Controllers\\Applicant\\ApplicantRecruitStepController.cs",
-              "RelativeToolTip": "Controllers\\Applicant\\ApplicantRecruitStepController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAA3AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-24T00:04:38.052Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "ApplicantSkillController.cs",
-              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho\\Controllers\\Applicant\\ApplicantSkillController.cs",
-              "RelativeDocumentMoniker": "Controllers\\Applicant\\ApplicantSkillController.cs",
-              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho\\Controllers\\Applicant\\ApplicantSkillController.cs",
-              "RelativeToolTip": "Controllers\\Applicant\\ApplicantSkillController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAxAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-24T00:05:08.445Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "ApplicantWorkExperienceController.cs",
-              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho\\Controllers\\Applicant\\ApplicantWorkExperienceController.cs",
-              "RelativeDocumentMoniker": "Controllers\\Applicant\\ApplicantWorkExperienceController.cs",
-              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho\\Controllers\\Applicant\\ApplicantWorkExperienceController.cs",
-              "RelativeToolTip": "Controllers\\Applicant\\ApplicantWorkExperienceController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAA6AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-24T00:05:18.843Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "ApplicantOnlineTestAnswerController.cs",
-              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho\\Controllers\\Applicant\\ApplicantOnlineTestAnswerController.cs",
-              "RelativeDocumentMoniker": "Controllers\\Applicant\\ApplicantOnlineTestAnswerController.cs",
-              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho\\Controllers\\Applicant\\ApplicantOnlineTestAnswerController.cs",
-              "RelativeToolTip": "Controllers\\Applicant\\ApplicantOnlineTestAnswerController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAA8AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-24T00:04:04.476Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "ApplicantIdentityController.cs",
-              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho\\Controllers\\Applicant\\ApplicantIdentityController.cs",
-              "RelativeDocumentMoniker": "Controllers\\Applicant\\ApplicantIdentityController.cs",
-              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho\\Controllers\\Applicant\\ApplicantIdentityController.cs",
-              "RelativeToolTip": "Controllers\\Applicant\\ApplicantIdentityController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAA0AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-24T00:03:56.363Z",
-              "EditorCaption": ""
             }
           ]
         },
         {
-          "DockedHeight": 200,
+          "DockedWidth": 55,
           "SelectedChildIndex": -1,
           "Children": [
             {
