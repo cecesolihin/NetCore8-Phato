@@ -11,7 +11,7 @@ namespace ThePatho.Features.Applicant.ApplicantEducation.Service
 {
     public class ApplicantEducationService : IApplicantEducationService
     {
-        private readonly DapperContext dapperContext;
+        private readonly DapperContext dapperContext; 
 
         public ApplicantEducationService(DapperContext _dapperContext)
         {

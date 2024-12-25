@@ -7,6 +7,6 @@ namespace ThePatho.Features.Applicant.ApplicantEducation.Commands
     public class GetApplicantEducationByCriteriaCommand :IRequest<ApplicantEducationDto>
     {
         [JsonPropertyName("filter_ApplicantNo")]
-        public string? FilterApplicantNo { get; set; }
+        public string? FilterApplicantNo { get; set; } 
     }
 }

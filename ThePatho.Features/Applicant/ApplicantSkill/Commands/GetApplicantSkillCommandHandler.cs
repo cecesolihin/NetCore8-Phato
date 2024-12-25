@@ -13,7 +13,7 @@ namespace ThePatho.Features.Applicant.ApplicantSkill.Commands
         }
         public async Task<ApplicantSkillItemDto> Handle(GetApplicantSkillCommand request, CancellationToken cancellationToken)
         {
-            var data = await applicantSkillService.GetApplicantSkill(request);
+            var data = await applicantSkillService.GetApplicantSkill(request); 
 
             return new ApplicantSkillItemDto
             {

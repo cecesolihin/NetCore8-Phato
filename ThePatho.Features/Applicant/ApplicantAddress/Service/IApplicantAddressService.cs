@@ -5,7 +5,7 @@ namespace ThePatho.Features.Applicant.ApplicantAddress.Service
 {
     public interface IApplicantAddressService
     {
-        Task<List<ApplicantAddressDto>> GetApplicantAddress(GetApplicantAddressCommand request);
+        Task<List<ApplicantAddressDto>> GetApplicantAddress(GetApplicantAddressCommand request); 
         Task<ApplicantAddressDto> GetApplicantAddressByCriteria(GetApplicantAddressByCriteriaCommand request);
     }
 }

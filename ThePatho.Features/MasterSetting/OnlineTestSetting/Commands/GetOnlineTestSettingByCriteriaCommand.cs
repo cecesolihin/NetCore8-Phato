@@ -6,7 +6,7 @@ namespace ThePatho.Features.MasterSetting.OnlineTestSetting.Commands
 {
     public class GetOnlineTestSettingByCriteriaCommand : IRequest<OnlineTestSettingDto>
     {
-        [JsonPropertyName("filter_OnlineTestCode")]
+        [JsonPropertyName("filter_OnlineTestCode")] 
         public string? FilterOnlineTestCode { get; set; }
     }
 }

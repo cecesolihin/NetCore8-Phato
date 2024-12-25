@@ -14,7 +14,7 @@ namespace ThePatho.Features.Recruitment.RecruitStepGroup.Commands
         }
         public async Task<RecruitStepGroupDto> Handle(GetRecruitStepGroupByCriteriaCommand request, CancellationToken cancellationToken)
         {
-            var data = await recruitStepGroupService.GetRecruitStepGroupByCode(request);
+            var data = await recruitStepGroupService.GetRecruitStepGroupByCriteria(request);
 
             return data;
         }

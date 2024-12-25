@@ -8,7 +8,7 @@ namespace ThePatho.Features.MasterData.AdsCategory.Commands
 {
     public class GetJobCategoryCommandHandler : IRequestHandler<GetJobCategoryCommand, JobCategoryItemDto>
     {
-        private readonly IJobCategoryService jobCategoryService;
+        private readonly IJobCategoryService jobCategoryService; 
 
         public GetJobCategoryCommandHandler(IJobCategoryService _JobCategoryService)
         {

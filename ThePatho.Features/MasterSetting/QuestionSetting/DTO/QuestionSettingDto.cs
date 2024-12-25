@@ -1,7 +1,4 @@
 
-
-using ThePatho.Features.MasterSetting.QuestionSettingDetail.DTO;
-
 namespace ThePatho.Features.MasterSetting.QuestionSetting.DTO
 {
     public class QuestionSettingDto

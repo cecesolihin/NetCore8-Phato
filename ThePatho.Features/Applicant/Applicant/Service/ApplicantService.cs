@@ -10,11 +10,11 @@ namespace ThePatho.Features.Applicant.Applicant.Service
 {
     public class ApplicantService : IApplicantService
     {
-        private readonly DapperContext dapperContext;
+        private readonly DapperContext dapperContext; 
 
         public ApplicantService(DapperContext _dapperContext)
         {
-            dapperContext = _dapperContext;
+            dapperContext = _dapperContext; 
         }
 
         public async Task<List<ApplicantDto>> GetApplicant(GetApplicantCommand request)

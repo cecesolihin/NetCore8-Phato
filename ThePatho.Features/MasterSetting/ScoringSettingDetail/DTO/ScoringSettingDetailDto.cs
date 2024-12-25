@@ -1,6 +1,4 @@
 
-
-using ThePatho.Features.MasterData.JobCategory.DTO;
 using ThePatho.Features.MasterSetting.ScoringSetting.DTO;
 
 namespace ThePatho.Features.MasterSetting.ScoringSettingDetail.DTO

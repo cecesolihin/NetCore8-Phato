@@ -5,16 +5,16 @@ using ThePatho.Features.Recruitment.RecruitStepGroupDetail.Service;
 
 namespace ThePatho.Features.Recruitment.RecruitStepGroupDetail.Commands
 {
-    public class GetRecruitStepGroupDetailByCriteriaCommandHandler : IRequestHandler<GetRecruitStepGroupDetailByCodeCommand, RecruitStepGroupDetailItemDto>
+    public class GetRecruitStepGroupDetailByCriteriaCommandHandler : IRequestHandler<GetRecruitStepGroupDetailByCriteriaCommand, RecruitStepGroupDetailItemDto>
     {
         private readonly IRecruitStepGroupDetailService recruitStepGroupDetailService;
         public GetRecruitStepGroupDetailByCriteriaCommandHandler(IRecruitStepGroupDetailService _recruitStepGroupDetailService)
         {
             recruitStepGroupDetailService = _recruitStepGroupDetailService;
         }
-        public async Task<RecruitStepGroupDetailItemDto> Handle(GetRecruitStepGroupDetailByCodeCommand request, CancellationToken cancellationToken)
+        public async Task<RecruitStepGroupDetailItemDto> Handle(GetRecruitStepGroupDetailByCriteriaCommand request, CancellationToken cancellationToken)
         {
-            var data = await recruitStepGroupDetailService.GetRecruitStepGroupDetailByCode(request);
+            var data = await recruitStepGroupDetailService.GetRecruitStepGroupDetailByCriteria(request);
 
             return new RecruitStepGroupDetailItemDto()
             {

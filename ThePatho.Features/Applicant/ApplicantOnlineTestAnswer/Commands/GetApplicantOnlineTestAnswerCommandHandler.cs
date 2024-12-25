@@ -10,7 +10,7 @@ namespace ThePatho.Features.Applicant.ApplicantOnlineTestAnswer.Commands
         public GetApplicantOnlineTestAnswerCommandHandler(IApplicantOnlineTestAnswerService _applicantOnlineTestAnswerService)
         {
             applicantOnlineTestAnswerService =_applicantOnlineTestAnswerService;
-        }
+        } 
         public async Task<ApplicantOnlineTestAnswerItemDto> Handle(GetApplicantOnlineTestAnswerCommand request, CancellationToken cancellationToken)
         {
             var data = await applicantOnlineTestAnswerService.GetApplicantOnlineTestAnswer(request);

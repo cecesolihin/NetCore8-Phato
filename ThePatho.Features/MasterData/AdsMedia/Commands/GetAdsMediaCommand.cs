@@ -9,7 +9,7 @@ namespace ThePatho.Features.MasterData.AdsCategory.Commands
         [JsonPropertyName("filter_AdsCode")]
         public string? FilterAdsCode { get; set; }
         [JsonPropertyName("filter_AdsName")]
-        public string? FilterAdsName { get; set; }
+        public string? FilterAdsName { get; set; } 
         [JsonPropertyName("filter_AdsCategoryCode")]
         public string? FilterAdsCategoryCode { get; set; }
         [JsonPropertyName("sortBy")]
@@ -19,6 +19,6 @@ namespace ThePatho.Features.MasterData.AdsCategory.Commands
         [JsonPropertyName("pageNumber")]
         public int PageNumber { get; set; } = 0;
         [JsonPropertyName("pageSize")]
-        public int PageSize { get; set; } = 10;
+        public int PageSize { get; set; } = 10; 
     }
 }

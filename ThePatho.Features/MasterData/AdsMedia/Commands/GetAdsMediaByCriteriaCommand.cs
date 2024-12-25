@@ -7,7 +7,7 @@ namespace ThePatho.Features.MasterData.AdsCategory.Commands
     public class GetAdsMediaByCriteriaCommand : IRequest<AdsMediaDto>
     {
         [JsonPropertyName("filter_AdsCode")]
-        public string? FilterAdsCode { get; set; }
+        public string? FilterAdsCode { get; set; } 
         
     }
 }

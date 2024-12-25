@@ -17,7 +17,7 @@ namespace ThePatho.Features.MasterData.AdsCategory.Commands
 
         public async Task<JobCategoryDto> Handle(GetJobCategoryByCriteriaCommand request, CancellationToken cancellationToken)
         {
-            var data = await jobCategoryService.GetJobCategoryByCode(request);
+            var data = await jobCategoryService.GetJobCategoryByCriteria(request);
 
             return data;
         }

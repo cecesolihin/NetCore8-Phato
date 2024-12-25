@@ -7,7 +7,7 @@ namespace ThePatho.Features.MasterData.JobCategory.Commands
     public class GetJobCategoryByCriteriaCommand : IRequest<JobCategoryDto>
     {
         [JsonPropertyName("filter_JobCategoryCode")]
-        public string? FilterJobCategoryCode { get; set; }
+        public string? FilterJobCategoryCode { get; set; } 
         
     }
 }

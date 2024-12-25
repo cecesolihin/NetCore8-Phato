@@ -5,7 +5,7 @@ namespace ThePatho.Features.Applicant.ApplicantOnlineTestResult.Service
 {
     public interface IApplicantOnlineTestResultService
     {
-        Task<List<ApplicantOnlineTestResultDto>> GetApplicantOnlineTestResult(GetApplicantOnlineTestResultCommand request);
+        Task<List<ApplicantOnlineTestResultDto>> GetApplicantOnlineTestResult(GetApplicantOnlineTestResultCommand request); 
         Task<ApplicantOnlineTestResultDto> GetApplicantOnlineTestResultByCriteria(GetApplicantOnlineTestResultByCriteriaCommand request);
     }
 }

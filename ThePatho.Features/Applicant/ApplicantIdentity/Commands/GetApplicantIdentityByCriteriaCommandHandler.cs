@@ -9,7 +9,7 @@ namespace ThePatho.Features.Applicant.ApplicantIdentity.Commands
         private readonly IApplicantIdentityService applicantIdentityService;
         public GetApplicantIdentityByCriteriaCommandHandler(IApplicantIdentityService _applicantIdentityService)
         {
-            applicantIdentityService = _applicantIdentityService;
+            applicantIdentityService = _applicantIdentityService; 
         }
         public async Task<ApplicantIdentityDto> Handle(GetApplicantIdentityByCriteriaCommand request, CancellationToken cancellationToken)
         {

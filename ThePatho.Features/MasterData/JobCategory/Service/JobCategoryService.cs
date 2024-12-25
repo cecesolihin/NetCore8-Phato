@@ -11,7 +11,7 @@ namespace ThePatho.Features.MasterData.JobCategory.Service
     {
         private readonly SqlQueryLoader queryLoader;
         private readonly IDbConnection dbConnection;
-        private readonly DapperContext dappercontext;
+        private readonly DapperContext dappercontext; 
         private readonly ApplicationDbContext context;
         public JobCategoryService(ApplicationDbContext _context, DapperContext _dappercontext, SqlQueryLoader _queryLoader, IDbConnection _dbConnection)
         {
@@ -37,7 +37,7 @@ namespace ThePatho.Features.MasterData.JobCategory.Service
             return data.ToList();
         }
 
-        public async Task<JobCategoryDto> GetJobCategoryByCode(GetJobCategoryByCriteriaCommand request)
+        public async Task<JobCategoryDto> GetJobCategoryByCriteria(GetJobCategoryByCriteriaCommand request)
         {
             var parameters = new DynamicParameters();
             parameters.Add("@JobCategoryCode", request.@FilterJobCategoryCode ?? (object)DBNull.Value);

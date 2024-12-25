@@ -16,7 +16,7 @@ namespace ThePatho.Features.MasterData.AdsCategory.Commands
 
         public async Task<AdsMediaDto> Handle(GetAdsMediaByCriteriaCommand request, CancellationToken cancellationToken)
         {
-            var data = await adsMediaService.GetAdsMediaByCode(request);
+            var data = await adsMediaService.GetAdsMediaByCriteria(request);
 
             return data;
         }

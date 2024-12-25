@@ -320,6 +320,166 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "ThePatho.Controllers.Identity.UserManagementController",
+    "Method": "GetGroupByCriteria",
+    "RelativePath": "api/identity/user-management/get-group-by-criteria",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Identity.UserManagement.Commands.GetGroupByCriteriaCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.Identity.UserManagementController",
+    "Method": "GetGroupList",
+    "RelativePath": "api/identity/user-management/get-group-list",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Identity.UserManagement.Commands.GetGroupCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.Identity.UserManagementController",
+    "Method": "GetGroupRoleByCriteria",
+    "RelativePath": "api/identity/user-management/get-group-role-by-criteria",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Identity.UserManagement.Commands.GetGroupRoleByCriteriaCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.Identity.UserManagementController",
+    "Method": "GetGroupRoleList",
+    "RelativePath": "api/identity/user-management/get-group-role-list",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Identity.UserManagement.Commands.GetGroupRoleCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.Identity.UserManagementController",
+    "Method": "GetRoleByCriteria",
+    "RelativePath": "api/identity/user-management/get-role-by-criteria",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Identity.UserManagement.Commands.GetRoleByCriteriaCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.Identity.UserManagementController",
+    "Method": "GetRoleList",
+    "RelativePath": "api/identity/user-management/get-role-list",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Identity.UserManagement.Commands.GetRoleCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.Identity.UserManagementController",
+    "Method": "GetUserByCriteria",
+    "RelativePath": "api/identity/user-management/get-user-by-criteria",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Identity.UserManagement.Commands.GetUserByCriteriaCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.Identity.UserManagementController",
+    "Method": "GetUserGroupByCriteria",
+    "RelativePath": "api/identity/user-management/get-user-group-by-criteria",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Identity.UserManagement.Commands.GetUserGroupByCriteriaCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.Identity.UserManagementController",
+    "Method": "GetUserGroupList",
+    "RelativePath": "api/identity/user-management/get-user-group-list",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Identity.UserManagement.Commands.GetUserGroupCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.Identity.UserManagementController",
+    "Method": "GetUserList",
+    "RelativePath": "api/identity/user-management/get-user-list",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Identity.UserManagement.Commands.GetUserCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "ThePatho.Controllers.AdsCategoryController",
     "Method": "GetAdsCategoryByCriteria",
     "RelativePath": "api/master-data/ads-category/get-by-criteria",
@@ -369,7 +529,7 @@
   },
   {
     "ContainingType": "ThePatho.Controllers.AdsMediaController",
-    "Method": "GetAdsMediaByCode",
+    "Method": "GetAdsMediaByCriteria",
     "RelativePath": "api/master-data/ads-media/get-by-criteria",
     "HttpMethod": "POST",
     "IsController": true,
@@ -481,7 +641,7 @@
   },
   {
     "ContainingType": "ThePatho.Controllers.JobCategoryController",
-    "Method": "GetJobCategoryByCode",
+    "Method": "GetJobCategoryByCriteria",
     "RelativePath": "api/master-data/job-category/get-by-criteria",
     "HttpMethod": "POST",
     "IsController": true,
@@ -529,7 +689,7 @@
   },
   {
     "ContainingType": "ThePatho.Controllers.OnlineTestSettingController",
-    "Method": "GetOnlineTestSettingByCode",
+    "Method": "GetOnlineTestSettingByCriteria",
     "RelativePath": "api/master-setting/online-test-setting/get-by-criteria",
     "HttpMethod": "POST",
     "IsController": true,
@@ -577,7 +737,7 @@
   },
   {
     "ContainingType": "ThePatho.Controllers.QuestionSettingDetailController",
-    "Method": "GetQuestionSettingDetailByCode",
+    "Method": "GetQuestionSettingDetailByCriteria",
     "RelativePath": "api/master-setting/question-setting-detail/get-by-criteria",
     "HttpMethod": "POST",
     "IsController": true,
@@ -625,7 +785,7 @@
   },
   {
     "ContainingType": "ThePatho.Controllers.QuestionSettingController",
-    "Method": "GetQuestionSettingByCode",
+    "Method": "GetQuestionSettingByCriteria",
     "RelativePath": "api/master-setting/question-setting/get-by-criteria",
     "HttpMethod": "POST",
     "IsController": true,
@@ -673,7 +833,7 @@
   },
   {
     "ContainingType": "ThePatho.Controllers.ScoringSettingDetailController",
-    "Method": "GetScoringSettingDetailByCode",
+    "Method": "GetScoringSettingDetailByCriteria",
     "RelativePath": "api/master-setting/scoring-setting-detail/get-by-criteria",
     "HttpMethod": "POST",
     "IsController": true,
@@ -721,7 +881,7 @@
   },
   {
     "ContainingType": "ThePatho.Controllers.ScoringSettingController",
-    "Method": "GetScoringSettingByCode",
+    "Method": "GetScoringSettingByCriteria",
     "RelativePath": "api/master-setting/scoring-setting/get-by-criteria",
     "HttpMethod": "POST",
     "IsController": true,
@@ -795,7 +955,7 @@
   },
   {
     "ContainingType": "ThePatho.Controllers.ReasonStepFailedController",
-    "Method": "GetByCode",
+    "Method": "GetByCriteria",
     "RelativePath": "api/ReasonStepFailed/{code}",
     "HttpMethod": "GET",
     "IsController": true,
@@ -848,7 +1008,7 @@
   },
   {
     "ContainingType": "ThePatho.Controllers.RecruitStepGroupDetailController",
-    "Method": "GetRecruitStepDetailByCode",
+    "Method": "GetRecruitStepDetailByCriteria",
     "RelativePath": "api/recruitment/recruit-step-group-detail/get-by-criteria",
     "HttpMethod": "POST",
     "IsController": true,
@@ -880,7 +1040,7 @@
   },
   {
     "ContainingType": "ThePatho.Controllers.RecruitStepGroupController",
-    "Method": "GetRecruitStepByCode",
+    "Method": "GetRecruitStepByCriteria",
     "RelativePath": "api/recruitment/recruit-step-group/get-by-criteria",
     "HttpMethod": "POST",
     "IsController": true,
@@ -912,7 +1072,7 @@
   },
   {
     "ContainingType": "ThePatho.Controllers.RecruitStepController",
-    "Method": "GetRecruitStepByCode",
+    "Method": "GetRecruitStepByCriteria",
     "RelativePath": "api/recruitment/recruit-step/get-by-criteria",
     "HttpMethod": "POST",
     "IsController": true,
@@ -944,7 +1104,7 @@
   },
   {
     "ContainingType": "ThePatho.Controllers.RequirementRecRequestController",
-    "Method": "GetRequirementRecRequestByCode",
+    "Method": "GetRequirementRecRequestByCriteria",
     "RelativePath": "api/recruitment/recruitment-rec-request/get-by-criteria",
     "HttpMethod": "POST",
     "IsController": true,
@@ -952,7 +1112,7 @@
     "Parameters": [
       {
         "Name": "command",
-        "Type": "ThePatho.Features.Recruitment.RequirementRecRequest.Commands.GetRequirementRecRequestByCodeCommand",
+        "Type": "ThePatho.Features.Recruitment.RequirementRecRequest.Commands.GetRequirementRecRequestByCriteriaCommand",
         "IsRequired": true
       }
     ],
@@ -976,7 +1136,7 @@
   },
   {
     "ContainingType": "ThePatho.Controllers.RecruitmentReqStepController",
-    "Method": "GetRecruitmentReqStepByCode",
+    "Method": "GetRecruitmentReqStepByCriteria",
     "RelativePath": "api/recruitment/recruitment-req-step/get-by-criteria",
     "HttpMethod": "POST",
     "IsController": true,
@@ -1008,7 +1168,7 @@
   },
   {
     "ContainingType": "ThePatho.Controllers.RecruitmentRequestController",
-    "Method": "GetRecruitmentRequestByCode",
+    "Method": "GetRecruitmentRequestByCriteria",
     "RelativePath": "api/recruitment/recruitment-request/get-by-criteria",
     "HttpMethod": "POST",
     "IsController": true,
@@ -1037,25 +1197,5 @@
       }
     ],
     "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ThePatho.Controllers.WeatherForecastController",
-    "Method": "Get",
-    "RelativePath": "WeatherForecast",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[ThePatho.WeatherForecast, ThePatho, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
   }
 ]

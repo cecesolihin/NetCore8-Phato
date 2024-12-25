@@ -7,7 +7,7 @@ namespace ThePatho.Features.Applicant.ApplicationApplicant.Commands
     public class GetApplicationApplicantCommand :IRequest<ApplicationApplicantItemDto>
     {
         [JsonPropertyName("filter_ApplicantNo")]
-        public string? FilterApplicantNo { get; set; }
+        public string? FilterApplicantNo { get; set; } 
         [JsonPropertyName("filter_RequestNo")]
         public string? FilterRequestNo { get; set; }
         [JsonPropertyName("filter_Status")]

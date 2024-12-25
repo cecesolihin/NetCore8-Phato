@@ -15,7 +15,7 @@ namespace ThePatho.Features.MasterData.AdsCategory.Service
         
         private readonly SqlQueryLoader queryLoader;
         private readonly IDbConnection dbConnection;
-        private readonly DapperContext dappercontext;
+        private readonly DapperContext dappercontext; 
         private readonly ApplicationDbContext context;
         public AdsCategoryService(ApplicationDbContext _context,DapperContext _dappercontext ,SqlQueryLoader _queryLoader, IDbConnection _dbConnection)
         {
@@ -41,7 +41,7 @@ namespace ThePatho.Features.MasterData.AdsCategory.Service
             return data.ToList();
         }
 
-        public async Task<AdsCategoryDto> GetAdsCategoryByCode(GetAdsCategoryByCriteriaCommand request)
+        public async Task<AdsCategoryDto> GetAdsCategoryByCriteria(GetAdsCategoryByCriteriaCommand request)
         {
             var parameters = new DynamicParameters();
             parameters.Add("@AdsCategoryCode", request.FilterAdsCategoryCode ?? (object)DBNull.Value);

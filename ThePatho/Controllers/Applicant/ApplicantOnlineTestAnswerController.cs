@@ -17,7 +17,7 @@ namespace ThePatho.Controllers
 
         public ApplicantOnlineTestAnswerController(IMediator _mediator)
         {
-            mediator = _mediator ?? throw new ArgumentNullException(nameof(mediator));
+            mediator = _mediator ?? throw new ArgumentNullException(nameof(mediator)); 
         }
 
         [HttpPost(ApiRoutes.Methods.GetList)]

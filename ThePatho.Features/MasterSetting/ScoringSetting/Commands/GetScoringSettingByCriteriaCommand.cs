@@ -6,7 +6,7 @@ namespace ThePatho.Features.MasterSetting.ScoringSetting.Commands
 {
     public class GetScoringSettingByCriteriaCommand : IRequest<ScoringSettingDto>
     {
-        [JsonPropertyName("filter_ScoringCode")]
+        [JsonPropertyName("filter_ScoringCode")] 
         public string? FilterScoringCode { get; set; }
     }
 }

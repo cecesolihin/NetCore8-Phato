@@ -11,7 +11,6 @@ namespace ThePatho.Features.Recruitment.RequirementRecRequest.Service
     public class RequirementRecRequestService : IRequirementRecRequestService
     {
         private readonly DapperContext dapperContext;
-
         public RequirementRecRequestService(DapperContext _dapperContext)
         {
             dapperContext = _dapperContext;
@@ -51,7 +50,7 @@ namespace ThePatho.Features.Recruitment.RequirementRecRequest.Service
 
         }
 
-        public async Task<List<RequirementRecRequestDto>> GetRequirementRecRequestByCode(GetRequirementRecRequestByCodeCommand request)
+        public async Task<List<RequirementRecRequestDto>> GetRequirementRecRequestByCriteria(GetRequirementRecRequestByCriteriaCommand request)
         {
             using var connection = dapperContext.CreateConnection();
             var db = new QueryFactory(connection, dapperContext.Compiler);

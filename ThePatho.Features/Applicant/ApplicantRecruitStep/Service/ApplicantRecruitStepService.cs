@@ -11,7 +11,7 @@ namespace ThePatho.Features.Applicant.ApplicantRecruitStep.Service
 {
     public class ApplicantRecruitStepService : IApplicantRecruitStepService
     {
-        private readonly DapperContext dapperContext;
+        private readonly DapperContext dapperContext; 
 
         public ApplicantRecruitStepService(DapperContext _dapperContext)
         {

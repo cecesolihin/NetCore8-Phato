@@ -7,7 +7,7 @@ namespace ThePatho.Features.MasterSetting.ScoringSetting.Service
     public interface IScoringSettingService
     {
         Task<List<ScoringSettingDto>> GetScoringSetting(GetScoringSettingCommand request);
-        Task<ScoringSettingDto> GetScoringSettingByCode(GetScoringSettingByCriteriaCommand request);
+        Task<ScoringSettingDto> GetScoringSettingByCriteria(GetScoringSettingByCriteriaCommand request);
         Task<List<ScoringSettingDto>> GetScoringSettingDdl(GetScoringSettingDdlCommand request);
     }
 }

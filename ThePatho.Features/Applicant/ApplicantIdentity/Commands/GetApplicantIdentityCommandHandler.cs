@@ -6,7 +6,7 @@ namespace ThePatho.Features.Applicant.ApplicantIdentity.Commands
 {
     public class GetApplicantIdentityCommandHandler : IRequestHandler<GetApplicantIdentityCommand, ApplicantIdentityItemDto>
     {
-        private readonly IApplicantIdentityService applicantIdentityService;
+        private readonly IApplicantIdentityService applicantIdentityService; 
         public GetApplicantIdentityCommandHandler(IApplicantIdentityService _applicantIdentityService)
         {
             applicantIdentityService =_applicantIdentityService;

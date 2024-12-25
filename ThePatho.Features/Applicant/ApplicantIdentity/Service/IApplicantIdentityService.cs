@@ -7,6 +7,6 @@ namespace ThePatho.Features.Applicant.ApplicantIdentity.Service
     public interface IApplicantIdentityService
     {
         Task<List<ApplicantIdentityDto>> GetApplicantIdentity(GetApplicantIdentityCommand request);
-        Task<ApplicantIdentityDto> GetApplicantIdentityByCriteria(GetApplicantIdentityByCriteriaCommand request);
+        Task<ApplicantIdentityDto> GetApplicantIdentityByCriteria(GetApplicantIdentityByCriteriaCommand request); 
     }
 }

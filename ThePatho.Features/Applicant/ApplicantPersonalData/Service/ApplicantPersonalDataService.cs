@@ -11,7 +11,7 @@ namespace ThePatho.Features.Applicant.ApplicantPersonalData.Service
 {
     public class ApplicantPersonalDataService : IApplicantPersonalDataService
     {
-        private readonly DapperContext dapperContext;
+        private readonly DapperContext dapperContext; 
 
         public ApplicantPersonalDataService(DapperContext _dapperContext)
         {

@@ -11,7 +11,7 @@ namespace ThePatho.Features.MasterSetting.ScoringSetting.Service
     {
         private readonly SqlQueryLoader queryLoader;
         private readonly IDbConnection dbConnection;
-        private readonly DapperContext dappercontext;
+        private readonly DapperContext dappercontext; 
         private readonly ApplicationDbContext context;
         public ScoringSettingService(ApplicationDbContext _context, DapperContext _dappercontext, SqlQueryLoader _queryLoader, IDbConnection _dbConnection)
         {
@@ -37,7 +37,7 @@ namespace ThePatho.Features.MasterSetting.ScoringSetting.Service
             return data.ToList();
         }
 
-        public async Task<ScoringSettingDto> GetScoringSettingByCode(GetScoringSettingByCriteriaCommand request)
+        public async Task<ScoringSettingDto> GetScoringSettingByCriteria(GetScoringSettingByCriteriaCommand request)
         {
             var parameters = new DynamicParameters();
             parameters.Add("@ScoringCode", request.FilterScoringCode ?? (object)DBNull.Value);

@@ -1,6 +1,4 @@
 
-using ThePatho.Features.MasterData.AdsCategory.DTO;
-
 namespace ThePatho.Features.MasterData.JobCategory.DTO
 {
     public class JobCategoryItemDto

@@ -6,6 +6,6 @@ namespace ThePatho.Features.Applicant.ApplicantPersonalData.Service
     public interface IApplicantPersonalDataService
     {
         Task<List<ApplicantPersonalDataDto>> GetApplicantPersonalData(GetApplicantPersonalDataCommand request);
-        Task<ApplicantPersonalDataDto> GetApplicantPersonalDataByCriteria(GetApplicantPersonalDataByCriteriaCommand request);
+        Task<ApplicantPersonalDataDto> GetApplicantPersonalDataByCriteria(GetApplicantPersonalDataByCriteriaCommand request); 
     }
 }

@@ -10,7 +10,7 @@ namespace ThePatho.Features.Recruitment.RecruitmentReqStep.Service
 {
     public class RecruitmentReqStepService : IRecruitmentReqStepService
     {
-        private readonly DapperContext dapperContext;
+        private readonly DapperContext dapperContext; 
 
         public RecruitmentReqStepService(DapperContext _dapperContext)
         {

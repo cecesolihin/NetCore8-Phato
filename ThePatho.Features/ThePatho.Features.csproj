@@ -36,6 +36,9 @@
     <Folder Include="Applicant\ReasonStepFailed\Commands\" />
     <Folder Include="Applicant\ReasonStepFailed\DTO\" />
     <Folder Include="Applicant\ReasonStepFailed\Service\" />
+    <Folder Include="Identity\Authentication\Commands\" />
+    <Folder Include="Identity\Authentication\DTO\" />
+    <Folder Include="Identity\Authentication\Service\" />
     <Folder Include="MasterData\AdsCategory\DTO\" />
     <Folder Include="MasterData\AdsCategory\Service\" />
     <Folder Include="MasterData\AdsMedia\DTO\" />

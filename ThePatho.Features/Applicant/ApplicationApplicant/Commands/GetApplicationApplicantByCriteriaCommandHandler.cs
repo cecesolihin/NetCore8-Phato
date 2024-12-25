@@ -6,7 +6,7 @@ namespace ThePatho.Features.Applicant.ApplicationApplicant.Commands
 {
     public class GetApplicationApplicantByCriteriaCommandHandler : IRequestHandler<GetApplicationApplicantByCriteriaCommand, ApplicationApplicantDto>
     {
-        private readonly IApplicationApplicantService applicationApplicantService;
+        private readonly IApplicationApplicantService applicationApplicantService; 
         public GetApplicationApplicantByCriteriaCommandHandler(IApplicationApplicantService _applicationApplicantService)
         {
             applicationApplicantService = _applicationApplicantService;

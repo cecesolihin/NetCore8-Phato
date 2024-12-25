@@ -10,7 +10,7 @@ namespace ThePatho.Features.MasterSetting.OnlineTestSetting.Service
     public class OnlineTestSettingService : IOnlineTestSettingService
     {
         private readonly SqlQueryLoader queryLoader;
-        private readonly IDbConnection dbConnection;
+        private readonly IDbConnection dbConnection; 
         //private readonly DapperContext dappercontext;
         //private readonly ApplicationDbContext _context;
         public OnlineTestSettingService(SqlQueryLoader _queryLoader, IDbConnection _dbConnection)
@@ -36,7 +36,7 @@ namespace ThePatho.Features.MasterSetting.OnlineTestSetting.Service
             return data.ToList();
         }
 
-        public async Task<OnlineTestSettingDto> GetOnlineTestSettingByCode(GetOnlineTestSettingByCriteriaCommand request)
+        public async Task<OnlineTestSettingDto> GetOnlineTestSettingByCriteria(GetOnlineTestSettingByCriteriaCommand request)
         {
             var parameters = new DynamicParameters();
             parameters.Add("@OnlineTestCode", request.FilterOnlineTestCode ?? (object)DBNull.Value);

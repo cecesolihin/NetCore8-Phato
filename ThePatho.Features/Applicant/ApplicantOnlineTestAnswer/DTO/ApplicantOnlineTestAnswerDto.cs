@@ -1,5 +1,4 @@
 using ThePatho.Features.Applicant.ApplicantOnlineTestResult.DTO;
-using ThePatho.Features.Recruitment.RecruitmentRequest.DTO;
 
 namespace ThePatho.Features.Applicant.ApplicantOnlineTestAnswer.DTO
 {

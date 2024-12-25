@@ -18,7 +18,7 @@ namespace ThePatho.Features.MasterData.AdsMedia.Service
     {
         private readonly SqlQueryLoader queryLoader;
         private readonly IDbConnection dbConnection;
-        private readonly DapperContext dappercontext;
+        private readonly DapperContext dappercontext; 
         private readonly ApplicationDbContext context;
         public AdsMediaService(ApplicationDbContext _context, DapperContext _dappercontext, SqlQueryLoader _queryLoader, IDbConnection _dbConnection)
         {
@@ -45,7 +45,7 @@ namespace ThePatho.Features.MasterData.AdsMedia.Service
             return data.ToList();
         }
 
-        public async Task<AdsMediaDto> GetAdsMediaByCode(GetAdsMediaByCriteriaCommand request)
+        public async Task<AdsMediaDto> GetAdsMediaByCriteria(GetAdsMediaByCriteriaCommand request)
         {
             var parameters = new DynamicParameters();
             parameters.Add("@AdsCode", request.FilterAdsCode ?? (object)DBNull.Value);

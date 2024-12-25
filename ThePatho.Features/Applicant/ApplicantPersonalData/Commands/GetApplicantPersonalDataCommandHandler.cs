@@ -7,7 +7,7 @@ namespace ThePatho.Features.Applicant.ApplicantPersonalData.Commands
     public class GetApplicantPersonalDataCommandHandler : IRequestHandler<GetApplicantPersonalDataCommand, ApplicantPersonalDataItemDto>
     {
         private readonly IApplicantPersonalDataService applicantPersonalDataService;
-        public GetApplicantPersonalDataCommandHandler(IApplicantPersonalDataService _applicantPersonalDataService)
+        public GetApplicantPersonalDataCommandHandler(IApplicantPersonalDataService _applicantPersonalDataService) 
         {
             applicantPersonalDataService =_applicantPersonalDataService;
         }

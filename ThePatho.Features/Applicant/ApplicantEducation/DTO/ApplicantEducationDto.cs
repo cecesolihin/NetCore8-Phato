@@ -1,4 +1,3 @@
-using ThePatho.Features.Recruitment.RecruitmentRequest.DTO;
 
 namespace ThePatho.Features.Applicant.ApplicantEducation.DTO
 {

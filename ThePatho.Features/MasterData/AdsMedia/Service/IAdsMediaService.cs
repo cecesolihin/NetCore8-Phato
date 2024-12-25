@@ -6,7 +6,7 @@ namespace ThePatho.Features.MasterData.AdsMedia.Service
     public interface IAdsMediaService
     {
         Task<List<AdsMediaDto>> GetAdsMedia(GetAdsMediaCommand request);
-        Task<AdsMediaDto> GetAdsMediaByCode(GetAdsMediaByCriteriaCommand request);
+        Task<AdsMediaDto> GetAdsMediaByCriteria(GetAdsMediaByCriteriaCommand request);
         Task<List<AdsMediaDto>> GetAdsMediaDdl(GetAdsMediaDdlCommand request);
     
     }

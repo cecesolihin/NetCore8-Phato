@@ -10,7 +10,7 @@ namespace ThePatho.Controllers
     [ApiExplorerSettings(GroupName = "Applicant")]
     public class ReasonStepFailedController : ControllerBase
     {
-        private readonly IReasonStepFailedService _ReasonStepFailedService;
+        private readonly IReasonStepFailedService _ReasonStepFailedService; 
 
         public ReasonStepFailedController(IReasonStepFailedService ReasonStepFailedService)
         {
@@ -25,9 +25,9 @@ namespace ThePatho.Controllers
         }
 
         [HttpGet("{code}")]
-        public async Task<IActionResult> GetByCode(string code)
+        public async Task<IActionResult> GetByCriteria(string code)
         {
-            var ReasonStepFailed = await _ReasonStepFailedService.GetReasonStepFailedByCodeAsync(code);
+            var ReasonStepFailed = await _ReasonStepFailedService.GetReasonStepFailedByCriteriaAsync(code);
             if (ReasonStepFailed == null) return NotFound();
             return Ok(ReasonStepFailed);
         }
@@ -36,7 +36,7 @@ namespace ThePatho.Controllers
         public async Task<IActionResult> Create(ReasonStepFailedDto ReasonStepFailed)
         {
             var createdReasonStepFailed = await _ReasonStepFailedService.AddReasonStepFailedAsync(ReasonStepFailed);
-            return CreatedAtAction(nameof(GetByCode), new { code = createdReasonStepFailed.RecruitStepCode }, createdReasonStepFailed);
+            return CreatedAtAction(nameof(GetByCriteria), new { code = createdReasonStepFailed.RecruitStepCode }, createdReasonStepFailed);
         }
 
         [HttpPut("{code}")]

@@ -2,7 +2,7 @@
 using ThePatho.Features.Applicant.ApplicantDocument.DTO;
 using ThePatho.Features.Applicant.ApplicantDocument.Service;
 
-namespace ThePatho.Features.Applicant.ApplicantDocument.Commands
+namespace ThePatho.Features.Applicant.ApplicantDocument.Commands 
 {
     public class GetApplicantDocumentByCriteriaCommandHandler : IRequestHandler<GetApplicantDocumentByCriteriaCommand, ApplicantDocumentDto>
     {

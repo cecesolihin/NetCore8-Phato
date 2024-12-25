@@ -6,6 +6,6 @@ namespace ThePatho.Features.Applicant.ApplicantSkill.Service
     public interface IApplicantSkillService
     {
         Task<List<ApplicantSkillDto>> GetApplicantSkill(GetApplicantSkillCommand request);
-        Task<ApplicantSkillDto> GetApplicantSkillByCriteria(GetApplicantSkillByCriteriaCommand request);
+        Task<ApplicantSkillDto> GetApplicantSkillByCriteria(GetApplicantSkillByCriteriaCommand request); 
     }
 }

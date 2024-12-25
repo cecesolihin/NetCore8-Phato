@@ -9,7 +9,7 @@ namespace ThePatho.Features.Applicant.ApplicantDocument.Commands
         private readonly IApplicantDocumentService applicantDocumentService;
         public GetApplicantDocumentCommandHandler(IApplicantDocumentService _applicantDocumentService)
         {
-            applicantDocumentService =_applicantDocumentService;
+            applicantDocumentService =_applicantDocumentService; 
         }
         public async Task<ApplicantDocumentItemDto> Handle(GetApplicantDocumentCommand request, CancellationToken cancellationToken)
         {

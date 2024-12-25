@@ -11,7 +11,7 @@ namespace ThePatho.Features.Applicant.ApplicantSkill.Service
 {
     public class ApplicantSkillService : IApplicantSkillService
     {
-        private readonly DapperContext dapperContext;
+        private readonly DapperContext dapperContext; 
 
         public ApplicantSkillService(DapperContext _dapperContext)
         {

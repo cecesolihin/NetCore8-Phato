@@ -4,16 +4,16 @@ using ThePatho.Features.Recruitment.RequirementRecRequest.Service;
 
 namespace ThePatho.Features.Recruitment.RequirementRecRequest.Commands
 {
-    public class GetRequirementRecRequestByCodeCommandHandler : IRequestHandler<GetRequirementRecRequestByCodeCommand, RequirementRecRequestItemDto>
+    public class GetRequirementRecRequestByCriteriaCommandHandler : IRequestHandler<GetRequirementRecRequestByCriteriaCommand, RequirementRecRequestItemDto>
     {
         private readonly IRequirementRecRequestService requirementRecRequestService;
-        public GetRequirementRecRequestByCodeCommandHandler(IRequirementRecRequestService _requirementRecRequestService)
+        public GetRequirementRecRequestByCriteriaCommandHandler(IRequirementRecRequestService _requirementRecRequestService)
         {
             requirementRecRequestService = _requirementRecRequestService;
         }
-        public async Task<RequirementRecRequestItemDto> Handle(GetRequirementRecRequestByCodeCommand request, CancellationToken cancellationToken)
+        public async Task<RequirementRecRequestItemDto> Handle(GetRequirementRecRequestByCriteriaCommand request, CancellationToken cancellationToken)
         {
-            var data = await requirementRecRequestService.GetRequirementRecRequestByCode(request);
+            var data = await requirementRecRequestService.GetRequirementRecRequestByCriteria(request);
 
             return new RequirementRecRequestItemDto
             {

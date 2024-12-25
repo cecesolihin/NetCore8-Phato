@@ -6,7 +6,7 @@ namespace ThePatho.Features.Applicant.ApplicantEducation.Commands
 {
     public class GetApplicantEducationCommandHandler : IRequestHandler<GetApplicantEducationCommand, ApplicantEducationItemDto>
     {
-        private readonly IApplicantEducationService applicantEducationService;
+        private readonly IApplicantEducationService applicantEducationService; 
         public GetApplicantEducationCommandHandler(IApplicantEducationService _applicantEducationService)
         {
             applicantEducationService =_applicantEducationService;

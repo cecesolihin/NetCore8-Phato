@@ -18,7 +18,7 @@ namespace ThePatho.Controllers
 
         public RecruitStepGroupController(IMediator _mediator)
         {
-            mediator = _mediator ?? throw new ArgumentNullException(nameof(mediator));
+            mediator = _mediator ?? throw new ArgumentNullException(nameof(mediator)); 
         }
 
         [HttpPost(ApiRoutes.Methods.GetList)]
@@ -42,7 +42,7 @@ namespace ThePatho.Controllers
         }
 
         [HttpPost(ApiRoutes.Methods.GetByCriteria)]
-        public async Task<IActionResult> GetRecruitStepByCode([FromBody] GetRecruitStepByCriteriaCommand command,
+        public async Task<IActionResult> GetRecruitStepByCriteria([FromBody] GetRecruitStepByCriteriaCommand command,
             CancellationToken cancellationToken)
         {
             try

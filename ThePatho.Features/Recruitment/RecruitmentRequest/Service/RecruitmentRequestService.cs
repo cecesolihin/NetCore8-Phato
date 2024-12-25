@@ -10,7 +10,7 @@ namespace ThePatho.Features.Recruitment.RecruitmentRequest.Service
 {
     public class RecruitmentRequestService : IRecruitmentRequestService
     {
-        private readonly DapperContext dapperContext;
+        private readonly DapperContext dapperContext; 
 
         public RecruitmentRequestService(DapperContext _dapperContext)
         {
@@ -108,7 +108,7 @@ namespace ThePatho.Features.Recruitment.RecruitmentRequest.Service
 
         }
 
-        public async Task<RecruitmentRequestDto> GetRecruitmentRequestByCode(GetRecruitmentRequestByCriteriaCommand request)
+        public async Task<RecruitmentRequestDto> GetRecruitmentRequestByCriteria(GetRecruitmentRequestByCriteriaCommand request)
         {
             using var connection = dapperContext.CreateConnection();
             var db = new QueryFactory(connection, dapperContext.Compiler);

@@ -11,7 +11,7 @@ namespace ThePatho.Features.Applicant.ApplicantOnlineTestResult.Service
 {
     public class ApplicantOnlineTestResultService : IApplicantOnlineTestResultService
     {
-        private readonly DapperContext dapperContext;
+        private readonly DapperContext dapperContext; 
 
         public ApplicantOnlineTestResultService(DapperContext _dapperContext)
         {

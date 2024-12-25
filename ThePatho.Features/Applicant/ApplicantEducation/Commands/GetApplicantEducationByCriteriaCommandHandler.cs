@@ -7,7 +7,7 @@ namespace ThePatho.Features.Applicant.ApplicantEducation.Commands
     public class GetApplicantEducationByCriteriaCommandHandler : IRequestHandler<GetApplicantEducationByCriteriaCommand, ApplicantEducationDto>
     {
         private readonly IApplicantEducationService applicantEducationService;
-        public GetApplicantEducationByCriteriaCommandHandler(IApplicantEducationService _applicantEducationService)
+        public GetApplicantEducationByCriteriaCommandHandler(IApplicantEducationService _applicantEducationService) 
         {
             applicantEducationService = _applicantEducationService;
         }

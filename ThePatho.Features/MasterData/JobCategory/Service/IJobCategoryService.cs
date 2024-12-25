@@ -6,7 +6,7 @@ namespace ThePatho.Features.MasterData.JobCategory.Service
     public interface IJobCategoryService
     {
         Task<List<JobCategoryDto>> GetJobCategory(GetJobCategoryCommand request);
-        Task<JobCategoryDto> GetJobCategoryByCode(GetJobCategoryByCriteriaCommand request);
+        Task<JobCategoryDto> GetJobCategoryByCriteria(GetJobCategoryByCriteriaCommand request);
         Task<List<JobCategoryDto>> GetJobCategoryDdl(GetJobCategoryDdlCommand request);
     }
 }

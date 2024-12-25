@@ -11,7 +11,7 @@ namespace ThePatho.Features.Recruitment.RecruitStepGroupDetail.Service
 {
     public class RecruitStepGroupDetailService : IRecruitStepGroupDetailService
     {
-        private readonly DapperContext dapperContext;
+        private readonly DapperContext dapperContext; 
 
         public RecruitStepGroupDetailService(DapperContext _dapperContext)
         {
@@ -51,7 +51,7 @@ namespace ThePatho.Features.Recruitment.RecruitStepGroupDetail.Service
             return results.ToList();
         }
 
-        public async Task<List<RecruitStepGroupDetailDto>> GetRecruitStepGroupDetailByCode(GetRecruitStepGroupDetailByCodeCommand request)
+        public async Task<List<RecruitStepGroupDetailDto>> GetRecruitStepGroupDetailByCriteria(GetRecruitStepGroupDetailByCriteriaCommand request)
         {
             using var connection = dapperContext.CreateConnection();
             var db = new QueryFactory(connection, dapperContext.Compiler);

@@ -12,7 +12,7 @@ namespace ThePatho.Features.MasterSetting.QuestionSetting.Service
     {
         private readonly SqlQueryLoader queryLoader;
         private readonly IDbConnection dbConnection;
-        private readonly DapperContext dappercontext;
+        private readonly DapperContext dappercontext; 
         private readonly ApplicationDbContext context;
         public QuestionSettingService(ApplicationDbContext _context, DapperContext _dappercontext, SqlQueryLoader _queryLoader, IDbConnection _dbConnection)
         {
@@ -38,7 +38,7 @@ namespace ThePatho.Features.MasterSetting.QuestionSetting.Service
             return data.ToList();
         }
 
-        public async Task<QuestionSettingDto> GetQuestionSettingByCode(GetQuestionSettingByCriteriaCommand request)
+        public async Task<QuestionSettingDto> GetQuestionSettingByCriteria(GetQuestionSettingByCriteriaCommand request)
         {
             var parameters = new DynamicParameters();
             parameters.Add("@QuestionCode", request.FilterQuestionCode ?? (object)DBNull.Value);

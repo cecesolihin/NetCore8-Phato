@@ -13,7 +13,7 @@ namespace ThePatho.Features.Applicant.ApplicantWorkExperience.Commands
         }
         public async Task<ApplicantWorkExperienceDto> Handle(GetApplicantWorkExperienceByCriteriaCommand request, CancellationToken cancellationToken)
         {
-            var data = await applicantWorkExperienceService.GetApplicantWorkExperienceByCriteria(request);
+            var data = await applicantWorkExperienceService.GetApplicantWorkExperienceByCriteria(request); 
 
             return data;
         }

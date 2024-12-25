@@ -8,11 +8,17 @@ namespace ThePatho.Features.ConfigurationExtensions
 {
     public static class ApiRoutes
     {
+        public const string BaseApiPathIdentity = "api/identity/";
         public const string BaseApiPathMasterData = "api/master-data/";
         public const string BaseApiPathMasterSetting = "api/master-setting/";
         public const string BaseApiPathApplicant = "api/applicant/";
         public const string BaseApiPathRecruitment = "api/recruitment/";
 
+        public static class IdentityMenu
+        {
+            public const string Authentication = BaseApiPathIdentity + "auth";
+            public const string UserManagement = BaseApiPathIdentity + "user-management";
+        }
         public static class MasterDataMenu
         {
             public const string AdsCategory = BaseApiPathMasterData + "ads-category";
@@ -55,9 +61,36 @@ namespace ThePatho.Features.ConfigurationExtensions
         }
         public static class Methods
         {
+            #region [Authentication]
+            public const string Login = "login";
+            public const string Register = "register";
+            public const string ForgetPassword = "forget-password";
+            public const string ResetPassword = "reset-password";
+            public const string AssignUserGroup = "assign-user-group";
+            public const string UserInfo = "user-info";
+            #endregion
+
+            #region [UserManagement]
+            public const string GetUserList = "get-user-list";
+            public const string GetUserByCriteria = "get-user-by-criteria";
+
+            public const string GetRoleList = "get-role-list";
+            public const string GetRoleByCriteria = "get-role-by-criteria";
+
+            public const string GetGroupList = "get-group-list";
+            public const string GetGroupByCriteria = "get-group-by-criteria";
+
+            public const string GetGroupRoleList = "get-group-role-list";
+            public const string GetGroupRoleByCriteria = "get-group-role-by-criteria";
+
+            public const string GetUserGroupList = "get-user-group-list";
+            public const string GetUserGroupByCriteria = "get-user-group-by-criteria";
+            #endregion
+            #region [ALL]
             public const string GetList = "get-list";
             public const string GetByCriteria = "get-by-criteria";
             public const string GetDdl = "get-ddl";
+            #endregion
         }
     }
 }
