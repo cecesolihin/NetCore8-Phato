@@ -2,5 +2,37 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/ThePatho/.vs/ThePatho/FileContentIndex/4135322c-8593-4a0e-afa7-53953fc905b3.vsidx
-/ThePatho/.vs/ThePatho/FileContentIndex/361166d6-3fab-4cd3-9756-d17fbee1e661.vsidx
+# Ignore Visual Studio temporary files and folders
+.vs/
+*.suo
+*.user
+*.userosscache
+*.rsuser
+
+# Build results
+bin/
+obj/
+Debug/
+Release/
+
+# Temporary files
+*.log
+*.cache
+*.pdb
+*.tmp
+*.ldf
+*.mdf
+
+# Packages
+*.nupkg
+*.snupkg
+
+# Other files
+*.dll
+*.exe
+*.db
+*.json.schemastore.json
+
+# Rider or JetBrains files
+.idea/
+*.iml
