@@ -1,16 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ThePatho.Domain.Models;
 using ThePatho.Domain.Models.Applicant;
+using ThePatho.Domain.Models.Identity;
 using ThePatho.Domain.Models.MasterData;
 using ThePatho.Domain.Models.MasterSetting;
 using ThePatho.Domain.Models.Recruitment;
-using ThePatho.Infrastructure.Persistance.Configuration;
 using ThePatho.Infrastructure.Persistance.Configuration.Applicant;
+using ThePatho.Infrastructure.Persistance.Configuration.Identity;
 using ThePatho.Infrastructure.Persistance.Configuration.MasterData;
 using ThePatho.Infrastructure.Persistance.Configuration.MasterSetting;
 using ThePatho.Infrastructure.Persistance.Configuration.Recruitment;
@@ -29,18 +24,40 @@ namespace ThePatho.Infrastructure.Persistance
         {
         }
 
+        #region [IDENTITY]
+        public DbSet<User> Users { get; set; }
+        public DbSet<UserLog> UserLogs { get; set; }
+        public DbSet<UserGroup> UserGroups { get; set; }
+        public DbSet<Group> Groups { get; set; }
+        public DbSet<GroupRole> GroupRoles { get; set; }
+        public DbSet<Role> Roles { get; set; }
+        #endregion
+
+        #region [MASTER DATA]
         public DbSet<AdsCategory> AdsCategories { get; set; }
         public DbSet<AdsMedia> AdsMedias { get; set; }
-        public DbSet<ApplicantNew> Applicants { get; set; }
         public DbSet<JobCategory> JobCategories { get; set; }
+        #endregion
+
+        #region [MASTER SETTING]
         public DbSet<OnlineTestSetting> OnlineTestSettings { get; set; }
         public DbSet<QuestionSetting> QuestionSettings { get; set; }
         public DbSet<QuestionSettingDetail> QuestionSettingDetails { get; set; }
+        public DbSet<ScoringSetting> ScoringSettings { get; set; }
+        public DbSet<ScoringSettingDetail> ScoringSettingDetails { get; set; }
+        #endregion
+
+        #region [RECRUITMENT]
         public DbSet<RecruitStep> RecruitSteps { get; set; }
         public DbSet<RecruitStepGroup> RecruitStepGroups { get; set; }
         public DbSet<RecruitStepGroupDetail> RecruitStepGroupDetails { get; set; }
-        public DbSet<ScoringSetting> ScoringSettings { get; set; }
-        public DbSet<ScoringSettingDetail> ScoringSettingDetails { get; set; }
+        public DbSet<RecruitmentReqStep> RecruitmentReqSteps { get; set; }
+        public DbSet<RecruitmentRequest> RecruitmentRequests { get; set; }
+        public DbSet<RequirementRecRequest> RequirementRecRequests { get; set; }
+        #endregion
+
+        #region [APPLICANT]
+        public DbSet<ApplicantNew> Applicants { get; set; }
         public DbSet<ApplicantAddress> ApplicantAddresses { get; set; }
         public DbSet<ApplicantDocument> ApplicantDocuments { get; set; }
         public DbSet<ApplicantEducation> ApplicantEducations { get; set; }
@@ -53,23 +70,44 @@ namespace ThePatho.Infrastructure.Persistance
         public DbSet<ApplicantWorkExperience> ApplicantWorkExperiences { get; set; }
         public DbSet<ApplicationApplicant> ApplicationApplicants { get; set; }
         public DbSet<ReasonStepFailed> ReasonStepFaileds { get; set; }
-        public DbSet<RecruitmentReqStep> RecruitmentReqSteps { get; set; }
-        public DbSet<RecruitmentRequest> RecruitmentRequests { get; set; }
-        public DbSet<RequirementRecRequest> RequirementRecRequests { get; set; }
+        #endregion
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            #region [IDENTITY]
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
+            modelBuilder.ApplyConfiguration(new UserLogConfiguration());
+            modelBuilder.ApplyConfiguration(new UserGroupConfiguration());
+            modelBuilder.ApplyConfiguration(new GroupConfiguration());
+            modelBuilder.ApplyConfiguration(new GroupRoleConfiguration());
+            modelBuilder.ApplyConfiguration(new RoleConfiguration());
+            #endregion
+
+            #region [MASTER DATA]
             modelBuilder.ApplyConfiguration(new AdsCategoryConfiguration());
             modelBuilder.ApplyConfiguration(new AdsMediaConfiguration());
-            modelBuilder.ApplyConfiguration(new ApplicantConfiguration());
             modelBuilder.ApplyConfiguration(new JobCategoryConfiguration());
+            #endregion
+
+            #region [MASTER SETTING]
             modelBuilder.ApplyConfiguration(new OnlineTestSettingConfiguration());
             modelBuilder.ApplyConfiguration(new QuestionSettingConfiguration());
             modelBuilder.ApplyConfiguration(new QuestionSettingDetailConfiguration());
+            modelBuilder.ApplyConfiguration(new ScoringSettingConfiguration());
+            modelBuilder.ApplyConfiguration(new ScoringSettingDetailConfiguration());
+            #endregion
+
+            #region [RECRUITMENT]
             modelBuilder.ApplyConfiguration(new RecruitStepConfiguration());
             modelBuilder.ApplyConfiguration(new RecruitStepGroupConfiguration());
             modelBuilder.ApplyConfiguration(new RecruitStepGroupDetailConfiguration());
-            modelBuilder.ApplyConfiguration(new ScoringSettingConfiguration());
-            modelBuilder.ApplyConfiguration(new ScoringSettingDetailConfiguration());
+            modelBuilder.ApplyConfiguration(new RecruitmentReqStepConfiguration());
+            modelBuilder.ApplyConfiguration(new RecruitmentRequestConfiguration());
+            modelBuilder.ApplyConfiguration(new RequirementRecRequestConfiguration());
+            #endregion
+
+            #region [APPLICANT]
+            modelBuilder.ApplyConfiguration(new ApplicantConfiguration());
             modelBuilder.ApplyConfiguration(new ApplicantAddressConfiguration());
             modelBuilder.ApplyConfiguration(new ApplicantDocumentConfiguration());
             modelBuilder.ApplyConfiguration(new ApplicantEducationConfiguration());
@@ -82,10 +120,7 @@ namespace ThePatho.Infrastructure.Persistance
             modelBuilder.ApplyConfiguration(new ApplicantWorkExperienceConfiguration());
             modelBuilder.ApplyConfiguration(new ApplicationApplicantConfiguration());
             modelBuilder.ApplyConfiguration(new ReasonStepFailedConfiguration());
-            modelBuilder.ApplyConfiguration(new RecruitmentReqStepConfiguration());
-            modelBuilder.ApplyConfiguration(new RecruitmentRequestConfiguration());
-            modelBuilder.ApplyConfiguration(new RequirementRecRequestConfiguration());
-
+            #endregion
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using ThePatho.Domain.Constants;
+using ThePatho.Domain.Models.Recruitment;
 
 namespace ThePatho.Infrastructure.Persistance.Configuration.Recruitment
 {
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.EntityFrameworkCore.Metadata.Builders;
-    using ThePatho.Domain.Constants;
-    using ThePatho.Domain.Models.Recruitment;
-
     public class RecruitmentReqStepConfiguration : IEntityTypeConfiguration<RecruitmentReqStep>
     {
         public void Configure(EntityTypeBuilder<RecruitmentReqStep> builder)
