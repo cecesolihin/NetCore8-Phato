@@ -3,7 +3,7 @@ using ThePatho.Features.Applicant.ApplicantOnlineTestResult.DTO;
 using ThePatho.Features.Applicant.ApplicantOnlineTestResult.Service;
 
 namespace ThePatho.Features.Applicant.ApplicantOnlineTestResult.Commands
-{
+{ 
     public class GetApplicantOnlineTestResultCommandHandler : IRequestHandler<GetApplicantOnlineTestResultCommand, ApplicantOnlineTestResultItemDto>
     {
         private readonly IApplicantOnlineTestResultService applicantOnlineTestResultService;

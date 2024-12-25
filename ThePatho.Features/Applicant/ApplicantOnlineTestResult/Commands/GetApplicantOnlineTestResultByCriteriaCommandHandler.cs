@@ -6,7 +6,7 @@ namespace ThePatho.Features.Applicant.ApplicantOnlineTestResult.Commands
 {
     public class GetApplicantOnlineTestResultByCriteriaCommandHandler : IRequestHandler<GetApplicantOnlineTestResultByCriteriaCommand, ApplicantOnlineTestResultDto>
     {
-        private readonly IApplicantOnlineTestResultService applicantOnlineTestResultService;
+        private readonly IApplicantOnlineTestResultService applicantOnlineTestResultService; 
         public GetApplicantOnlineTestResultByCriteriaCommandHandler(IApplicantOnlineTestResultService _applicantOnlineTestResultService)
         {
             applicantOnlineTestResultService = _applicantOnlineTestResultService;

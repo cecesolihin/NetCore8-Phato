@@ -1,6 +1,4 @@
 
-using ThePatho.Features.Recruitment.RecruitmentReqStep.DTO;
-
 namespace ThePatho.Features.Recruitment.RecruitmentRequest.DTO
 {
     public class RecruitmentRequestDto

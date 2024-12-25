@@ -12,7 +12,7 @@ namespace ThePatho.Features.Applicant.ApplicantIdentity.Service
 {
     public class ApplicantIdentityService : IApplicantIdentityService
     {
-        private readonly DapperContext dapperContext;
+        private readonly DapperContext dapperContext; 
 
         public ApplicantIdentityService(DapperContext _dapperContext)
         {

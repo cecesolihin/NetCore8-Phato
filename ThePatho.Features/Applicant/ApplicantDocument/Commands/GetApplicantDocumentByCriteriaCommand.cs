@@ -4,7 +4,7 @@ using ThePatho.Features.Applicant.ApplicantDocument.DTO;
 
 namespace ThePatho.Features.Applicant.ApplicantDocument.Commands
 {
-    public class GetApplicantDocumentByCriteriaCommand :IRequest<ApplicantDocumentDto>
+    public class GetApplicantDocumentByCriteriaCommand :IRequest<ApplicantDocumentDto> 
     {
         [JsonPropertyName("filter_ApplicantNo")]
         public string? FilterApplicantNo { get; set; }

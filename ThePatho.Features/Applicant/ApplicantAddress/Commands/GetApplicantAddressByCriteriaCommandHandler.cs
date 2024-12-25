@@ -6,7 +6,7 @@ namespace ThePatho.Features.Applicant.ApplicantAddress.Commands
 {
     public class GetApplicantAddressByCriteriaCommandHandler : IRequestHandler<GetApplicantAddressByCriteriaCommand, ApplicantAddressDto>
     {
-        private readonly IApplicantAddressService applicantAddressService;
+        private readonly IApplicantAddressService applicantAddressService; 
         public GetApplicantAddressByCriteriaCommandHandler(IApplicantAddressService _applicantAddressService)
         {
             applicantAddressService = _applicantAddressService;

@@ -10,7 +10,7 @@ namespace ThePatho.Features.Applicant.ApplicantOnlineTestAnswer.Commands
         public string? FilterAppAnswerId { get; set; }
         [JsonPropertyName("filter_AppResultId")]
         public string? FilterAppResultId { get; set; }
-        
+         
         [JsonPropertyName("sortBy")]
         public string? SortBy { get; set; } = "InsertedDate";
         [JsonPropertyName("orderBy")]

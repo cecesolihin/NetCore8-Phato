@@ -15,7 +15,7 @@ namespace ThePatho.Features.MasterSetting.ScoringSetting.Commands
 
         public async Task<ScoringSettingDto> Handle(GetScoringSettingByCriteriaCommand request, CancellationToken cancellationToken)
         {
-            var data = await scoringSettingService.GetScoringSettingByCode(request);
+            var data = await scoringSettingService.GetScoringSettingByCriteria(request);
 
             return data;
         }

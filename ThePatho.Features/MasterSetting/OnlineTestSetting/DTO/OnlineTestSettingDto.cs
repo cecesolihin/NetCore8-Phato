@@ -1,6 +1,4 @@
 
-using ThePatho.Features.MasterSetting.QuestionSetting.DTO;
-
 namespace ThePatho.Features.MasterSetting.OnlineTestSetting.DTO
 {
     public class OnlineTestSettingDto

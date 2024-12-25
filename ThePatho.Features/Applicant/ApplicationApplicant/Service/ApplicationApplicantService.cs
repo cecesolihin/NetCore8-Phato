@@ -4,7 +4,6 @@ using SqlKata.Execution;
 using ThePatho.Domain.Constants;
 using ThePatho.Features.Applicant.ApplicationApplicant.Commands;
 using ThePatho.Features.Applicant.ApplicationApplicant.DTO;
-using ThePatho.Features.Applicant.ApplicationApplicant.DTO;
 using ThePatho.Features.Applicant.ApplicationApplicant.Service;
 using ThePatho.Infrastructure.Persistance;
 
@@ -12,7 +11,7 @@ namespace ThePatho.Features.Applicant.ApplicationApplicant.Service
 {
     public class ApplicationApplicantService : IApplicationApplicantService
     {
-        private readonly DapperContext dapperContext;
+        private readonly DapperContext dapperContext;  
 
         public ApplicationApplicantService(DapperContext _dapperContext)
         {

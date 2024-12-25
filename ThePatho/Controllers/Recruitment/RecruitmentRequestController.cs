@@ -17,7 +17,7 @@ namespace ThePatho.Controllers
 
         public RecruitmentRequestController(IMediator _mediator)
         {
-            mediator = _mediator ?? throw new ArgumentNullException(nameof(mediator));
+            mediator = _mediator ?? throw new ArgumentNullException(nameof(mediator)); 
         }
 
         [HttpPost(ApiRoutes.Methods.GetList)]
@@ -41,7 +41,7 @@ namespace ThePatho.Controllers
         }
 
         [HttpPost(ApiRoutes.Methods.GetByCriteria)]
-        public async Task<IActionResult> GetRecruitmentRequestByCode([FromBody] GetRecruitmentRequestByCriteriaCommand command,
+        public async Task<IActionResult> GetRecruitmentRequestByCriteria([FromBody] GetRecruitmentRequestByCriteriaCommand command,
             CancellationToken cancellationToken)
         {
             try

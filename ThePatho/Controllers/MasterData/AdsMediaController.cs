@@ -17,7 +17,7 @@ namespace ThePatho.Controllers
 
         public AdsMediaController(IMediator _mediator)
         {
-            mediator = _mediator ?? throw new ArgumentNullException(nameof(mediator));
+            mediator = _mediator ?? throw new ArgumentNullException(nameof(mediator)); 
         }
 
         [HttpPost(ApiRoutes.Methods.GetList)]
@@ -41,7 +41,7 @@ namespace ThePatho.Controllers
         }
 
         [HttpPost(ApiRoutes.Methods.GetByCriteria)]
-        public async Task<IActionResult> GetAdsMediaByCode([FromBody] GetAdsMediaByCriteriaCommand command,
+        public async Task<IActionResult> GetAdsMediaByCriteria([FromBody] GetAdsMediaByCriteriaCommand command,
             CancellationToken cancellationToken)
         {
             try

@@ -17,6 +17,11 @@ builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(GetAd
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
+    options.SwaggerDoc("Identity", new Microsoft.OpenApi.Models.OpenApiInfo
+    {
+        Title = "Identity API",
+        Version = "v1"
+    });
     options.SwaggerDoc("MasterData", new Microsoft.OpenApi.Models.OpenApiInfo
     {
         Title = "Master Data API",
@@ -63,6 +68,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(options =>
     {
+        options.SwaggerEndpoint("/swagger/Identity/swagger.json", "Identity API");
         options.SwaggerEndpoint("/swagger/MasterData/swagger.json", "Master Data API");
         options.SwaggerEndpoint("/swagger/MasterSetting/swagger.json", "Master Setting API");
         options.SwaggerEndpoint("/swagger/Applicant/swagger.json", "Applicant API");

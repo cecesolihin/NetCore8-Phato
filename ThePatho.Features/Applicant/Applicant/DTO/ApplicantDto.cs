@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ThePatho.Features.Recruitment.RecruitmentRequest.DTO;
-
-namespace ThePatho.Features.Applicant.Applicant.DTO
+﻿namespace ThePatho.Features.Applicant.Applicant.DTO
 {
     public class ApplicantDto
     {

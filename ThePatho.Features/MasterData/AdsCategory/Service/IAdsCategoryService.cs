@@ -6,7 +6,7 @@ namespace ThePatho.Features.MasterData.AdsCategory.Service
     public interface IAdsCategoryService
     {
         Task<List<AdsCategoryDto>> GetAllAdsCategoriesAsync(GetAdsCategoryCommand request);
-        Task<AdsCategoryDto> GetAdsCategoryByCode(GetAdsCategoryByCriteriaCommand request);
+        Task<AdsCategoryDto> GetAdsCategoryByCriteria(GetAdsCategoryByCriteriaCommand request);
         Task<List<AdsCategoryDto>> GetAdsCategoriesDdl(GetAdsCategoryDdlCommand request);
     }
 }

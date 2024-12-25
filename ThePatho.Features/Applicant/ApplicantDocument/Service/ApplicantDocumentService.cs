@@ -11,7 +11,7 @@ namespace ThePatho.Features.Applicant.ApplicantDocument.Service
 {
     public class ApplicantDocumentService : IApplicantDocumentService
     {
-        private readonly DapperContext dapperContext;
+        private readonly DapperContext dapperContext;  
 
         public ApplicantDocumentService(DapperContext _dapperContext)
         {

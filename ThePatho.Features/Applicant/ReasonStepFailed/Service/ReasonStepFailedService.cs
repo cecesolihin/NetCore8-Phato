@@ -23,7 +23,7 @@ namespace ThePatho.Features.Applicant.ReasonStepFailed.Service
             }).ToListAsync();
         }
 
-        public Task<ReasonStepFailedDto?> GetReasonStepFailedByCodeAsync(string code)
+        public Task<ReasonStepFailedDto?> GetReasonStepFailedByCriteriaAsync(string code)
         {
             throw new NotImplementedException();
         }

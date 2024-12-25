@@ -1,7 +1,3 @@
-
-
-using ThePatho.Features.MasterSetting.OnlineTestSetting.DTO;
-
 namespace ThePatho.Features.Recruitment.RecruitmentReqStep.DTO
 {
     public class RecruitmentReqStepDto

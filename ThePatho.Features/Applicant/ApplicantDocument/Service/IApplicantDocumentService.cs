@@ -6,6 +6,6 @@ namespace ThePatho.Features.Applicant.ApplicantDocument.Service
     public interface IApplicantDocumentService
     {
         Task<List<ApplicantDocumentDto>> GetApplicantDocument(GetApplicantDocumentCommand request);
-        Task<ApplicantDocumentDto> GetApplicantDocumentByCriteria(GetApplicantDocumentByCriteriaCommand request);
+        Task<ApplicantDocumentDto> GetApplicantDocumentByCriteria(GetApplicantDocumentByCriteriaCommand request); 
     }
 }

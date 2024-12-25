@@ -8,7 +8,7 @@ namespace ThePatho.Features.MasterData.JobCategory.Commands
     {
         private readonly IJobCategoryService jobCategoryService;
 
-        public GetJobCategoryDdlCommandHandler(IJobCategoryService _JobCategoryService)
+        public GetJobCategoryDdlCommandHandler(IJobCategoryService _JobCategoryService) 
         {
             jobCategoryService = _JobCategoryService;
         }

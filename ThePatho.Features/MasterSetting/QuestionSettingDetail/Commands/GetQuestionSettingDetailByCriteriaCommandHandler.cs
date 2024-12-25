@@ -15,7 +15,7 @@ namespace ThePatho.Features.MasterSetting.QuestionSettingDetail.Commands
 
         public async Task<QuestionSettingDetailItemDto> Handle(GetQuestionSettingDetailByCriteriaCommand request, CancellationToken cancellationToken)
         {
-            var data = await questionSettingDetailService.GetQuestionSettingDetailByCode(request);
+            var data = await questionSettingDetailService.GetQuestionSettingDetailByCriteria(request);
 
             return new QuestionSettingDetailItemDto
             {

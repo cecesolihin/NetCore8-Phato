@@ -4,7 +4,7 @@ using ThePatho.Features.Applicant.ApplicantOnlineTestResult.DTO;
 
 namespace ThePatho.Features.Applicant.ApplicantOnlineTestResult.Commands
 {
-    public class GetApplicantOnlineTestResultCommand :IRequest<ApplicantOnlineTestResultItemDto>
+    public class GetApplicantOnlineTestResultCommand :IRequest<ApplicantOnlineTestResultItemDto> 
     {
         [JsonPropertyName("filter_ApplicantNo")]
         public string? FilterApplicantNo { get; set; }

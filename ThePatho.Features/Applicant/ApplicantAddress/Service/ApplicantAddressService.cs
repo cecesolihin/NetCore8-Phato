@@ -10,7 +10,7 @@ namespace ThePatho.Features.Applicant.ApplicantAddress.Service
 {
     public class ApplicantAddressService : IApplicantAddressService
     {
-        private readonly DapperContext dapperContext;
+        private readonly DapperContext dapperContext; 
 
         public ApplicantAddressService(DapperContext _dapperContext)
         {

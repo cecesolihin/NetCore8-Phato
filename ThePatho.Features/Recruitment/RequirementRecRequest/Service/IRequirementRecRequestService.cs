@@ -6,6 +6,6 @@ namespace ThePatho.Features.Recruitment.RequirementRecRequest.Service
     public interface IRequirementRecRequestService
     {
         Task<List<RequirementRecRequestDto>> GetRequirementRecRequest(GetRequirementRecRequestCommand request);
-        Task<List<RequirementRecRequestDto>> GetRequirementRecRequestByCode(GetRequirementRecRequestByCodeCommand request);
+        Task<List<RequirementRecRequestDto>> GetRequirementRecRequestByCriteria(GetRequirementRecRequestByCriteriaCommand request);
     }
 }

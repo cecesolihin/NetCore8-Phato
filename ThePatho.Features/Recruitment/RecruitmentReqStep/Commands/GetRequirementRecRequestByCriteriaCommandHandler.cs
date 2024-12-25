@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using ThePatho.Features.Recruitment.RecruitmentReqStep.DTO;
 using ThePatho.Features.Recruitment.RecruitmentReqStep.Service;
-
+ 
 namespace ThePatho.Features.Recruitment.RecruitmentReqStep.Commands
 {
     public class GetRecruitmentReqStepByCriteriaCommandHandler : IRequestHandler<GetRecruitmentReqStepByCriteriaCommand, RecruitmentReqStepItemDto>

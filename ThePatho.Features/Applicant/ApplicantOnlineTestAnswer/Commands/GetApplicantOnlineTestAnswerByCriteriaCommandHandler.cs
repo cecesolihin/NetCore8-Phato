@@ -9,7 +9,7 @@ namespace ThePatho.Features.Applicant.ApplicantOnlineTestAnswer.Commands
         private readonly IApplicantOnlineTestAnswerService applicantOnlineTestAnswerService;
         public GetApplicantOnlineTestAnswerByCriteriaCommandHandler(IApplicantOnlineTestAnswerService _applicantOnlineTestAnswerService)
         {
-            applicantOnlineTestAnswerService = _applicantOnlineTestAnswerService;
+            applicantOnlineTestAnswerService = _applicantOnlineTestAnswerService; 
         }
         public async Task<ApplicantOnlineTestAnswerDto> Handle(GetApplicantOnlineTestAnswerByCriteriaCommand request, CancellationToken cancellationToken)
         {

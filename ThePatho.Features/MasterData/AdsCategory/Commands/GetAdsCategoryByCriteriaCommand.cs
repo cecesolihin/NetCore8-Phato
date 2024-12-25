@@ -6,7 +6,7 @@ namespace ThePatho.Features.MasterData.AdsCategory.Commands
 {
     public class GetAdsCategoryByCriteriaCommand : IRequest<AdsCategoryDto>
     {
-        [JsonPropertyName("filter_AdsCategoryCode")]
+        [JsonPropertyName("filter_AdsCategoryCode")] 
         public string? FilterAdsCategoryCode { get; set; }
         
     }

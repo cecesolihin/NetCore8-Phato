@@ -13,7 +13,7 @@ namespace ThePatho.Features.Recruitment.RecruitStep.Commands
         }
         public async Task<RecruitStepDto> Handle(GetRecruitStepByCriteriaCommand request, CancellationToken cancellationToken)
         {
-            var data = await recruitStepService.GetRecruitStepByCode(request);
+            var data = await recruitStepService.GetRecruitStepByCriteria(request);
 
             return data;
         }

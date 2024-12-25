@@ -15,7 +15,7 @@ namespace ThePatho.Features.Applicant.ApplicantRecruitStep.Commands
         {
             var data = await applicantRecruitStepService.GetApplicantRecruitStepByCriteria(request);
 
-            return data;
+            return data; 
         }
     }
 }

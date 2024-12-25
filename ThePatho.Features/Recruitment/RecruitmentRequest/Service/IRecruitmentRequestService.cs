@@ -6,6 +6,6 @@ namespace ThePatho.Features.Recruitment.RecruitmentRequest.Service
     public interface IRecruitmentRequestService
     {
         Task<List<RecruitmentRequestDto>> GetRecruitmentRequest(GetRecruitmentRequestCommand request);
-        Task<RecruitmentRequestDto> GetRecruitmentRequestByCode(GetRecruitmentRequestByCriteriaCommand request);
+        Task<RecruitmentRequestDto> GetRecruitmentRequestByCriteria(GetRecruitmentRequestByCriteriaCommand request);
     }
 }

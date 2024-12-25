@@ -9,7 +9,7 @@ namespace ThePatho.Features.MasterData.AdsCategory.Commands
     {
         private readonly IAdsMediaService adsMediaService;
 
-        public GetAdsMediaCommandHandler(IAdsMediaService _adsMediaService)
+        public GetAdsMediaCommandHandler(IAdsMediaService _adsMediaService) 
         {
             adsMediaService = _adsMediaService;
         }

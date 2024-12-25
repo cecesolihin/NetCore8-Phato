@@ -18,7 +18,7 @@ namespace ThePatho.Controllers
         public RequirementRecRequestController(IMediator _mediator)
         {
             mediator = _mediator ?? throw new ArgumentNullException(nameof(mediator));
-        }
+        } 
 
         [HttpPost(ApiRoutes.Methods.GetList)]
         public async Task<IActionResult> GetRequirementRecRequestList([FromBody] GetRequirementRecRequestCommand command,
@@ -41,7 +41,7 @@ namespace ThePatho.Controllers
         }
 
         [HttpPost(ApiRoutes.Methods.GetByCriteria)]
-        public async Task<IActionResult> GetRequirementRecRequestByCode([FromBody] GetRequirementRecRequestByCodeCommand command,
+        public async Task<IActionResult> GetRequirementRecRequestByCriteria([FromBody] GetRequirementRecRequestByCriteriaCommand command,
             CancellationToken cancellationToken)
         {
             try

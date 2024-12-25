@@ -15,7 +15,7 @@ namespace ThePatho.Features.MasterData.AdsCategory.Commands
 
         public async Task<AdsCategoryDto> Handle(GetAdsCategoryByCriteriaCommand request, CancellationToken cancellationToken)
         {
-            var data = await adsCategoryService.GetAdsCategoryByCode(request);
+            var data = await adsCategoryService.GetAdsCategoryByCriteria(request);
 
             return data;
         }

@@ -13,7 +13,7 @@ namespace ThePatho.Features.Recruitment.RecruitmentRequest.Commands
         }
         public async Task<RecruitmentRequestDto> Handle(GetRecruitmentRequestByCriteriaCommand request, CancellationToken cancellationToken)
         {
-            var data = await recruitmentRequestService.GetRecruitmentRequestByCode(request);
+            var data = await recruitmentRequestService.GetRecruitmentRequestByCriteria(request);
 
             return data;
         }

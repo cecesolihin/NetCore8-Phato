@@ -8,7 +8,7 @@ namespace ThePatho.Features.MasterData.AdsCategory.Commands
     {
         [JsonPropertyName("filter_AdsCategoryCode")]
         public string? FilterAdsCategoryCode { get; set; }
-      
+       
        
     }
 }

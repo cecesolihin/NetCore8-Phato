@@ -12,6 +12,7 @@ using ThePatho.Features.Applicant.ApplicantSkill.Service;
 using ThePatho.Features.Applicant.ApplicantWorkExperience.Service;
 using ThePatho.Features.Applicant.ApplicationApplicant.Service;
 using ThePatho.Features.Applicant.ReasonStepFailed.Service;
+using ThePatho.Features.Identity.UserManagement.Service;
 using ThePatho.Features.MasterData.AdsCategory.Service;
 using ThePatho.Features.MasterData.AdsMedia.Service;
 using ThePatho.Features.MasterData.JobCategory.Service;
@@ -31,20 +32,35 @@ public static class ServiceRegistrationExtensions
 {
     public static void AddApplicationServices(this IServiceCollection services)
     {
+
+        #region [Identity]
+        services.AddScoped<IUserManagementService, UserManagementService>();
+        #endregion
+
+        #region [Master Data]
         services.AddScoped<IAdsCategoryService, AdsCategoryService>();
         services.AddScoped<IAdsMediaService, AdsMediaService>();
         services.AddScoped<IJobCategoryService, JobCategoryService>();
+        #endregion
+
+        #region [Master Setting]
         services.AddScoped<IOnlineTestSettingService, OnlineTestSettingService>();
         services.AddScoped<IQuestionSettingService, QuestionSettingService>();
         services.AddScoped<IQuestionSettingDetailService, QuestionSettingDetailService>();
         services.AddScoped<IScoringSettingService, ScoringSettingService>();
         services.AddScoped<IScoringSettingDetailService, ScoringSettingDetailService>();
+        #endregion
+
+        #region [Recruitment]
         services.AddScoped<IRecruitStepService, RecruitStepService>();
         services.AddScoped<IRecruitStepGroupService, RecruitStepGroupService>();
         services.AddScoped<IRecruitStepGroupDetailService, RecruitStepGroupDetailService>();
         services.AddScoped<IRecruitmentReqStepService, RecruitmentReqStepService>();
         services.AddScoped<IRecruitmentRequestService, RecruitmentRequestService>();
         services.AddScoped<IRequirementRecRequestService, RequirementRecRequestService>();
+        #endregion
+
+        #region [Applicant]
         services.AddScoped<IApplicantService, ApplicantService>();
         services.AddScoped<IApplicantAddressService, ApplicantAddressService>();
         services.AddScoped<IApplicantDocumentService, ApplicantDocumentService>();
@@ -58,5 +74,7 @@ public static class ServiceRegistrationExtensions
         services.AddScoped<IApplicantWorkExperienceService, ApplicantWorkExperienceService>();
         services.AddScoped<IApplicationApplicantService, ApplicationApplicantService>();
         services.AddScoped<IReasonStepFailedService, ReasonStepFailedService>();
+        #endregion
+
     }
 }

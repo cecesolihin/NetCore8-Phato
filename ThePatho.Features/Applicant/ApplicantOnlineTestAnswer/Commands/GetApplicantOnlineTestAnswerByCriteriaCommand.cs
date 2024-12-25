@@ -7,6 +7,6 @@ namespace ThePatho.Features.Applicant.ApplicantOnlineTestAnswer.Commands
     public class GetApplicantOnlineTestAnswerByCriteriaCommand :IRequest<ApplicantOnlineTestAnswerDto>
     {
         [JsonPropertyName("filter_AppResultId")]
-        public string? FilterAppResultId { get; set; }
+        public string? FilterAppResultId { get; set; } 
     }
 }

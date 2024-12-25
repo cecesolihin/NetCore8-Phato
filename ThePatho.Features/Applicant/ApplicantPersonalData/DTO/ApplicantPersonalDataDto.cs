@@ -1,7 +1,4 @@
 
-
-using ThePatho.Features.Recruitment.RecruitmentRequest.DTO;
-
 namespace ThePatho.Features.Applicant.ApplicantPersonalData.DTO
 {
     public class ApplicantPersonalDataDto

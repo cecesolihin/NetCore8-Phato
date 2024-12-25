@@ -15,7 +15,7 @@ namespace ThePatho.Features.Applicant.ApplicantRecruitStep.Commands
         {
             var data = await applicantRecruitStepService.GetApplicantRecruitStep(request);
 
-            return new ApplicantRecruitStepItemDto
+            return new ApplicantRecruitStepItemDto 
             {
                 DataOfRecords = data.Count,
                 ApplicantRecruitStepList = data,

@@ -19,7 +19,7 @@ namespace ThePatho.Controllers
 
         public QuestionSettingController(IMediator _mediator)
         {
-            mediator = _mediator ?? throw new ArgumentNullException(nameof(mediator));
+            mediator = _mediator ?? throw new ArgumentNullException(nameof(mediator)); 
         }
 
         [HttpPost(ApiRoutes.Methods.GetList)]
@@ -43,7 +43,7 @@ namespace ThePatho.Controllers
         }
 
         [HttpPost(ApiRoutes.Methods.GetByCriteria)]
-        public async Task<IActionResult> GetQuestionSettingByCode([FromBody] GetQuestionSettingByCriteriaCommand command,
+        public async Task<IActionResult> GetQuestionSettingByCriteria([FromBody] GetQuestionSettingByCriteriaCommand command,
             CancellationToken cancellationToken)
         {
             try

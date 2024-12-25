@@ -7,7 +7,7 @@ namespace ThePatho.Features.Applicant.ReasonStepFailed.Service
     public interface IReasonStepFailedService
     {
         Task<List<ReasonStepFailedDto>> GetAllReasonStepFailedAsync();
-        Task<ReasonStepFailedDto?> GetReasonStepFailedByCodeAsync(string code);
+        Task<ReasonStepFailedDto?> GetReasonStepFailedByCriteriaAsync(string code);
         Task<ReasonStepFailedDto> AddReasonStepFailedAsync(ReasonStepFailedDto reason);
         Task<ReasonStepFailedDto?> UpdateReasonStepFailedAsync(ReasonStepFailedDto reason);
         Task<bool> DeleteReasonStepFailedAsync(string code);

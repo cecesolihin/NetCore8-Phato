@@ -24,6 +24,6 @@ namespace ThePatho.Features.Applicant.ApplicantAddress.Commands
         [JsonPropertyName("pageNumber")]
         public int PageNumber { get; set; } = 0;
         [JsonPropertyName("pageSize")]
-        public int PageSize { get; set; } = 10;
+        public int PageSize { get; set; } = 10; 
     }
 }

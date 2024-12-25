@@ -7,6 +7,6 @@ namespace ThePatho.Features.Applicant.ApplicantAddress.Commands
     public class GetApplicantAddressByCriteriaCommand :IRequest<ApplicantAddressDto>
     {
         [JsonPropertyName("filter_ApplicantNo")]
-        public string? FilterApplicantNo { get; set; }
+        public string? FilterApplicantNo { get; set; } 
     }
 }

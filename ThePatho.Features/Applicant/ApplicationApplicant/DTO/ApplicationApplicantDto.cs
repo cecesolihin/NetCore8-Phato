@@ -1,7 +1,4 @@
 
-
-using ThePatho.Features.Applicant.ApplicationApplicant.DTO;
-
 namespace ThePatho.Features.Applicant.ApplicationApplicant.DTO
 {
     public class ApplicationApplicantDto

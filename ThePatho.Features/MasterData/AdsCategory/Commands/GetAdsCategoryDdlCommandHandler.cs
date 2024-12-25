@@ -6,7 +6,7 @@ namespace ThePatho.Features.MasterData.AdsCategory.Commands
 {
     public class GetAdsCategoryDdlCommandHandler : IRequestHandler<GetAdsCategoryDdlCommand, AdsCategoryItemDto>
     {
-        private readonly IAdsCategoryService adsCategoryService;
+        private readonly IAdsCategoryService adsCategoryService; 
 
         public GetAdsCategoryDdlCommandHandler(IAdsCategoryService _adsCategoryService)
         {

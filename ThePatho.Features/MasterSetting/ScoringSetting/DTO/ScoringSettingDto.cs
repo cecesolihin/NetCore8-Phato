@@ -1,5 +1,3 @@
-
-
 using ThePatho.Features.MasterSetting.ScoringSettingDetail.DTO;
 
 namespace ThePatho.Features.MasterSetting.ScoringSetting.DTO

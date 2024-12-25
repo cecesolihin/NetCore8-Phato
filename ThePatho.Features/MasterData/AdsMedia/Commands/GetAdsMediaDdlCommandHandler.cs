@@ -8,7 +8,7 @@ namespace ThePatho.Features.MasterData.AdsMedia.Commands
 {
     public class GetAdsMediaDdlCommandHandler : IRequestHandler<GetAdsMediaDdlCommand, AdsMediaItemDto>
     {
-        private readonly IAdsMediaService adsMediaService;
+        private readonly IAdsMediaService adsMediaService; 
 
         public GetAdsMediaDdlCommandHandler(IAdsMediaService _adsMediaService)
         {
