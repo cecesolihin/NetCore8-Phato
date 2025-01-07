@@ -10,3 +10,4 @@ D:\COURSES\ThePatho\ThePatho.Domain\obj\Debug\net8.0\ThePatho.Domain.dll
 D:\COURSES\ThePatho\ThePatho.Domain\obj\Debug\net8.0\refint\ThePatho.Domain.dll
 D:\COURSES\ThePatho\ThePatho.Domain\obj\Debug\net8.0\ThePatho.Domain.pdb
 D:\COURSES\ThePatho\ThePatho.Domain\obj\Debug\net8.0\ref\ThePatho.Domain.dll
+D:\COURSES\ThePatho\ThePatho.Domain\obj\Debug\net8.0\ThePatho.Domain.csproj.AssemblyReference.cache

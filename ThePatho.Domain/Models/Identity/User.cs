@@ -1,9 +1,9 @@
 ﻿
-using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace ThePatho.Domain.Models.Identity
 {
-    public class User
+    public class User: IdentityUser
     {
         public string UserId { get; set; }
         public string? Username { get; set; }

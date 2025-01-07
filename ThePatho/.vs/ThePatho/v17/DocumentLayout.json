@@ -1,7 +1,49 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\COURSES\\ThePatho\\ThePatho\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\identity\\authentication\\service\\authenticationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\configurationextensions\\serviceregistrationextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\identity\\authentication\\service\\jwttokengenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\identity\\authentication\\service\\ijwttokengenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\identity\\authentication\\service\\iauthenticationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\identity\\authentication\\commands\\registercommandhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\identity\\authentication\\commands\\logincommandhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1D5A67AE-AFE0-4F7C-AEEE-D4C843B8D035}|ThePatho.csproj|d:\\courses\\thepatho\\thepatho\\controllers\\identity\\authenticationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1D5A67AE-AFE0-4F7C-AEEE-D4C843B8D035}|ThePatho.csproj|solutionrelative:controllers\\identity\\authenticationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\masterdata\\adscategory\\commands\\getadscategorycommandhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\masterdata\\adscategory\\commands\\getadscategorycommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1D5A67AE-AFE0-4F7C-AEEE-D4C843B8D035}|ThePatho.csproj|d:\\courses\\thepatho\\thepatho\\controllers\\identity\\usermanagementcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1D5A67AE-AFE0-4F7C-AEEE-D4C843B8D035}|ThePatho.csproj|solutionrelative:controllers\\identity\\usermanagementcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\identity\\authentication\\commands\\registercommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\identity\\authentication\\commands\\logincommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,7 +51,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 327,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
@@ -26,6 +68,175 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ServiceRegistrationExtensions.cs",
+              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\ConfigurationExtensions\\ServiceRegistrationExtensions.cs",
+              "RelativeDocumentMoniker": "..\\ThePatho.Features\\ConfigurationExtensions\\ServiceRegistrationExtensions.cs",
+              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\ConfigurationExtensions\\ServiceRegistrationExtensions.cs",
+              "RelativeToolTip": "..\\ThePatho.Features\\ConfigurationExtensions\\ServiceRegistrationExtensions.cs",
+              "ViewState": "AQIAAAwAAAAAAAAAAAAAACcAAAAvAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-07T14:29:31.291Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "IAuthenticationService.cs",
+              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Identity\\Authentication\\Service\\IAuthenticationService.cs",
+              "RelativeDocumentMoniker": "..\\ThePatho.Features\\Identity\\Authentication\\Service\\IAuthenticationService.cs",
+              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Identity\\Authentication\\Service\\IAuthenticationService.cs",
+              "RelativeToolTip": "..\\ThePatho.Features\\Identity\\Authentication\\Service\\IAuthenticationService.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-07T14:29:10.116Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AuthenticationService.cs",
+              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Identity\\Authentication\\Service\\AuthenticationService.cs",
+              "RelativeDocumentMoniker": "..\\ThePatho.Features\\Identity\\Authentication\\Service\\AuthenticationService.cs",
+              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Identity\\Authentication\\Service\\AuthenticationService.cs",
+              "RelativeToolTip": "..\\ThePatho.Features\\Identity\\Authentication\\Service\\AuthenticationService.cs",
+              "ViewState": "AQIAABAAAAAAAAAAAAAQwAoAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-07T14:21:12.2Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "GetAdsCategoryCommandHandler.cs",
+              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\MasterData\\AdsCategory\\Commands\\GetAdsCategoryCommandHandler.cs",
+              "RelativeDocumentMoniker": "..\\ThePatho.Features\\MasterData\\AdsCategory\\Commands\\GetAdsCategoryCommandHandler.cs",
+              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\MasterData\\AdsCategory\\Commands\\GetAdsCategoryCommandHandler.cs",
+              "RelativeToolTip": "..\\ThePatho.Features\\MasterData\\AdsCategory\\Commands\\GetAdsCategoryCommandHandler.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAABpAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-07T14:18:43.992Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "GetAdsCategoryCommand.cs",
+              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\MasterData\\AdsCategory\\Commands\\GetAdsCategoryCommand.cs",
+              "RelativeDocumentMoniker": "..\\ThePatho.Features\\MasterData\\AdsCategory\\Commands\\GetAdsCategoryCommand.cs",
+              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\MasterData\\AdsCategory\\Commands\\GetAdsCategoryCommand.cs",
+              "RelativeToolTip": "..\\ThePatho.Features\\MasterData\\AdsCategory\\Commands\\GetAdsCategoryCommand.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-07T14:18:42.142Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "UserManagementController.cs",
+              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho\\Controllers\\Identity\\UserManagementController.cs",
+              "RelativeDocumentMoniker": "Controllers\\Identity\\UserManagementController.cs",
+              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho\\Controllers\\Identity\\UserManagementController.cs",
+              "RelativeToolTip": "Controllers\\Identity\\UserManagementController.cs",
+              "ViewState": "AQIAACcAAAAAAAAAAAAYwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-07T14:16:35.213Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "AuthenticationController.cs",
+              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho\\Controllers\\Identity\\AuthenticationController.cs",
+              "RelativeDocumentMoniker": "Controllers\\Identity\\AuthenticationController.cs",
+              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho\\Controllers\\Identity\\AuthenticationController.cs",
+              "RelativeToolTip": "Controllers\\Identity\\AuthenticationController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAnAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-07T14:16:13.111Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "RegisterCommandHandler.cs",
+              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Identity\\Authentication\\Commands\\RegisterCommandHandler.cs",
+              "RelativeDocumentMoniker": "..\\ThePatho.Features\\Identity\\Authentication\\Commands\\RegisterCommandHandler.cs",
+              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Identity\\Authentication\\Commands\\RegisterCommandHandler.cs",
+              "RelativeToolTip": "..\\ThePatho.Features\\Identity\\Authentication\\Commands\\RegisterCommandHandler.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-07T14:11:44.169Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "RegisterCommand.cs",
+              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Identity\\Authentication\\Commands\\RegisterCommand.cs",
+              "RelativeDocumentMoniker": "..\\ThePatho.Features\\Identity\\Authentication\\Commands\\RegisterCommand.cs",
+              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Identity\\Authentication\\Commands\\RegisterCommand.cs",
+              "RelativeToolTip": "..\\ThePatho.Features\\Identity\\Authentication\\Commands\\RegisterCommand.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAA1AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-07T14:11:37.944Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "LoginCommandHandler.cs",
+              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Identity\\Authentication\\Commands\\LoginCommandHandler.cs",
+              "RelativeDocumentMoniker": "..\\ThePatho.Features\\Identity\\Authentication\\Commands\\LoginCommandHandler.cs",
+              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Identity\\Authentication\\Commands\\LoginCommandHandler.cs",
+              "RelativeToolTip": "..\\ThePatho.Features\\Identity\\Authentication\\Commands\\LoginCommandHandler.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAArAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-07T14:11:29.67Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "LoginCommand.cs",
+              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Identity\\Authentication\\Commands\\LoginCommand.cs",
+              "RelativeDocumentMoniker": "..\\ThePatho.Features\\Identity\\Authentication\\Commands\\LoginCommand.cs",
+              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Identity\\Authentication\\Commands\\LoginCommand.cs",
+              "RelativeToolTip": "..\\ThePatho.Features\\Identity\\Authentication\\Commands\\LoginCommand.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAtAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-07T14:11:13.822Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "JwtTokenGenerator.cs",
+              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Identity\\Authentication\\Service\\JwtTokenGenerator.cs",
+              "RelativeDocumentMoniker": "..\\ThePatho.Features\\Identity\\Authentication\\Service\\JwtTokenGenerator.cs",
+              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Identity\\Authentication\\Service\\JwtTokenGenerator.cs",
+              "RelativeToolTip": "..\\ThePatho.Features\\Identity\\Authentication\\Service\\JwtTokenGenerator.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-07T14:09:19.061Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "IJwtTokenGenerator.cs",
+              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Identity\\Authentication\\Service\\IJwtTokenGenerator.cs",
+              "RelativeDocumentMoniker": "..\\ThePatho.Features\\Identity\\Authentication\\Service\\IJwtTokenGenerator.cs",
+              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Identity\\Authentication\\Service\\IJwtTokenGenerator.cs",
+              "RelativeToolTip": "..\\ThePatho.Features\\Identity\\Authentication\\Service\\IJwtTokenGenerator.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAnAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-07T14:09:16.623Z",
+              "EditorCaption": ""
             }
           ]
         },

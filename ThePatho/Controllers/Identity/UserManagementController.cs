@@ -2,7 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using ThePatho.Features.ConfigurationExtensions;
-using ThePatho.Features.Identity.UserManagement.Commands;
+using ThePatho.Features.Identity.UserManagement.Commands.Group;
+using ThePatho.Features.Identity.UserManagement.Commands.GroupRole;
+using ThePatho.Features.Identity.UserManagement.Commands.Role;
+using ThePatho.Features.Identity.UserManagement.Commands.User;
+using ThePatho.Features.Identity.UserManagement.Commands.UserGroup;
 using ThePatho.Features.Identity.UserManagement.DTO;
 
 namespace ThePatho.Controllers.Identity
@@ -20,7 +24,7 @@ namespace ThePatho.Controllers.Identity
         }
 
         #region [USER]
-        [HttpGet(ApiRoutes.Methods.GetUserList)]
+        [HttpPost(ApiRoutes.Methods.GetUserList)]
         public async Task<IActionResult> GetUserList([FromBody] GetUserCommand command,
            CancellationToken cancellationToken)
         {
@@ -40,7 +44,7 @@ namespace ThePatho.Controllers.Identity
             }
         }
 
-        [HttpGet(ApiRoutes.Methods.GetUserByCriteria)]
+        [HttpPost(ApiRoutes.Methods.GetUserByCriteria)]
         public async Task<IActionResult> GetUserByCriteria([FromBody] GetUserByCriteriaCommand command,
             CancellationToken cancellationToken)
         {
@@ -62,7 +66,7 @@ namespace ThePatho.Controllers.Identity
         #endregion
 
         #region [ROLE]
-        [HttpGet(ApiRoutes.Methods.GetRoleList)]
+        [HttpPost(ApiRoutes.Methods.GetRoleList)]
         public async Task<IActionResult> GetRoleList([FromBody] GetRoleCommand command,
            CancellationToken cancellationToken)
         {
@@ -82,7 +86,7 @@ namespace ThePatho.Controllers.Identity
             }
         }
 
-        [HttpGet(ApiRoutes.Methods.GetRoleByCriteria)]
+        [HttpPost(ApiRoutes.Methods.GetRoleByCriteria)]
         public async Task<IActionResult> GetRoleByCriteria([FromBody] GetRoleByCriteriaCommand command,
             CancellationToken cancellationToken)
         {
@@ -104,7 +108,7 @@ namespace ThePatho.Controllers.Identity
         #endregion
 
         #region [GROUP]
-        [HttpGet(ApiRoutes.Methods.GetGroupList)]
+        [HttpPost(ApiRoutes.Methods.GetGroupList)]
         public async Task<IActionResult> GetGroupList([FromBody] GetGroupCommand command,
           CancellationToken cancellationToken)
         {
@@ -124,7 +128,7 @@ namespace ThePatho.Controllers.Identity
             }
         }
 
-        [HttpGet(ApiRoutes.Methods.GetGroupByCriteria)]
+        [HttpPost(ApiRoutes.Methods.GetGroupByCriteria)]
         public async Task<IActionResult> GetGroupByCriteria([FromBody] GetGroupByCriteriaCommand command,
             CancellationToken cancellationToken)
         {
@@ -146,7 +150,7 @@ namespace ThePatho.Controllers.Identity
         #endregion
 
         #region [GROUP ROLE]
-        [HttpGet(ApiRoutes.Methods.GetGroupRoleList)]
+        [HttpPost(ApiRoutes.Methods.GetGroupRoleList)]
         public async Task<IActionResult> GetGroupRoleList([FromBody] GetGroupRoleCommand command,
           CancellationToken cancellationToken)
         {
@@ -166,7 +170,7 @@ namespace ThePatho.Controllers.Identity
             }
         }
 
-        [HttpGet(ApiRoutes.Methods.GetGroupRoleByCriteria)]
+        [HttpPost(ApiRoutes.Methods.GetGroupRoleByCriteria)]
         public async Task<IActionResult> GetGroupRoleByCriteria([FromBody] GetGroupRoleByCriteriaCommand command,
             CancellationToken cancellationToken)
         {
@@ -188,7 +192,7 @@ namespace ThePatho.Controllers.Identity
         #endregion
 
         #region [USER GROUP]
-        [HttpGet(ApiRoutes.Methods.GetUserGroupList)]
+        [HttpPost(ApiRoutes.Methods.GetUserGroupList)]
         public async Task<IActionResult> GetUserGroupList([FromBody] GetUserGroupCommand command,
           CancellationToken cancellationToken)
         {
@@ -208,7 +212,7 @@ namespace ThePatho.Controllers.Identity
             }
         }
 
-        [HttpGet(ApiRoutes.Methods.GetUserGroupByCriteria)]
+        [HttpPost(ApiRoutes.Methods.GetUserGroupByCriteria)]
         public async Task<IActionResult> GetUserGroupByCriteria([FromBody] GetUserGroupByCriteriaCommand command,
             CancellationToken cancellationToken)
         {

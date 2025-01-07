@@ -12,6 +12,7 @@ using ThePatho.Features.Applicant.ApplicantSkill.Service;
 using ThePatho.Features.Applicant.ApplicantWorkExperience.Service;
 using ThePatho.Features.Applicant.ApplicationApplicant.Service;
 using ThePatho.Features.Applicant.ReasonStepFailed.Service;
+using ThePatho.Features.Identity.Authentication.Service;
 using ThePatho.Features.Identity.UserManagement.Service;
 using ThePatho.Features.MasterData.AdsCategory.Service;
 using ThePatho.Features.MasterData.AdsMedia.Service;
@@ -35,6 +36,8 @@ public static class ServiceRegistrationExtensions
 
         #region [Identity]
         services.AddScoped<IUserManagementService, UserManagementService>();
+        services.AddScoped<IAuthenticationService, AuthenticationService>();
+        services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
         #endregion
 
         #region [Master Data]
