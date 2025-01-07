@@ -36,9 +36,6 @@
     <Folder Include="Applicant\ReasonStepFailed\Commands\" />
     <Folder Include="Applicant\ReasonStepFailed\DTO\" />
     <Folder Include="Applicant\ReasonStepFailed\Service\" />
-    <Folder Include="Identity\Authentication\Commands\" />
-    <Folder Include="Identity\Authentication\DTO\" />
-    <Folder Include="Identity\Authentication\Service\" />
     <Folder Include="MasterData\AdsCategory\DTO\" />
     <Folder Include="MasterData\AdsCategory\Service\" />
     <Folder Include="MasterData\AdsMedia\DTO\" />
@@ -76,7 +73,13 @@
   <ItemGroup>
     <PackageReference Include="MediatR" Version="12.4.1" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="SqlKata" Version="2.4.0" />
     <PackageReference Include="SqlKata.Execution" Version="2.4.0" />
   </ItemGroup>

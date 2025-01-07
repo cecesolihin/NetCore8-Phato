@@ -1,0 +1,1233 @@
+[
+  {
+    "ContainingType": "ThePatho.Controllers.ApplicantAddressController",
+    "Method": "GetApplicantAddressByCriteria",
+    "RelativePath": "api/applicant/applicant-address/get-by-criteria",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Applicant.ApplicantAddress.Commands.GetApplicantAddressByCriteriaCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ApplicantAddressController",
+    "Method": "GetApplicantAddressList",
+    "RelativePath": "api/applicant/applicant-address/get-list",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Applicant.ApplicantAddress.Commands.GetApplicantAddressCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ApplicantDocumentController",
+    "Method": "GetApplicantDocumentByCriteria",
+    "RelativePath": "api/applicant/applicant-document/get-by-criteria",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Applicant.ApplicantDocument.Commands.GetApplicantDocumentByCriteriaCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ApplicantDocumentController",
+    "Method": "GetApplicantDocumentList",
+    "RelativePath": "api/applicant/applicant-document/get-list",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Applicant.ApplicantDocument.Commands.GetApplicantDocumentCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ApplicantEducationController",
+    "Method": "GetApplicantEducationByCriteria",
+    "RelativePath": "api/applicant/applicant-education/get-by-criteria",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Applicant.ApplicantEducation.Commands.GetApplicantEducationByCriteriaCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ApplicantEducationController",
+    "Method": "GetApplicantEducationList",
+    "RelativePath": "api/applicant/applicant-education/get-list",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Applicant.ApplicantEducation.Commands.GetApplicantEducationCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ApplicantIdentityController",
+    "Method": "GetApplicantIdentityByCriteria",
+    "RelativePath": "api/applicant/applicant-identity/get-by-criteria",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Applicant.ApplicantIdentity.Commands.GetApplicantIdentityByCriteriaCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ApplicantIdentityController",
+    "Method": "GetApplicantIdentityList",
+    "RelativePath": "api/applicant/applicant-identity/get-list",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Applicant.ApplicantIdentity.Commands.GetApplicantIdentityCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ApplicantOnlineTestAnswerController",
+    "Method": "GetApplicantOnlineTestAnswerByCriteria",
+    "RelativePath": "api/applicant/applicant-online-test-answer/get-by-criteria",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Applicant.ApplicantOnlineTestAnswer.Commands.GetApplicantOnlineTestAnswerByCriteriaCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ApplicantOnlineTestAnswerController",
+    "Method": "GetApplicantOnlineTestAnswerList",
+    "RelativePath": "api/applicant/applicant-online-test-answer/get-list",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Applicant.ApplicantOnlineTestAnswer.Commands.GetApplicantOnlineTestAnswerCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ApplicantOnlineTestResultController",
+    "Method": "GetApplicantOnlineTestResultByCriteria",
+    "RelativePath": "api/applicant/applicant-online-test-result/get-by-criteria",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Applicant.ApplicantOnlineTestResult.Commands.GetApplicantOnlineTestResultByCriteriaCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ApplicantOnlineTestResultController",
+    "Method": "GetApplicantOnlineTestResultList",
+    "RelativePath": "api/applicant/applicant-online-test-result/get-list",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Applicant.ApplicantOnlineTestResult.Commands.GetApplicantOnlineTestResultCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ApplicantPersonalDataController",
+    "Method": "GetApplicantPersonalDataByCriteria",
+    "RelativePath": "api/applicant/applicant-personal-data/get-by-criteria",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Applicant.ApplicantPersonalData.Commands.GetApplicantPersonalDataByCriteriaCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ApplicantPersonalDataController",
+    "Method": "GetApplicantPersonalDataList",
+    "RelativePath": "api/applicant/applicant-personal-data/get-list",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Applicant.ApplicantPersonalData.Commands.GetApplicantPersonalDataCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ApplicantWorkExperienceController",
+    "Method": "GetApplicationWorkExperienceByCriteria",
+    "RelativePath": "api/applicant/applicant-work-experience/get-by-criteria",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Applicant.ApplicantWorkExperience.Commands.GetApplicantWorkExperienceByCriteriaCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ApplicantWorkExperienceController",
+    "Method": "GetApplicationWorkExperienceList",
+    "RelativePath": "api/applicant/applicant-work-experience/get-list",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Applicant.ApplicantWorkExperience.Commands.GetApplicantWorkExperienceCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ApplicantController",
+    "Method": "GetApplicantByCriteria",
+    "RelativePath": "api/applicant/applicant/get-by-criteria",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Applicant.Applicant.Commands.GetApplicantByCriteriaCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ApplicantController",
+    "Method": "GetApplicantList",
+    "RelativePath": "api/applicant/applicant/get-list",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Applicant.Applicant.Commands.GetApplicantCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ApplicationApplicantController",
+    "Method": "GetApplicationApplicantByCriteria",
+    "RelativePath": "api/applicant/application-applicant/get-by-criteria",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Applicant.ApplicationApplicant.Commands.GetApplicationApplicantByCriteriaCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ApplicationApplicantController",
+    "Method": "GetApplicationApplicantList",
+    "RelativePath": "api/applicant/application-applicant/get-list",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Applicant.ApplicationApplicant.Commands.GetApplicationApplicantCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.Identity.AuthenticationController",
+    "Method": "Login",
+    "RelativePath": "api/identity/auth/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Identity.Authentication.Commands.LoginCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.Identity.AuthenticationController",
+    "Method": "Register",
+    "RelativePath": "api/identity/auth/register",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Identity.Authentication.Commands.RegisterCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.Identity.UserManagementController",
+    "Method": "GetGroupByCriteria",
+    "RelativePath": "api/identity/user-management/get-group-by-criteria",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Identity.UserManagement.Commands.Group.GetGroupByCriteriaCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.Identity.UserManagementController",
+    "Method": "GetGroupList",
+    "RelativePath": "api/identity/user-management/get-group-list",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Identity.UserManagement.Commands.Group.GetGroupCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.Identity.UserManagementController",
+    "Method": "GetGroupRoleByCriteria",
+    "RelativePath": "api/identity/user-management/get-group-role-by-criteria",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Identity.UserManagement.Commands.GroupRole.GetGroupRoleByCriteriaCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.Identity.UserManagementController",
+    "Method": "GetGroupRoleList",
+    "RelativePath": "api/identity/user-management/get-group-role-list",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Identity.UserManagement.Commands.GroupRole.GetGroupRoleCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.Identity.UserManagementController",
+    "Method": "GetRoleByCriteria",
+    "RelativePath": "api/identity/user-management/get-role-by-criteria",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Identity.UserManagement.Commands.Role.GetRoleByCriteriaCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.Identity.UserManagementController",
+    "Method": "GetRoleList",
+    "RelativePath": "api/identity/user-management/get-role-list",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Identity.UserManagement.Commands.Role.GetRoleCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.Identity.UserManagementController",
+    "Method": "GetUserByCriteria",
+    "RelativePath": "api/identity/user-management/get-user-by-criteria",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Identity.UserManagement.Commands.User.GetUserByCriteriaCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.Identity.UserManagementController",
+    "Method": "GetUserGroupByCriteria",
+    "RelativePath": "api/identity/user-management/get-user-group-by-criteria",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Identity.UserManagement.Commands.UserGroup.GetUserGroupByCriteriaCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.Identity.UserManagementController",
+    "Method": "GetUserGroupList",
+    "RelativePath": "api/identity/user-management/get-user-group-list",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Identity.UserManagement.Commands.UserGroup.GetUserGroupCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.Identity.UserManagementController",
+    "Method": "GetUserList",
+    "RelativePath": "api/identity/user-management/get-user-list",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Identity.UserManagement.Commands.User.GetUserCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.AdsCategoryController",
+    "Method": "GetAdsCategoryByCriteria",
+    "RelativePath": "api/master-data/ads-category/get-by-criteria",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.MasterData.AdsCategory.Commands.GetAdsCategoryByCriteriaCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.AdsCategoryController",
+    "Method": "GetAdsCategoryDdl",
+    "RelativePath": "api/master-data/ads-category/get-ddl",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.MasterData.AdsCategory.Commands.GetAdsCategoryDdlCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.AdsCategoryController",
+    "Method": "GetAdsCategoryList",
+    "RelativePath": "api/master-data/ads-category/get-list",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.MasterData.AdsCategory.Commands.GetAdsCategoryCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.AdsMediaController",
+    "Method": "GetAdsMediaByCriteria",
+    "RelativePath": "api/master-data/ads-media/get-by-criteria",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.MasterData.AdsCategory.Commands.GetAdsMediaByCriteriaCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.AdsMediaController",
+    "Method": "GetAdsMediaDdl",
+    "RelativePath": "api/master-data/ads-media/get-ddl",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.MasterData.AdsCategory.Commands.GetAdsMediaDdlCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.AdsMediaController",
+    "Method": "GetAdsMediaList",
+    "RelativePath": "api/master-data/ads-media/get-list",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.MasterData.AdsCategory.Commands.GetAdsMediaCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ApplicantRecruitStepController",
+    "Method": "GetApplicantRecruitStepByCriteria",
+    "RelativePath": "api/master-data/applicant-recruit-step/get-by-criteria",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Applicant.ApplicantRecruitStep.Commands.GetApplicantRecruitStepByCriteriaCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ApplicantRecruitStepController",
+    "Method": "GetApplicantRecruitStepList",
+    "RelativePath": "api/master-data/applicant-recruit-step/get-list",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Applicant.ApplicantRecruitStep.Commands.GetApplicantRecruitStepCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ApplicantSkillController",
+    "Method": "GetApplicantSkillByCriteria",
+    "RelativePath": "api/master-data/applicant-skill/get-by-criteria",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Applicant.ApplicantSkill.Commands.GetApplicantSkillByCriteriaCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ApplicantSkillController",
+    "Method": "GetApplicantSkillList",
+    "RelativePath": "api/master-data/applicant-skill/get-list",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Applicant.ApplicantSkill.Commands.GetApplicantSkillCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.JobCategoryController",
+    "Method": "GetJobCategoryByCriteria",
+    "RelativePath": "api/master-data/job-category/get-by-criteria",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.MasterData.JobCategory.Commands.GetJobCategoryByCriteriaCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.JobCategoryController",
+    "Method": "GetJobCategoryDdl",
+    "RelativePath": "api/master-data/job-category/get-ddl",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.MasterData.JobCategory.Commands.GetJobCategoryDdlCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.JobCategoryController",
+    "Method": "GetJobCategoryList",
+    "RelativePath": "api/master-data/job-category/get-list",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.MasterData.JobCategory.Commands.GetJobCategoryCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.OnlineTestSettingController",
+    "Method": "GetOnlineTestSettingByCriteria",
+    "RelativePath": "api/master-setting/online-test-setting/get-by-criteria",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.MasterSetting.OnlineTestSetting.Commands.GetOnlineTestSettingByCriteriaCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.OnlineTestSettingController",
+    "Method": "GetOnlineTestSettingDdl",
+    "RelativePath": "api/master-setting/online-test-setting/get-ddl",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.MasterSetting.OnlineTestSetting.Commands.GetOnlineTestSettingDdlCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.OnlineTestSettingController",
+    "Method": "GetOnlineTestSettingList",
+    "RelativePath": "api/master-setting/online-test-setting/get-list",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.MasterSetting.OnlineTestSetting.Commands.GetOnlineTestSettingCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.QuestionSettingDetailController",
+    "Method": "GetQuestionSettingDetailByCriteria",
+    "RelativePath": "api/master-setting/question-setting-detail/get-by-criteria",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.MasterSetting.QuestionSettingDetail.Commands.GetQuestionSettingDetailByCriteriaCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.QuestionSettingDetailController",
+    "Method": "GetQuestionSettingDetailDdl",
+    "RelativePath": "api/master-setting/question-setting-detail/get-ddl",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.MasterSetting.QuestionSetting.Commands.GetQuestionSettingDetailDdlCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.QuestionSettingDetailController",
+    "Method": "GetQuestionSettingDetailList",
+    "RelativePath": "api/master-setting/question-setting-detail/get-list",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.MasterSetting.QuestionSettingDetail.Commands.GetQuestionSettingDetailCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.QuestionSettingController",
+    "Method": "GetQuestionSettingByCriteria",
+    "RelativePath": "api/master-setting/question-setting/get-by-criteria",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.MasterSetting.QuestionSetting.Commands.GetQuestionSettingByCriteriaCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.QuestionSettingController",
+    "Method": "GetQuestionSettingDdl",
+    "RelativePath": "api/master-setting/question-setting/get-ddl",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.MasterSetting.QuestionSettingDetail.Commands.GetQuestionSettingDdlCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.QuestionSettingController",
+    "Method": "GetQuestionSettingList",
+    "RelativePath": "api/master-setting/question-setting/get-list",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.MasterSetting.QuestionSetting.Commands.GetQuestionSettingCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ScoringSettingDetailController",
+    "Method": "GetScoringSettingDetailByCriteria",
+    "RelativePath": "api/master-setting/scoring-setting-detail/get-by-criteria",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.MasterSetting.ScoringSettingDetail.Commands.GetScoringSettingDetailByCriteriaCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ScoringSettingDetailController",
+    "Method": "GetScoringSettingDetailDdl",
+    "RelativePath": "api/master-setting/scoring-setting-detail/get-ddl",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.MasterSetting.ScoringSettingDetail.Commands.GetScoringSettingDetailDdlCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ScoringSettingDetailController",
+    "Method": "GetScoringSettingDetailList",
+    "RelativePath": "api/master-setting/scoring-setting-detail/get-list",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.MasterSetting.ScoringSettingDetail.Commands.GetScoringSettingDetailCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ScoringSettingController",
+    "Method": "GetScoringSettingByCriteria",
+    "RelativePath": "api/master-setting/scoring-setting/get-by-criteria",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.MasterSetting.ScoringSetting.Commands.GetScoringSettingByCriteriaCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ScoringSettingController",
+    "Method": "GetScoringSettingDdl",
+    "RelativePath": "api/master-setting/scoring-setting/get-ddl",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.MasterSetting.ScoringSetting.Commands.GetScoringSettingDdlCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ScoringSettingController",
+    "Method": "GetScoringSettingList",
+    "RelativePath": "api/master-setting/scoring-setting/get-list",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.MasterSetting.ScoringSetting.Commands.GetScoringSettingCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ReasonStepFailedController",
+    "Method": "GetAll",
+    "RelativePath": "api/ReasonStepFailed",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ReasonStepFailedController",
+    "Method": "Create",
+    "RelativePath": "api/ReasonStepFailed",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "ReasonStepFailed",
+        "Type": "ThePatho.Features.Applicant.ReasonStepFailed.DTO.ReasonStepFailedDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ReasonStepFailedController",
+    "Method": "GetByCriteria",
+    "RelativePath": "api/ReasonStepFailed/{code}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "code",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ReasonStepFailedController",
+    "Method": "Update",
+    "RelativePath": "api/ReasonStepFailed/{code}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "code",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "ReasonStepFailed",
+        "Type": "ThePatho.Features.Applicant.ReasonStepFailed.DTO.ReasonStepFailedDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ReasonStepFailedController",
+    "Method": "Delete",
+    "RelativePath": "api/ReasonStepFailed/{code}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "code",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.RecruitStepGroupDetailController",
+    "Method": "GetRecruitStepDetailByCriteria",
+    "RelativePath": "api/recruitment/recruit-step-group-detail/get-by-criteria",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Recruitment.RecruitStep.Commands.GetRecruitStepByCriteriaCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.RecruitStepGroupDetailController",
+    "Method": "GetRecruitStepList",
+    "RelativePath": "api/recruitment/recruit-step-group-detail/get-list",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Recruitment.RecruitStep.Commands.GetRecruitStepCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.RecruitStepGroupController",
+    "Method": "GetRecruitStepByCriteria",
+    "RelativePath": "api/recruitment/recruit-step-group/get-by-criteria",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Recruitment.RecruitStep.Commands.GetRecruitStepByCriteriaCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.RecruitStepGroupController",
+    "Method": "GetRecruitStepList",
+    "RelativePath": "api/recruitment/recruit-step-group/get-list",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Recruitment.RecruitStep.Commands.GetRecruitStepCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.RecruitStepController",
+    "Method": "GetRecruitStepByCriteria",
+    "RelativePath": "api/recruitment/recruit-step/get-by-criteria",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Recruitment.RecruitStep.Commands.GetRecruitStepByCriteriaCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.RecruitStepController",
+    "Method": "GetRecruitStepList",
+    "RelativePath": "api/recruitment/recruit-step/get-list",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Recruitment.RecruitStep.Commands.GetRecruitStepCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.RequirementRecRequestController",
+    "Method": "GetRequirementRecRequestByCriteria",
+    "RelativePath": "api/recruitment/recruitment-rec-request/get-by-criteria",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Recruitment.RequirementRecRequest.Commands.GetRequirementRecRequestByCriteriaCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.RequirementRecRequestController",
+    "Method": "GetRequirementRecRequestList",
+    "RelativePath": "api/recruitment/recruitment-rec-request/get-list",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Recruitment.RequirementRecRequest.Commands.GetRequirementRecRequestCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.RecruitmentReqStepController",
+    "Method": "GetRecruitmentReqStepByCriteria",
+    "RelativePath": "api/recruitment/recruitment-req-step/get-by-criteria",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Recruitment.RecruitmentReqStep.Commands.GetRecruitmentReqStepByCriteriaCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.RecruitmentReqStepController",
+    "Method": "GetRecruitmentReqStepList",
+    "RelativePath": "api/recruitment/recruitment-req-step/get-list",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Recruitment.RecruitmentReqStep.Commands.GetRecruitmentReqStepCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.RecruitmentRequestController",
+    "Method": "GetRecruitmentRequestByCriteria",
+    "RelativePath": "api/recruitment/recruitment-request/get-by-criteria",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Recruitment.RecruitmentRequest.Commands.GetRecruitmentRequestByCriteriaCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.RecruitmentRequestController",
+    "Method": "GetRecruitmentRequestList",
+    "RelativePath": "api/recruitment/recruitment-request/get-list",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Recruitment.RecruitmentRequest.Commands.GetRecruitmentRequestCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]
