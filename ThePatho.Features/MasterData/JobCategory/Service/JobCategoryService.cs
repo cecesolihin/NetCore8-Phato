@@ -60,5 +60,27 @@ namespace ThePatho.Features.MasterData.JobCategory.Service
 
             return data.ToList();
         }
+
+        public async Task SubmitJobCategory(SubmitJobCategoryCommand request)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@JobCategoryCode", request.JobCategoryCode);
+            parameters.Add("@JobCategoryName", request.JobCategoryName);
+            parameters.Add("@IsCategory", request.IsCategory);
+            parameters.Add("@ParentCategory", request.ParentCategory);
+            parameters.Add("@Action", request.Action); // "ADD" or "EDIT"
+            parameters.Add("@User", "admin");
+
+            var query = await queryLoader.LoadQueryAsync("MasterData/JobCategory/Sql/submit_job_category");
+            await dbConnection.ExecuteAsync(query, parameters);
+        }
+        public async Task DeleteJobCategory(DeleteJobCategoryCommand request)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@JobCategoryCode", request.JobCategoryCode);
+
+            var query = await queryLoader.LoadQueryAsync("MasterData/JobCategory/Sql/delete_job_category");
+            await dbConnection.ExecuteAsync(query, parameters);
+        }
     }
 }

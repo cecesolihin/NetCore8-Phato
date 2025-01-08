@@ -1,14 +1,8 @@
-using Azure.Core;
 using Dapper;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
 using System.Data;
-using System.Numerics;
-using ThePatho.Domain.Models.MasterData;
-using ThePatho.Features.MasterData.AdsCategory.Commands;
-using ThePatho.Features.MasterData.AdsCategory.DTO;
+using ThePatho.Features.MasterData.AdsMedia.Commands;
+using ThePatho.Features.MasterData.AdsMedia.Commands;
 using ThePatho.Features.MasterData.AdsMedia.DTO;
-using ThePatho.Features.MasterData.AdsMedia.Service;
 using ThePatho.Infrastructure.Persistance;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -35,7 +29,7 @@ namespace ThePatho.Features.MasterData.AdsMedia.Service
             parameters.Add("@PageSize", request.PageSize);
             parameters.Add("@AdsCode", request.FilterAdsCode ?? (object)DBNull.Value);
             parameters.Add("@AdsName", request.FilterAdsName ?? (object)DBNull.Value);
-            parameters.Add("@AdsCategoryCode", request.FilterAdsCategoryCode ?? (object)DBNull.Value);
+            parameters.Add("@AdsMediaCode", request.FilterAdsCategoryCode ?? (object)DBNull.Value);
             parameters.Add("@SortBy", request.SortBy);
             parameters.Add("@OrderBy", request.OrderBy);
 
@@ -67,6 +61,34 @@ namespace ThePatho.Features.MasterData.AdsMedia.Service
             var data = await dbConnection.QueryAsync<AdsMediaDto>(query, parameters);
 
             return data.ToList();
+        }
+
+        public async Task SubmitAdsMedia(SubmitAdsMediaCommand request)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@AdsCode", request.AdsMediaCode);
+            parameters.Add("@AdsName", request.AdsMediaName);
+            parameters.Add("@AdsCategoryCode", request.AdsCategoryCode);
+            parameters.Add("@Phone", request.Phone);
+            parameters.Add("@ContactPerson", request.ContactPerson);
+            parameters.Add("@Remarks", request.Remarks);
+            parameters.Add("@UseRecruitmentFee", request.UseRecruitmentFee);
+            parameters.Add("@RecruitmentFee", request.RecruitmentFee);
+            parameters.Add("@RecruitmentFee2", request.RecruitmentFee2);
+            parameters.Add("@RecruitmentFee3", request.RecruitmentFee3);
+            parameters.Add("@Action", request.Action); // "ADD" or "EDIT"
+            parameters.Add("@User", "admin");
+
+            var query = await queryLoader.LoadQueryAsync("MasterData/AdsMedia/Sql/submit_ads_media");
+            await dbConnection.ExecuteAsync(query, parameters);
+        }
+        public async Task DeleteAdsMedia(DeleteAdsMediaCommand request)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@AdsCode", request.AdsMediaCode);
+
+            var query = await queryLoader.LoadQueryAsync("MasterData/AdsMedia/Sql/delete_ads_media");
+            await dbConnection.ExecuteAsync(query, parameters);
         }
     }
 }

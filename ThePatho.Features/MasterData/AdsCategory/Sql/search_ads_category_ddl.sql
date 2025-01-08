@@ -6,7 +6,7 @@ SELECT
 FROM 
     dbo.TMAdsCategory
 WHERE
-    (@FilterAdsCategoryCode IS NULL OR ads_category_code LIKE '%' + @FilterAdsCategoryCode + '%') AND
-    (@FilterAdsCategoryName IS NULL OR ads_category_name LIKE '%' + @FilterAdsCategoryName + '%')
+    (@AdsCategoryCode IS NULL OR ads_category_code LIKE '%' + @AdsCategoryCode + '%') AND
+    (@AdsCategoryName IS NULL OR ads_category_name LIKE '%' + @AdsCategoryName + '%')
 
 

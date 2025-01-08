@@ -1,6 +1,4 @@
 ﻿using MediatR;
-
-using ThePatho.Features.MasterData.AdsCategory.Commands;
 using ThePatho.Features.MasterData.AdsMedia.DTO;
 using ThePatho.Features.MasterData.AdsMedia.Service;
 

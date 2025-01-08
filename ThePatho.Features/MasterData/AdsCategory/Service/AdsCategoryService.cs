@@ -25,7 +25,7 @@ namespace ThePatho.Features.MasterData.AdsCategory.Service
             dbConnection = _dbConnection;
         }
 
-        public async Task<List<AdsCategoryDto>> GetAllAdsCategoriesAsync(GetAdsCategoryCommand request)
+        public async Task<List<AdsCategoryDto>> GetAllAdsCategories(GetAdsCategoryCommand request)
         {
             var parameters = new DynamicParameters();
             parameters.Add("@PageNumber", request.PageNumber);
@@ -64,5 +64,25 @@ namespace ThePatho.Features.MasterData.AdsCategory.Service
 
             return data.ToList();
         }
+        public async Task SubmitAdsCategory(SubmitAdsCategoryCommand request)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@Action", request.Action);
+            parameters.Add("@AdsCategoryCode", request.AdsCategoryCode);
+            parameters.Add("@AdsCategoryName", request.AdsCategoryName);
+            parameters.Add("@User", "admin");
+
+            var query = await queryLoader.LoadQueryAsync("MasterData/AdsCategory/Sql/submit_ads_category");
+            await dbConnection.ExecuteAsync(query, parameters);
+        }
+        public async Task DeleteAdsCategory(DeleteAdsCategoryCommand request)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@AdsCategoryCode", request.AdsCategoryCode);
+
+            var query = await queryLoader.LoadQueryAsync("MasterData/AdsCategory/Sql/delete_ads_category");
+            await dbConnection.ExecuteAsync(query, parameters);
+        }
+
     }
 }

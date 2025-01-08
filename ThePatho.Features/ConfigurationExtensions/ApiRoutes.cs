@@ -90,6 +90,8 @@ namespace ThePatho.Features.ConfigurationExtensions
             public const string GetList = "get-list";
             public const string GetByCriteria = "get-by-criteria";
             public const string GetDdl = "get-ddl";
+            public const string Submit = "submit";
+            public const string Delete = "delete";
             #endregion
         }
     }

@@ -3,7 +3,7 @@ using MediatR;
 using ThePatho.Features.MasterData.AdsMedia.DTO;
 using ThePatho.Features.MasterData.AdsMedia.Service;
 
-namespace ThePatho.Features.MasterData.AdsCategory.Commands
+namespace ThePatho.Features.MasterData.AdsMedia.Commands
 {
     public class GetAdsMediaCommandHandler : IRequestHandler<GetAdsMediaCommand, AdsMediaItemDto>
     {
