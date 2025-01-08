@@ -60,5 +60,31 @@ namespace ThePatho.Features.MasterSetting.ScoringSettingDetail.Service
 
             return data.ToList();
         }
+
+        public async Task SubmitScoringSettingDetail(SubmitScoringSettingDetailCommand request)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@ScoringCode", request.ScoringCode);
+            parameters.Add("@Value", request.Value);
+            parameters.Add("@Character", request.Character);
+            parameters.Add("@Attachment", request.Attachment);
+            parameters.Add("@TextValue", request.TextValue);
+            parameters.Add("@Action", request.Action); 
+            parameters.Add("@User", "admin");
+
+            var query = await queryLoader.LoadQueryAsync("MasterSetting/ScoringSettingDetail/Sql/submit_scoring_setting_detail");
+            await dbConnection.ExecuteAsync(query, parameters);
+        }
+
+        public async Task DeleteScoringSettingDetail(DeleteScoringSettingDetailCommand request)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@ScoringCode", request.ScoringCode);
+            parameters.Add("@Character", request.Character);
+
+            var query = await queryLoader.LoadQueryAsync("MasterSetting/ScoringSettingDetail/Sql/delete_scoring_setting_detail");
+            await dbConnection.ExecuteAsync(query, parameters);
+        }
+
     }
 }

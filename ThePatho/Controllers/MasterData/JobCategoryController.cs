@@ -79,6 +79,7 @@ namespace ThePatho.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
             }
         }
+
         [HttpPost(ApiRoutes.Methods.Submit)]
         public async Task<IActionResult> SubmitJobCategory([FromBody] SubmitJobCategoryCommand command, CancellationToken cancellationToken)
         {
@@ -116,12 +117,12 @@ namespace ThePatho.Controllers
 
                 if (result)
                 {
-                    var response = new ApiResponse<string>(HttpStatusCode.OK, command.JobCategoryCode, "Ads Media deleted successfully");
+                    var response = new ApiResponse<string>(HttpStatusCode.OK, command.JobCategoryCode, "Job Category deleted successfully");
                     return Ok(response);
                 }
                 else
                 {
-                    var errorResponse = new ApiResponse<string>(HttpStatusCode.InternalServerError, null, "Failed to delete category");
+                    var errorResponse = new ApiResponse<string>(HttpStatusCode.InternalServerError, null, "Failed to delete Job Category");
                     return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
                 }
             }

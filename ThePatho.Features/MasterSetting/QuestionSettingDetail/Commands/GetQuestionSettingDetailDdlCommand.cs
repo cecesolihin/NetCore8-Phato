@@ -2,7 +2,7 @@
 using System.Text.Json.Serialization;
 using ThePatho.Features.MasterSetting.QuestionSettingDetail.DTO;
 
-namespace ThePatho.Features.MasterSetting.QuestionSetting.Commands
+namespace ThePatho.Features.MasterSetting.QuestionSettingDetail.Commands
 {
     public class GetQuestionSettingDetailDdlCommand : IRequest<QuestionSettingDetailItemDto>
     {

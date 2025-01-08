@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using ThePatho.Domain.Models;
 using ThePatho.Features.ConfigurationExtensions;
-using ThePatho.Features.MasterSetting.QuestionSetting.Commands;
 using ThePatho.Features.MasterSetting.QuestionSettingDetail.Commands;
+using ThePatho.Features.MasterSetting.QuestionSetting.Commands;
 using ThePatho.Features.MasterSetting.QuestionSettingDetail.DTO;
 using ThePatho.Features.MasterSetting.QuestionSettingDetail.Service;
 
@@ -42,8 +42,8 @@ namespace ThePatho.Controllers
             }
         }
 
-        [HttpPost(ApiRoutes.Methods.GetByCriteria)]
-        public async Task<IActionResult> GetQuestionSettingDetailByCriteria([FromBody] GetQuestionSettingDetailByCriteriaCommand command,
+        [HttpGet(ApiRoutes.Methods.GetByCriteria)]
+        public async Task<IActionResult> GetQuestionSettingDetailByCriteria([FromQuery] GetQuestionSettingDetailByCriteriaCommand command,
             CancellationToken cancellationToken)
         {
             try
@@ -62,8 +62,8 @@ namespace ThePatho.Controllers
             }
         }
 
-        [HttpPost(ApiRoutes.Methods.GetDdl)]
-        public async Task<IActionResult> GetQuestionSettingDetailDdl([FromBody] GetQuestionSettingDetailDdlCommand command,
+        [HttpGet(ApiRoutes.Methods.GetDdl)]
+        public async Task<IActionResult> GetQuestionSettingDetailDdl([FromQuery] GetQuestionSettingDetailDdlCommand command,
             CancellationToken cancellationToken)
         {
             try
@@ -78,6 +78,59 @@ namespace ThePatho.Controllers
             {
                 var errorResponse = new ApiResponse<List<QuestionSettingDetailDto>>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
 
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+            }
+        }
+
+        [HttpPost(ApiRoutes.Methods.Submit)]
+        public async Task<IActionResult> SubmitQuestionSettingDetail([FromBody] SubmitQuestionSettingDetailCommand command, CancellationToken cancellationToken)
+        {
+            try
+            {
+                var result = await mediator.Send(command, cancellationToken);
+
+                var response = new ApiResponse<string>(
+                    HttpStatusCode.OK,
+                    result,
+                    "Process succeeded"
+                );
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new ApiResponse<string>(
+                    HttpStatusCode.InternalServerError,
+                    null,
+                    "Internal Server Error",
+                    ex.Message
+                );
+
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+            }
+        }
+
+        [HttpDelete(ApiRoutes.Methods.Delete)]
+        public async Task<IActionResult> DeleteQuestionSettingDetail([FromBody] DeleteQuestionSettingDetailCommand command, CancellationToken cancellationToken)
+        {
+            try
+            {
+                var result = await mediator.Send(command, cancellationToken);
+
+                if (result)
+                {
+                    var response = new ApiResponse<string>(HttpStatusCode.OK, command.QuestDetailId.ToString(), "Question Setting Detail deleted successfully");
+                    return Ok(response);
+                }
+                else
+                {
+                    var errorResponse = new ApiResponse<string>(HttpStatusCode.InternalServerError, null, "Failed to delete Question Setting Detail");
+                    return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+                }
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new ApiResponse<string>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
                 return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
             }
         }

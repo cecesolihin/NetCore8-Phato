@@ -61,5 +61,33 @@ namespace ThePatho.Features.MasterSetting.QuestionSetting.Service
 
             return data.ToList();
         }
+
+        public async Task SubmitQuestionSetting(SubmitQuestionSettingCommand request)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@QuestionnaireCode", request.QuestionnaireCode);
+            parameters.Add("@QuestionnaireName", request.QuestionnaireName);
+            parameters.Add("@QuestionnaireType", request.QuestionnaireType);
+            parameters.Add("@Remarks", request.Remarks);
+            parameters.Add("@Active", request.Active);
+            parameters.Add("@AnswerMethod", request.AnswerMethod);
+            parameters.Add("@RandomQuestion", request.RandomQuestion);
+            parameters.Add("@Action", request.Action); // "ADD" or "EDIT"
+            parameters.Add("@User", "admin");
+
+            var query = await queryLoader.LoadQueryAsync("MasterSetting/QuestionSetting/Sql/submit_question_setting");
+            await dbConnection.ExecuteAsync(query, parameters);
+        }
+
+        public async Task DeleteQuestionSetting(DeleteQuestionSettingCommand request)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@QuestionnaireCode", request.QuestionnaireCode);
+
+            var query = await queryLoader.LoadQueryAsync("MasterSetting/QuestionSetting/Sql/delete_question_setting");
+            await dbConnection.ExecuteAsync(query, parameters);
+        }
+
+
     }
 }

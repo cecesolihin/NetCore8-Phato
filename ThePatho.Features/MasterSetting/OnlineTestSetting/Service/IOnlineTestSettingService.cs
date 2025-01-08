@@ -9,5 +9,7 @@ namespace ThePatho.Features.MasterSetting.OnlineTestSetting.Service
         Task<List<OnlineTestSettingDto>> GetOnlineTestSetting(GetOnlineTestSettingCommand request);
         Task<OnlineTestSettingDto> GetOnlineTestSettingByCriteria(GetOnlineTestSettingByCriteriaCommand request);
         Task<List<OnlineTestSettingDto>> GetOnlineTestSettingDdl(GetOnlineTestSettingDdlCommand request);
+        Task SubmitOnlineTestSetting(SubmitOnlineTestSettingCommand request);
+        Task DeleteOnlineTestSetting(DeleteOnlineTestSettingCommand request);
     }
 }

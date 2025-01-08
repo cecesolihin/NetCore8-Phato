@@ -121,7 +121,7 @@ namespace ThePatho.Controllers
                 }
                 else
                 {
-                    var errorResponse = new ApiResponse<string>(HttpStatusCode.InternalServerError, null, "Failed to delete category");
+                    var errorResponse = new ApiResponse<string>(HttpStatusCode.InternalServerError, null, "Failed to delete Ads Media");
                     return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
                 }
             }

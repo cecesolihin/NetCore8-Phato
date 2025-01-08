@@ -17,11 +17,11 @@ namespace ThePatho.Features.MasterData.JobCategory.Commands
             await jobCategoryService.SubmitJobCategory(request);
             if (request.Action == "ADD")
             {
-                return "Ads Category successfully added.";
+                return "Job Category successfully added.";
             }
             else if (request.Action == "EDIT")
             {
-                return "Ads Category successfully updated.";
+                return "Job Category successfully updated.";
             }
 
             throw new ArgumentException("Invalid action specified. Use 'ADD' or 'EDIT'.");

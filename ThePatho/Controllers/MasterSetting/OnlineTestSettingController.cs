@@ -41,8 +41,8 @@ namespace ThePatho.Controllers
             }
         }
 
-        [HttpPost(ApiRoutes.Methods.GetByCriteria)]
-        public async Task<IActionResult> GetOnlineTestSettingByCriteria([FromBody] GetOnlineTestSettingByCriteriaCommand command,
+        [HttpGet(ApiRoutes.Methods.GetByCriteria)]
+        public async Task<IActionResult> GetOnlineTestSettingByCriteria([FromQuery] GetOnlineTestSettingByCriteriaCommand command,
             CancellationToken cancellationToken)
         {
             try
@@ -61,8 +61,8 @@ namespace ThePatho.Controllers
             }
         }
 
-        [HttpPost(ApiRoutes.Methods.GetDdl)]
-        public async Task<IActionResult> GetOnlineTestSettingDdl([FromBody] GetOnlineTestSettingDdlCommand command,
+        [HttpGet(ApiRoutes.Methods.GetDdl)]
+        public async Task<IActionResult> GetOnlineTestSettingDdl([FromQuery] GetOnlineTestSettingDdlCommand command,
             CancellationToken cancellationToken)
         {
             try
@@ -77,6 +77,59 @@ namespace ThePatho.Controllers
             {
                 var errorResponse = new ApiResponse<List<OnlineTestSettingDto>>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
 
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+            }
+        }
+
+        [HttpPost(ApiRoutes.Methods.Submit)]
+        public async Task<IActionResult> SubmitOnlineTestSetting([FromBody] SubmitOnlineTestSettingCommand command, CancellationToken cancellationToken)
+        {
+            try
+            {
+                var result = await mediator.Send(command, cancellationToken);
+
+                var response = new ApiResponse<string>(
+                    HttpStatusCode.OK,
+                    result,
+                    "Process succeeded"
+                );
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new ApiResponse<string>(
+                    HttpStatusCode.InternalServerError,
+                    null,
+                    "Internal Server Error",
+                    ex.Message
+                );
+
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+            }
+        }
+
+        [HttpDelete(ApiRoutes.Methods.Delete)]
+        public async Task<IActionResult> DeleteOnlineTestSetting([FromBody] DeleteOnlineTestSettingCommand command, CancellationToken cancellationToken)
+        {
+            try
+            {
+                var result = await mediator.Send(command, cancellationToken);
+
+                if (result)
+                {
+                    var response = new ApiResponse<string>(HttpStatusCode.OK, command.OnlineTestSettingCode, "Online Test Setting deleted successfully");
+                    return Ok(response);
+                }
+                else
+                {
+                    var errorResponse = new ApiResponse<string>(HttpStatusCode.InternalServerError, null, "Failed to delete Online Test Setting");
+                    return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+                }
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new ApiResponse<string>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
                 return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
             }
         }

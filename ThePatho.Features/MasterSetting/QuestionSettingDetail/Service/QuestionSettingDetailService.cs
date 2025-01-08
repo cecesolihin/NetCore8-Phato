@@ -61,5 +61,36 @@ namespace ThePatho.Features.MasterSetting.QuestionSettingDetail.Service
 
             return data.ToList();
         }
+
+        public async Task SubmitQuestionSettingDetail(SubmitQuestionSettingDetailCommand request)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@QuestDetailId", request.QuestDetailId);
+            parameters.Add("@QuestionnaireCode", request.QuestionnaireCode);
+            parameters.Add("@IsCategory", request.IsCategory);
+            parameters.Add("@Question", request.Question);
+            parameters.Add("@QuestParent", request.QuestParent);
+            parameters.Add("@ScoringCode", request.ScoringCode);
+            parameters.Add("@Order", request.Order);
+            parameters.Add("@Attachment", request.Attachment);
+            parameters.Add("@MultiChoiceOption", request.MultiChoiceOption);
+            parameters.Add("@CorrectAnswer", request.CorrectAnswer);
+            parameters.Add("@WeightPoint", request.WeightPoint);
+            parameters.Add("@Action", request.Action); // "ADD" or "EDIT"
+            parameters.Add("@User", "admin");
+            
+
+            var query = await queryLoader.LoadQueryAsync("MasterSetting/QuestionSettingDetail/Sql/submit_question_setting_detail");
+            await dbConnection.ExecuteAsync(query, parameters);
+        }
+        public async Task DeleteQuestionSettingDetail(DeleteQuestionSettingDetailCommand request)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@QuestDetailId", request.QuestDetailId);
+
+            var query = await queryLoader.LoadQueryAsync("MasterSetting/QuestionSettingDetail/Sql/delete_question_setting_detail");
+            await dbConnection.ExecuteAsync(query, parameters);
+        }
+
     }
 }

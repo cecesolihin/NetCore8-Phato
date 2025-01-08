@@ -10,5 +10,7 @@ namespace ThePatho.Features.MasterSetting.QuestionSetting.Service
         Task<List<QuestionSettingDto>> GetQuestionSetting(GetQuestionSettingCommand request);
         Task<QuestionSettingDto> GetQuestionSettingByCriteria(GetQuestionSettingByCriteriaCommand request);
         Task<List<QuestionSettingDto>> GetQuestionSettingDdl(GetQuestionSettingDdlCommand request);
+        Task SubmitQuestionSetting(SubmitQuestionSettingCommand request);
+        Task DeleteQuestionSetting(DeleteQuestionSettingCommand request);
     }
 }

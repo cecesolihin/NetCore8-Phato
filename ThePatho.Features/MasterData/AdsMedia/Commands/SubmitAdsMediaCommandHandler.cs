@@ -17,11 +17,11 @@ namespace ThePatho.Features.MasterData.AdsMedia.Commands
             await adsMediaService.SubmitAdsMedia(request);
             if (request.Action == "ADD")
             {
-                return "Ads Category successfully added.";
+                return "Ads Media successfully added.";
             }
             else if (request.Action == "EDIT")
             {
-                return "Ads Category successfully updated.";
+                return "Ads Media successfully updated.";
             }
 
             throw new ArgumentException("Invalid action specified. Use 'ADD' or 'EDIT'.");
