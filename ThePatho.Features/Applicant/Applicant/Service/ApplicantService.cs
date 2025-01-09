@@ -88,5 +88,82 @@ namespace ThePatho.Features.Applicant.Applicant.Service
             var data = await db.FirstOrDefaultAsync<ApplicantDto>(query);
             return data;
         }
+
+        public async Task<bool> SubmitApplicant(SubmitApplicantCommand request)
+        {
+            using var connection = dapperContext.CreateConnection();
+            var db = new QueryFactory(connection, dapperContext.Compiler);
+
+            // Check if the applicant already exists based on ApplicantNo
+            var existingRecord = await db.Query(TableName.Applicant)
+                .Where("applicant_no", request.ApplicantNo)
+                .FirstOrDefaultAsync();
+
+            if (existingRecord == null)
+            {
+                // Condition for INSERT (Add)
+                var insertQuery = new Query(TableName.Applicant)
+                    .AsInsert(new
+                    {
+                        applicant_no = request.ApplicantNo,
+                        first_name = request.FirstName,
+                        middle_name = request.MiddleName,
+                        last_name = request.LastName,
+                        full_name = request.FullName,
+                        gender = request.Gender,
+                        blacklisted = request.Blacklisted,
+                        blacklist_remarks = request.BlacklistRemarks,
+                        birth_place = request.BirthPlace,
+                        birth_date = request.BirthDate,
+                        ormas_membership = request.OrmasMembership,
+                        is_rehire = request.IsRehire,
+                        hired_as_emp = request.HiredAsEmp,
+                        inserted_by = "system",
+                        inserted_date = DateTime.UtcNow,
+                    });
+
+                var insertResult = await db.ExecuteAsync(insertQuery);
+                return insertResult > 0;
+            }
+            else
+            {
+                // Condition for UPDATE (Edit)
+                var updateQuery = new Query(TableName.Applicant)
+                    .Where("applicant_no", request.ApplicantNo)
+                    .AsUpdate(new
+                    {
+                        first_name = request.FirstName,
+                        middle_name = request.MiddleName,
+                        last_name = request.LastName,
+                        full_name = request.FullName,
+                        gender = request.Gender,
+                        blacklisted = request.Blacklisted,
+                        blacklist_remarks = request.BlacklistRemarks,
+                        birth_place = request.BirthPlace,
+                        birth_date = request.BirthDate,
+                        ormas_membership = request.OrmasMembership,
+                        is_rehire = request.IsRehire,
+                        hired_as_emp = request.HiredAsEmp,
+                        modified_by = "system",
+                        modified_date = DateTime.UtcNow,
+                    });
+
+                var updateResult = await db.ExecuteAsync(updateQuery);
+                return updateResult > 0;
+            }
+        }
+        public async Task<bool> DeleteApplicant(DeleteApplicantCommand request)
+        {
+            using var connection = dapperContext.CreateConnection();
+            var db = new QueryFactory(connection, dapperContext.Compiler);
+
+            // Delete the applicant record based on ApplicantNo
+            var query = new Query(TableName.Applicant)
+                .Where("applicant_no", request.ApplicantNo)
+                .AsDelete();
+
+            var affectedRows = await db.ExecuteAsync(query);
+            return affectedRows > 0;
+        }
     }
 }

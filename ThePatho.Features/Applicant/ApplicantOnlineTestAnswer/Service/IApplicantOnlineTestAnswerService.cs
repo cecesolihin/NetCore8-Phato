@@ -6,6 +6,8 @@ namespace ThePatho.Features.Applicant.ApplicantOnlineTestAnswer.Service
     public interface IApplicantOnlineTestAnswerService
     {
         Task<List<ApplicantOnlineTestAnswerDto>> GetApplicantOnlineTestAnswer(GetApplicantOnlineTestAnswerCommand request);
-        Task<ApplicantOnlineTestAnswerDto> GetApplicantOnlineTestAnswerByCriteria(GetApplicantOnlineTestAnswerByCriteriaCommand request); 
+        Task<ApplicantOnlineTestAnswerDto> GetApplicantOnlineTestAnswerByCriteria(GetApplicantOnlineTestAnswerByCriteriaCommand request);
+        Task<bool> SubmitApplicantOnlineTestAnswer(SubmitApplicantOnlineTestAnswerCommand request);
+        Task<bool> DeleteApplicantOnlineTestAnswer(DeleteApplicantOnlineTestAnswerCommand request);
     }
 }

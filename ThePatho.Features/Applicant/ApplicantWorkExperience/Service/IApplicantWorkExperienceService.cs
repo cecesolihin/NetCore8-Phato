@@ -6,6 +6,8 @@ namespace ThePatho.Features.Applicant.ApplicantWorkExperience.Service
     public interface IApplicantWorkExperienceService
     {
         Task<List<ApplicantWorkExperienceDto>> GetApplicantWorkExperience(GetApplicantWorkExperienceCommand request);
-        Task<ApplicantWorkExperienceDto> GetApplicantWorkExperienceByCriteria(GetApplicantWorkExperienceByCriteriaCommand request); 
+        Task<ApplicantWorkExperienceDto> GetApplicantWorkExperienceByCriteria(GetApplicantWorkExperienceByCriteriaCommand request);
+        Task<bool> SubmitApplicantWorkExperience(SubmitApplicantWorkExperienceCommand request);
+        Task<bool> DeleteApplicantWorkExperience(DeleteApplicantWorkExperienceCommand request);
     }
 }

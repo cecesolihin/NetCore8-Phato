@@ -76,6 +76,80 @@ namespace ThePatho.Features.Applicant.ApplicantSkill.Service
             var data = await db.FirstOrDefaultAsync<ApplicantSkillDto>(query);
             return data;
         }
+        public async Task<bool> SubmitApplicantSkill(SubmitApplicantSkillCommand request)
+        {
+            using var connection = dapperContext.CreateConnection();
+            var db = new QueryFactory(connection, dapperContext.Compiler);
+
+            if (string.IsNullOrWhiteSpace(request.ApplicantNo) || string.IsNullOrWhiteSpace(request.SkillCode))
+            {
+                throw new ArgumentException("ApplicantNo and SkillCode are required.");
+            }
+
+            // Check if data exists
+            var existsQuery = new Query("TRApplicantSkill")
+                .Where("applicant_no", request.ApplicantNo)
+                .Where("skill_code", request.SkillCode)
+                .SelectRaw("COUNT(1)");
+
+            var exists = await db.ExecuteScalarAsync<int>(existsQuery);
+
+            if (exists == 0)
+            {
+                // Kondisi Add (Insert)
+                var insertQuery = new Query("TRApplicantSkill").AsInsert(new
+                {
+                    applicant_no = request.ApplicantNo,
+                    skill_code = request.SkillCode,
+                    description = request.Description,
+                    proficiency_code = request.ProficiencyCode,
+                    taken_date = request.TakenDate,
+                    exp_date = request.ExpDate,
+                    remarks = request.Remarks,
+                    inserted_by =  "system",
+                    inserted_date = DateTime.UtcNow,
+                });
+
+                var insertResult = await db.ExecuteAsync(insertQuery);
+                return insertResult > 0;
+            }
+            else
+            {
+                // Kondisi Edit (Update)
+                var updateQuery = new Query("TRApplicantSkill")
+                    .Where("applicant_no", request.ApplicantNo)
+                    .Where("skill_code", request.SkillCode)
+                    .AsUpdate(new
+                    {
+                        description = request.Description,
+                        proficiency_code = request.ProficiencyCode,
+                        taken_date = request.TakenDate,
+                        exp_date = request.ExpDate,
+                        remarks = request.Remarks,
+                        modified_by = "system",
+                        modified_date = DateTime.UtcNow
+                    });
+
+                var updateResult = await db.ExecuteAsync(updateQuery);
+                return updateResult > 0;
+            }
+        }
+        public async Task<bool> DeleteApplicantSkill(DeleteApplicantSkillCommand request)
+        {
+            if (string.IsNullOrWhiteSpace(request.ApplicantNo) || string.IsNullOrWhiteSpace(request.SkillCode))
+                throw new ArgumentException("ApplicantNo and SkillCode are required.");
+
+            using var connection = dapperContext.CreateConnection();
+            var db = new QueryFactory(connection, dapperContext.Compiler);
+
+            var deleteQuery = new Query("TRApplicantSkill")
+                .Where("applicant_no", request.ApplicantNo)
+                .Where("skill_code", request.SkillCode)
+                .AsDelete();
+
+            var deleteResult = await db.ExecuteAsync(deleteQuery);
+            return deleteResult > 0;
+        }
 
     }
 }

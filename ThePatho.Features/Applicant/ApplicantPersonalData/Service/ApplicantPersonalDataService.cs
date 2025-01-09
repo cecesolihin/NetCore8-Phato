@@ -100,5 +100,96 @@ namespace ThePatho.Features.Applicant.ApplicantPersonalData.Service
             var data = await db.FirstOrDefaultAsync<ApplicantPersonalDataDto>(query);
             return data;
         }
+
+        public async Task<bool> SubmitApplicantPersonalData(SubmitApplicantPersonalDataCommand request)
+        {
+            using var connection = dapperContext.CreateConnection();
+            var db = new QueryFactory(connection, dapperContext.Compiler);
+
+            if (string.IsNullOrWhiteSpace(request.ApplicantNo))
+            {
+                throw new ArgumentException("ApplicantNo is required.");
+            }
+
+            // Check if data exists
+            var existsQuery = new Query("TRApplicantPersonalData")
+                .Where("applicant_no", request.ApplicantNo)
+                .SelectRaw("COUNT(1)");
+
+            var exists = await db.ExecuteScalarAsync<int>(existsQuery);
+
+            if (exists == 0)
+            {
+                // Kondisi ADD (Insert)
+                var insertQuery = new Query("TRApplicantPersonalData").AsInsert(new
+                {
+                    applicant_no = request.ApplicantNo,
+                    nationality_id = request.NationalityId,
+                    religion_id = request.ReligionId,
+                    marital_status = request.MaritalStatus,
+                    married_date = request.MarriedDate,
+                    nick_name = request.NickName,
+                    phone = request.Phone,
+                    mobile_phone = request.MobilePhone,
+                    email = request.Email,
+                    blood_type = request.BloodType,
+                    height = request.Height,
+                    weight = request.Weight,
+                    photo = request.Photo,
+                    reference = request.Reference,
+                    emergency_contact_name = request.EmergencyContactName,
+                    emergency_contact = request.EmergencyContact,
+                    inserted_by = "system",
+                    inserted_date = DateTime.UtcNow
+                });
+
+                var insertResult = await db.ExecuteAsync(insertQuery);
+                return insertResult > 0;
+            }
+            else
+            {
+                // Kondisi EDIT (Update)
+                var updateQuery = new Query("TRApplicantPersonalData")
+                    .Where("applicant_no", request.ApplicantNo)
+                    .AsUpdate(new
+                    {
+                        nationality_id = request.NationalityId,
+                        religion_id = request.ReligionId,
+                        marital_status = request.MaritalStatus,
+                        married_date = request.MarriedDate,
+                        nick_name = request.NickName,
+                        phone = request.Phone,
+                        mobile_phone = request.MobilePhone,
+                        email = request.Email,
+                        blood_type = request.BloodType,
+                        height = request.Height,
+                        weight = request.Weight,
+                        photo = request.Photo,
+                        reference = request.Reference,
+                        emergency_contact_name = request.EmergencyContactName,
+                        emergency_contact = request.EmergencyContact,
+                        modified_by =  "system",
+                        modified_date = DateTime.UtcNow
+                    });
+
+                var updateResult = await db.ExecuteAsync(updateQuery);
+                return updateResult > 0;
+            }
+        }
+        public async Task<bool> DeleteApplicantPersonalData(DeleteApplicantPersonalDataCommand request)
+        {
+            if (string.IsNullOrWhiteSpace(request.ApplicantNo))
+                throw new ArgumentException("ApplicantNo is required.");
+
+            using var connection = dapperContext.CreateConnection();
+            var db = new QueryFactory(connection, dapperContext.Compiler);
+
+            var deleteQuery = new Query("TRApplicantPersonalData")
+                .Where("applicant_no", request.ApplicantNo)
+                .AsDelete();
+
+            var deleteResult = await db.ExecuteAsync(deleteQuery);
+            return deleteResult > 0;
+        }
     }
 }

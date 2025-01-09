@@ -6,6 +6,8 @@ namespace ThePatho.Features.Applicant.Applicant.Service
     public interface IApplicantService
     {
         Task<List<ApplicantDto>> GetApplicant(GetApplicantCommand request);
-        Task<ApplicantDto> GetApplicantByCriteria(GetApplicantByCriteriaCommand request); 
+        Task<ApplicantDto> GetApplicantByCriteria(GetApplicantByCriteriaCommand request);
+        Task<bool> SubmitApplicant(SubmitApplicantCommand request);
+        Task<bool> DeleteApplicant(DeleteApplicantCommand request);
     }
 }

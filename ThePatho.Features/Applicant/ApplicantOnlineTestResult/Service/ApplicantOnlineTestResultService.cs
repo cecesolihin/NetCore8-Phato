@@ -18,6 +18,7 @@ namespace ThePatho.Features.Applicant.ApplicantOnlineTestResult.Service
             dapperContext = _dapperContext;
         }
 
+
         public async Task<List<ApplicantOnlineTestResultDto>> GetApplicantOnlineTestResult(GetApplicantOnlineTestResultCommand request)
         {
             using var connection = dapperContext.CreateConnection();
@@ -81,6 +82,70 @@ namespace ThePatho.Features.Applicant.ApplicantOnlineTestResult.Service
                 );
             var data = await db.FirstOrDefaultAsync<ApplicantOnlineTestResultDto>(query);
             return data;
+        }
+
+        public async Task<bool> SubmitApplicantOnlineTestResult(SubmitApplicantOnlineTestResultCommand request)
+        {
+            using var connection = dapperContext.CreateConnection();
+            var db = new QueryFactory(connection, dapperContext.Compiler);
+
+            if (request.AppResultId == 0)
+            {
+                // Kondisi ADD (Insert)
+                var insertQuery = new Query("TRApplicantOnlineTestResult")
+                    .AsInsert(new
+                    {
+                        online_test_code = request.OnlineTestCode,
+                        applicant_no = request.ApplicantNo,
+                        questionnaire_code = request.QuestionnaireCode,
+                        questionnaire_name = request.QuestionnaireName,
+                        answer_method = request.AnswerMethod,
+                        remarks = request.Remarks,
+                        start_date = request.StartDate,
+                        end_date = request.EndDate,
+                        submit_date = request.SubmitDate,
+                        inserted_by = "system",
+                        inserted_date = DateTime.UtcNow
+                    });
+
+                var insertResult = await db.ExecuteAsync(insertQuery);
+                return insertResult > 0;
+            }
+            else
+            {
+                // Kondisi EDIT (Update)
+                var updateQuery = new Query("TRApplicantOnlineTestResult")
+                    .Where("app_result_id", request.AppResultId)
+                    .AsUpdate(new
+                    {
+                        online_test_code = request.OnlineTestCode,
+                        applicant_no = request.ApplicantNo,
+                        questionnaire_code = request.QuestionnaireCode,
+                        questionnaire_name = request.QuestionnaireName,
+                        answer_method = request.AnswerMethod,
+                        remarks = request.Remarks,
+                        start_date = request.StartDate,
+                        end_date = request.EndDate,
+                        submit_date = request.SubmitDate,
+                        modified_by = "system",
+                        modified_date = DateTime.UtcNow
+                    });
+
+                var updateResult = await db.ExecuteAsync(updateQuery);
+                return updateResult > 0;
+            }
+        }
+        public async Task<bool> DeleteApplicantOnlineTestResult(DeleteApplicantOnlineTestResultCommand request)
+        {
+            using var connection = dapperContext.CreateConnection();
+            var db = new QueryFactory(connection, dapperContext.Compiler);
+
+            var deleteQuery = new Query("TRApplicantOnlineTestResult")
+                .Where("app_result_id", request.AppResultId)
+                .AsDelete();
+
+            var deleteResult = await db.ExecuteAsync(deleteQuery);
+            return deleteResult > 0;
         }
     }
 }

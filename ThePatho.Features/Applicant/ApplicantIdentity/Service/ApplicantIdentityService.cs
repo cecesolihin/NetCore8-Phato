@@ -84,5 +84,75 @@ namespace ThePatho.Features.Applicant.ApplicantIdentity.Service
             var data = await db.FirstOrDefaultAsync<ApplicantIdentityDto>(query);
             return data;
         }
+
+        public async Task<bool> SubmitApplicantIdentity(SubmitApplicantIdentityCommand request)
+        {
+            using var connection = dapperContext.CreateConnection();
+            var db = new QueryFactory(connection, dapperContext.Compiler);
+
+            // Cek apakah data sudah ada berdasarkan ApplicantNo dan IdentityCode
+            var existingRecord = await db.Query(TableName.ApplicantIdentity)
+                .Where("applicant_no", request.ApplicantNo)
+                .Where("identity_code", request.IdentityCode)
+                .FirstOrDefaultAsync();
+
+            if (existingRecord == null)
+            {
+                // Kondisi ADD (Insert)
+                var insertQuery = new Query(TableName.ApplicantIdentity)
+                    .AsInsert(new
+                    {
+                        applicant_no = request.ApplicantNo,
+                        identity_code = request.IdentityCode,
+                        identity_no = request.IdentityNo,
+                        issued_date = request.IssuedDate,
+                        expired_date = request.ExpiredDate,
+                        //file_upload = request.FileUpload,
+                        file_full_path = request.FileFullPath,
+                        file_name = request.FileName,
+                        remark = request.Remark,
+                        inserted_by = "system",
+                        inserted_date = DateTime.UtcNow,
+                    });
+
+                var insertResult = await db.ExecuteAsync(insertQuery);
+                return insertResult > 0;
+            }
+            else
+            {
+                // Kondisi EDIT (Update)
+                var updateQuery = new Query(TableName.ApplicantIdentity)
+                    .Where("applicant_no", request.ApplicantNo)
+                    .Where("identity_code", request.IdentityCode)
+                    .AsUpdate(new
+                    {
+                        identity_no = request.IdentityNo,
+                        issued_date = request.IssuedDate,
+                        expired_date = request.ExpiredDate,
+                        //file_upload = request.FileUpload,
+                        file_full_path = request.FileFullPath,
+                        file_name = request.FileName,
+                        remark = request.Remark,
+                        modified_by = "system",
+                        modified_date = DateTime.UtcNow
+                    });
+
+                var updateResult = await db.ExecuteAsync(updateQuery);
+                return updateResult > 0;
+            }
+        }
+        public async Task<bool> DeleteApplicantIdentity(DeleteApplicantIdentityCommand request)
+        {
+            using var connection = dapperContext.CreateConnection();
+            var db = new QueryFactory(connection, dapperContext.Compiler);
+
+            var deleteQuery = new Query(TableName.ApplicantIdentity)
+                .Where("applicant_no", request.ApplicantNo)
+                .Where("identity_code", request.IdentityCode)
+                .AsDelete();
+
+            var deleteResult = await db.ExecuteAsync(deleteQuery);
+            return deleteResult > 0;
+        }
     }
 }

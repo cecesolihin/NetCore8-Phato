@@ -91,5 +91,88 @@ namespace ThePatho.Features.Applicant.ApplicationApplicant.Service
             var data = await db.FirstOrDefaultAsync<ApplicationApplicantDto>(query);
             return data;
         }
+        public async Task<bool> SubmitApplicationApplicant(SubmitApplicationApplicantCommand request)
+        {
+            using var connection = dapperContext.CreateConnection();
+            var db = new QueryFactory(connection, dapperContext.Compiler);
+
+            if (string.IsNullOrWhiteSpace(request.ApplicantNo) || string.IsNullOrWhiteSpace(request.Status))
+            {
+                throw new ArgumentException("ApplicantNo and Status are required.");
+            }
+
+            // Check if data exists
+            var existsQuery = new Query("TRApplicationApplicant")
+                .Where("rec_application_id", request.RecApplicationId)
+                .SelectRaw("COUNT(1)");
+
+            var exists = await db.ExecuteScalarAsync<int>(existsQuery);
+
+            if (exists == 0)
+            {
+                // Kondisi Insert
+                var insertQuery = new Query("TRApplicationApplicant").AsInsert(new
+                {
+                    applicant_no = request.ApplicantNo,
+                    request_no = request.RequestNo,
+                    applied_date = request.AppliedDate,
+                    ads_code = request.AdsCode,
+                    recruitment_fee = request.RecruitmentFee,
+                    remarks = request.Remarks,
+                    moved_from = request.MovedFrom,
+                    date_moved = request.DateMoved,
+                    status = request.Status,
+                    employee_id = request.EmployeeId,
+                    internal_applicant = request.InternalApplicant,
+                    email_confirm = request.EmailConfirm,
+                    inserted_by =  "system",
+                    inserted_date = DateTime.UtcNow,
+                });
+
+                var insertResult = await db.ExecuteAsync(insertQuery);
+                return insertResult > 0;
+            }
+            else
+            {
+                // Kondisi Update
+                var updateQuery = new Query("TRApplicationApplicant")
+                    .Where("rec_application_id", request.RecApplicationId)
+                    .AsUpdate(new
+                    {
+                        applicant_no = request.ApplicantNo,
+                        request_no = request.RequestNo,
+                        applied_date = request.AppliedDate,
+                        ads_code = request.AdsCode,
+                        recruitment_fee = request.RecruitmentFee,
+                        remarks = request.Remarks,
+                        moved_from = request.MovedFrom,
+                        date_moved = request.DateMoved,
+                        status = request.Status,
+                        employee_id = request.EmployeeId,
+                        internal_applicant = request.InternalApplicant,
+                        email_confirm = request.EmailConfirm,
+                        modified_by = "system",
+                        modified_date = DateTime.UtcNow
+                    });
+
+                var updateResult = await db.ExecuteAsync(updateQuery);
+                return updateResult > 0;
+            }
+        }
+        public async Task<bool> DeleteApplicationApplicant(DeleteApplicationApplicantCommand request)
+        {
+            if (request.RecApplicationId <= 0)
+                throw new ArgumentException("Valid RecApplicationId is required.");
+
+            using var connection = dapperContext.CreateConnection();
+            var db = new QueryFactory(connection, dapperContext.Compiler);
+
+            var deleteQuery = new Query("TRApplicationApplicant")
+                .Where("rec_application_id", request.RecApplicationId)
+                .AsDelete();
+
+            var deleteResult = await db.ExecuteAsync(deleteQuery);
+            return deleteResult > 0;
+        }
     }
 }

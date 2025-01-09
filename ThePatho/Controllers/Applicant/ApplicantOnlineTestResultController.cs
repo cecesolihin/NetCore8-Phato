@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using ThePatho.Domain.Models;
 using ThePatho.Features.Applicant.ApplicantOnlineTestResult.Commands;
+using ThePatho.Features.Applicant.ApplicantOnlineTestResult.Commands;
 using ThePatho.Features.Applicant.ApplicantOnlineTestResult.DTO;
 using ThePatho.Features.Applicant.ApplicantOnlineTestResult.Service;
 using ThePatho.Features.ConfigurationExtensions;
@@ -41,8 +42,8 @@ namespace ThePatho.Controllers
             }
         }
 
-        [HttpPost(ApiRoutes.Methods.GetByCriteria)]
-        public async Task<IActionResult> GetApplicantOnlineTestResultByCriteria([FromBody] GetApplicantOnlineTestResultByCriteriaCommand command,
+        [HttpGet(ApiRoutes.Methods.GetByCriteria)]
+        public async Task<IActionResult> GetApplicantOnlineTestResultByCriteria([FromQuery] GetApplicantOnlineTestResultByCriteriaCommand command,
             CancellationToken cancellationToken)
         {
             try
@@ -57,6 +58,58 @@ namespace ThePatho.Controllers
             {
                 var errorResponse = new ApiResponse<ApplicantOnlineTestResultDto>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
 
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+            }
+        }
+        [HttpPost(ApiRoutes.Methods.Submit)]
+        public async Task<IActionResult> SubmitApplicantOnlineTestResult([FromBody] SubmitApplicantOnlineTestResultCommand command, CancellationToken cancellationToken)
+        {
+            try
+            {
+                var result = await mediator.Send(command, cancellationToken);
+
+                var response = new ApiResponse<string>(
+                    HttpStatusCode.OK,
+                    result,
+                    "Process succeeded"
+                );
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new ApiResponse<string>(
+                    HttpStatusCode.InternalServerError,
+                    null,
+                    "Internal Server Error",
+                    ex.Message
+                );
+
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+            }
+        }
+
+        [HttpDelete(ApiRoutes.Methods.Delete)]
+        public async Task<IActionResult> DeleteApplicantOnlineTestResult([FromBody] DeleteApplicantOnlineTestResultCommand command, CancellationToken cancellationToken)
+        {
+            try
+            {
+                var result = await mediator.Send(command, cancellationToken);
+
+                if (result)
+                {
+                    var response = new ApiResponse<string>(HttpStatusCode.OK, command.AppResultId.ToString(), "Applicant Address deleted successfully");
+                    return Ok(response);
+                }
+                else
+                {
+                    var errorResponse = new ApiResponse<string>(HttpStatusCode.InternalServerError, null, "Failed to delete Applicant Address");
+                    return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+                }
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new ApiResponse<string>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
                 return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
             }
         }

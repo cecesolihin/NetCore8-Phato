@@ -70,5 +70,65 @@ namespace ThePatho.Features.Applicant.ApplicantDocument.Service
             var data = await db.FirstOrDefaultAsync<ApplicantDocumentDto>(query);
             return data;
         }
+
+        public async Task<bool> SubmitApplicantDocument(SubmitApplicantDocumentCommand request)
+        {
+            using var connection = dapperContext.CreateConnection();
+            var db = new QueryFactory(connection, dapperContext.Compiler);
+
+            // Cek apakah data sudah ada berdasarkan ApplicantNo dan DocumentTypeCode
+            var existingRecord = await db.Query(TableName.ApplicantDocument)
+                .Where("applicant_no", request.ApplicantNo)
+                .Where("document_type_code", request.DocumentTypeCode)
+                .FirstOrDefaultAsync();
+
+            if (existingRecord == null)
+            {
+                // Kondisi ADD (Insert)
+                var insertQuery = new Query(TableName.ApplicantDocument)
+                    .AsInsert(new
+                    {
+                        applicant_no = request.ApplicantNo,
+                        document_type_code = request.DocumentTypeCode,
+                        file_path = request.FilePath,
+                        remark = request.Remark,
+                        inserted_by = "system",
+                        inserted_date = DateTime.UtcNow,
+                    });
+
+                var insertResult = await db.ExecuteAsync(insertQuery);
+                return insertResult > 0;
+            }
+            else
+            {
+                // Kondisi EDIT (Update)
+                var updateQuery = new Query(TableName.ApplicantDocument)
+                    .Where("applicant_no", request.ApplicantNo)
+                    .Where("document_type_code", request.DocumentTypeCode)
+                    .AsUpdate(new
+                    {
+                        file_path = request.FilePath,
+                        remark = request.Remark,
+                        modified_by = "system",
+                        modified_date = DateTime.UtcNow
+                    });
+
+                var updateResult = await db.ExecuteAsync(updateQuery);
+                return updateResult > 0;
+            }
+        }
+        public async Task<bool> DeleteApplicantDocument(DeleteApplicantDocumentCommand request)
+        {
+            using var connection = dapperContext.CreateConnection();
+            var db = new QueryFactory(connection, dapperContext.Compiler);
+
+            var deleteQuery = new Query(TableName.ApplicantDocument)
+                .Where("applicant_no", request.ApplicantNo)
+                .Where("document_type_code", request.DocumentTypeCode)
+                .AsDelete();
+
+            var deleteResult = await db.ExecuteAsync(deleteQuery);
+            return deleteResult > 0;
+        }
     }
 }

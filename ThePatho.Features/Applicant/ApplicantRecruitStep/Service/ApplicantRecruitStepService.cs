@@ -85,5 +85,84 @@ namespace ThePatho.Features.Applicant.ApplicantRecruitStep.Service
             var data = await db.FirstOrDefaultAsync<ApplicantRecruitStepDto>(query);
             return data;
         }
+
+        public async Task<bool> SubmitApplicantRecruitStep(SubmitApplicantRecruitStepCommand request)
+        {
+            using var connection = dapperContext.CreateConnection();
+            var db = new QueryFactory(connection, dapperContext.Compiler);
+
+            if (request.RecApplicationId <= 0 || string.IsNullOrWhiteSpace(request.RecruitStepCode))
+            {
+                throw new ArgumentException("RecApplicationId and RecruitStepCode are required.");
+            }
+
+            // Check if data exists
+            var existsQuery = new Query("TRApplicantRecruitStep")
+                .Where("rec_application_id", request.RecApplicationId)
+                .Where("recruit_step_code", request.RecruitStepCode)
+                .SelectRaw("COUNT(1)");
+
+            var exists = await db.ExecuteScalarAsync<int>(existsQuery);
+
+            if (exists == 0)
+            {
+                // Kondisi ADD (Insert)
+                var insertQuery = new Query("TRApplicantRecruitStep").AsInsert(new
+                {
+                    rec_application_id = request.RecApplicationId,
+                    recruit_step_code = request.RecruitStepCode,
+                    score = request.Score,
+                    notes = request.Notes,
+                    attachment = request.Attachment,
+                    status = request.Status,
+                    emp_scorer = request.EmpScorer,
+                    schedule_date = request.ScheduleDate,
+                    reason_code = request.ReasonCode,
+                    inserted_by = "system",
+                    inserted_date = DateTime.UtcNow
+                });
+
+                var insertResult = await db.ExecuteAsync(insertQuery);
+                return insertResult > 0;
+            }
+            else
+            {
+                // Kondisi EDIT (Update)
+                var updateQuery = new Query("TRApplicantRecruitStep")
+                    .Where("rec_application_id", request.RecApplicationId)
+                    .Where("recruit_step_code", request.RecruitStepCode)
+                    .AsUpdate(new
+                    {
+                        score = request.Score,
+                        notes = request.Notes,
+                        attachment = request.Attachment,
+                        status = request.Status,
+                        emp_scorer = request.EmpScorer,
+                        schedule_date = request.ScheduleDate,
+                        reason_code = request.ReasonCode,
+                        modified_by =  "system",
+                        modified_date = DateTime.UtcNow
+                    });
+
+                var updateResult = await db.ExecuteAsync(updateQuery);
+                return updateResult > 0;
+            }
+        }
+        public async Task<bool> DeleteApplicantRecruitStep(DeleteApplicantRecruitStepCommand request)
+        {
+            if (request.RecApplicationId <= 0 || string.IsNullOrWhiteSpace(request.RecruitStepCode))
+                throw new ArgumentException("RecApplicationId and RecruitStepCode are required.");
+
+            using var connection = dapperContext.CreateConnection();
+            var db = new QueryFactory(connection, dapperContext.Compiler);
+
+            var deleteQuery = new Query("TRApplicantRecruitStep")
+                .Where("rec_application_id", request.RecApplicationId)
+                .Where("recruit_step_code", request.RecruitStepCode)
+                .AsDelete();
+
+            var deleteResult = await db.ExecuteAsync(deleteQuery);
+            return deleteResult > 0;
+        }
     }
 }

@@ -112,5 +112,101 @@ namespace ThePatho.Features.Applicant.ApplicantAddress.Service
             var data = await db.FirstOrDefaultAsync<ApplicantAddressDto>(query);
             return data;
         }
+
+        public async Task<bool> SubmitApplicantAddress(SubmitApplicantAddressCommand request)
+        {
+            using var connection = dapperContext.CreateConnection();
+            var db = new QueryFactory(connection, dapperContext.Compiler);
+
+            // Cek apakah data sudah ada berdasarkan ApplicantNo
+            var existingRecord = await db.Query(TableName.ApplicantAddress)
+                .Where("applicant_no", request.ApplicantNo)
+                .FirstOrDefaultAsync();
+
+            if (existingRecord == null)
+            {
+                // Kondisi ADD (Insert)
+                var insertQuery = new Query(TableName.ApplicantAddress)
+                    .AsInsert(new
+                    {
+                        applicant_no = request.ApplicantNo,
+                        address = request.Address,
+                        rt = request.RT,
+                        rw = request.RW,
+                        sub_district = request.SubDistrict,
+                        district = request.District,
+                        city = request.City,
+                        province = request.Province,
+                        country = request.Country,
+                        zip_code = request.ZipCode,
+                        ownership = request.Ownership,
+                        curr_address = request.CurrentAddress,
+                        curr_rt = request.CurrentRT,
+                        curr_rw = request.CurrentRW,
+                        curr_sub_district = request.CurrentSubDistrict,
+                        curr_district = request.CurrentDistrict,
+                        curr_city = request.CurrentCity,
+                        curr_province = request.CurrentProvince,
+                        curr_country = request.CurrentCountry,
+                        curr_zip_code = request.CurrentZipCode,
+                        curr_ownership = request.CurrentOwnership,
+                        inserted_by =  "system",
+                        inserted_date = DateTime.UtcNow,
+                       
+                    });
+
+                var insertResult = await db.ExecuteAsync(insertQuery);
+                return insertResult > 0;
+            }
+            else
+            {
+                // Kondisi EDIT (Update)
+                var updateQuery = new Query(TableName.ApplicantAddress)
+                    .Where("applicant_no", request.ApplicantNo)
+                    .AsUpdate(new
+                    {
+                        address = request.Address,
+                        rt = request.RT,
+                        rw = request.RW,
+                        sub_district = request.SubDistrict,
+                        district = request.District,
+                        city = request.City,
+                        province = request.Province,
+                        country = request.Country,
+                        zip_code = request.ZipCode,
+                        ownership = request.Ownership,
+                        curr_address = request.CurrentAddress,
+                        curr_rt = request.CurrentRT,
+                        curr_rw = request.CurrentRW,
+                        curr_sub_district = request.CurrentSubDistrict,
+                        curr_district = request.CurrentDistrict,
+                        curr_city = request.CurrentCity,
+                        curr_province = request.CurrentProvince,
+                        curr_country = request.CurrentCountry,
+                        curr_zip_code = request.CurrentZipCode,
+                        curr_ownership = request.CurrentOwnership,
+                        modified_by =  "system",
+                        modified_date = DateTime.UtcNow
+                    });
+
+                var updateResult = await db.ExecuteAsync(updateQuery);
+                return updateResult > 0;
+            }
+        }
+
+
+        public async Task<bool> DeleteApplicantAddress(DeleteApplicantAddressCommand request)
+        {
+            using var connection = dapperContext.CreateConnection();
+            var db = new QueryFactory(connection, dapperContext.Compiler);
+
+            var query = new Query(TableName.ApplicantAddress)
+                .Where("applicant_no", request.ApplicantNo)
+                .AsDelete();
+
+            var affectedRows = await db.ExecuteAsync(query);
+            return affectedRows > 0;
+        }
+
     }
 }

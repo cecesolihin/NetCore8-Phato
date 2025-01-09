@@ -18,6 +18,7 @@ namespace ThePatho.Features.Applicant.ApplicantEducation.Service
             dapperContext = _dapperContext;
         }
 
+
         public async Task<List<ApplicantEducationDto>> GetApplicantEducation(GetApplicantEducationCommand request)
         {
             using var connection = dapperContext.CreateConnection();
@@ -100,6 +101,90 @@ namespace ThePatho.Features.Applicant.ApplicantEducation.Service
                 );
             var data = await db.FirstOrDefaultAsync<ApplicantEducationDto>(query);
             return data;
+        }
+
+        public async Task<bool> SubmitApplicantEducation(SubmitApplicantEducationCommand request)
+        {
+            using var connection = dapperContext.CreateConnection();
+            var db = new QueryFactory(connection, dapperContext.Compiler);
+
+            // Cek apakah data sudah ada berdasarkan ApplicantNo dan EduLevelCode
+            var existingRecord = await db.Query(TableName.ApplicantEducation)
+                .Where("applicant_no", request.ApplicantNo)
+                .Where("edu_level_code", request.EduLevelCode)
+                .Where("major_code", request.MajorCode)
+                .FirstOrDefaultAsync();
+
+            if (existingRecord == null)
+            {
+                // Kondisi ADD (Insert)
+                var insertQuery = new Query(TableName.ApplicantEducation)
+                    .AsInsert(new
+                    {
+                        applicant_no = request.ApplicantNo,
+                        edu_level_code = request.EduLevelCode,
+                        major_code = request.MajorCode,
+                        faculty = request.Faculty,
+                        start_year = request.StartYear,
+                        end_year = request.EndYear,
+                        gpa = request.GPA,
+                        max_gpa = request.MaxGPA,
+                        institution = request.Institution,
+                        address = request.Address,
+                        city_code = request.CityCode,
+                        grad_type_code = request.GradTypeCode,
+                        certificate_no = request.CertificateNo,
+                        certificate_date = request.CertificateDate,
+                        remark = request.Remark,
+                        inserted_by =  "system",
+                        inserted_date = DateTime.UtcNow,
+                    });
+
+                var insertResult = await db.ExecuteAsync(insertQuery);
+                return insertResult > 0;
+            }
+            else
+            {
+                // Kondisi EDIT (Update)
+                var updateQuery = new Query(TableName.ApplicantEducation)
+                    .Where("applicant_no", request.ApplicantNo)
+                    .Where("edu_level_code", request.EduLevelCode)
+                    .Where("major_code", request.MajorCode)
+                    .AsUpdate(new
+                    {
+                        faculty = request.Faculty,
+                        start_year = request.StartYear,
+                        end_year = request.EndYear,
+                        gpa = request.GPA,
+                        max_gpa = request.MaxGPA,
+                        institution = request.Institution,
+                        address = request.Address,
+                        city_code = request.CityCode,
+                        grad_type_code = request.GradTypeCode,
+                        certificate_no = request.CertificateNo,
+                        certificate_date = request.CertificateDate,
+                        remark = request.Remark,
+                        modified_by =  "system",
+                        modified_date = DateTime.UtcNow
+                    });
+
+                var updateResult = await db.ExecuteAsync(updateQuery);
+                return updateResult > 0;
+            }
+        }
+        public async Task<bool> DeleteApplicantEducation(DeleteApplicantEducationCommand request)
+        {
+            using var connection = dapperContext.CreateConnection();
+            var db = new QueryFactory(connection, dapperContext.Compiler);
+
+            var deleteQuery = new Query(TableName.ApplicantEducation)
+                .Where("applicant_no", request.ApplicantNo)
+                .Where("edu_level_code", request.EduLevelCode)
+                .Where("major_code", request.MajorCode)
+                .AsDelete();
+
+            var deleteResult = await db.ExecuteAsync(deleteQuery);
+            return deleteResult > 0;
         }
     }
 }

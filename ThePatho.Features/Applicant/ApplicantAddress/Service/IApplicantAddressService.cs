@@ -7,5 +7,7 @@ namespace ThePatho.Features.Applicant.ApplicantAddress.Service
     {
         Task<List<ApplicantAddressDto>> GetApplicantAddress(GetApplicantAddressCommand request); 
         Task<ApplicantAddressDto> GetApplicantAddressByCriteria(GetApplicantAddressByCriteriaCommand request);
+        Task<bool> SubmitApplicantAddress(SubmitApplicantAddressCommand request);
+        Task<bool> DeleteApplicantAddress(DeleteApplicantAddressCommand request);
     }
 }
