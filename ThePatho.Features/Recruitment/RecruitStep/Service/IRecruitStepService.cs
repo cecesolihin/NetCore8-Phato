@@ -8,5 +8,7 @@ namespace ThePatho.Features.Recruitment.RecruitStep.Service
     {
         Task<List<RecruitStepDto>> GetRecruitStep(GetRecruitStepCommand request);
         Task<RecruitStepDto> GetRecruitStepByCriteria(GetRecruitStepByCriteriaCommand request);
+        Task<bool> SubmitRecruitStep(SubmitRecruitStepCommand request);
+        Task<bool> DeleteRecruitStep(DeleteRecruitStepCommand request);
     }
 }

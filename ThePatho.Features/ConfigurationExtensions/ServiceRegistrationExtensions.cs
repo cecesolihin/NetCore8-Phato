@@ -27,6 +27,7 @@ using ThePatho.Features.Recruitment.RecruitmentRequest.Service;
 using ThePatho.Features.Recruitment.RecruitStep.Service;
 using ThePatho.Features.Recruitment.RecruitStepGroup.Service;
 using ThePatho.Features.Recruitment.RecruitStepGroupDetail.Service;
+using ThePatho.Features.Recruitment.RequirementMaster.Service;
 using ThePatho.Features.Recruitment.RequirementRecRequest.Service;
 
 public static class ServiceRegistrationExtensions
@@ -55,6 +56,7 @@ public static class ServiceRegistrationExtensions
         #endregion
 
         #region [Recruitment]
+        services.AddScoped<IRequirementMasterService, RequirementMasterService>();
         services.AddScoped<IRecruitStepService, RecruitStepService>();
         services.AddScoped<IRecruitStepGroupService, RecruitStepGroupService>();
         services.AddScoped<IRecruitStepGroupDetailService, RecruitStepGroupDetailService>();

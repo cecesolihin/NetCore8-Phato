@@ -7,5 +7,7 @@ namespace ThePatho.Features.Recruitment.RecruitmentRequest.Service
     {
         Task<List<RecruitmentRequestDto>> GetRecruitmentRequest(GetRecruitmentRequestCommand request);
         Task<RecruitmentRequestDto> GetRecruitmentRequestByCriteria(GetRecruitmentRequestByCriteriaCommand request);
+        Task<bool> SubmitRecruitmentRequest(SubmitRecruitmentRequestCommand request);
+        Task<bool> DeleteRecruitmentRequest(DeleteRecruitmentRequestCommand request);
     }
 }

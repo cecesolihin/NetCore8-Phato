@@ -5,6 +5,7 @@ using ThePatho.Features.Recruitment.RecruitmentRequest.DTO;
 using ThePatho.Features.Recruitment.RecruitmentRequest.Commands;
 using ThePatho.Infrastructure.Persistance;
 using SqlKata;
+using System.Data.Entity.Infrastructure;
 
 namespace ThePatho.Features.Recruitment.RecruitmentRequest.Service
 {
@@ -156,6 +157,201 @@ namespace ThePatho.Features.Recruitment.RecruitmentRequest.Service
                 );
             var data = await db.FirstOrDefaultAsync<RecruitmentRequestDto>(query);
             return data;
+        }
+
+        public async Task<bool> SubmitRecruitmentRequest(SubmitRecruitmentRequestCommand request)
+        {
+            using var connection = dapperContext.CreateConnection();
+            var db = new QueryFactory(connection, dapperContext.Compiler);
+
+            using var transaction = connection.BeginTransaction();
+            try
+            {
+                // Check if the record exists
+                var existingRecord = await db.Query(TableName.RecruitmentRequest)
+                    .Where("request_no", request.RequestNo)
+                    .FirstOrDefaultAsync();
+
+                if (existingRecord == null)
+                {
+                    // ADD: Insert into TRRecruitmentRequest
+                    var insertRequest = new Query(TableName.RecruitmentRequest).AsInsert(new
+                    {
+                        request_no = request.RequestNo,
+                        request_date = request.RequestDate,
+                        approval_status = request.ApprovalStatus,
+                        request_status = request.RequestStatus,
+                        approved_date = request.ApprovedDate,
+                        request_type = request.RequestType,
+                        mpp_period_code = request.MppPeriodCode,
+                        mpp_no = request.MppNo,
+                        organization_id = request.OrganizationId,
+                        position_code = request.PositionCode,
+                        job_class_code = request.JobClassCode,
+                        jabatan_id = request.JabatanId,
+                        job_level_code = request.JobLevelCode,
+                        employment_type_code = request.EmploymentTypeCode,
+                        user_emp_id = request.UserEmpId,
+                        vacancy_name = request.VacancyName,
+                        num_vacancy_all = request.NumVacancyAll,
+                        num_vacancy_male = request.NumVacancyMale,
+                        num_vacancy_female = request.NumVacancyFemale,
+                        expected_join_date = request.ExpectedJoinDate,
+                        job_category_id = request.JobCategoryId,
+                        job_category_code = request.JobCategoryCode,
+                        min_salary = request.MinSalary,
+                        max_salary = request.MaxSalary,
+                        rec_step_group_code = request.RecStepGroupCode,
+                        ads_code = request.AdsCode,
+                        start_advert_date = request.StartAdvertDate,
+                        end_advert_date = request.EndAdvertDate,
+                        vacancy_type = request.VacancyType,
+                        close_remark = request.CloseRemark,
+                        notice_month = request.NoticeMonth,
+                        vacancy_link = request.VacancyLink,
+                        qr_link = request.QrLink,
+                        inserted_by = "system",
+                        inserted_date = DateTime.UtcNow
+                    });
+
+                    await db.ExecuteAsync(insertRequest, transaction);
+                }
+                else
+                {
+                    // EDIT: Update TRRecruitmentRequest
+                    var updateRequest = new Query(TableName.RecruitmentRequest).Where("request_no", request.RequestNo).AsUpdate(new
+                    {
+                        request_date = request.RequestDate,
+                        approval_status = request.ApprovalStatus,
+                        request_status = request.RequestStatus,
+                        approved_date = request.ApprovedDate,
+                        request_type = request.RequestType,
+                        mpp_period_code = request.MppPeriodCode,
+                        mpp_no = request.MppNo,
+                        organization_id = request.OrganizationId,
+                        position_code = request.PositionCode,
+                        job_class_code = request.JobClassCode,
+                        jabatan_id = request.JabatanId,
+                        job_level_code = request.JobLevelCode,
+                        employment_type_code = request.EmploymentTypeCode,
+                        user_emp_id = request.UserEmpId,
+                        vacancy_name = request.VacancyName,
+                        num_vacancy_all = request.NumVacancyAll,
+                        num_vacancy_male = request.NumVacancyMale,
+                        num_vacancy_female = request.NumVacancyFemale,
+                        expected_join_date = request.ExpectedJoinDate,
+                        job_category_id = request.JobCategoryId,
+                        job_category_code = request.JobCategoryCode,
+                        min_salary = request.MinSalary,
+                        max_salary = request.MaxSalary,
+                        rec_step_group_code = request.RecStepGroupCode,
+                        ads_code = request.AdsCode,
+                        start_advert_date = request.StartAdvertDate,
+                        end_advert_date = request.EndAdvertDate,
+                        vacancy_type = request.VacancyType,
+                        close_remark = request.CloseRemark,
+                        notice_month = request.NoticeMonth,
+                        vacancy_link = request.VacancyLink,
+                        qr_link = request.QrLink,
+                        modified_by = "system",
+                        modified_date = DateTime.UtcNow
+                    });
+
+                    await db.ExecuteAsync(updateRequest, transaction);
+
+                    // Delete existing RecruitmentSteps and Requirements
+                    // Delete from TRRequirementRecRequest
+                    var deleteQueryRecRequest = new Query(TableName.RequirementRecRequest)
+                   .Where("request_no", request.RequestNo)
+                   .AsDelete();
+
+                    var deleteResultRecRequest = await db.ExecuteAsync(deleteQueryRecRequest, transaction);
+
+                    // Delete from TRRecruitmentReqStep
+                    var deleteQueryReqStep = new Query(TableName.RecruitmentReqStep)
+                   .Where("request_no", request.RequestNo)
+                   .AsDelete();
+
+                    var deleteResultReqstep = await db.ExecuteAsync(deleteQueryReqStep, transaction);
+                }
+
+                // Insert RecruitmentSteps
+                foreach (var step in request.RecruitmentSteps)
+                {
+                    var insertStep = new Query(TableName.RecruitmentReqStep).AsInsert(new
+                    {
+                        request_no = request.RequestNo,
+                        recruit_step_code = step.RecruitStepCode,
+                        schedule_date = step.ScheduleDate,
+                        inserted_by = "system",
+                        inserted_date = DateTime.UtcNow
+                    });
+
+                    await db.ExecuteAsync(insertStep, transaction);
+                }
+
+                // Insert Requirements
+                foreach (var requirement in request.Requirements)
+                {
+                    var insertRequirement = new Query(TableName.RequirementRecRequest).AsInsert(new
+                    {
+                        request_no = request.RequestNo,
+                        question_code = requirement.QuestionCode,
+                        answer = requirement.Answer,
+                        inserted_by = "system",
+                        inserted_date = DateTime.UtcNow
+                    });
+
+                    await db.ExecuteAsync(insertRequirement, transaction);
+                }
+
+                transaction.Commit();
+                return true;
+            }
+            catch
+            {
+                transaction.Rollback();
+                throw;
+            }
+        }
+
+        public async Task<bool> DeleteRecruitmentRequest(DeleteRecruitmentRequestCommand request)
+        {
+            using var connection = dapperContext.CreateConnection();
+            var db = new QueryFactory(connection, dapperContext.Compiler);
+
+            using var transaction = connection.BeginTransaction();
+            try
+            {
+                // Delete from TRRequirementRecRequest
+                var deleteQueryRecRequest = new Query(TableName.RequirementRecRequest)
+               .Where("request_no", request.RequestNo)
+               .AsDelete();
+
+                var deleteResultRecRequest = await db.ExecuteAsync(deleteQueryRecRequest);
+
+                // Delete from TRRecruitmentReqStep
+                var deleteQueryReqStep = new Query(TableName.RecruitmentReqStep)
+               .Where("request_no", request.RequestNo)
+               .AsDelete();
+
+                var deleteResultReqstep = await db.ExecuteAsync(deleteQueryReqStep);
+
+                // Delete from TRRecruitmentRequest
+                var deleteQueryRequest = new Query(TableName.RecruitmentRequest)
+              .Where("request_no", request.RequestNo)
+              .AsDelete();
+
+                var deleteResultRequest = await db.ExecuteAsync(deleteQueryRequest);
+
+                transaction.Commit();
+                return true;
+            }
+            catch
+            {
+                transaction.Rollback();
+                throw;
+            }
         }
     }
 }

@@ -36,6 +36,7 @@ namespace ThePatho.Features.ConfigurationExtensions
         }
         public static class RecruitmentMenu
         {
+            public const string RequirementMaster = BaseApiPathRecruitment + "requirement-master";
             public const string RecruitmentRequest = BaseApiPathRecruitment + "recruitment-request";
             public const string RecruitmentReqStep = BaseApiPathRecruitment + "recruitment-req-step";
             public const string RecruitStep = BaseApiPathRecruitment + "recruit-step";

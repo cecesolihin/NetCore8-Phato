@@ -27,6 +27,7 @@ namespace ThePatho.Domain.Constants
         public const string ScoringSetting = "TMScoringSetting";
         public const string ScoringSettingDetail = "TMScoringSettingDetail";
         //Recruitment
+        public const string RequirementMaster = "TMRequirementMaster";
         public const string RecruitStep = "TMRecruitStep";
         public const string RecruitStepGroup = "TMRecruitStepGroup";
         public const string RecruitStepGroupDetail = "TMRecruitStepGroupDetail";
