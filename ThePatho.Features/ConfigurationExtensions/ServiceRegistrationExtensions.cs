@@ -22,6 +22,11 @@ using ThePatho.Features.MasterSetting.QuestionSetting.Service;
 using ThePatho.Features.MasterSetting.QuestionSettingDetail.Service;
 using ThePatho.Features.MasterSetting.ScoringSetting.Service;
 using ThePatho.Features.MasterSetting.ScoringSettingDetail.Service;
+using ThePatho.Features.Organization.JobLevel.Service;
+using ThePatho.Features.Organization.OrgLevel.Service;
+using ThePatho.Features.Organization.OrgStructure.Service;
+using ThePatho.Features.Organization.Position.Service;
+using ThePatho.Features.Recruitment.MPP.Service;
 using ThePatho.Features.Recruitment.RecruitmentReqStep.Service;
 using ThePatho.Features.Recruitment.RecruitmentRequest.Service;
 using ThePatho.Features.Recruitment.RecruitStep.Service;
@@ -55,7 +60,15 @@ public static class ServiceRegistrationExtensions
         services.AddScoped<IScoringSettingDetailService, ScoringSettingDetailService>();
         #endregion
 
+        #region [Organization]
+        services.AddScoped<IJobLevelService, JobLevelService>();
+        services.AddScoped<IOrgLevelService, OrgLevelService>();
+        services.AddScoped<IOrgStructureService, OrgStructureService>();
+        services.AddScoped<IPositionService, PositionService>();
+        #endregion
+
         #region [Recruitment]
+        services.AddScoped<IMPPService, MPPService>();
         services.AddScoped<IRequirementMasterService, RequirementMasterService>();
         services.AddScoped<IRecruitStepService, RecruitStepService>();
         services.AddScoped<IRecruitStepGroupService, RecruitStepGroupService>();

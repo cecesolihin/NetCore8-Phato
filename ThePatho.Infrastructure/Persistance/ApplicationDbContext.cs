@@ -3,11 +3,13 @@ using ThePatho.Domain.Models.Applicant;
 using ThePatho.Domain.Models.Identity;
 using ThePatho.Domain.Models.MasterData;
 using ThePatho.Domain.Models.MasterSetting;
+using ThePatho.Domain.Models.Organization;
 using ThePatho.Domain.Models.Recruitment;
 using ThePatho.Infrastructure.Persistance.Configuration.Applicant;
 using ThePatho.Infrastructure.Persistance.Configuration.Identity;
 using ThePatho.Infrastructure.Persistance.Configuration.MasterData;
 using ThePatho.Infrastructure.Persistance.Configuration.MasterSetting;
+using ThePatho.Infrastructure.Persistance.Configuration.Organization;
 using ThePatho.Infrastructure.Persistance.Configuration.Recruitment;
 
 
@@ -47,7 +49,16 @@ namespace ThePatho.Infrastructure.Persistance
         public DbSet<ScoringSettingDetail> ScoringSettingDetails { get; set; }
         #endregion
 
+        #region [ORGANIZATION]
+        public DbSet<JobLevel> JobLevels { get; set; }
+        public DbSet<OrgLevel> OrganizationLevels { get; set; }
+        public DbSet<OrgStructure> OrgStructures { get; set; }
+        public DbSet<Position> Positions { get; set; }
+        #endregion
+
         #region [RECRUITMENT]
+        public DbSet<MPP> MPPs { get; set; }
+        public DbSet<RequirementMaster> RequirementMasters { get; set; }
         public DbSet<RecruitStep> RecruitSteps { get; set; }
         public DbSet<RecruitStepGroup> RecruitStepGroups { get; set; }
         public DbSet<RecruitStepGroupDetail> RecruitStepGroupDetails { get; set; }
@@ -97,7 +108,16 @@ namespace ThePatho.Infrastructure.Persistance
             modelBuilder.ApplyConfiguration(new ScoringSettingDetailConfiguration());
             #endregion
 
+            #region [ORGANIZATION]
+            modelBuilder.ApplyConfiguration(new JobLevelConfiguration());
+            modelBuilder.ApplyConfiguration(new OrgLevelConfiguration());
+            modelBuilder.ApplyConfiguration(new OrgStructureConfiguration());
+            modelBuilder.ApplyConfiguration(new PositionConfiguration());
+            #endregion
+
             #region [RECRUITMENT]
+            modelBuilder.ApplyConfiguration(new MPPConfiguration());
+            modelBuilder.ApplyConfiguration(new RequirementMasterConfiguration());
             modelBuilder.ApplyConfiguration(new RecruitStepConfiguration());
             modelBuilder.ApplyConfiguration(new RecruitStepGroupConfiguration());
             modelBuilder.ApplyConfiguration(new RecruitStepGroupDetailConfiguration());

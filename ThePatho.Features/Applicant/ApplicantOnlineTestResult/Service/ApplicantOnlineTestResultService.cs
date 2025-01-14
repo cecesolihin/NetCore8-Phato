@@ -92,7 +92,7 @@ namespace ThePatho.Features.Applicant.ApplicantOnlineTestResult.Service
             if (request.AppResultId == 0)
             {
                 // Kondisi ADD (Insert)
-                var insertQuery = new Query("TRApplicantOnlineTestResult")
+                var insertQuery = new Query(TableName.ApplicantOnlineTestResult)
                     .AsInsert(new
                     {
                         online_test_code = request.OnlineTestCode,
@@ -114,7 +114,7 @@ namespace ThePatho.Features.Applicant.ApplicantOnlineTestResult.Service
             else
             {
                 // Kondisi EDIT (Update)
-                var updateQuery = new Query("TRApplicantOnlineTestResult")
+                var updateQuery = new Query(TableName.ApplicantOnlineTestResult)
                     .Where("app_result_id", request.AppResultId)
                     .AsUpdate(new
                     {
@@ -140,7 +140,7 @@ namespace ThePatho.Features.Applicant.ApplicantOnlineTestResult.Service
             using var connection = dapperContext.CreateConnection();
             var db = new QueryFactory(connection, dapperContext.Compiler);
 
-            var deleteQuery = new Query("TRApplicantOnlineTestResult")
+            var deleteQuery = new Query(TableName.ApplicantOnlineTestResult)
                 .Where("app_result_id", request.AppResultId)
                 .AsDelete();
 

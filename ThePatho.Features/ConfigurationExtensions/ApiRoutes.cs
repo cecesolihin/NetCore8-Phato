@@ -11,6 +11,7 @@ namespace ThePatho.Features.ConfigurationExtensions
         public const string BaseApiPathIdentity = "api/identity/";
         public const string BaseApiPathMasterData = "api/master-data/";
         public const string BaseApiPathMasterSetting = "api/master-setting/";
+        public const string BaseApiPathOrganization = "api/organization/";
         public const string BaseApiPathApplicant = "api/applicant/";
         public const string BaseApiPathRecruitment = "api/recruitment/";
 
@@ -34,8 +35,16 @@ namespace ThePatho.Features.ConfigurationExtensions
             public const string ScoringSetting = BaseApiPathMasterSetting + "scoring-setting";
             public const string ScoringSettingDetail = BaseApiPathMasterSetting + "scoring-setting-detail";
         }
+        public static class OrganizationMenu
+        {
+            public const string JobLevel = BaseApiPathOrganization + "job-level";
+            public const string OrgLevel = BaseApiPathOrganization + "org-level";
+            public const string OrgStructure = BaseApiPathOrganization + "org-structure";
+            public const string Position = BaseApiPathOrganization + "position";
+        }
         public static class RecruitmentMenu
         {
+            public const string MPP = BaseApiPathRecruitment + "mpp";
             public const string RequirementMaster = BaseApiPathRecruitment + "requirement-master";
             public const string RecruitmentRequest = BaseApiPathRecruitment + "recruitment-request";
             public const string RecruitmentReqStep = BaseApiPathRecruitment + "recruitment-req-step";

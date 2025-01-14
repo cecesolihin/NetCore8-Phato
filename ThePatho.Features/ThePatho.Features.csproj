@@ -26,8 +26,6 @@
     <Folder Include="Applicant\ApplicantPersonalData\Service\" />
     <Folder Include="Applicant\ApplicantRecruitStep\DTO\" />
     <Folder Include="Applicant\ApplicantRecruitStep\Service\" />
-    <Folder Include="Applicant\ApplicantSkill\DTO\" />
-    <Folder Include="Applicant\ApplicantSkill\Service\" />
     <Folder Include="Applicant\ApplicantWorkExperience\DTO\" />
     <Folder Include="Applicant\ApplicantWorkExperience\Service\" />
     <Folder Include="Applicant\Applicant\Service\" />

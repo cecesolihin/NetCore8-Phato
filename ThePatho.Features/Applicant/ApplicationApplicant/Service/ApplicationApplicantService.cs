@@ -102,7 +102,7 @@ namespace ThePatho.Features.Applicant.ApplicationApplicant.Service
             }
 
             // Check if data exists
-            var existsQuery = new Query("TRApplicationApplicant")
+            var existsQuery = new Query(TableName.ApplicationApplicant)
                 .Where("rec_application_id", request.RecApplicationId)
                 .SelectRaw("COUNT(1)");
 
@@ -111,7 +111,7 @@ namespace ThePatho.Features.Applicant.ApplicationApplicant.Service
             if (exists == 0)
             {
                 // Kondisi Insert
-                var insertQuery = new Query("TRApplicationApplicant").AsInsert(new
+                var insertQuery = new Query(TableName.ApplicationApplicant).AsInsert(new
                 {
                     applicant_no = request.ApplicantNo,
                     request_no = request.RequestNo,
@@ -135,7 +135,7 @@ namespace ThePatho.Features.Applicant.ApplicationApplicant.Service
             else
             {
                 // Kondisi Update
-                var updateQuery = new Query("TRApplicationApplicant")
+                var updateQuery = new Query(TableName.ApplicationApplicant)
                     .Where("rec_application_id", request.RecApplicationId)
                     .AsUpdate(new
                     {
@@ -167,7 +167,7 @@ namespace ThePatho.Features.Applicant.ApplicationApplicant.Service
             using var connection = dapperContext.CreateConnection();
             var db = new QueryFactory(connection, dapperContext.Compiler);
 
-            var deleteQuery = new Query("TRApplicationApplicant")
+            var deleteQuery = new Query(TableName.ApplicationApplicant)
                 .Where("rec_application_id", request.RecApplicationId)
                 .AsDelete();
 

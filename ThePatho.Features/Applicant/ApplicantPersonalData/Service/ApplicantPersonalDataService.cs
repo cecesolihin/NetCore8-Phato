@@ -112,7 +112,7 @@ namespace ThePatho.Features.Applicant.ApplicantPersonalData.Service
             }
 
             // Check if data exists
-            var existsQuery = new Query("TRApplicantPersonalData")
+            var existsQuery = new Query(TableName.ApplicantPersonalData)
                 .Where("applicant_no", request.ApplicantNo)
                 .SelectRaw("COUNT(1)");
 
@@ -121,7 +121,7 @@ namespace ThePatho.Features.Applicant.ApplicantPersonalData.Service
             if (exists == 0)
             {
                 // Kondisi ADD (Insert)
-                var insertQuery = new Query("TRApplicantPersonalData").AsInsert(new
+                var insertQuery = new Query(TableName.ApplicantPersonalData).AsInsert(new
                 {
                     applicant_no = request.ApplicantNo,
                     nationality_id = request.NationalityId,
@@ -149,7 +149,7 @@ namespace ThePatho.Features.Applicant.ApplicantPersonalData.Service
             else
             {
                 // Kondisi EDIT (Update)
-                var updateQuery = new Query("TRApplicantPersonalData")
+                var updateQuery = new Query(TableName.ApplicantPersonalData)
                     .Where("applicant_no", request.ApplicantNo)
                     .AsUpdate(new
                     {
@@ -184,7 +184,7 @@ namespace ThePatho.Features.Applicant.ApplicantPersonalData.Service
             using var connection = dapperContext.CreateConnection();
             var db = new QueryFactory(connection, dapperContext.Compiler);
 
-            var deleteQuery = new Query("TRApplicantPersonalData")
+            var deleteQuery = new Query(TableName.ApplicantPersonalData)
                 .Where("applicant_no", request.ApplicantNo)
                 .AsDelete();
 

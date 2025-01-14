@@ -4,8 +4,7 @@ using System.Net;
 using ThePatho.Features.ConfigurationExtensions;
 using ThePatho.Features.Recruitment.RecruitStep.Commands;
 using ThePatho.Features.Recruitment.RecruitStep.DTO;
-using ThePatho.Features.Recruitment.RecruitStepGroup.DTO;
-using ThePatho.Features.Recruitment.RecruitStepGroup.Service;
+using ThePatho.Features.Recruitment.RecruitStepGroup.Commands;
 
 namespace ThePatho.Controllers
 {
@@ -41,8 +40,8 @@ namespace ThePatho.Controllers
             }
         }
 
-        [HttpPost(ApiRoutes.Methods.GetByCriteria)]
-        public async Task<IActionResult> GetRecruitStepByCriteria([FromBody] GetRecruitStepByCriteriaCommand command,
+        [HttpGet(ApiRoutes.Methods.GetByCriteria)]
+        public async Task<IActionResult> GetRecruitStepByCriteria([FromQuery] GetRecruitStepByCriteriaCommand command,
             CancellationToken cancellationToken)
         {
             try
@@ -57,6 +56,59 @@ namespace ThePatho.Controllers
             {
                 var errorResponse = new ApiResponse<RecruitStepDto>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
 
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+            }
+        }
+
+        [HttpPost(ApiRoutes.Methods.Submit)]
+        public async Task<IActionResult> SubmitRecruitStepGroup([FromBody] SubmitRecruitStepGroupCommand command, CancellationToken cancellationToken)
+        {
+            try
+            {
+                var result = await mediator.Send(command, cancellationToken);
+
+                var response = new ApiResponse<string>(
+                    HttpStatusCode.OK,
+                    result,
+                    "Process succeeded"
+                );
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new ApiResponse<string>(
+                    HttpStatusCode.InternalServerError,
+                    null,
+                    "Internal Server Error",
+                    ex.Message
+                );
+
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+            }
+        }
+
+        [HttpDelete(ApiRoutes.Methods.Delete)]
+        public async Task<IActionResult> DeleteRecruitStepGroup([FromBody] DeleteRecruitStepGroupCommand command, CancellationToken cancellationToken)
+        {
+            try
+            {
+                var result = await mediator.Send(command, cancellationToken);
+
+                if (result)
+                {
+                    var response = new ApiResponse<string>(HttpStatusCode.OK, command.RecStepGroupCode, "Requirement Step Group deleted successfully");
+                    return Ok(response);
+                }
+                else
+                {
+                    var errorResponse = new ApiResponse<string>(HttpStatusCode.InternalServerError, null, "Failed to delete Requirement Step Group");
+                    return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+                }
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new ApiResponse<string>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
                 return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
             }
         }

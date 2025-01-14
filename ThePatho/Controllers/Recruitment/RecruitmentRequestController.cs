@@ -5,6 +5,7 @@ using ThePatho.Features.ConfigurationExtensions;
 using ThePatho.Features.Recruitment.RecruitmentRequest.DTO;
 using ThePatho.Features.Recruitment.RecruitmentRequest.Service;
 using ThePatho.Features.Recruitment.RecruitmentRequest.Commands;
+using ThePatho.Features.Recruitment.RecruitmentRequest.Commands;
 
 namespace ThePatho.Controllers
 {
@@ -40,8 +41,8 @@ namespace ThePatho.Controllers
             }
         }
 
-        [HttpPost(ApiRoutes.Methods.GetByCriteria)]
-        public async Task<IActionResult> GetRecruitmentRequestByCriteria([FromBody] GetRecruitmentRequestByCriteriaCommand command,
+        [HttpGet(ApiRoutes.Methods.GetByCriteria)]
+        public async Task<IActionResult> GetRecruitmentRequestByCriteria([FromQuery] GetRecruitmentRequestByCriteriaCommand command,
             CancellationToken cancellationToken)
         {
             try
@@ -56,6 +57,59 @@ namespace ThePatho.Controllers
             {
                 var errorResponse = new ApiResponse<RecruitmentRequestDto>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
 
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+            }
+        }
+
+        [HttpPost(ApiRoutes.Methods.Submit)]
+        public async Task<IActionResult> SubmitRecruitmentRequest([FromBody] SubmitRecruitmentRequestCommand command, CancellationToken cancellationToken)
+        {
+            try
+            {
+                var result = await mediator.Send(command, cancellationToken);
+
+                var response = new ApiResponse<string>(
+                    HttpStatusCode.OK,
+                    result,
+                    "Process succeeded"
+                );
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new ApiResponse<string>(
+                    HttpStatusCode.InternalServerError,
+                    null,
+                    "Internal Server Error",
+                    ex.Message
+                );
+
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+            }
+        }
+
+        [HttpDelete(ApiRoutes.Methods.Delete)]
+        public async Task<IActionResult> DeleteRecruitmentRequest([FromBody] DeleteRecruitmentRequestCommand command, CancellationToken cancellationToken)
+        {
+            try
+            {
+                var result = await mediator.Send(command, cancellationToken);
+
+                if (result)
+                {
+                    var response = new ApiResponse<string>(HttpStatusCode.OK, command.RequestNo, "Requirement Request deleted successfully");
+                    return Ok(response);
+                }
+                else
+                {
+                    var errorResponse = new ApiResponse<string>(HttpStatusCode.InternalServerError, null, "Failed to delete Requirement Request");
+                    return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+                }
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new ApiResponse<string>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
                 return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
             }
         }

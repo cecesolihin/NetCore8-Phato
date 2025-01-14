@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace ThePatho.Domain.Constants
 {
     public static class TableName
@@ -26,7 +21,13 @@ namespace ThePatho.Domain.Constants
         public const string QuestionSettingDetail = "TMQuestionSettingDetail";
         public const string ScoringSetting = "TMScoringSetting";
         public const string ScoringSettingDetail = "TMScoringSettingDetail";
+        //Organization
+        public const string JobLevel = "TMJobLevel";
+        public const string OrganizationLevel = "TMOrgLevel";
+        public const string OrgStructure = "TMOrgStructure";
+        public const string Position = "TMPosition";
         //Recruitment
+        public const string MPP = "TMMPP";
         public const string RequirementMaster = "TMRequirementMaster";
         public const string RecruitStep = "TMRecruitStep";
         public const string RecruitStepGroup = "TMRecruitStepGroup";

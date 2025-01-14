@@ -87,7 +87,7 @@ namespace ThePatho.Features.Applicant.ApplicantSkill.Service
             }
 
             // Check if data exists
-            var existsQuery = new Query("TRApplicantSkill")
+            var existsQuery = new Query(TableName.ApplicantSkill)
                 .Where("applicant_no", request.ApplicantNo)
                 .Where("skill_code", request.SkillCode)
                 .SelectRaw("COUNT(1)");
@@ -97,7 +97,7 @@ namespace ThePatho.Features.Applicant.ApplicantSkill.Service
             if (exists == 0)
             {
                 // Kondisi Add (Insert)
-                var insertQuery = new Query("TRApplicantSkill").AsInsert(new
+                var insertQuery = new Query(TableName.ApplicantSkill).AsInsert(new
                 {
                     applicant_no = request.ApplicantNo,
                     skill_code = request.SkillCode,
@@ -116,7 +116,7 @@ namespace ThePatho.Features.Applicant.ApplicantSkill.Service
             else
             {
                 // Kondisi Edit (Update)
-                var updateQuery = new Query("TRApplicantSkill")
+                var updateQuery = new Query(TableName.ApplicantSkill)
                     .Where("applicant_no", request.ApplicantNo)
                     .Where("skill_code", request.SkillCode)
                     .AsUpdate(new
@@ -142,7 +142,7 @@ namespace ThePatho.Features.Applicant.ApplicantSkill.Service
             using var connection = dapperContext.CreateConnection();
             var db = new QueryFactory(connection, dapperContext.Compiler);
 
-            var deleteQuery = new Query("TRApplicantSkill")
+            var deleteQuery = new Query(TableName.ApplicantSkill)
                 .Where("applicant_no", request.ApplicantNo)
                 .Where("skill_code", request.SkillCode)
                 .AsDelete();

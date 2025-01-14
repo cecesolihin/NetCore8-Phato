@@ -122,7 +122,7 @@ namespace ThePatho.Features.Applicant.ApplicantWorkExperience.Service
             }
 
             // Check if data exists
-            var existsQuery = new Query("TRApplicantWorkExperience")
+            var existsQuery = new Query(TableName.ApplicantWorkExperience)
                 .Where("app_work_exp_id", request.AppWorkExpId)
                 .SelectRaw("COUNT(1)");
 
@@ -131,7 +131,7 @@ namespace ThePatho.Features.Applicant.ApplicantWorkExperience.Service
             if (exists == 0)
             {
                 // Kondisi Add (Insert)
-                var insertQuery = new Query("TRApplicantWorkExperience").AsInsert(new
+                var insertQuery = new Query(TableName.ApplicantWorkExperience).AsInsert(new
                 {
                     applicant_no = request.ApplicantNo,
                     start_working = request.StartWorking,
@@ -162,7 +162,7 @@ namespace ThePatho.Features.Applicant.ApplicantWorkExperience.Service
             else
             {
                 // Kondisi Edit (Update)
-                var updateQuery = new Query("TRApplicantWorkExperience")
+                var updateQuery = new Query(TableName.ApplicantWorkExperience)
                     .Where("app_work_exp_id", request.AppWorkExpId)
                     .AsUpdate(new
                     {
@@ -201,7 +201,7 @@ namespace ThePatho.Features.Applicant.ApplicantWorkExperience.Service
             using var connection = dapperContext.CreateConnection();
             var db = new QueryFactory(connection, dapperContext.Compiler);
 
-            var deleteQuery = new Query("TRApplicantWorkExperience")
+            var deleteQuery = new Query(TableName.ApplicantWorkExperience)
                 .Where("app_work_exp_id", request.AppWorkExpId)
                 .AsDelete();
 

@@ -30,6 +30,11 @@ builder.Services.AddSwaggerGen(options =>
         Title = "Master Setting API",
         Version = "v1"
     });
+    options.SwaggerDoc("Organization", new Microsoft.OpenApi.Models.OpenApiInfo
+    {
+        Title = "Organization API",
+        Version = "v1"
+    });
     options.SwaggerDoc("Applicant", new Microsoft.OpenApi.Models.OpenApiInfo
     {
         Title = "Applicant API",
@@ -94,6 +99,7 @@ if (app.Environment.IsDevelopment())
         options.SwaggerEndpoint("/swagger/Identity/swagger.json", "Identity API");
         options.SwaggerEndpoint("/swagger/MasterData/swagger.json", "Master Data API");
         options.SwaggerEndpoint("/swagger/MasterSetting/swagger.json", "Master Setting API");
+        options.SwaggerEndpoint("/swagger/Organization/swagger.json", "Organization API");
         options.SwaggerEndpoint("/swagger/Applicant/swagger.json", "Applicant API");
         options.SwaggerEndpoint("/swagger/Recruitment/swagger.json", "Recruitment API");
     });

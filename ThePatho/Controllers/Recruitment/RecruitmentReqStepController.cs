@@ -39,8 +39,8 @@ namespace ThePatho.Controllers
             }
         }
 
-        [HttpPost(ApiRoutes.Methods.GetByCriteria)]
-        public async Task<IActionResult> GetRecruitmentReqStepByCriteria([FromBody] GetRecruitmentReqStepByCriteriaCommand command,
+        [HttpGet(ApiRoutes.Methods.GetByCriteria)]
+        public async Task<IActionResult> GetRecruitmentReqStepByCriteria([FromQuery] GetRecruitmentReqStepByCriteriaCommand command,
             CancellationToken cancellationToken)
         {
             try

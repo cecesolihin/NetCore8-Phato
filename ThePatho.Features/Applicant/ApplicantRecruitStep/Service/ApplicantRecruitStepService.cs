@@ -97,7 +97,7 @@ namespace ThePatho.Features.Applicant.ApplicantRecruitStep.Service
             }
 
             // Check if data exists
-            var existsQuery = new Query("TRApplicantRecruitStep")
+            var existsQuery = new Query(TableName.ApplicantRecruitStep)
                 .Where("rec_application_id", request.RecApplicationId)
                 .Where("recruit_step_code", request.RecruitStepCode)
                 .SelectRaw("COUNT(1)");
@@ -107,7 +107,7 @@ namespace ThePatho.Features.Applicant.ApplicantRecruitStep.Service
             if (exists == 0)
             {
                 // Kondisi ADD (Insert)
-                var insertQuery = new Query("TRApplicantRecruitStep").AsInsert(new
+                var insertQuery = new Query(TableName.ApplicantRecruitStep).AsInsert(new
                 {
                     rec_application_id = request.RecApplicationId,
                     recruit_step_code = request.RecruitStepCode,
@@ -128,7 +128,7 @@ namespace ThePatho.Features.Applicant.ApplicantRecruitStep.Service
             else
             {
                 // Kondisi EDIT (Update)
-                var updateQuery = new Query("TRApplicantRecruitStep")
+                var updateQuery = new Query(TableName.ApplicantRecruitStep)
                     .Where("rec_application_id", request.RecApplicationId)
                     .Where("recruit_step_code", request.RecruitStepCode)
                     .AsUpdate(new
@@ -156,7 +156,7 @@ namespace ThePatho.Features.Applicant.ApplicantRecruitStep.Service
             using var connection = dapperContext.CreateConnection();
             var db = new QueryFactory(connection, dapperContext.Compiler);
 
-            var deleteQuery = new Query("TRApplicantRecruitStep")
+            var deleteQuery = new Query(TableName.ApplicantRecruitStep)
                 .Where("rec_application_id", request.RecApplicationId)
                 .Where("recruit_step_code", request.RecruitStepCode)
                 .AsDelete();

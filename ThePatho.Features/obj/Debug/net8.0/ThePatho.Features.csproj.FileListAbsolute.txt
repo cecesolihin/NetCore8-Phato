@@ -1,3 +1,9 @@
+D:\COURSES\ThePatho\ThePatho.Features\obj\Debug\net8.0\ThePatho.Features.csproj.AssemblyReference.cache
+D:\COURSES\ThePatho\ThePatho.Features\obj\Debug\net8.0\ThePatho.Features.GeneratedMSBuildEditorConfig.editorconfig
+D:\COURSES\ThePatho\ThePatho.Features\obj\Debug\net8.0\ThePatho.Features.AssemblyInfoInputs.cache
+D:\COURSES\ThePatho\ThePatho.Features\obj\Debug\net8.0\ThePatho.Features.AssemblyInfo.cs
+D:\COURSES\ThePatho\ThePatho.Features\obj\Debug\net8.0\ThePatho.Features.csproj.CoreCompileInputs.cache
+D:\COURSES\ThePatho\ThePatho.Features\obj\Debug\net8.0\ThePatho.Features.sourcelink.json
 D:\COURSES\ThePatho\ThePatho.Features\bin\Debug\net8.0\ThePatho.Features.deps.json
 D:\COURSES\ThePatho\ThePatho.Features\bin\Debug\net8.0\ThePatho.Features.runtimeconfig.json
 D:\COURSES\ThePatho\ThePatho.Features\bin\Debug\net8.0\ThePatho.Features.dll
@@ -6,12 +12,6 @@ D:\COURSES\ThePatho\ThePatho.Features\bin\Debug\net8.0\ThePatho.Domain.dll
 D:\COURSES\ThePatho\ThePatho.Features\bin\Debug\net8.0\ThePatho.Infrastructure.dll
 D:\COURSES\ThePatho\ThePatho.Features\bin\Debug\net8.0\ThePatho.Infrastructure.pdb
 D:\COURSES\ThePatho\ThePatho.Features\bin\Debug\net8.0\ThePatho.Domain.pdb
-D:\COURSES\ThePatho\ThePatho.Features\obj\Debug\net8.0\ThePatho.Features.csproj.AssemblyReference.cache
-D:\COURSES\ThePatho\ThePatho.Features\obj\Debug\net8.0\ThePatho.Features.GeneratedMSBuildEditorConfig.editorconfig
-D:\COURSES\ThePatho\ThePatho.Features\obj\Debug\net8.0\ThePatho.Features.AssemblyInfoInputs.cache
-D:\COURSES\ThePatho\ThePatho.Features\obj\Debug\net8.0\ThePatho.Features.AssemblyInfo.cs
-D:\COURSES\ThePatho\ThePatho.Features\obj\Debug\net8.0\ThePatho.Features.csproj.CoreCompileInputs.cache
-D:\COURSES\ThePatho\ThePatho.Features\obj\Debug\net8.0\ThePatho.Features.sourcelink.json
 D:\COURSES\ThePatho\ThePatho.Features\obj\Debug\net8.0\ThePatho.801EE903.Up2Date
 D:\COURSES\ThePatho\ThePatho.Features\obj\Debug\net8.0\ThePatho.Features.dll
 D:\COURSES\ThePatho\ThePatho.Features\obj\Debug\net8.0\refint\ThePatho.Features.dll

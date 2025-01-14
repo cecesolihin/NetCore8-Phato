@@ -1,16 +1,32 @@
 [
   {
     "ContainingType": "ThePatho.Controllers.ApplicantAddressController",
-    "Method": "GetApplicantAddressByCriteria",
-    "RelativePath": "api/applicant/applicant-address/get-by-criteria",
-    "HttpMethod": "POST",
+    "Method": "DeleteApplicantAddress",
+    "RelativePath": "api/applicant/applicant-address/delete",
+    "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "command",
-        "Type": "ThePatho.Features.Applicant.ApplicantAddress.Commands.GetApplicantAddressByCriteriaCommand",
+        "Type": "ThePatho.Features.Applicant.ApplicantAddress.Commands.DeleteApplicantAddressCommand",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ApplicantAddressController",
+    "Method": "GetApplicantAddressByCriteria",
+    "RelativePath": "api/applicant/applicant-address/get-by-criteria",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "FilterApplicantNo",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -32,17 +48,49 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "ThePatho.Controllers.ApplicantDocumentController",
-    "Method": "GetApplicantDocumentByCriteria",
-    "RelativePath": "api/applicant/applicant-document/get-by-criteria",
+    "ContainingType": "ThePatho.Controllers.ApplicantAddressController",
+    "Method": "SubmitApplicantAddress",
+    "RelativePath": "api/applicant/applicant-address/submit",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "command",
-        "Type": "ThePatho.Features.Applicant.ApplicantDocument.Commands.GetApplicantDocumentByCriteriaCommand",
+        "Type": "ThePatho.Features.Applicant.ApplicantAddress.Commands.SubmitApplicantAddressCommand",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ApplicantDocumentController",
+    "Method": "DeleteApplicantDocument",
+    "RelativePath": "api/applicant/applicant-document/delete",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Applicant.ApplicantDocument.Commands.DeleteApplicantDocumentCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ApplicantDocumentController",
+    "Method": "GetApplicantDocumentByCriteria",
+    "RelativePath": "api/applicant/applicant-document/get-by-criteria",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "FilterApplicantNo",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -64,17 +112,49 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "ThePatho.Controllers.ApplicantEducationController",
-    "Method": "GetApplicantEducationByCriteria",
-    "RelativePath": "api/applicant/applicant-education/get-by-criteria",
+    "ContainingType": "ThePatho.Controllers.ApplicantDocumentController",
+    "Method": "SubmitApplicantDocument",
+    "RelativePath": "api/applicant/applicant-document/submit",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "command",
-        "Type": "ThePatho.Features.Applicant.ApplicantEducation.Commands.GetApplicantEducationByCriteriaCommand",
+        "Type": "ThePatho.Features.Applicant.ApplicantDocument.Commands.SubmitApplicantDocumentCommand",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ApplicantEducationController",
+    "Method": "DeleteApplicantEducation",
+    "RelativePath": "api/applicant/applicant-education/delete",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Applicant.ApplicantEducation.Commands.DeleteApplicantEducationCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ApplicantEducationController",
+    "Method": "GetApplicantEducationByCriteria",
+    "RelativePath": "api/applicant/applicant-education/get-by-criteria",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "FilterApplicantNo",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -96,17 +176,49 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "ThePatho.Controllers.ApplicantIdentityController",
-    "Method": "GetApplicantIdentityByCriteria",
-    "RelativePath": "api/applicant/applicant-identity/get-by-criteria",
+    "ContainingType": "ThePatho.Controllers.ApplicantEducationController",
+    "Method": "SubmitApplicantEducation",
+    "RelativePath": "api/applicant/applicant-education/submit",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "command",
-        "Type": "ThePatho.Features.Applicant.ApplicantIdentity.Commands.GetApplicantIdentityByCriteriaCommand",
+        "Type": "ThePatho.Features.Applicant.ApplicantEducation.Commands.SubmitApplicantEducationCommand",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ApplicantIdentityController",
+    "Method": "DeleteApplicantIdentity",
+    "RelativePath": "api/applicant/applicant-identity/delete",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Applicant.ApplicantIdentity.Commands.DeleteApplicantIdentityCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ApplicantIdentityController",
+    "Method": "GetApplicantIdentityByCriteria",
+    "RelativePath": "api/applicant/applicant-identity/get-by-criteria",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "FilterApplicantNo",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -128,17 +240,49 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "ThePatho.Controllers.ApplicantOnlineTestAnswerController",
-    "Method": "GetApplicantOnlineTestAnswerByCriteria",
-    "RelativePath": "api/applicant/applicant-online-test-answer/get-by-criteria",
+    "ContainingType": "ThePatho.Controllers.ApplicantIdentityController",
+    "Method": "SubmitApplicantIdentity",
+    "RelativePath": "api/applicant/applicant-identity/submit",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "command",
-        "Type": "ThePatho.Features.Applicant.ApplicantOnlineTestAnswer.Commands.GetApplicantOnlineTestAnswerByCriteriaCommand",
+        "Type": "ThePatho.Features.Applicant.ApplicantIdentity.Commands.SubmitApplicantIdentityCommand",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ApplicantOnlineTestAnswerController",
+    "Method": "DeleteApplicantOnlineTestAnswer",
+    "RelativePath": "api/applicant/applicant-online-test-answer/delete",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Applicant.ApplicantOnlineTestAnswer.Commands.DeleteApplicantOnlineTestAnswerCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ApplicantOnlineTestAnswerController",
+    "Method": "GetApplicantOnlineTestAnswerByCriteria",
+    "RelativePath": "api/applicant/applicant-online-test-answer/get-by-criteria",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "FilterAppResultId",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -160,17 +304,49 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "ThePatho.Controllers.ApplicantOnlineTestResultController",
-    "Method": "GetApplicantOnlineTestResultByCriteria",
-    "RelativePath": "api/applicant/applicant-online-test-result/get-by-criteria",
+    "ContainingType": "ThePatho.Controllers.ApplicantOnlineTestAnswerController",
+    "Method": "SubmitApplicantOnlineTestAnswer",
+    "RelativePath": "api/applicant/applicant-online-test-answer/submit",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "command",
-        "Type": "ThePatho.Features.Applicant.ApplicantOnlineTestResult.Commands.GetApplicantOnlineTestResultByCriteriaCommand",
+        "Type": "ThePatho.Features.Applicant.ApplicantOnlineTestAnswer.Commands.SubmitApplicantOnlineTestAnswerCommand",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ApplicantOnlineTestResultController",
+    "Method": "DeleteApplicantOnlineTestResult",
+    "RelativePath": "api/applicant/applicant-online-test-result/delete",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Applicant.ApplicantOnlineTestResult.Commands.DeleteApplicantOnlineTestResultCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ApplicantOnlineTestResultController",
+    "Method": "GetApplicantOnlineTestResultByCriteria",
+    "RelativePath": "api/applicant/applicant-online-test-result/get-by-criteria",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "FilterApplicantNo",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -192,17 +368,49 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "ThePatho.Controllers.ApplicantPersonalDataController",
-    "Method": "GetApplicantPersonalDataByCriteria",
-    "RelativePath": "api/applicant/applicant-personal-data/get-by-criteria",
+    "ContainingType": "ThePatho.Controllers.ApplicantOnlineTestResultController",
+    "Method": "SubmitApplicantOnlineTestResult",
+    "RelativePath": "api/applicant/applicant-online-test-result/submit",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "command",
-        "Type": "ThePatho.Features.Applicant.ApplicantPersonalData.Commands.GetApplicantPersonalDataByCriteriaCommand",
+        "Type": "ThePatho.Features.Applicant.ApplicantOnlineTestResult.Commands.SubmitApplicantOnlineTestResultCommand",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ApplicantPersonalDataController",
+    "Method": "DeleteApplicantPersonalData",
+    "RelativePath": "api/applicant/applicant-personal-data/delete",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Applicant.ApplicantPersonalData.Commands.DeleteApplicantPersonalDataCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ApplicantPersonalDataController",
+    "Method": "GetApplicantPersonalDataByCriteria",
+    "RelativePath": "api/applicant/applicant-personal-data/get-by-criteria",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "FilterApplicantNo",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -224,17 +432,49 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "ThePatho.Controllers.ApplicantWorkExperienceController",
-    "Method": "GetApplicationWorkExperienceByCriteria",
-    "RelativePath": "api/applicant/applicant-work-experience/get-by-criteria",
+    "ContainingType": "ThePatho.Controllers.ApplicantPersonalDataController",
+    "Method": "SubmitApplicantPersonalData",
+    "RelativePath": "api/applicant/applicant-personal-data/submit",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "command",
-        "Type": "ThePatho.Features.Applicant.ApplicantWorkExperience.Commands.GetApplicantWorkExperienceByCriteriaCommand",
+        "Type": "ThePatho.Features.Applicant.ApplicantPersonalData.Commands.SubmitApplicantPersonalDataCommand",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ApplicantWorkExperienceController",
+    "Method": "DeleteApplicantWorkExperience",
+    "RelativePath": "api/applicant/applicant-work-experience/delete",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Applicant.ApplicantWorkExperience.Commands.DeleteApplicantWorkExperienceCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ApplicantWorkExperienceController",
+    "Method": "GetApplicationWorkExperienceByCriteria",
+    "RelativePath": "api/applicant/applicant-work-experience/get-by-criteria",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "FilterApplicantNo",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -256,17 +496,49 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "ThePatho.Controllers.ApplicantController",
-    "Method": "GetApplicantByCriteria",
-    "RelativePath": "api/applicant/applicant/get-by-criteria",
+    "ContainingType": "ThePatho.Controllers.ApplicantWorkExperienceController",
+    "Method": "SubmitApplicantWorkExperience",
+    "RelativePath": "api/applicant/applicant-work-experience/submit",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "command",
-        "Type": "ThePatho.Features.Applicant.Applicant.Commands.GetApplicantByCriteriaCommand",
+        "Type": "ThePatho.Features.Applicant.ApplicantWorkExperience.Commands.SubmitApplicantWorkExperienceCommand",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ApplicantController",
+    "Method": "DeleteApplicant",
+    "RelativePath": "api/applicant/applicant/delete",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Applicant.Applicant.Commands.DeleteApplicantCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ApplicantController",
+    "Method": "GetApplicantByCriteria",
+    "RelativePath": "api/applicant/applicant/get-by-criteria",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "FilterApplicantNo",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -288,17 +560,49 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "ThePatho.Controllers.ApplicationApplicantController",
-    "Method": "GetApplicationApplicantByCriteria",
-    "RelativePath": "api/applicant/application-applicant/get-by-criteria",
+    "ContainingType": "ThePatho.Controllers.ApplicantController",
+    "Method": "SubmitApplicant",
+    "RelativePath": "api/applicant/applicant/submit",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "command",
-        "Type": "ThePatho.Features.Applicant.ApplicationApplicant.Commands.GetApplicationApplicantByCriteriaCommand",
+        "Type": "ThePatho.Features.Applicant.Applicant.Commands.SubmitApplicantCommand",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ApplicationApplicantController",
+    "Method": "DeleteApplicationApplicant",
+    "RelativePath": "api/applicant/application-applicant/delete",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Applicant.ApplicationApplicant.Commands.DeleteApplicationApplicantCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ApplicationApplicantController",
+    "Method": "GetApplicationApplicantByCriteria",
+    "RelativePath": "api/applicant/application-applicant/get-by-criteria",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "FilterApplicantNo",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -314,6 +618,22 @@
       {
         "Name": "command",
         "Type": "ThePatho.Features.Applicant.ApplicationApplicant.Commands.GetApplicationApplicantCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ApplicationApplicantController",
+    "Method": "SubmitApplicationApplicant",
+    "RelativePath": "api/applicant/application-applicant/submit",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Applicant.ApplicationApplicant.Commands.SubmitApplicationApplicantCommand",
         "IsRequired": true
       }
     ],
@@ -513,16 +833,32 @@
   },
   {
     "ContainingType": "ThePatho.Controllers.AdsCategoryController",
-    "Method": "GetAdsCategoryByCriteria",
-    "RelativePath": "api/master-data/ads-category/get-by-criteria",
-    "HttpMethod": "POST",
+    "Method": "DeleteAdsCategory",
+    "RelativePath": "api/master-data/ads-category/delete",
+    "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "command",
-        "Type": "ThePatho.Features.MasterData.AdsCategory.Commands.GetAdsCategoryByCriteriaCommand",
+        "Type": "ThePatho.Features.MasterData.AdsCategory.Commands.DeleteAdsCategoryCommand",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.AdsCategoryController",
+    "Method": "GetAdsCategoryByCriteria",
+    "RelativePath": "api/master-data/ads-category/get-by-criteria",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "FilterAdsCategoryCode",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -531,14 +867,19 @@
     "ContainingType": "ThePatho.Controllers.AdsCategoryController",
     "Method": "GetAdsCategoryDdl",
     "RelativePath": "api/master-data/ads-category/get-ddl",
-    "HttpMethod": "POST",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "command",
-        "Type": "ThePatho.Features.MasterData.AdsCategory.Commands.GetAdsCategoryDdlCommand",
-        "IsRequired": true
+        "Name": "FilterAdsCategoryCode",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "FilterAdsCategoryName",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -560,17 +901,49 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "ThePatho.Controllers.AdsMediaController",
-    "Method": "GetAdsMediaByCriteria",
-    "RelativePath": "api/master-data/ads-media/get-by-criteria",
+    "ContainingType": "ThePatho.Controllers.AdsCategoryController",
+    "Method": "SubmitAdsCategory",
+    "RelativePath": "api/master-data/ads-category/submit",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "command",
-        "Type": "ThePatho.Features.MasterData.AdsCategory.Commands.GetAdsMediaByCriteriaCommand",
+        "Type": "ThePatho.Features.MasterData.AdsCategory.Commands.SubmitAdsCategoryCommand",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.AdsMediaController",
+    "Method": "DeleteAdsMedia",
+    "RelativePath": "api/master-data/ads-media/delete",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.MasterData.AdsMedia.Commands.DeleteAdsMediaCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.AdsMediaController",
+    "Method": "GetAdsMediaByCriteria",
+    "RelativePath": "api/master-data/ads-media/get-by-criteria",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "FilterAdsCode",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -579,14 +952,14 @@
     "ContainingType": "ThePatho.Controllers.AdsMediaController",
     "Method": "GetAdsMediaDdl",
     "RelativePath": "api/master-data/ads-media/get-ddl",
-    "HttpMethod": "POST",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "command",
-        "Type": "ThePatho.Features.MasterData.AdsCategory.Commands.GetAdsMediaDdlCommand",
-        "IsRequired": true
+        "Name": "FilterAdsCategoryCode",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -601,7 +974,39 @@
     "Parameters": [
       {
         "Name": "command",
-        "Type": "ThePatho.Features.MasterData.AdsCategory.Commands.GetAdsMediaCommand",
+        "Type": "ThePatho.Features.MasterData.AdsMedia.Commands.GetAdsMediaCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.AdsMediaController",
+    "Method": "SubmitAdsMedia",
+    "RelativePath": "api/master-data/ads-media/submit",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.MasterData.AdsMedia.Commands.SubmitAdsMediaCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ApplicantRecruitStepController",
+    "Method": "DeleteApplicantRecruitStep",
+    "RelativePath": "api/master-data/applicant-recruit-step/delete",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Applicant.ApplicantRecruitStep.Commands.DeleteApplicantRecruitStepCommand",
         "IsRequired": true
       }
     ],
@@ -611,14 +1016,14 @@
     "ContainingType": "ThePatho.Controllers.ApplicantRecruitStepController",
     "Method": "GetApplicantRecruitStepByCriteria",
     "RelativePath": "api/master-data/applicant-recruit-step/get-by-criteria",
-    "HttpMethod": "POST",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "command",
-        "Type": "ThePatho.Features.Applicant.ApplicantRecruitStep.Commands.GetApplicantRecruitStepByCriteriaCommand",
-        "IsRequired": true
+        "Name": "FilterApplicantNo",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -640,17 +1045,49 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "ThePatho.Controllers.ApplicantSkillController",
-    "Method": "GetApplicantSkillByCriteria",
-    "RelativePath": "api/master-data/applicant-skill/get-by-criteria",
+    "ContainingType": "ThePatho.Controllers.ApplicantRecruitStepController",
+    "Method": "SubmitApplicantRecruitStep",
+    "RelativePath": "api/master-data/applicant-recruit-step/submit",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "command",
-        "Type": "ThePatho.Features.Applicant.ApplicantSkill.Commands.GetApplicantSkillByCriteriaCommand",
+        "Type": "ThePatho.Features.Applicant.ApplicantRecruitStep.Commands.SubmitApplicantRecruitStepCommand",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ApplicantSkillController",
+    "Method": "DeleteApplicantSkill",
+    "RelativePath": "api/master-data/applicant-skill/delete",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Applicant.ApplicantSkill.Commands.DeleteApplicantSkillCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ApplicantSkillController",
+    "Method": "GetApplicantSkillByCriteria",
+    "RelativePath": "api/master-data/applicant-skill/get-by-criteria",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "FilterApplicantNo",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -672,17 +1109,49 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "ThePatho.Controllers.JobCategoryController",
-    "Method": "GetJobCategoryByCriteria",
-    "RelativePath": "api/master-data/job-category/get-by-criteria",
+    "ContainingType": "ThePatho.Controllers.ApplicantSkillController",
+    "Method": "SubmitApplicantSkill",
+    "RelativePath": "api/master-data/applicant-skill/submit",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "command",
-        "Type": "ThePatho.Features.MasterData.JobCategory.Commands.GetJobCategoryByCriteriaCommand",
+        "Type": "ThePatho.Features.Applicant.ApplicantSkill.Commands.SubmitApplicantSkillCommand",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.JobCategoryController",
+    "Method": "DeleteJobCategory",
+    "RelativePath": "api/master-data/job-category/delete",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.MasterData.JobCategory.Commands.DeleteJobCategoryCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.JobCategoryController",
+    "Method": "GetJobCategoryByCriteria",
+    "RelativePath": "api/master-data/job-category/get-by-criteria",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "FilterJobCategoryCode",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -691,14 +1160,14 @@
     "ContainingType": "ThePatho.Controllers.JobCategoryController",
     "Method": "GetJobCategoryDdl",
     "RelativePath": "api/master-data/job-category/get-ddl",
-    "HttpMethod": "POST",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "command",
-        "Type": "ThePatho.Features.MasterData.JobCategory.Commands.GetJobCategoryDdlCommand",
-        "IsRequired": true
+        "Name": "FilterJobCategoryCode",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -720,17 +1189,49 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "ThePatho.Controllers.OnlineTestSettingController",
-    "Method": "GetOnlineTestSettingByCriteria",
-    "RelativePath": "api/master-setting/online-test-setting/get-by-criteria",
+    "ContainingType": "ThePatho.Controllers.JobCategoryController",
+    "Method": "SubmitJobCategory",
+    "RelativePath": "api/master-data/job-category/submit",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "command",
-        "Type": "ThePatho.Features.MasterSetting.OnlineTestSetting.Commands.GetOnlineTestSettingByCriteriaCommand",
+        "Type": "ThePatho.Features.MasterData.JobCategory.Commands.SubmitJobCategoryCommand",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.OnlineTestSettingController",
+    "Method": "DeleteOnlineTestSetting",
+    "RelativePath": "api/master-setting/online-test-setting/delete",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.MasterSetting.OnlineTestSetting.Commands.DeleteOnlineTestSettingCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.OnlineTestSettingController",
+    "Method": "GetOnlineTestSettingByCriteria",
+    "RelativePath": "api/master-setting/online-test-setting/get-by-criteria",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "FilterOnlineTestCode",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -739,14 +1240,14 @@
     "ContainingType": "ThePatho.Controllers.OnlineTestSettingController",
     "Method": "GetOnlineTestSettingDdl",
     "RelativePath": "api/master-setting/online-test-setting/get-ddl",
-    "HttpMethod": "POST",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "command",
-        "Type": "ThePatho.Features.MasterSetting.OnlineTestSetting.Commands.GetOnlineTestSettingDdlCommand",
-        "IsRequired": true
+        "Name": "FilterRecruitmentRequestNo",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -768,17 +1269,49 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "ThePatho.Controllers.QuestionSettingDetailController",
-    "Method": "GetQuestionSettingDetailByCriteria",
-    "RelativePath": "api/master-setting/question-setting-detail/get-by-criteria",
+    "ContainingType": "ThePatho.Controllers.OnlineTestSettingController",
+    "Method": "SubmitOnlineTestSetting",
+    "RelativePath": "api/master-setting/online-test-setting/submit",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "command",
-        "Type": "ThePatho.Features.MasterSetting.QuestionSettingDetail.Commands.GetQuestionSettingDetailByCriteriaCommand",
+        "Type": "ThePatho.Features.MasterSetting.OnlineTestSetting.Commands.SubmitOnlineTestSettingCommand",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.QuestionSettingDetailController",
+    "Method": "DeleteQuestionSettingDetail",
+    "RelativePath": "api/master-setting/question-setting-detail/delete",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.MasterSetting.QuestionSettingDetail.Commands.DeleteQuestionSettingDetailCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.QuestionSettingDetailController",
+    "Method": "GetQuestionSettingDetailByCriteria",
+    "RelativePath": "api/master-setting/question-setting-detail/get-by-criteria",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "FilterQuestionCode",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -787,14 +1320,14 @@
     "ContainingType": "ThePatho.Controllers.QuestionSettingDetailController",
     "Method": "GetQuestionSettingDetailDdl",
     "RelativePath": "api/master-setting/question-setting-detail/get-ddl",
-    "HttpMethod": "POST",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "command",
-        "Type": "ThePatho.Features.MasterSetting.QuestionSetting.Commands.GetQuestionSettingDetailDdlCommand",
-        "IsRequired": true
+        "Name": "FilterQuestionCode",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -816,17 +1349,49 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "ThePatho.Controllers.QuestionSettingController",
-    "Method": "GetQuestionSettingByCriteria",
-    "RelativePath": "api/master-setting/question-setting/get-by-criteria",
+    "ContainingType": "ThePatho.Controllers.QuestionSettingDetailController",
+    "Method": "SubmitQuestionSettingDetail",
+    "RelativePath": "api/master-setting/question-setting-detail/submit",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "command",
-        "Type": "ThePatho.Features.MasterSetting.QuestionSetting.Commands.GetQuestionSettingByCriteriaCommand",
+        "Type": "ThePatho.Features.MasterSetting.QuestionSettingDetail.Commands.SubmitQuestionSettingDetailCommand",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.QuestionSettingController",
+    "Method": "DeleteQuestionSetting",
+    "RelativePath": "api/master-setting/question-setting/delete",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.MasterSetting.QuestionSetting.Commands.DeleteQuestionSettingCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.QuestionSettingController",
+    "Method": "GetQuestionSettingByCriteria",
+    "RelativePath": "api/master-setting/question-setting/get-by-criteria",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "FilterQuestionCode",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -835,14 +1400,14 @@
     "ContainingType": "ThePatho.Controllers.QuestionSettingController",
     "Method": "GetQuestionSettingDdl",
     "RelativePath": "api/master-setting/question-setting/get-ddl",
-    "HttpMethod": "POST",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "command",
-        "Type": "ThePatho.Features.MasterSetting.QuestionSettingDetail.Commands.GetQuestionSettingDdlCommand",
-        "IsRequired": true
+        "Name": "FilterQuestionCode",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -864,17 +1429,49 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "ThePatho.Controllers.ScoringSettingDetailController",
-    "Method": "GetScoringSettingDetailByCriteria",
-    "RelativePath": "api/master-setting/scoring-setting-detail/get-by-criteria",
+    "ContainingType": "ThePatho.Controllers.QuestionSettingController",
+    "Method": "SubmitQuestionSetting",
+    "RelativePath": "api/master-setting/question-setting/submit",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "command",
-        "Type": "ThePatho.Features.MasterSetting.ScoringSettingDetail.Commands.GetScoringSettingDetailByCriteriaCommand",
+        "Type": "ThePatho.Features.MasterSetting.QuestionSetting.Commands.SubmitQuestionSettingCommand",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ScoringSettingDetailController",
+    "Method": "DeleteScoringSettingDetail",
+    "RelativePath": "api/master-setting/scoring-setting-detail/delete",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.MasterSetting.ScoringSettingDetail.Commands.DeleteScoringSettingDetailCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ScoringSettingDetailController",
+    "Method": "GetScoringSettingDetailByCriteria",
+    "RelativePath": "api/master-setting/scoring-setting-detail/get-by-criteria",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "FilterScoringCode",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -883,14 +1480,14 @@
     "ContainingType": "ThePatho.Controllers.ScoringSettingDetailController",
     "Method": "GetScoringSettingDetailDdl",
     "RelativePath": "api/master-setting/scoring-setting-detail/get-ddl",
-    "HttpMethod": "POST",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "command",
-        "Type": "ThePatho.Features.MasterSetting.ScoringSettingDetail.Commands.GetScoringSettingDetailDdlCommand",
-        "IsRequired": true
+        "Name": "FilterScoringCode",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -912,17 +1509,49 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "ThePatho.Controllers.ScoringSettingController",
-    "Method": "GetScoringSettingByCriteria",
-    "RelativePath": "api/master-setting/scoring-setting/get-by-criteria",
+    "ContainingType": "ThePatho.Controllers.ScoringSettingDetailController",
+    "Method": "SubmitScoringSettingDetail",
+    "RelativePath": "api/master-setting/scoring-setting-detail/submit",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "command",
-        "Type": "ThePatho.Features.MasterSetting.ScoringSetting.Commands.GetScoringSettingByCriteriaCommand",
+        "Type": "ThePatho.Features.MasterSetting.ScoringSettingDetail.Commands.SubmitScoringSettingDetailCommand",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ScoringSettingController",
+    "Method": "DeleteScoringSetting",
+    "RelativePath": "api/master-setting/scoring-setting/delete",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.MasterSetting.ScoringSetting.Commands.DeleteScoringSettingCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ScoringSettingController",
+    "Method": "GetScoringSettingByCriteria",
+    "RelativePath": "api/master-setting/scoring-setting/get-by-criteria",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "FilterScoringCode",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -931,14 +1560,14 @@
     "ContainingType": "ThePatho.Controllers.ScoringSettingController",
     "Method": "GetScoringSettingDdl",
     "RelativePath": "api/master-setting/scoring-setting/get-ddl",
-    "HttpMethod": "POST",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "command",
-        "Type": "ThePatho.Features.MasterSetting.ScoringSetting.Commands.GetScoringSettingDdlCommand",
-        "IsRequired": true
+        "Name": "FilterScoringCode",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -954,6 +1583,278 @@
       {
         "Name": "command",
         "Type": "ThePatho.Features.MasterSetting.ScoringSetting.Commands.GetScoringSettingCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.ScoringSettingController",
+    "Method": "SubmitScoringSetting",
+    "RelativePath": "api/master-setting/scoring-setting/submit",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.MasterSetting.ScoringSetting.Commands.SubmitScoringSettingCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.JobLevelController",
+    "Method": "DeleteJobLevel",
+    "RelativePath": "api/organization/job-level/delete",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Organization.JobLevel.Commands.DeleteJobLevelCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.JobLevelController",
+    "Method": "GetJobLevelByCriteria",
+    "RelativePath": "api/organization/job-level/get-by-criteria",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "JobLevelCode",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.JobLevelController",
+    "Method": "GetJobLevelList",
+    "RelativePath": "api/organization/job-level/get-list",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Organization.JobLevel.Commands.GetJobLevelCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.JobLevelController",
+    "Method": "SubmitJobLevel",
+    "RelativePath": "api/organization/job-level/submit",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Organization.JobLevel.Commands.SubmitJobLevelCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.OrgLevelController",
+    "Method": "DeleteOrganizationLevel",
+    "RelativePath": "api/organization/org-level/delete",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Organization.OrgLevel.Commands.DeleteOrgLevelCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.OrgLevelController",
+    "Method": "GetOrganizationLevelByCriteria",
+    "RelativePath": "api/organization/org-level/get-by-criteria",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "OrgLevelCode",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.OrgLevelController",
+    "Method": "GetOrganizationLevelList",
+    "RelativePath": "api/organization/org-level/get-list",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Organization.OrgLevel.Commands.GetOrgLevelCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.OrgLevelController",
+    "Method": "SubmitOrganizationLevel",
+    "RelativePath": "api/organization/org-level/submit",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Organization.OrgLevel.Commands.SubmitOrgLevelCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.OrgStructureController",
+    "Method": "DeleteOrgStructure",
+    "RelativePath": "api/organization/org-structure/delete",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Organization.OrgStructure.Commands.DeleteOrgStructureCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.OrgStructureController",
+    "Method": "GetOrgStructureByCriteria",
+    "RelativePath": "api/organization/org-structure/get-by-criteria",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "OrgLevelCode",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.OrgStructureController",
+    "Method": "GetOrgStructureList",
+    "RelativePath": "api/organization/org-structure/get-list",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Organization.OrgStructure.Commands.GetOrgStructureCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.OrgStructureController",
+    "Method": "SubmitOrgStructure",
+    "RelativePath": "api/organization/org-structure/submit",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Organization.OrgStructure.Commands.SubmitOrgStructureCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.PositionController",
+    "Method": "DeletePosition",
+    "RelativePath": "api/organization/position/delete",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Organization.Position.Commands.DeletePositionCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.PositionController",
+    "Method": "GetPositionByCriteria",
+    "RelativePath": "api/organization/position/get-by-criteria",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "FilterOrgStructureId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.PositionController",
+    "Method": "GetPositionList",
+    "RelativePath": "api/organization/position/get-list",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Organization.Position.Commands.GetPositionCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.PositionController",
+    "Method": "SubmitPosition",
+    "RelativePath": "api/organization/position/submit",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Organization.Position.Commands.SubmitPositionCommand",
         "IsRequired": true
       }
     ],
@@ -1039,17 +1940,81 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "ThePatho.Controllers.RecruitStepGroupDetailController",
-    "Method": "GetRecruitStepDetailByCriteria",
-    "RelativePath": "api/recruitment/recruit-step-group-detail/get-by-criteria",
+    "ContainingType": "ThePatho.Controllers.MPPController",
+    "Method": "DeleteMPP",
+    "RelativePath": "api/recruitment/mpp/delete",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Recruitment.MPP.Commands.DeleteMPPCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.MPPController",
+    "Method": "GetMPPByCriteria",
+    "RelativePath": "api/recruitment/mpp/get-by-criteria",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "FilterMPPNo",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.MPPController",
+    "Method": "GetMPPList",
+    "RelativePath": "api/recruitment/mpp/get-list",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "command",
-        "Type": "ThePatho.Features.Recruitment.RecruitStep.Commands.GetRecruitStepByCriteriaCommand",
+        "Type": "ThePatho.Features.Recruitment.MPP.Commands.GetMPPCommand",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.MPPController",
+    "Method": "SubmitMPP",
+    "RelativePath": "api/recruitment/mpp/submit",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Recruitment.MPP.Commands.SubmitMPPCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.RecruitStepGroupDetailController",
+    "Method": "GetRecruitStepDetailByCriteria",
+    "RelativePath": "api/recruitment/recruit-step-group-detail/get-by-criteria",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "FilterStepCode",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -1072,16 +2037,32 @@
   },
   {
     "ContainingType": "ThePatho.Controllers.RecruitStepGroupController",
-    "Method": "GetRecruitStepByCriteria",
-    "RelativePath": "api/recruitment/recruit-step-group/get-by-criteria",
-    "HttpMethod": "POST",
+    "Method": "DeleteRecruitStepGroup",
+    "RelativePath": "api/recruitment/recruit-step-group/delete",
+    "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "command",
-        "Type": "ThePatho.Features.Recruitment.RecruitStep.Commands.GetRecruitStepByCriteriaCommand",
+        "Type": "ThePatho.Features.Recruitment.RecruitStepGroup.Commands.DeleteRecruitStepGroupCommand",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.RecruitStepGroupController",
+    "Method": "GetRecruitStepByCriteria",
+    "RelativePath": "api/recruitment/recruit-step-group/get-by-criteria",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "FilterStepCode",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -1103,17 +2084,49 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "ThePatho.Controllers.RecruitStepController",
-    "Method": "GetRecruitStepByCriteria",
-    "RelativePath": "api/recruitment/recruit-step/get-by-criteria",
+    "ContainingType": "ThePatho.Controllers.RecruitStepGroupController",
+    "Method": "SubmitRecruitStepGroup",
+    "RelativePath": "api/recruitment/recruit-step-group/submit",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "command",
-        "Type": "ThePatho.Features.Recruitment.RecruitStep.Commands.GetRecruitStepByCriteriaCommand",
+        "Type": "ThePatho.Features.Recruitment.RecruitStepGroup.Commands.SubmitRecruitStepGroupCommand",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.RecruitStepController",
+    "Method": "DeleteRecruitStep",
+    "RelativePath": "api/recruitment/recruit-step/delete",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Recruitment.RecruitStep.Commands.DeleteRecruitStepCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.RecruitStepController",
+    "Method": "GetRecruitStepByCriteria",
+    "RelativePath": "api/recruitment/recruit-step/get-by-criteria",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "FilterStepCode",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -1135,17 +2148,33 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "ThePatho.Controllers.RequirementRecRequestController",
-    "Method": "GetRequirementRecRequestByCriteria",
-    "RelativePath": "api/recruitment/recruitment-rec-request/get-by-criteria",
+    "ContainingType": "ThePatho.Controllers.RecruitStepController",
+    "Method": "SubmitRecruitStep",
+    "RelativePath": "api/recruitment/recruit-step/submit",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "command",
-        "Type": "ThePatho.Features.Recruitment.RequirementRecRequest.Commands.GetRequirementRecRequestByCriteriaCommand",
+        "Type": "ThePatho.Features.Recruitment.RecruitStep.Commands.SubmitRecruitStepCommand",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.RequirementRecRequestController",
+    "Method": "GetRequirementRecRequestByCriteria",
+    "RelativePath": "api/recruitment/recruitment-rec-request/get-by-criteria",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "FilterRequestNo",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -1170,14 +2199,14 @@
     "ContainingType": "ThePatho.Controllers.RecruitmentReqStepController",
     "Method": "GetRecruitmentReqStepByCriteria",
     "RelativePath": "api/recruitment/recruitment-req-step/get-by-criteria",
-    "HttpMethod": "POST",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "command",
-        "Type": "ThePatho.Features.Recruitment.RecruitmentReqStep.Commands.GetRecruitmentReqStepByCriteriaCommand",
-        "IsRequired": true
+        "Name": "FilterRequestNo",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -1200,16 +2229,32 @@
   },
   {
     "ContainingType": "ThePatho.Controllers.RecruitmentRequestController",
-    "Method": "GetRecruitmentRequestByCriteria",
-    "RelativePath": "api/recruitment/recruitment-request/get-by-criteria",
-    "HttpMethod": "POST",
+    "Method": "DeleteRecruitmentRequest",
+    "RelativePath": "api/recruitment/recruitment-request/delete",
+    "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "command",
-        "Type": "ThePatho.Features.Recruitment.RecruitmentRequest.Commands.GetRecruitmentRequestByCriteriaCommand",
+        "Type": "ThePatho.Features.Recruitment.RecruitmentRequest.Commands.DeleteRecruitmentRequestCommand",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.RecruitmentRequestController",
+    "Method": "GetRecruitmentRequestByCriteria",
+    "RelativePath": "api/recruitment/recruitment-request/get-by-criteria",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "FilterRequestNo",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -1225,6 +2270,86 @@
       {
         "Name": "command",
         "Type": "ThePatho.Features.Recruitment.RecruitmentRequest.Commands.GetRecruitmentRequestCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.RecruitmentRequestController",
+    "Method": "SubmitRecruitmentRequest",
+    "RelativePath": "api/recruitment/recruitment-request/submit",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Recruitment.RecruitmentRequest.Commands.SubmitRecruitmentRequestCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.RequirementMasterController",
+    "Method": "DeleteRequirementMaster",
+    "RelativePath": "api/recruitment/requirement-master/delete",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Recruitment.RequirementMaster.Commands.DeleteRequirementMasterCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.RequirementMasterController",
+    "Method": "GetRequirementMasterByCriteria",
+    "RelativePath": "api/recruitment/requirement-master/get-by-criteria",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "FilterQuestionCode",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.RequirementMasterController",
+    "Method": "GetRequirementMasterList",
+    "RelativePath": "api/recruitment/requirement-master/get-list",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Recruitment.RequirementMaster.Commands.GetRequirementMasterCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ThePatho.Controllers.RequirementMasterController",
+    "Method": "SubmitRequirementMaster",
+    "RelativePath": "api/recruitment/requirement-master/submit",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ThePatho.Features.Recruitment.RequirementMaster.Commands.SubmitRequirementMasterCommand",
         "IsRequired": true
       }
     ],
