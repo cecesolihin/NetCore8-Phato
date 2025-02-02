@@ -1,30 +1,33 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using BCrypt.Net;
+using Microsoft.AspNetCore.Identity;
+using SqlKata;
+using SqlKata.Execution;
+using System.Data.Entity;
+using ThePatho.Domain.Constants;
 using ThePatho.Domain.Models.Identity;
+using ThePatho.Features.ConfigurationExtensions.Jwt;
+using ThePatho.Features.ConfigurationExtensions;
 using ThePatho.Features.Identity.Authentication.Commands;
+using ThePatho.Features.Recruitment.RecruitStep.DTO;
+using ThePatho.Infrastructure.Persistance;
+using System.Net;
 
 namespace ThePatho.Features.Identity.Authentication.Service
 {
     public class AuthenticationService : IAuthenticationService
     {
-        private readonly UserManager<User> _userManager;
-        private readonly IJwtTokenGenerator _jwtTokenGenerator;
+        //private readonly UserManager<User> _userManager;
+        private readonly IJwtTokenGenerator jwtTokenGenerator;
+        private readonly ApplicationDbContext dbContext;
+        private readonly DapperContext dapperContext;
 
-        public Task<string> LoginAsync(LoginCommand request)
+        public AuthenticationService(ApplicationDbContext _dbContext,IJwtTokenGenerator _jwtTokenGenerator, DapperContext _dapperContext)
         {
-            throw new NotImplementedException();
+            // _userManager = userManager;
+            jwtTokenGenerator = _jwtTokenGenerator;
+            dbContext = _dbContext;
+            dapperContext = _dapperContext;
         }
-
-        public Task<string> RegisterAsync(RegisterCommand request)
-        {
-            throw new NotImplementedException();
-        }
-
-
-        //public AuthenticationService(UserManager<User> userManager, IJwtTokenGenerator jwtTokenGenerator)
-        //{
-        //    _userManager = userManager;
-        //    _jwtTokenGenerator = jwtTokenGenerator;
-        //}
         //public async Task<string> RegisterAsync(RegisterCommand request)
         //{
         //    var user = new User
@@ -64,5 +67,52 @@ namespace ThePatho.Features.Identity.Authentication.Service
         //    var token = _jwtTokenGenerator.GenerateToken(user);
         //    return token;
         //}
+        public async Task<NewApiResponse<JwtResult>> LoginAsync(LoginCommand request)
+        {
+            using var connection = dapperContext.CreateConnection();
+            var db = new QueryFactory(connection, dapperContext.Compiler);
+            var query = new Query(TableName.Users)
+                .Select(
+                    "user_id as UserId",
+                    "username as Username",
+                    "full_name as FullName",
+                    "email as Email",
+                    "email_confirmed as EmailConfirmed",
+                    "password_hash as PasswordHash",
+                    "phone_number as PhoneNumber",
+                    "phone_number_confirmed as PhoneNumberConfirmed",
+                    "is_active as IsActive",
+                    "is_locked as IsLocked",
+                    "inserted_by as InsertedBy",
+                    "inserted_date as InsertedDate",
+                    "modified_by as ModifiedBy",
+                    "modified_date as ModifiedDate"
+                )
+                .When(
+                    !string.IsNullOrWhiteSpace(request.Username),
+                    q => q.WhereIn("username", request.Username)
+                );
+            var user = await db.FirstOrDefaultAsync<User>(query);
+
+            if (user == null || !user.IsActive || user.IsLocked)
+            {
+                throw new UnauthorizedAccessException("Invalid credentials.");
+            }
+
+            // 🔹 Validasi password menggunakan BCrypt
+            if (!BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
+            {
+                throw new UnauthorizedAccessException("Invalid credentials.");
+            }
+
+            var jwtResult = jwtTokenGenerator.GenerateToken(user);
+
+            return new NewApiResponse<JwtResult>(HttpStatusCode.OK, new JwtResult() { JwtToken = jwtResult, RefreshToken=jwtResult});
+        }
+
+        public async Task<NewApiResponse<JwtResult>> RegisterAsync(RegisterCommand request)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

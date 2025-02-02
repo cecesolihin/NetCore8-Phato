@@ -1,10 +1,11 @@
 ﻿using MediatR;
 using System;
 using ThePatho.Features.Applicant.ApplicantDocument.Service;
+using ThePatho.Features.ConfigurationExtensions;
 
 namespace ThePatho.Features.Applicant.ApplicantDocument.Commands
 {
-    public class DeleteApplicantDocumentCommandHandler : IRequestHandler<DeleteApplicantDocumentCommand, bool>
+    public class DeleteApplicantDocumentCommandHandler : IRequestHandler<DeleteApplicantDocumentCommand, ApiResponse>
     {
         private readonly IApplicantDocumentService applicantDocumentService;
 
@@ -13,18 +14,10 @@ namespace ThePatho.Features.Applicant.ApplicantDocument.Commands
             applicantDocumentService = _applicantDocumentService;
         }
 
-        public async Task<bool> Handle(DeleteApplicantDocumentCommand request, CancellationToken cancellationToken)
+        public async Task<ApiResponse> Handle(DeleteApplicantDocumentCommand request, CancellationToken cancellationToken)
         {
-            try
-            {
-                await applicantDocumentService.DeleteApplicantDocument(request);
-                return true;
-            }
-            catch
-            {
-                // Log the error here if needed
-                return false;
-            }
+            return await applicantDocumentService.DeleteApplicantDocument(request);
+              
         }
     }
 }

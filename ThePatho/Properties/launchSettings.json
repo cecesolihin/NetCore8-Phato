@@ -37,10 +37,5 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     }
-  },
-  "JwtSettings": {
-    "Issuer": "YourIssuer",
-    "Audience": "YourAudience",
-    "SecretKey": "YourSecretKey"
   }
 }

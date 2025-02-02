@@ -1,10 +1,11 @@
 ﻿using MediatR;
 using Newtonsoft.Json;
 using System.Text.Json.Serialization;
+using ThePatho.Features.ConfigurationExtensions;
 
 namespace ThePatho.Features.MasterSetting.QuestionSettingDetail.Commands
 {
-    public class SubmitQuestionSettingDetailCommand : IRequest<string>
+    public class SubmitQuestionSettingDetailCommand : IRequest<ApiResponse>
     {
         [JsonProperty("quest_detail_id")]
         public int? QuestDetailId { get; set; }

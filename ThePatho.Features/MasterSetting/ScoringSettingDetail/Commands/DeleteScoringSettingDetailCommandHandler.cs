@@ -1,10 +1,11 @@
 ﻿
 using MediatR;
+using ThePatho.Features.ConfigurationExtensions;
 using ThePatho.Features.MasterSetting.ScoringSettingDetail.Service;
 
 namespace ThePatho.Features.MasterSetting.ScoringSettingDetail.Commands
 {
-    public class DeleteScoringSettingDetailCommandHandler : IRequestHandler<DeleteScoringSettingDetailCommand, bool>
+    public class DeleteScoringSettingDetailCommandHandler : IRequestHandler<DeleteScoringSettingDetailCommand, ApiResponse>
     {
         private readonly IScoringSettingDetailService scoringSettingDetailService;
 
@@ -13,18 +14,10 @@ namespace ThePatho.Features.MasterSetting.ScoringSettingDetail.Commands
             scoringSettingDetailService = _scoringSettingDetailService;
         }
 
-        public async Task<bool> Handle(DeleteScoringSettingDetailCommand request, CancellationToken cancellationToken)
+        public async Task<ApiResponse> Handle(DeleteScoringSettingDetailCommand request, CancellationToken cancellationToken)
         {
-            try
-            {
-                await scoringSettingDetailService.DeleteScoringSettingDetail(request);
-                return true;
-            }
-            catch
-            {
-                // Log the error here if needed
-                return false;
-            }
+           return await scoringSettingDetailService.DeleteScoringSettingDetail(request);
+               
         }
     }
 

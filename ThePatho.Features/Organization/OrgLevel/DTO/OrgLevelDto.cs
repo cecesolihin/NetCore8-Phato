@@ -12,7 +12,7 @@ namespace ThePatho.Features.Organization.OrgLevel.DTO
         public string? ModifiedBy { get; set; }
         public DateTime? ModifiedDate { get; set; }
     }
-    public class OrganizationLevelItemDto
+    public class OrgLevelItemDto
     {
         public int DataOfRecords { get; set; }
         public List<OrgLevelDto> OrganizationLevelList { get; set; } = new();

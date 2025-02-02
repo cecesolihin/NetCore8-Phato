@@ -1,9 +1,10 @@
 ﻿using MediatR;
+using ThePatho.Features.ConfigurationExtensions;
 using ThePatho.Features.MasterData.AdsMedia.Service;
 
 namespace ThePatho.Features.MasterData.AdsMedia.Commands
 {
-    public class SubmitAdsMediaCommandHandler : IRequestHandler<SubmitAdsMediaCommand, string>
+    public class SubmitAdsMediaCommandHandler : IRequestHandler<SubmitAdsMediaCommand, ApiResponse>
     {
         private readonly IAdsMediaService adsMediaService;
 
@@ -12,19 +13,9 @@ namespace ThePatho.Features.MasterData.AdsMedia.Commands
             adsMediaService = _adsMediaService;
         }
 
-        public async Task<string> Handle(SubmitAdsMediaCommand request, CancellationToken cancellationToken)
+        public async Task<ApiResponse> Handle(SubmitAdsMediaCommand request, CancellationToken cancellationToken)
         {
-            await adsMediaService.SubmitAdsMedia(request);
-            if (request.Action == "ADD")
-            {
-                return "Ads Media successfully added.";
-            }
-            else if (request.Action == "EDIT")
-            {
-                return "Ads Media successfully updated.";
-            }
-
-            throw new ArgumentException("Invalid action specified. Use 'ADD' or 'EDIT'.");
+            return await adsMediaService.SubmitAdsMedia(request);
         }
     }
 }

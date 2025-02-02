@@ -1,9 +1,10 @@
 ﻿using MediatR;
 using System.Text.Json.Serialization;
+using ThePatho.Features.ConfigurationExtensions;
 
 namespace ThePatho.Features.Organization.Position.Commands
 {
-    public class SubmitPositionCommand : IRequest<string>
+    public class SubmitPositionCommand : IRequest<ApiResponse>
     {
         [JsonPropertyName("position_code")]
         public string PositionCode { get; set; }

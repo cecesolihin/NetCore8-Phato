@@ -1,21 +1,21 @@
 ﻿using MediatR;
 using ThePatho.Features.Applicant.ApplicantIdentity.DTO;
 using ThePatho.Features.Applicant.ApplicantIdentity.Service;
+using ThePatho.Features.ConfigurationExtensions;
 
 namespace ThePatho.Features.Applicant.ApplicantIdentity.Commands
 {
-    public class GetApplicantIdentityByCriteriaCommandHandler : IRequestHandler<GetApplicantIdentityByCriteriaCommand, ApplicantIdentityDto>
+    public class GetApplicantIdentityByCriteriaCommandHandler : IRequestHandler<GetApplicantIdentityByCriteriaCommand, NewApiResponse<ApplicantIdentityDto>>
     {
         private readonly IApplicantIdentityService applicantIdentityService;
         public GetApplicantIdentityByCriteriaCommandHandler(IApplicantIdentityService _applicantIdentityService)
         {
             applicantIdentityService = _applicantIdentityService; 
         }
-        public async Task<ApplicantIdentityDto> Handle(GetApplicantIdentityByCriteriaCommand request, CancellationToken cancellationToken)
+        public async Task<NewApiResponse<ApplicantIdentityDto>> Handle(GetApplicantIdentityByCriteriaCommand request, CancellationToken cancellationToken)
         {
-            var data = await applicantIdentityService.GetApplicantIdentityByCriteria(request);
+            return await applicantIdentityService.GetApplicantIdentityByCriteria(request);
 
-            return data;
         }
     }
 }

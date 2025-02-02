@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "eBfGCBFXGiBdC+fIsb2ie6AJcVDrur8J/slFjjjygVhhUjnu8t8RnRDe/k7yGymlJsItK5/RrIkA/31hPlbKkw==",
+  "dgSpecHash": "g6jGuY+LY6+PuL69vMCB/a/h+zgCJ1+zamlUPgcKy6ZbmEuD6UAcFWxLeWvnHRGFsyxqYQ+b00cNpMjvmDToug==",
   "success": true,
   "projectFilePath": "D:\\COURSES\\ThePatho\\ThePatho.Features\\ThePatho.Features.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\23050307\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\23050307\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
+    "C:\\Users\\23050307\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\23050307\\.nuget\\packages\\dapper\\2.0.123\\dapper.2.0.123.nupkg.sha512",
     "C:\\Users\\23050307\\.nuget\\packages\\entityframework\\6.1.0\\entityframework.6.1.0.nupkg.sha512",
     "C:\\Users\\23050307\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",

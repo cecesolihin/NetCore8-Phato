@@ -1,8 +1,9 @@
 ﻿using MediatR;
 using System.Text.Json.Serialization;
+using ThePatho.Features.ConfigurationExtensions;
 namespace ThePatho.Features.Applicant.ApplicantEducation.Commands
 {
-    public class DeleteApplicantEducationCommand : IRequest<bool>
+    public class DeleteApplicantEducationCommand : IRequest<ApiResponse>
     {
         [JsonPropertyName("applicant_no")]
         public string ApplicantNo { get; set; }

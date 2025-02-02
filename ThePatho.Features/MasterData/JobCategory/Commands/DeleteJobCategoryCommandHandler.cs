@@ -1,10 +1,11 @@
 ﻿
 using MediatR;
+using ThePatho.Features.ConfigurationExtensions;
 using ThePatho.Features.MasterData.JobCategory.Service;
 
 namespace ThePatho.Features.MasterData.JobCategory.Commands
 {
-    public class DeleteJobCategoryCommandHandler : IRequestHandler<DeleteJobCategoryCommand, bool>
+    public class DeleteJobCategoryCommandHandler : IRequestHandler<DeleteJobCategoryCommand, ApiResponse>
     {
         private readonly IJobCategoryService jobCategoryService;
 
@@ -13,18 +14,9 @@ namespace ThePatho.Features.MasterData.JobCategory.Commands
             jobCategoryService = _jobCategoryService;
         }
 
-        public async Task<bool> Handle(DeleteJobCategoryCommand request, CancellationToken cancellationToken)
+        public async Task<ApiResponse> Handle(DeleteJobCategoryCommand request, CancellationToken cancellationToken)
         {
-            try
-            {
-                await jobCategoryService.DeleteJobCategory(request);
-                return true;
-            }
-            catch
-            {
-                // Log the error here if needed
-                return false;
-            }
+            return await jobCategoryService.DeleteJobCategory(request);
         }
     }
 

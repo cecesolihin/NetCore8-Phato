@@ -1,10 +1,11 @@
 ﻿using MediatR;
 using Newtonsoft.Json;
 using System.Text.Json.Serialization;
+using ThePatho.Features.ConfigurationExtensions;
 
 namespace ThePatho.Features.MasterSetting.QuestionSetting.Commands
 {
-    public class SubmitQuestionSettingCommand : IRequest<string>
+    public class SubmitQuestionSettingCommand : IRequest<ApiResponse>
     {
         [JsonProperty("questionnaire_code")]
         public string QuestionnaireCode { get; set; }

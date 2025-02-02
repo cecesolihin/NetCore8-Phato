@@ -1,5 +1,6 @@
 
 
+using ThePatho.Features.ConfigurationExtensions;
 using ThePatho.Features.MasterSetting.ScoringSetting.Commands;
 using ThePatho.Features.MasterSetting.ScoringSetting.DTO;
 
@@ -7,10 +8,10 @@ namespace ThePatho.Features.MasterSetting.ScoringSetting.Service
 {
     public interface IScoringSettingService
     {
-        Task<List<ScoringSettingDto>> GetScoringSetting(GetScoringSettingCommand request);
-        Task<ScoringSettingDto> GetScoringSettingByCriteria(GetScoringSettingByCriteriaCommand request);
-        Task<List<ScoringSettingDto>> GetScoringSettingDdl(GetScoringSettingDdlCommand request);
-        Task SubmitScoringSetting(SubmitScoringSettingCommand request);
-        Task DeleteScoringSetting(DeleteScoringSettingCommand request);
+        Task<NewApiResponse<ScoringSettingItemDto>> GetScoringSetting(GetScoringSettingCommand request);
+        Task<NewApiResponse<ScoringSettingDto>> GetScoringSettingByCriteria(GetScoringSettingByCriteriaCommand request);
+        Task<NewApiResponse<ScoringSettingItemDto>> GetScoringSettingDdl(GetScoringSettingDdlCommand request);
+        Task<ApiResponse> SubmitScoringSetting(SubmitScoringSettingCommand request);
+        Task<ApiResponse> DeleteScoringSetting(DeleteScoringSettingCommand request);
     }
 }

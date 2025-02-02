@@ -1,9 +1,10 @@
 ﻿using MediatR;
 using System.Text.Json.Serialization;
+using ThePatho.Features.ConfigurationExtensions;
 
 namespace ThePatho.Features.MasterSetting.ScoringSettingDetail.Commands
 {
-    public class DeleteScoringSettingDetailCommand : IRequest<bool>
+    public class DeleteScoringSettingDetailCommand : IRequest<ApiResponse>
     {
         [JsonPropertyName("scoring_code")]
         public string ScoringCode { get; set; }

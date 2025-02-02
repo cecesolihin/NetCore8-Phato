@@ -1,9 +1,10 @@
 ﻿using MediatR;
 using System.Text.Json.Serialization;
+using ThePatho.Features.ConfigurationExtensions;
 
 namespace ThePatho.Features.MasterData.JobCategory.Commands
 {
-    public class SubmitJobCategoryCommand : IRequest<string>
+    public class SubmitJobCategoryCommand : IRequest<ApiResponse>
     {
         [JsonPropertyName("JobCategoryCode")]
         public string JobCategoryCode { get; set; }

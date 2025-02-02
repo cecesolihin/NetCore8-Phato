@@ -24,7 +24,7 @@ WHERE
     ORDER BY
     CASE WHEN @SortBy = 'AdsCode' THEN ads_code END,
     CASE WHEN @SortBy = 'AdsName' THEN ads_name END,
-    CASE WHEN @SortBy = 'AdsCategoryCode' THEN AdsCategoryCode END,
+    CASE WHEN @SortBy = 'AdsCategoryCode' THEN ads_category_code END,
     CASE WHEN @SortBy = 'InsertedDate' THEN CONVERT(DATETIME, inserted_date, 120) END
     , CASE @OrderBy
         WHEN 'ASC' THEN 1

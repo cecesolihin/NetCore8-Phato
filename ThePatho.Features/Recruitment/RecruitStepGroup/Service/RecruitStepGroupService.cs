@@ -1,10 +1,15 @@
 using Microsoft.EntityFrameworkCore;
 using SqlKata;
 using SqlKata.Execution;
+using System.Net;
 using ThePatho.Domain.Constants;
+using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Features.MasterData.AdsCategory.DTO;
 using ThePatho.Features.Recruitment.RecruitStepGroup.Commands;
 using ThePatho.Features.Recruitment.RecruitStepGroup.DTO;
+using ThePatho.Features.Recruitment.RecruitStepGroupDetail.DTO;
 using ThePatho.Infrastructure.Persistance;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ThePatho.Features.Recruitment.RecruitStepGroup.Service
 {
@@ -17,55 +22,85 @@ namespace ThePatho.Features.Recruitment.RecruitStepGroup.Service
             dapperContext = _dapperContext;
         }
 
-        public async Task<List<RecruitStepGroupDto>> GetRecruitStepGroup(GetRecruitStepGroupCommand request)
+        public async Task<NewApiResponse<RecruitStepGroupItemDto>> GetRecruitStepGroup(GetRecruitStepGroupCommand request)
         {
-            using var connection = dapperContext.CreateConnection();
-            var db = new QueryFactory(connection, dapperContext.Compiler);
-            var query = new Query(TableName.RecruitStepGroup)
-                .Select("rec_step_group_code as RecruitStepGroupCode",
-                        "rec_step_group_name as RecStepGroupName",
-                        "inserted_by as InsertedBy",
-                        "inserted_date as InsertedDate",
-                        "modified_by as ModifiedBy",
-                        "modified_date as ModifiedDate")
-                .When(
-                    !string.IsNullOrWhiteSpace(request.FilterStepGroupCode),
-                    q => q.WhereIn("rec_step_group_code", request.FilterStepGroupCode)
-                ).When(
-                    !string.IsNullOrWhiteSpace(request.FilterStepGroupName),
-                        q => q.WhereContains("rec_step_group_name", request.FilterStepGroupName)
+            try
+            {
+                using var connection = dapperContext.CreateConnection();
+                var db = new QueryFactory(connection, dapperContext.Compiler);
+                var query = new Query(TableName.RecruitStepGroup)
+                    .Select("rec_step_group_code as RecruitStepGroupCode",
+                            "rec_step_group_name as RecStepGroupName",
+                            "inserted_by as InsertedBy",
+                            "inserted_date as InsertedDate",
+                            "modified_by as ModifiedBy",
+                            "modified_date as ModifiedDate")
+                    .When(
+                        !string.IsNullOrWhiteSpace(request.FilterStepGroupCode),
+                        q => q.WhereIn("rec_step_group_code", request.FilterStepGroupCode)
+                    ).When(
+                        !string.IsNullOrWhiteSpace(request.FilterStepGroupName),
+                            q => q.WhereContains("rec_step_group_name", request.FilterStepGroupName)
+                    );
+
+                query = query.OrderByRaw(
+                    $"{(!string.IsNullOrWhiteSpace(request.SortBy) ? request.SortBy : "inserted_by")} {(!string.IsNullOrWhiteSpace(request.OrderBy) && (request.OrderBy.ToUpper() == "ASC" || request.OrderBy.ToUpper() == "DESC") ? request.OrderBy.ToUpper() : "DESC")}"
                 );
 
-            query = query.OrderByRaw(
-                $"{(!string.IsNullOrWhiteSpace(request.SortBy) ? request.SortBy : "inserted_by")} {(!string.IsNullOrWhiteSpace(request.OrderBy) && (request.OrderBy.ToUpper() == "ASC" || request.OrderBy.ToUpper() == "DESC") ? request.OrderBy.ToUpper() : "DESC")}"
-            );
+                query = query.Skip(request.PageNumber * request.PageSize).Take(request.PageSize);
 
-            query = query.Skip(request.PageNumber * request.PageSize).Take(request.PageSize);
+                var data = await db.GetAsync<RecruitStepGroupDto>(query);
+                var result = new RecruitStepGroupItemDto
+                {
+                    DataOfRecords = data.ToList().Count,
+                    RecruitStepGroupList = data.ToList(),
+                };
+                return new NewApiResponse<RecruitStepGroupItemDto>(HttpStatusCode.OK, result);
+            }
+            catch (Exception ex)
+            {
 
-            var results = await db.GetAsync<RecruitStepGroupDto>(query);
-            return results.ToList();
+                return new NewApiResponse<RecruitStepGroupItemDto>(
+                        HttpStatusCode.BadRequest,
+                        "An error occurred while retrieving data.",
+                        ex.Message
+                    );
+            }
+
         }
 
-        public async Task<RecruitStepGroupDto> GetRecruitStepGroupByCriteria(GetRecruitStepGroupByCriteriaCommand request)
+        public async Task<NewApiResponse<RecruitStepGroupDto>> GetRecruitStepGroupByCriteria(GetRecruitStepGroupByCriteriaCommand request)
         {
-            using var connection = dapperContext.CreateConnection();
-            var db = new QueryFactory(connection, dapperContext.Compiler);
-            var query = new Query(TableName.RecruitStepGroup)
-                .Select("rec_step_group_code as RecruitStepGroupCode",
-                        "rec_step_group_name as RecStepGroupName",
-                        "inserted_by as InsertedBy",
-                        "inserted_date as InsertedDate",
-                        "modified_by as ModifiedBy",
-                        "modified_date as ModifiedDate")
-                .When(
-                    !string.IsNullOrWhiteSpace(request.FilterStepGroupCode),
-                    q => q.WhereIn("rec_step_group_code", request.FilterStepGroupCode)
-                );
-            var data = await db.FirstOrDefaultAsync<RecruitStepGroupDto>(query);
-            return data;
+            try
+            {
+                using var connection = dapperContext.CreateConnection();
+                var db = new QueryFactory(connection, dapperContext.Compiler);
+                var query = new Query(TableName.RecruitStepGroup)
+                    .Select("rec_step_group_code as RecruitStepGroupCode",
+                            "rec_step_group_name as RecStepGroupName",
+                            "inserted_by as InsertedBy",
+                            "inserted_date as InsertedDate",
+                            "modified_by as ModifiedBy",
+                            "modified_date as ModifiedDate")
+                    .When(
+                        !string.IsNullOrWhiteSpace(request.FilterStepGroupCode),
+                        q => q.WhereIn("rec_step_group_code", request.FilterStepGroupCode)
+                    );
+                var data = await db.FirstOrDefaultAsync<RecruitStepGroupDto>(query);
+                return new NewApiResponse<RecruitStepGroupDto>(HttpStatusCode.OK, data);
+            }
+            catch (Exception ex)
+            {
+
+                return new NewApiResponse<RecruitStepGroupDto>(
+                        HttpStatusCode.BadRequest,
+                        "An error occurred while retrieving data.",
+                        ex.Message
+                    );
+            }
         }
 
-        public async Task<bool> SubmitRecruitStepGroup(SubmitRecruitStepGroupCommand request)
+        public async Task<ApiResponse> SubmitRecruitStepGroup(SubmitRecruitStepGroupCommand request)
         {
             using var connection = dapperContext.CreateConnection();
             var db = new QueryFactory(connection, dapperContext.Compiler);
@@ -95,7 +130,7 @@ namespace ThePatho.Features.Recruitment.RecruitStepGroup.Service
                     if (insertGroupResult <= 0)
                     {
                         transaction.Rollback();
-                        return false;
+                        return new ApiResponse(HttpStatusCode.BadRequest, $"Failed to {request.Action} {request.RecStepGroupCode}");
                     }
                 }
                 else
@@ -114,7 +149,7 @@ namespace ThePatho.Features.Recruitment.RecruitStepGroup.Service
                     if (updateGroupResult <= 0)
                     {
                         transaction.Rollback();
-                        return false;
+                        return new ApiResponse(HttpStatusCode.BadRequest, $"Failed to {request.Action} {request.RecStepGroupCode}");
                     }
 
                     // Hapus existing RecruitStepGroupDetail sebelum meng-insert ulang
@@ -126,7 +161,7 @@ namespace ThePatho.Features.Recruitment.RecruitStepGroup.Service
                     if (deleteDetailsResult < 0)
                     {
                         transaction.Rollback();
-                        return false;
+                        return new ApiResponse(HttpStatusCode.BadRequest, $"Failed to {request.Action} {request.RecStepGroupCode}");
                     }
                 }
 
@@ -149,21 +184,21 @@ namespace ThePatho.Features.Recruitment.RecruitStepGroup.Service
                     if (insertDetailResult <= 0)
                     {
                         transaction.Rollback();
-                        return false;
+                        return new ApiResponse(HttpStatusCode.BadRequest, $"Failed to {request.Action} {request.RecStepGroupCode}");
                     }
                 }
 
                 transaction.Commit();
-                return true;
+                return new ApiResponse(HttpStatusCode.OK, $"{request.Action} {request.RecStepGroupCode} successfully");
             }
-            catch
+            catch (Exception ex)
             {
                 transaction.Rollback();
-                throw;
+                return new ApiResponse(HttpStatusCode.BadRequest, $"Failed to {request.Action} {request.RecStepGroupCode}", ex.Message.ToString());
             }
         }
 
-        public async Task<bool> DeleteRecruitStepGroup(DeleteRecruitStepGroupCommand request)
+        public async Task<ApiResponse> DeleteRecruitStepGroup(DeleteRecruitStepGroupCommand request)
         {
             using var connection = dapperContext.CreateConnection();
             var db = new QueryFactory(connection, dapperContext.Compiler);
@@ -180,7 +215,7 @@ namespace ThePatho.Features.Recruitment.RecruitStepGroup.Service
                 if (deleteDetailsResult < 0)
                 {
                     transaction.Rollback();
-                    return false;
+                    return new ApiResponse(HttpStatusCode.BadRequest, $"Failed to delete {request.RecStepGroupCode}");
                 }
 
                 // Delete RecruitStepGroup
@@ -192,16 +227,15 @@ namespace ThePatho.Features.Recruitment.RecruitStepGroup.Service
                 if (deleteGroupResult <= 0)
                 {
                     transaction.Rollback();
-                    return false;
+                    return new ApiResponse(HttpStatusCode.BadRequest, $"Failed to delete {request.RecStepGroupCode}");
                 }
 
                 transaction.Commit();
-                return true;
+                return new ApiResponse(HttpStatusCode.OK, $"Delete {request.RecStepGroupCode} successfully");
             }
-            catch
+            catch (Exception ex)
             {
-                transaction.Rollback();
-                throw;
+                return new ApiResponse(HttpStatusCode.BadRequest, $"Failed to delete {request.RecStepGroupCode}", ex.Message.ToString());
             }
         }
 

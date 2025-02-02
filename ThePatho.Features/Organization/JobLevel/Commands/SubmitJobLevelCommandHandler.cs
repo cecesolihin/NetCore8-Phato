@@ -1,9 +1,10 @@
 ﻿using MediatR;
+using ThePatho.Features.ConfigurationExtensions;
 using ThePatho.Features.Organization.JobLevel.Service;
 
 namespace ThePatho.Features.Organization.JobLevel.Commands
 {
-    public class SubmitJobLevelCommandHandler : IRequestHandler<SubmitJobLevelCommand, string>
+    public class SubmitJobLevelCommandHandler : IRequestHandler<SubmitJobLevelCommand, ApiResponse>
     {
         private readonly IJobLevelService jobLevelService;
 
@@ -12,19 +13,9 @@ namespace ThePatho.Features.Organization.JobLevel.Commands
             jobLevelService = _jobLevelService;
         }
 
-        public async Task<string> Handle(SubmitJobLevelCommand request, CancellationToken cancellationToken)
+        public async Task<ApiResponse> Handle(SubmitJobLevelCommand request, CancellationToken cancellationToken)
         {
-            await jobLevelService.SubmitJobLevel(request);
-            if (request.Action == "ADD")
-            {
-                return "Job Level successfully added.";
-            }
-            else if (request.Action == "EDIT")
-            {
-                return "Job Level successfully updated.";
-            }
-
-            throw new ArgumentException("Invalid action specified. Use 'ADD' or 'EDIT'.");
+            return await jobLevelService.SubmitJobLevel(request);
         }
     }
 }

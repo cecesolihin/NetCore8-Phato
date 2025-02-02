@@ -1,10 +1,11 @@
 ﻿using MediatR;
 using System.Text.Json.Serialization;
+using ThePatho.Features.ConfigurationExtensions;
 using ThePatho.Features.Identity.UserManagement.DTO;
 
 namespace ThePatho.Features.Identity.UserManagement.Commands.UserGroup
 {
-    public class GetUserGroupCommand : IRequest<UserGroupItemDto>
+    public class GetUserGroupCommand : IRequest<NewApiResponse<UserGroupItemDto>>
     {
         [JsonPropertyName("filter_Group")]
         public string? FilterGroup { get; set; }

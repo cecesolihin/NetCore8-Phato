@@ -1,9 +1,10 @@
 ﻿using MediatR;
 using ThePatho.Features.Applicant.ApplicantOnlineTestResult.Service;
+using ThePatho.Features.ConfigurationExtensions;
 
 namespace ThePatho.Features.Applicant.ApplicantOnlineTestResult.Commands
 {
-    public class SubmitApplicantOnlineTestResultCommandHandler : IRequestHandler<SubmitApplicantOnlineTestResultCommand, string>
+    public class SubmitApplicantOnlineTestResultCommandHandler : IRequestHandler<SubmitApplicantOnlineTestResultCommand, ApiResponse>
     {
         private readonly IApplicantOnlineTestResultService applicantOnlineTestResultService;
 
@@ -12,19 +13,9 @@ namespace ThePatho.Features.Applicant.ApplicantOnlineTestResult.Commands
             applicantOnlineTestResultService = _applicantOnlineTestResultService;
         }
 
-        public async Task<string> Handle(SubmitApplicantOnlineTestResultCommand request, CancellationToken cancellationToken)
+        public async Task<ApiResponse> Handle(SubmitApplicantOnlineTestResultCommand request, CancellationToken cancellationToken)
         {
-            await applicantOnlineTestResultService.SubmitApplicantOnlineTestResult(request);
-            if (request.Action == "ADD")
-            {
-                return "Applican Online Test Result successfully added.";
-            }
-            else if (request.Action == "EDIT")
-            {
-                return "Applican Online Test Result successfully updated.";
-            }
-
-            throw new ArgumentException("Invalid action specified. Use 'ADD' or 'EDIT'.");
+            return await applicantOnlineTestResultService.SubmitApplicantOnlineTestResult(request);
         }
     }
 }

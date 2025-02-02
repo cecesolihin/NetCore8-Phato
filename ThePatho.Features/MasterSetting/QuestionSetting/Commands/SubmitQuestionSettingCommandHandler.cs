@@ -1,9 +1,10 @@
 ﻿using MediatR;
+using ThePatho.Features.ConfigurationExtensions;
 using ThePatho.Features.MasterSetting.QuestionSetting.Service;
 
 namespace ThePatho.Features.MasterSetting.QuestionSetting.Commands
 {
-    public class SubmitQuestionSettingCommandHandler : IRequestHandler<SubmitQuestionSettingCommand, string>
+    public class SubmitQuestionSettingCommandHandler : IRequestHandler<SubmitQuestionSettingCommand, ApiResponse>
     {
         private readonly IQuestionSettingService auestionSettingService;
 
@@ -12,19 +13,9 @@ namespace ThePatho.Features.MasterSetting.QuestionSetting.Commands
             auestionSettingService = _questionSettingService;
         }
 
-        public async Task<string> Handle(SubmitQuestionSettingCommand request, CancellationToken cancellationToken)
+        public async Task<ApiResponse> Handle(SubmitQuestionSettingCommand request, CancellationToken cancellationToken)
         {
-            await auestionSettingService.SubmitQuestionSetting(request);
-            if (request.Action == "ADD")
-            {
-                return "Question Setting successfully added.";
-            }
-            else if (request.Action == "EDIT")
-            {
-                return "Question Setting successfully updated.";
-            }
-
-            throw new ArgumentException("Invalid action specified. Use 'ADD' or 'EDIT'.");
+            return await auestionSettingService.SubmitQuestionSetting(request);
         }
     }
 }

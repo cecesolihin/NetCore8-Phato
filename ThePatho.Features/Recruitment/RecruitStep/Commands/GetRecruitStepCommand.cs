@@ -1,10 +1,11 @@
 ﻿using MediatR;
 using System.Text.Json.Serialization;
+using ThePatho.Features.ConfigurationExtensions;
 using ThePatho.Features.Recruitment.RecruitStep.DTO;
 
 namespace ThePatho.Features.Recruitment.RecruitStep.Commands
 {
-    public class GetRecruitStepCommand :IRequest<RecruitStepItemDto>
+    public class GetRecruitStepCommand :IRequest<NewApiResponse<RecruitStepItemDto>>
     {
         [JsonPropertyName("filter_StepCode")]
         public string? FilterStepCode { get; set; }

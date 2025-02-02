@@ -1,9 +1,10 @@
 ﻿using MediatR;
+using ThePatho.Features.ConfigurationExtensions;
 using ThePatho.Features.MasterSetting.ScoringSettingDetail.Service;
 
 namespace ThePatho.Features.MasterSetting.ScoringSettingDetail.Commands
 {
-    public class SubmitScoringSettingDetailCommandHandler : IRequestHandler<SubmitScoringSettingDetailCommand, string>
+    public class SubmitScoringSettingDetailCommandHandler : IRequestHandler<SubmitScoringSettingDetailCommand, ApiResponse>
     {
         private readonly IScoringSettingDetailService scoringSettingDetailService;
 
@@ -12,19 +13,9 @@ namespace ThePatho.Features.MasterSetting.ScoringSettingDetail.Commands
             scoringSettingDetailService = _scoringSettingDetailService;
         }
 
-        public async Task<string> Handle(SubmitScoringSettingDetailCommand request, CancellationToken cancellationToken)
+        public async Task<ApiResponse> Handle(SubmitScoringSettingDetailCommand request, CancellationToken cancellationToken)
         {
-            await scoringSettingDetailService.SubmitScoringSettingDetail(request);
-            if (request.Action == "ADD")
-            {
-                return "Scoring Setting Detail successfully added.";
-            }
-            else if (request.Action == "EDIT")
-            {
-                return "Scoring Setting Detail successfully updated.";
-            }
-
-            throw new ArgumentException("Invalid action specified. Use 'ADD' or 'EDIT'.");
+            return await scoringSettingDetailService.SubmitScoringSettingDetail(request);
         }
     }
 }

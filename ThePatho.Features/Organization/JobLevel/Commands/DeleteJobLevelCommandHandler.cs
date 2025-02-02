@@ -1,10 +1,11 @@
 ﻿using MediatR;
 using System;
+using ThePatho.Features.ConfigurationExtensions;
 using ThePatho.Features.Organization.JobLevel.Service;
 
 namespace ThePatho.Features.Organization.JobLevel.Commands
 {
-    public class DeleteJobLevelCommandHandler : IRequestHandler<DeleteJobLevelCommand, bool>
+    public class DeleteJobLevelCommandHandler : IRequestHandler<DeleteJobLevelCommand, ApiResponse>
     {
         private readonly IJobLevelService jobLevelService;
 
@@ -13,18 +14,10 @@ namespace ThePatho.Features.Organization.JobLevel.Commands
             jobLevelService = _jobLevelService;
         }
 
-        public async Task<bool> Handle(DeleteJobLevelCommand request, CancellationToken cancellationToken)
+        public async Task<ApiResponse> Handle(DeleteJobLevelCommand request, CancellationToken cancellationToken)
         {
-            try
-            {
-                await jobLevelService.DeleteJobLevel(request);
-                return true;
-            }
-            catch
-            {
-                // Log the error here if needed
-                return false;
-            }
+
+            return await jobLevelService.DeleteJobLevel(request);
         }
     }
 }

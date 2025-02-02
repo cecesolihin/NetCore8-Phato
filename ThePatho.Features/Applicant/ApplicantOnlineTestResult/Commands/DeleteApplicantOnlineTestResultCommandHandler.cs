@@ -1,10 +1,11 @@
 ﻿using MediatR;
 using System;
 using ThePatho.Features.Applicant.ApplicantOnlineTestResult.Service;
+using ThePatho.Features.ConfigurationExtensions;
 
 namespace ThePatho.Features.Applicant.ApplicantOnlineTestResult.Commands
 {
-    public class DeleteApplicantOnlineTestResultCommandHandler : IRequestHandler<DeleteApplicantOnlineTestResultCommand, bool>
+    public class DeleteApplicantOnlineTestResultCommandHandler : IRequestHandler<DeleteApplicantOnlineTestResultCommand, ApiResponse>
     {
         private readonly IApplicantOnlineTestResultService ApplicantOnlineTestResultService;
 
@@ -13,18 +14,9 @@ namespace ThePatho.Features.Applicant.ApplicantOnlineTestResult.Commands
             ApplicantOnlineTestResultService = _ApplicantOnlineTestResultService;
         }
 
-        public async Task<bool> Handle(DeleteApplicantOnlineTestResultCommand request, CancellationToken cancellationToken)
+        public async Task<ApiResponse> Handle(DeleteApplicantOnlineTestResultCommand request, CancellationToken cancellationToken)
         {
-            try
-            {
-                await ApplicantOnlineTestResultService.DeleteApplicantOnlineTestResult(request);
-                return true;
-            }
-            catch
-            {
-                // Log the error here if needed
-                return false;
-            }
+            return await ApplicantOnlineTestResultService.DeleteApplicantOnlineTestResult(request);
         }
     }
 }

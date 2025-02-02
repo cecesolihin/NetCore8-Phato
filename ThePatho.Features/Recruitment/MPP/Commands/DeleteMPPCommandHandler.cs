@@ -1,10 +1,11 @@
 ﻿using MediatR;
 using System;
+using ThePatho.Features.ConfigurationExtensions;
 using ThePatho.Features.Recruitment.MPP.Service;
 
 namespace ThePatho.Features.Recruitment.MPP.Commands
 {
-    public class DeleteMPPCommandHandler : IRequestHandler<DeleteMPPCommand, bool>
+    public class DeleteMPPCommandHandler : IRequestHandler<DeleteMPPCommand, ApiResponse>
     {
         private readonly IMPPService MPPService;
 
@@ -13,18 +14,10 @@ namespace ThePatho.Features.Recruitment.MPP.Commands
             MPPService = _MPPService;
         }
 
-        public async Task<bool> Handle(DeleteMPPCommand request, CancellationToken cancellationToken)
+        public async Task<ApiResponse> Handle(DeleteMPPCommand request, CancellationToken cancellationToken)
         {
-            try
-            {
-                await MPPService.DeleteMPP(request);
-                return true;
-            }
-            catch
-            {
-                // Log the error here if needed
-                return false;
-            }
+           
+           return await MPPService.DeleteMPP(request);  
         }
     }
 }

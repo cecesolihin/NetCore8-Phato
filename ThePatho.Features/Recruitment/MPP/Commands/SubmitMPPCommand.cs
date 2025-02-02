@@ -1,9 +1,10 @@
 ﻿using MediatR;
 using System.Text.Json.Serialization;
+using ThePatho.Features.ConfigurationExtensions;
 
 namespace ThePatho.Features.Recruitment.MPP.Commands
 {
-    public class SubmitMPPCommand : IRequest<string>
+    public class SubmitMPPCommand : IRequest<ApiResponse>
     {
         [JsonPropertyName("mpp_no")]
         public string MppNo { get; set; }

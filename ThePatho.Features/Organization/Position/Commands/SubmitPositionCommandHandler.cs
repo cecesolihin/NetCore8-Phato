@@ -1,9 +1,10 @@
 ﻿using MediatR;
+using ThePatho.Features.ConfigurationExtensions;
 using ThePatho.Features.Organization.Position.Service;
 
 namespace ThePatho.Features.Organization.Position.Commands
 {
-    public class SubmitPositionCommandHandler : IRequestHandler<SubmitPositionCommand, string>
+    public class SubmitPositionCommandHandler : IRequestHandler<SubmitPositionCommand, ApiResponse>
     {
         private readonly IPositionService positionService;
 
@@ -12,19 +13,9 @@ namespace ThePatho.Features.Organization.Position.Commands
             positionService = _positionService;
         }
 
-        public async Task<string> Handle(SubmitPositionCommand request, CancellationToken cancellationToken)
+        public async Task<ApiResponse> Handle(SubmitPositionCommand request, CancellationToken cancellationToken)
         {
-            await positionService.SubmitPosition(request);
-            if (request.Action == "ADD")
-            {
-                return "Position successfully added.";
-            }
-            else if (request.Action == "EDIT")
-            {
-                return "Position successfully updated.";
-            }
-
-            throw new ArgumentException("Invalid action specified. Use 'ADD' or 'EDIT'.");
+            return await positionService.SubmitPosition(request);
         }
     }
 }

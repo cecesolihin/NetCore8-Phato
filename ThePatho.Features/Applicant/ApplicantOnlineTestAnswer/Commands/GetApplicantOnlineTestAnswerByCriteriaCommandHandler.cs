@@ -1,21 +1,21 @@
 ﻿using MediatR;
 using ThePatho.Features.Applicant.ApplicantOnlineTestAnswer.DTO;
 using ThePatho.Features.Applicant.ApplicantOnlineTestAnswer.Service;
+using ThePatho.Features.ConfigurationExtensions;
 
 namespace ThePatho.Features.Applicant.ApplicantOnlineTestAnswer.Commands
 {
-    public class GetApplicantOnlineTestAnswerByCriteriaCommandHandler : IRequestHandler<GetApplicantOnlineTestAnswerByCriteriaCommand, ApplicantOnlineTestAnswerDto>
+    public class GetApplicantOnlineTestAnswerByCriteriaCommandHandler : IRequestHandler<GetApplicantOnlineTestAnswerByCriteriaCommand, NewApiResponse<ApplicantOnlineTestAnswerDto>>
     {
         private readonly IApplicantOnlineTestAnswerService applicantOnlineTestAnswerService;
         public GetApplicantOnlineTestAnswerByCriteriaCommandHandler(IApplicantOnlineTestAnswerService _applicantOnlineTestAnswerService)
         {
             applicantOnlineTestAnswerService = _applicantOnlineTestAnswerService; 
         }
-        public async Task<ApplicantOnlineTestAnswerDto> Handle(GetApplicantOnlineTestAnswerByCriteriaCommand request, CancellationToken cancellationToken)
+        public async Task<NewApiResponse<ApplicantOnlineTestAnswerDto>> Handle(GetApplicantOnlineTestAnswerByCriteriaCommand request, CancellationToken cancellationToken)
         {
-            var data = await applicantOnlineTestAnswerService.GetApplicantOnlineTestAnswerByCriteria(request);
+            return await applicantOnlineTestAnswerService.GetApplicantOnlineTestAnswerByCriteria(request);
 
-            return data;
         }
     }
 }

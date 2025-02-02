@@ -15,4 +15,4 @@
     recruitment_fee_3 AS RecruitmentFee3
 FROM 
     dbo.TMAdsMedia
-WHERE ads_code = @FilterAdsCode 
+WHERE ads_code = @AdsCode 

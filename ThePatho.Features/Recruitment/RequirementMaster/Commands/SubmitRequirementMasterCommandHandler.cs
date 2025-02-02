@@ -1,9 +1,10 @@
 ﻿using MediatR;
+using ThePatho.Features.ConfigurationExtensions;
 using ThePatho.Features.Recruitment.RequirementMaster.Service;
 
 namespace ThePatho.Features.Recruitment.RequirementMaster.Commands
 {
-    public class SubmitRequirementMasterCommandHandler : IRequestHandler<SubmitRequirementMasterCommand, string>
+    public class SubmitRequirementMasterCommandHandler : IRequestHandler<SubmitRequirementMasterCommand, ApiResponse>
     {
         private readonly IRequirementMasterService requirementMasterService;
 
@@ -12,19 +13,10 @@ namespace ThePatho.Features.Recruitment.RequirementMaster.Commands
             requirementMasterService = _requirementMasterService;
         }
 
-        public async Task<string> Handle(SubmitRequirementMasterCommand request, CancellationToken cancellationToken)
+        public async Task<ApiResponse> Handle(SubmitRequirementMasterCommand request, CancellationToken cancellationToken)
         {
-            await requirementMasterService.SubmitRequirementMaster(request);
-            if (request.Action == "ADD")
-            {
-                return "Requirement Master successfully added.";
-            }
-            else if (request.Action == "EDIT")
-            {
-                return "Requirement Master successfully updated.";
-            }
-
-            throw new ArgumentException("Invalid action specified. Use 'ADD' or 'EDIT'.");
+            return await requirementMasterService.SubmitRequirementMaster(request);
+           
         }
     }
 }

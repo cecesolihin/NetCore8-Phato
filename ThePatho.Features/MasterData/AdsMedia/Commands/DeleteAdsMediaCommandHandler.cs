@@ -1,10 +1,11 @@
 ﻿
 using MediatR;
+using ThePatho.Features.ConfigurationExtensions;
 using ThePatho.Features.MasterData.AdsMedia.Service;
 
 namespace ThePatho.Features.MasterData.AdsMedia.Commands
 {
-    public class DeleteAdsMediaCommandHandler : IRequestHandler<DeleteAdsMediaCommand, bool>
+    public class DeleteAdsMediaCommandHandler : IRequestHandler<DeleteAdsMediaCommand, ApiResponse>
     {
         private readonly IAdsMediaService adsMediaService;
 
@@ -13,18 +14,9 @@ namespace ThePatho.Features.MasterData.AdsMedia.Commands
             adsMediaService = _adsMediaService;
         }
 
-        public async Task<bool> Handle(DeleteAdsMediaCommand request, CancellationToken cancellationToken)
+        public async Task<ApiResponse> Handle(DeleteAdsMediaCommand request, CancellationToken cancellationToken)
         {
-            try
-            {
-                await adsMediaService.DeleteAdsMedia(request);
-                return true;
-            }
-            catch
-            {
-                // Log the error here if needed
-                return false;
-            }
+            return await adsMediaService.DeleteAdsMedia(request);
         }
     }
 

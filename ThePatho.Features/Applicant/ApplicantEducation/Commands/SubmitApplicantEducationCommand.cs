@@ -1,10 +1,11 @@
 ﻿using MediatR;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using ThePatho.Features.ConfigurationExtensions;
 
 namespace ThePatho.Features.Applicant.ApplicantEducation.Commands
 {
-    public class SubmitApplicantEducationCommand : IRequest<string>
+    public class SubmitApplicantEducationCommand : IRequest<ApiResponse>
     {
         [JsonPropertyName("applicant_no")]
         public string ApplicantNo { get; set; }

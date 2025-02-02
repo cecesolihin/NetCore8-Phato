@@ -1,10 +1,11 @@
 ﻿using MediatR;
 using System;
+using ThePatho.Features.ConfigurationExtensions;
 using ThePatho.Features.Organization.Position.Service;
 
 namespace ThePatho.Features.Organization.Position.Commands
 {
-    public class DeletePositionCommandHandler : IRequestHandler<DeletePositionCommand, bool>
+    public class DeletePositionCommandHandler : IRequestHandler<DeletePositionCommand, ApiResponse>
     {
         private readonly IPositionService positionService;
 
@@ -13,18 +14,10 @@ namespace ThePatho.Features.Organization.Position.Commands
             positionService = _positionService;
         }
 
-        public async Task<bool> Handle(DeletePositionCommand request, CancellationToken cancellationToken)
+        public async Task<ApiResponse> Handle(DeletePositionCommand request, CancellationToken cancellationToken)
         {
-            try
-            {
-                await positionService.DeletePosition(request);
-                return true;
-            }
-            catch
-            {
-                // Log the error here if needed
-                return false;
-            }
+           return await positionService.DeletePosition(request);
+               
         }
     }
 }

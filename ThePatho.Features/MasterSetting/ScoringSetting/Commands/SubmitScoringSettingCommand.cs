@@ -1,10 +1,11 @@
 ﻿using MediatR;
 using Newtonsoft.Json;
 using System.Text.Json.Serialization;
+using ThePatho.Features.ConfigurationExtensions;
 
 namespace ThePatho.Features.MasterSetting.ScoringSetting.Commands
 {
-    public class SubmitScoringSettingCommand : IRequest<string>
+    public class SubmitScoringSettingCommand : IRequest<ApiResponse>
     {
         [JsonProperty("scoring_code")]
         public string ScoringCode { get; set; }

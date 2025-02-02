@@ -1,11 +1,12 @@
 ﻿
 using MediatR;
+using ThePatho.Features.ConfigurationExtensions;
 using ThePatho.Features.MasterData.AdsMedia.DTO;
 using ThePatho.Features.MasterData.AdsMedia.Service;
 
 namespace ThePatho.Features.MasterData.AdsMedia.Commands
 {
-    public class GetAdsMediaCommandHandler : IRequestHandler<GetAdsMediaCommand, AdsMediaItemDto>
+    public class GetAdsMediaCommandHandler : IRequestHandler<GetAdsMediaCommand, NewApiResponse<AdsMediaItemDto>>
     {
         private readonly IAdsMediaService adsMediaService;
 
@@ -14,15 +15,9 @@ namespace ThePatho.Features.MasterData.AdsMedia.Commands
             adsMediaService = _adsMediaService;
         }
 
-        public async Task<AdsMediaItemDto> Handle(GetAdsMediaCommand request, CancellationToken cancellationToken)
+        public async Task<NewApiResponse<AdsMediaItemDto>> Handle(GetAdsMediaCommand request, CancellationToken cancellationToken)
         {
-            var data = await adsMediaService.GetAdsMedia(request);
-
-            return new AdsMediaItemDto
-            {
-                DataOfRecords = data.Count,
-                AdsMediaList = data
-            };
+            return await adsMediaService.GetAdsMedia(request);
         }
     }
 }

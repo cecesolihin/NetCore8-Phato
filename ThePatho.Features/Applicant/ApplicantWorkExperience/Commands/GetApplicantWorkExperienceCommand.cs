@@ -1,10 +1,11 @@
 ﻿using MediatR;
 using System.Text.Json.Serialization;
 using ThePatho.Features.Applicant.ApplicantWorkExperience.DTO;
+using ThePatho.Features.ConfigurationExtensions;
 
 namespace ThePatho.Features.Applicant.ApplicantWorkExperience.Commands
 {
-    public class GetApplicantWorkExperienceCommand :IRequest<ApplicantWorkExperienceItemDto>
+    public class GetApplicantWorkExperienceCommand :IRequest<NewApiResponse<ApplicantWorkExperienceItemDto>>
     {
         [JsonPropertyName("filter_ApplicantNo")]
         public string? FilterApplicantNo { get; set; }

@@ -1,4 +1,5 @@
 
+using ThePatho.Features.ConfigurationExtensions;
 using ThePatho.Features.Organization.OrgStructure.Commands;
 using ThePatho.Features.Organization.OrgStructure.DTO;
 
@@ -6,9 +7,9 @@ namespace ThePatho.Features.Organization.OrgStructure.Service
 {
     public interface IOrgStructureService
     {
-        Task<List<OrgStructureDto>> GetOrgStructure(GetOrgStructureCommand request);
-        Task<OrgStructureDto> GetOrgStructureByCriteria(GetOrgStructureByCriteriaCommand request);
-        Task<bool> SubmitOrgStructure(SubmitOrgStructureCommand request);
-        Task<bool> DeleteOrgStructure(DeleteOrgStructureCommand request);
+        Task<NewApiResponse<OrgStructureItemDto>> GetOrgStructure(GetOrgStructureCommand request);
+        Task<NewApiResponse<OrgStructureDto>> GetOrgStructureByCriteria(GetOrgStructureByCriteriaCommand request);
+        Task<ApiResponse> SubmitOrgStructure(SubmitOrgStructureCommand request);
+        Task<ApiResponse> DeleteOrgStructure(DeleteOrgStructureCommand request);
     }
 }

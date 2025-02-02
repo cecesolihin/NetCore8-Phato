@@ -1,9 +1,10 @@
 ﻿using MediatR;
 using ThePatho.Features.Applicant.ApplicantRecruitStep.Service;
+using ThePatho.Features.ConfigurationExtensions;
 
 namespace ThePatho.Features.Applicant.ApplicantRecruitStep.Commands
 {
-    public class SubmitApplicantRecruitStepCommandHandler : IRequestHandler<SubmitApplicantRecruitStepCommand, string>
+    public class SubmitApplicantRecruitStepCommandHandler : IRequestHandler<SubmitApplicantRecruitStepCommand, ApiResponse>
     {
         private readonly IApplicantRecruitStepService applicantRecruitStepService;
 
@@ -12,19 +13,10 @@ namespace ThePatho.Features.Applicant.ApplicantRecruitStep.Commands
             applicantRecruitStepService = _applicantRecruitStepService;
         }
 
-        public async Task<string> Handle(SubmitApplicantRecruitStepCommand request, CancellationToken cancellationToken)
+        public async Task<ApiResponse> Handle(SubmitApplicantRecruitStepCommand request, CancellationToken cancellationToken)
         {
-            await applicantRecruitStepService.SubmitApplicantRecruitStep(request);
-            if (request.Action == "ADD")
-            {
-                return "Applicant Recruit Step successfully added.";
-            }
-            else if (request.Action == "EDIT")
-            {
-                return "Applicant Recruit Step successfully updated.";
-            }
-
-            throw new ArgumentException("Invalid action specified. Use 'ADD' or 'EDIT'.");
+            return await applicantRecruitStepService.SubmitApplicantRecruitStep(request);
+            
         }
     }
 }

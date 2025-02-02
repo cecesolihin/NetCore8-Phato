@@ -1,10 +1,11 @@
 ﻿using MediatR;
+using ThePatho.Features.ConfigurationExtensions;
 using ThePatho.Features.MasterSetting.OnlineTestSetting.DTO;
 using ThePatho.Features.MasterSetting.OnlineTestSetting.Service;
 
 namespace ThePatho.Features.MasterSetting.OnlineTestSetting.Commands
 {
-    public class GetOnlineTestSettingDdlCommandHandler : IRequestHandler<GetOnlineTestSettingDdlCommand, OnlineTestSettingItemDto>
+    public class GetOnlineTestSettingDdlCommandHandler : IRequestHandler<GetOnlineTestSettingDdlCommand, NewApiResponse<OnlineTestSettingItemDto>>
     {
         private readonly IOnlineTestSettingService onlineTestSettingService;
 
@@ -13,15 +14,9 @@ namespace ThePatho.Features.MasterSetting.OnlineTestSetting.Commands
             onlineTestSettingService = _onlineTestSetting;
         }
 
-        public async Task<OnlineTestSettingItemDto> Handle(GetOnlineTestSettingDdlCommand request, CancellationToken cancellationToken)
+        public async Task<NewApiResponse<OnlineTestSettingItemDto>> Handle(GetOnlineTestSettingDdlCommand request, CancellationToken cancellationToken)
         {
-            var data = await onlineTestSettingService.GetOnlineTestSettingDdl(request);
-
-            return new OnlineTestSettingItemDto
-            {
-                DataOfRecords = data.Count,
-                OnlineTestSettingList = data
-            };
+            return await onlineTestSettingService.GetOnlineTestSettingDdl(request);
         }
     }
 }

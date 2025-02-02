@@ -5,6 +5,10 @@ using ThePatho.Features.Recruitment.RecruitmentReqStep.DTO;
 using ThePatho.Features.Recruitment.RecruitmentReqStep.Commands;
 using ThePatho.Infrastructure.Persistance;
 using SqlKata;
+using ThePatho.Features.ConfigurationExtensions;
+using System.Net;
+using ThePatho.Features.Recruitment.RecruitStep.DTO;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ThePatho.Features.Recruitment.RecruitmentReqStep.Service
 {
@@ -17,57 +21,93 @@ namespace ThePatho.Features.Recruitment.RecruitmentReqStep.Service
             dapperContext = _dapperContext;
         }
 
-        public async Task<List<RecruitmentReqStepDto>> GetRecruitmentReqStep(GetRecruitmentReqStepCommand request)
+        public async Task<NewApiResponse<RecruitmentReqStepItemDto>> GetRecruitmentReqStep(GetRecruitmentReqStepCommand request)
         {
-            using var connection = dapperContext.CreateConnection();
-            var db = new QueryFactory(connection, dapperContext.Compiler);
-            var query = new Query(TableName.RecruitmentReqStep)
-                .Select("recruit_req_step_id as RecruitReqStepId",
-                        "request_no as RequestNo",
-                        "recruit_step_code as RecruitStepCode",
-                        "schedule_date as ScheduleDate",
-                        "inserted_by as InsertedBy",
-                        "inserted_date as InsertedDate",
-                        "modified_by as ModifiedBy",
-                        "modified_date as ModifiedDate")
-                .When(
-                    !string.IsNullOrWhiteSpace(request.FilterRequestNo),
-                    q => q.WhereIn("request_no", request.FilterRequestNo)
-                ).When(
-                    !string.IsNullOrWhiteSpace(request.FilterStepCode),
-                        q => q.WhereContains("recruit_step_code", request.FilterStepCode)
+            try
+            {
+                using var connection = dapperContext.CreateConnection();
+                var db = new QueryFactory(connection, dapperContext.Compiler);
+                var query = new Query(TableName.RecruitmentReqStep)
+                    .Select("recruit_req_step_id as RecruitReqStepId",
+                            "request_no as RequestNo",
+                            "recruit_step_code as RecruitStepCode",
+                            "schedule_date as ScheduleDate",
+                            "inserted_by as InsertedBy",
+                            "inserted_date as InsertedDate",
+                            "modified_by as ModifiedBy",
+                            "modified_date as ModifiedDate")
+                    .When(
+                        !string.IsNullOrWhiteSpace(request.FilterRequestNo),
+                        q => q.WhereIn("request_no", request.FilterRequestNo)
+                    ).When(
+                        !string.IsNullOrWhiteSpace(request.FilterStepCode),
+                            q => q.WhereContains("recruit_step_code", request.FilterStepCode)
+                    );
+
+                query = query.OrderByRaw(
+                    $"{(!string.IsNullOrWhiteSpace(request.SortBy) ? request.SortBy : "inserted_by")} {(!string.IsNullOrWhiteSpace(request.OrderBy) && (request.OrderBy.ToUpper() == "ASC" || request.OrderBy.ToUpper() == "DESC") ? request.OrderBy.ToUpper() : "DESC")}"
                 );
 
-            query = query.OrderByRaw(
-                $"{(!string.IsNullOrWhiteSpace(request.SortBy) ? request.SortBy : "inserted_by")} {(!string.IsNullOrWhiteSpace(request.OrderBy) && (request.OrderBy.ToUpper() == "ASC" || request.OrderBy.ToUpper() == "DESC") ? request.OrderBy.ToUpper() : "DESC")}"
-            );
+                query = query.Skip(request.PageNumber * request.PageSize).Take(request.PageSize);
 
-            query = query.Skip(request.PageNumber * request.PageSize).Take(request.PageSize);
+                var data = await db.GetAsync<RecruitmentReqStepDto>(query);
+                var result = new RecruitmentReqStepItemDto
+                {
+                    DataOfRecords = data.ToList().Count,
+                    RecruitmentReqStepList = data.ToList(),
+                };
+                return new NewApiResponse<RecruitmentReqStepItemDto>(HttpStatusCode.OK, result);
+            }
+            catch (Exception ex)
+            {
 
-            var results = await db.GetAsync<RecruitmentReqStepDto>(query);
-            return results.ToList();
+                return new NewApiResponse<RecruitmentReqStepItemDto>(
+                        HttpStatusCode.BadRequest,
+                        "An error occurred while retrieving data.",
+                        ex.Message
+                    );
+            }
+
 
         }
 
-        public async Task<List<RecruitmentReqStepDto>> GetRecruitmentReqStepByCriteria(GetRecruitmentReqStepByCriteriaCommand request)
+        public async Task<NewApiResponse<RecruitmentReqStepItemDto>> GetRecruitmentReqStepByCriteria(GetRecruitmentReqStepByCriteriaCommand request)
         {
-            using var connection = dapperContext.CreateConnection();
-            var db = new QueryFactory(connection, dapperContext.Compiler);
-            var query = new Query(TableName.RecruitmentReqStep)
-                .Select("recruit_req_step_id as RecruitReqStepId",
-                        "request_no as RequestNo",
-                        "recruit_step_code as RecruitStepCode",
-                        "schedule_date as ScheduleDate",
-                        "inserted_by as InsertedBy",
-                        "inserted_date as InsertedDate",
-                        "modified_by as ModifiedBy",
-                        "modified_date as ModifiedDate")
-                .When(
-                    !string.IsNullOrWhiteSpace(request.FilterRequestNo),
-                    q => q.WhereIn("request_no", request.FilterRequestNo)
-                );
-            var data = await db.GetAsync<RecruitmentReqStepDto>(query);
-            return data.ToList();
+            try
+            {
+                using var connection = dapperContext.CreateConnection();
+                var db = new QueryFactory(connection, dapperContext.Compiler);
+                var query = new Query(TableName.RecruitmentReqStep)
+                    .Select("recruit_req_step_id as RecruitReqStepId",
+                            "request_no as RequestNo",
+                            "recruit_step_code as RecruitStepCode",
+                            "schedule_date as ScheduleDate",
+                            "inserted_by as InsertedBy",
+                            "inserted_date as InsertedDate",
+                            "modified_by as ModifiedBy",
+                            "modified_date as ModifiedDate")
+                    .When(
+                        !string.IsNullOrWhiteSpace(request.FilterRequestNo),
+                        q => q.WhereIn("request_no", request.FilterRequestNo)
+                    );
+                var data = await db.GetAsync<RecruitmentReqStepDto>(query);
+                var result = new RecruitmentReqStepItemDto
+                {
+                    DataOfRecords = data.ToList().Count,
+                    RecruitmentReqStepList = data.ToList(),
+                };
+                return new NewApiResponse<RecruitmentReqStepItemDto>(HttpStatusCode.OK, result);
+            }
+            catch (Exception ex)
+            {
+
+                return new NewApiResponse<RecruitmentReqStepItemDto>(
+                        HttpStatusCode.BadRequest,
+                        "An error occurred while retrieving data.",
+                        ex.Message
+                    );
+            }
+
         }
     }
 }

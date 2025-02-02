@@ -1,26 +1,21 @@
 ﻿using MediatR;
-
+using ThePatho.Features.ConfigurationExtensions;
 using ThePatho.Features.Recruitment.RequirementMaster.DTO;
 using ThePatho.Features.Recruitment.RequirementMaster.Service;
 
 namespace ThePatho.Features.Recruitment.RequirementMaster.Commands
 {
-    public class GetRequirementMasterCommandHandler : IRequestHandler<GetRequirementMasterCommand, RequirementMasterItemDto>
+    public class GetRequirementMasterCommandHandler : IRequestHandler<GetRequirementMasterCommand, NewApiResponse<RequirementMasterItemDto>>
     {
         private readonly IRequirementMasterService RequirementMasterService;
         public GetRequirementMasterCommandHandler(IRequirementMasterService _RequirementMasterService)
         {
             RequirementMasterService =_RequirementMasterService;
         }
-        public async Task<RequirementMasterItemDto> Handle(GetRequirementMasterCommand request, CancellationToken cancellationToken)
+        public async Task<NewApiResponse<RequirementMasterItemDto>> Handle(GetRequirementMasterCommand request, CancellationToken cancellationToken)
         {
-            var data = await RequirementMasterService.GetRequirementMaster(request);
+            return await RequirementMasterService.GetRequirementMaster(request);
 
-            return new RequirementMasterItemDto
-            {
-                DataOfRecords = data.Count,
-                RequirementMasterList = data,
-            };
         }
     }
 }

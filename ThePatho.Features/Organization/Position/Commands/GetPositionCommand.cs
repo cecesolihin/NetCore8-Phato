@@ -1,10 +1,11 @@
 ﻿using MediatR;
 using System.Text.Json.Serialization;
+using ThePatho.Features.ConfigurationExtensions;
 using ThePatho.Features.Organization.Position.DTO;
 
 namespace ThePatho.Features.Organization.Position.Commands
 {
-    public class GetPositionCommand :IRequest<PositionItemDto>
+    public class GetPositionCommand :IRequest<NewApiResponse<PositionItemDto>>
     {
         [JsonPropertyName("filter_PositionName")]
         public string? FilterPositionName { get; set; }

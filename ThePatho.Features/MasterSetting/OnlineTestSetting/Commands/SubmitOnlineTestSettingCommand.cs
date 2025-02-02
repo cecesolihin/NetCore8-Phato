@@ -1,10 +1,11 @@
 ﻿using MediatR;
 using Newtonsoft.Json;
 using System.Text.Json.Serialization;
+using ThePatho.Features.ConfigurationExtensions;
 
 namespace ThePatho.Features.MasterSetting.OnlineTestSetting.Commands
 {
-    public class SubmitOnlineTestSettingCommand : IRequest<string>
+    public class SubmitOnlineTestSettingCommand : IRequest<ApiResponse>
     {
         [JsonProperty("online_test_code")]
         public string OnlineTestCode { get; set; }

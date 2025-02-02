@@ -656,22 +656,6 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "ThePatho.Controllers.Identity.AuthenticationController",
-    "Method": "Register",
-    "RelativePath": "api/identity/auth/register",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "command",
-        "Type": "ThePatho.Features.Identity.Authentication.Commands.RegisterCommand",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
     "ContainingType": "ThePatho.Controllers.Identity.UserManagementController",
     "Method": "GetGroupByCriteria",
     "RelativePath": "api/identity/user-management/get-group-by-criteria",

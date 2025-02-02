@@ -1,9 +1,10 @@
 ﻿using MediatR;
 using ThePatho.Features.Applicant.ApplicantAddress.Service;
+using ThePatho.Features.ConfigurationExtensions;
 
 namespace ThePatho.Features.Applicant.ApplicantAddress.Commands
 {
-    public class SubmitApplicantAddressCommandHandler : IRequestHandler<SubmitApplicantAddressCommand, string>
+    public class SubmitApplicantAddressCommandHandler : IRequestHandler<SubmitApplicantAddressCommand, ApiResponse>
     {
         private readonly IApplicantAddressService applicantAddressService;
 
@@ -12,19 +13,10 @@ namespace ThePatho.Features.Applicant.ApplicantAddress.Commands
             applicantAddressService = _applicantAddressService;
         }
 
-        public async Task<string> Handle(SubmitApplicantAddressCommand request, CancellationToken cancellationToken)
+        public async Task<ApiResponse> Handle(SubmitApplicantAddressCommand request, CancellationToken cancellationToken)
         {
-            await applicantAddressService.SubmitApplicantAddress(request);
-            if (request.Action == "ADD")
-            {
-                return "Applicant Address successfully added.";
-            }
-            else if (request.Action == "EDIT")
-            {
-                return "Applicant Address successfully updated.";
-            }
-
-            throw new ArgumentException("Invalid action specified. Use 'ADD' or 'EDIT'.");
+            return await applicantAddressService.SubmitApplicantAddress(request);
+           
         }
     }
 }

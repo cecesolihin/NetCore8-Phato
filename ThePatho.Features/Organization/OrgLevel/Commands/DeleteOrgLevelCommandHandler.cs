@@ -1,9 +1,10 @@
 ﻿using MediatR;
 using System;
+using ThePatho.Features.ConfigurationExtensions;
 using ThePatho.Features.Organization.OrgLevel.Service;
 namespace ThePatho.Features.Organization.OrgLevel.Commands
 {
-    public class DeleteOrgLevelCommandHandler : IRequestHandler<DeleteOrgLevelCommand, bool>
+    public class DeleteOrgLevelCommandHandler : IRequestHandler<DeleteOrgLevelCommand, ApiResponse>
     {
         private readonly IOrgLevelService orgLevelService;
 
@@ -12,18 +13,10 @@ namespace ThePatho.Features.Organization.OrgLevel.Commands
             orgLevelService = _orgLevelService;
         }
 
-        public async Task<bool> Handle(DeleteOrgLevelCommand request, CancellationToken cancellationToken)
+        public async Task<ApiResponse> Handle(DeleteOrgLevelCommand request, CancellationToken cancellationToken)
         {
-            try
-            {
-                await orgLevelService.DeleteOrganizationLevel(request);
-                return true;
-            }
-            catch
-            {
-                // Log the error here if needed
-                return false;
-            }
+              return await orgLevelService.DeleteOrganizationLevel(request);
+              
         }
     }
 }

@@ -1,25 +1,21 @@
 ﻿using MediatR;
 using ThePatho.Features.Applicant.ApplicantPersonalData.DTO;
 using ThePatho.Features.Applicant.ApplicantPersonalData.Service;
+using ThePatho.Features.ConfigurationExtensions;
 
 namespace ThePatho.Features.Applicant.ApplicantPersonalData.Commands
 {
-    public class GetApplicantPersonalDataCommandHandler : IRequestHandler<GetApplicantPersonalDataCommand, ApplicantPersonalDataItemDto>
+    public class GetApplicantPersonalDataCommandHandler : IRequestHandler<GetApplicantPersonalDataCommand, NewApiResponse<ApplicantPersonalDataItemDto>>
     {
         private readonly IApplicantPersonalDataService applicantPersonalDataService;
         public GetApplicantPersonalDataCommandHandler(IApplicantPersonalDataService _applicantPersonalDataService) 
         {
             applicantPersonalDataService =_applicantPersonalDataService;
         }
-        public async Task<ApplicantPersonalDataItemDto> Handle(GetApplicantPersonalDataCommand request, CancellationToken cancellationToken)
+        public async Task<NewApiResponse<ApplicantPersonalDataItemDto>> Handle(GetApplicantPersonalDataCommand request, CancellationToken cancellationToken)
         {
-            var data = await applicantPersonalDataService.GetApplicantPersonalData(request);
+            return await applicantPersonalDataService.GetApplicantPersonalData(request);
 
-            return new ApplicantPersonalDataItemDto
-            {
-                DataOfRecords = data.Count,
-                ApplicantPersonalDataList = data,
-            };
         }
     }
 }

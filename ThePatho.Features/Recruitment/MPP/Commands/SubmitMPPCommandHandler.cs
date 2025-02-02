@@ -1,9 +1,10 @@
 ﻿using MediatR;
+using ThePatho.Features.ConfigurationExtensions;
 using ThePatho.Features.Recruitment.MPP.Service;
 
 namespace ThePatho.Features.Recruitment.MPP.Commands
 {
-    public class SubmitMPPCommandHandler : IRequestHandler<SubmitMPPCommand, string>
+    public class SubmitMPPCommandHandler : IRequestHandler<SubmitMPPCommand, ApiResponse>
     {
         private readonly IMPPService MPPService;
 
@@ -12,19 +13,9 @@ namespace ThePatho.Features.Recruitment.MPP.Commands
             MPPService = _MPPService;
         }
 
-        public async Task<string> Handle(SubmitMPPCommand request, CancellationToken cancellationToken)
+        public async Task<ApiResponse> Handle(SubmitMPPCommand request, CancellationToken cancellationToken)
         {
-            await MPPService.SubmitMPP(request);
-            if (request.Action == "ADD")
-            {
-                return "MPP successfully added.";
-            }
-            else if (request.Action == "EDIT")
-            {
-                return "MPP successfully updated.";
-            }
-
-            throw new ArgumentException("Invalid action specified. Use 'ADD' or 'EDIT'.");
+           return await MPPService.SubmitMPP(request);
         }
     }
 }

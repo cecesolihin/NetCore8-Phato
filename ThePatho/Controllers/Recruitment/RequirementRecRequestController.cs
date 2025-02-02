@@ -18,46 +18,28 @@ namespace ThePatho.Controllers
         public RequirementRecRequestController(IMediator _mediator)
         {
             mediator = _mediator ?? throw new ArgumentNullException(nameof(mediator));
-        } 
+        }
+        private static IActionResult ApiResult<TResponse>(TResponse response) where TResponse : ApiResponse
+        {
+            return new ApiResult<TResponse>(response);
+        }
 
         [HttpPost(ApiRoutes.Methods.GetList)]
         public async Task<IActionResult> GetRequirementRecRequestList([FromBody] GetRequirementRecRequestCommand command,
             CancellationToken cancellationToken)
         {
-            try
-            {
-                var result = await mediator.Send(command, cancellationToken);
+            var result = await mediator.Send(command, cancellationToken);
 
-                var response = new ApiResponse<List<RequirementRecRequestDto>>(HttpStatusCode.OK, result.RequirementRecRequestList, "Process Successed");
-
-                return Ok(response);
-            }
-            catch (Exception ex)
-            {
-                var errorResponse = new ApiResponse<List<RequirementRecRequestDto>>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
-
-                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
-            }
+            return ApiResult(result);
         }
 
         [HttpGet(ApiRoutes.Methods.GetByCriteria)]
         public async Task<IActionResult> GetRequirementRecRequestByCriteria([FromQuery] GetRequirementRecRequestByCriteriaCommand command,
             CancellationToken cancellationToken)
         {
-            try
-            {
-                var result = await mediator.Send(command, cancellationToken);
+            var result = await mediator.Send(command, cancellationToken);
 
-                var response = new ApiResponse<List<RequirementRecRequestDto>>(HttpStatusCode.OK, result.RequirementRecRequestList, "Process Successed");
-
-                return Ok(response);
-            }
-            catch (Exception ex)
-            {
-                var errorResponse = new ApiResponse<RequirementRecRequestDto>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
-
-                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
-            }
+            return ApiResult(result);
         }
     }
 }

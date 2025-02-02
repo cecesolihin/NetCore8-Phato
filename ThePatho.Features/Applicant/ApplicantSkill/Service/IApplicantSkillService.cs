@@ -1,13 +1,14 @@
 using ThePatho.Features.Applicant.ApplicantSkill.Commands;
 using ThePatho.Features.Applicant.ApplicantSkill.DTO;
+using ThePatho.Features.ConfigurationExtensions;
 
 namespace ThePatho.Features.Applicant.ApplicantSkill.Service
 {
     public interface IApplicantSkillService
     {
-        Task<List<ApplicantSkillDto>> GetApplicantSkill(GetApplicantSkillCommand request);
-        Task<ApplicantSkillDto> GetApplicantSkillByCriteria(GetApplicantSkillByCriteriaCommand request);
-        Task<bool> SubmitApplicantSkill(SubmitApplicantSkillCommand request);
-        Task<bool> DeleteApplicantSkill(DeleteApplicantSkillCommand request);
+        Task<NewApiResponse<ApplicantSkillItemDto>> GetApplicantSkill(GetApplicantSkillCommand request);
+        Task<NewApiResponse<ApplicantSkillDto>> GetApplicantSkillByCriteria(GetApplicantSkillByCriteriaCommand request);
+        Task<ApiResponse> SubmitApplicantSkill(SubmitApplicantSkillCommand request);
+        Task<ApiResponse> DeleteApplicantSkill(DeleteApplicantSkillCommand request);
     }
 }

@@ -1,10 +1,11 @@
 ﻿
 using MediatR;
+using ThePatho.Features.ConfigurationExtensions;
 using ThePatho.Features.MasterData.AdsCategory.Service;
 
 namespace ThePatho.Features.MasterData.AdsCategory.Commands
 {
-    public class DeleteAdsCategoryCommandHandler : IRequestHandler<DeleteAdsCategoryCommand, bool>
+    public class DeleteAdsCategoryCommandHandler : IRequestHandler<DeleteAdsCategoryCommand, ApiResponse>
     {
         private readonly IAdsCategoryService adsCategoryService;
 
@@ -13,18 +14,9 @@ namespace ThePatho.Features.MasterData.AdsCategory.Commands
             adsCategoryService = _adsCategoryService;
         }
 
-        public async Task<bool> Handle(DeleteAdsCategoryCommand request, CancellationToken cancellationToken)
+        public async Task<ApiResponse> Handle(DeleteAdsCategoryCommand request, CancellationToken cancellationToken)
         {
-            try
-            {
-                await adsCategoryService.DeleteAdsCategory(request);
-                return true;
-            }
-            catch
-            {
-                // Log the error here if needed
-                return false;
-            }
+            return await adsCategoryService.DeleteAdsCategory(request);  
         }
     }
 

@@ -1,9 +1,10 @@
 ﻿using MediatR;
 using ThePatho.Features.Applicant.ApplicantSkill.Service;
+using ThePatho.Features.ConfigurationExtensions;
 
 namespace ThePatho.Features.Applicant.ApplicantSkill.Commands
 {
-    public class SubmitApplicantSkillCommandHandler : IRequestHandler<SubmitApplicantSkillCommand, string>
+    public class SubmitApplicantSkillCommandHandler : IRequestHandler<SubmitApplicantSkillCommand, ApiResponse>
     {
         private readonly IApplicantSkillService applicantSkillService;
 
@@ -12,19 +13,9 @@ namespace ThePatho.Features.Applicant.ApplicantSkill.Commands
             applicantSkillService = _applicantSkillService;
         }
 
-        public async Task<string> Handle(SubmitApplicantSkillCommand request, CancellationToken cancellationToken)
+        public async Task<ApiResponse> Handle(SubmitApplicantSkillCommand request, CancellationToken cancellationToken)
         {
-            await applicantSkillService.SubmitApplicantSkill(request);
-            if (request.Action == "ADD")
-            {
-                return "Applicant Skill successfully added.";
-            }
-            else if (request.Action == "EDIT")
-            {
-                return "Applicant Skill successfully updated.";
-            }
-
-            throw new ArgumentException("Invalid action specified. Use 'ADD' or 'EDIT'.");
+            return await applicantSkillService.SubmitApplicantSkill(request);
         }
     }
 }

@@ -1,10 +1,11 @@
 ﻿using MediatR;
 using System.Text.Json.Serialization;
 using ThePatho.Features.Applicant.ApplicantDocument.DTO;
+using ThePatho.Features.ConfigurationExtensions;
 
 namespace ThePatho.Features.Applicant.ApplicantDocument.Commands
 {
-    public class GetApplicantDocumentCommand :IRequest<ApplicantDocumentItemDto>
+    public class GetApplicantDocumentCommand :IRequest<NewApiResponse<ApplicantDocumentItemDto>>
     {
         [JsonPropertyName("filter_ApplicantNo")]
         public string? FilterApplicantNo { get; set; }

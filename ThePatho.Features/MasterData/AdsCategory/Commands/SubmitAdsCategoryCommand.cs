@@ -1,9 +1,10 @@
 ﻿using MediatR;
 using System.Text.Json.Serialization;
+using ThePatho.Features.ConfigurationExtensions;
 
 namespace ThePatho.Features.MasterData.AdsCategory.Commands
 {
-    public class SubmitAdsCategoryCommand : IRequest<string>
+    public class SubmitAdsCategoryCommand : IRequest<ApiResponse>
     {
         [JsonPropertyName("adsCategoryCode")]
         public string AdsCategoryCode { get; set; }

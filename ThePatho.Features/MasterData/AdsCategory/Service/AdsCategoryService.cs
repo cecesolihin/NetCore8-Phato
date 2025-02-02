@@ -1,12 +1,11 @@
-using ThePatho.Features.MasterData.AdsCategory.Service;
 using ThePatho.Features.MasterData.AdsCategory.DTO;
 using ThePatho.Infrastructure.Persistance;
 using Microsoft.EntityFrameworkCore;
 using Dapper;
 using System.Data;
-using Azure.Core;
 using ThePatho.Features.MasterData.AdsCategory.Commands;
-using MediatR;
+using ThePatho.Features.ConfigurationExtensions;
+using System.Net;
 
 namespace ThePatho.Features.MasterData.AdsCategory.Service
 {
@@ -25,63 +24,131 @@ namespace ThePatho.Features.MasterData.AdsCategory.Service
             dbConnection = _dbConnection;
         }
 
-        public async Task<List<AdsCategoryDto>> GetAllAdsCategories(GetAdsCategoryCommand request)
+        public async Task<NewApiResponse<AdsCategoryItemDto>> GetAllAdsCategories(GetAdsCategoryCommand request)
         {
-            var parameters = new DynamicParameters();
-            parameters.Add("@PageNumber", request.PageNumber);
-            parameters.Add("@PageSize", request.PageSize);
-            parameters.Add("@AdsCategoryCode", request.FilterAdsCategoryCode ?? (object)DBNull.Value);
-            parameters.Add("@AdsCategoryName", request.FilterAdsCategoryName ?? (object)DBNull.Value);
-            parameters.Add("@SortBy", request.SortBy);
-            parameters.Add("@OrderBy", request.OrderBy);
+            try
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("@PageNumber", request.PageNumber);
+                parameters.Add("@PageSize", request.PageSize);
+                parameters.Add("@AdsCategoryCode", request.FilterAdsCategoryCode ?? (object)DBNull.Value);
+                parameters.Add("@AdsCategoryName", request.FilterAdsCategoryName ?? (object)DBNull.Value);
+                parameters.Add("@SortBy", request.SortBy);
+                parameters.Add("@OrderBy", request.OrderBy);
 
-            var query = await queryLoader.LoadQueryAsync("MasterData/AdsCategory/Sql/search_ads_category");
-            var data = await dbConnection.QueryAsync<AdsCategoryDto>(query, parameters);
+                var query = await queryLoader.LoadQueryAsync("MasterData/AdsCategory/Sql/search_ads_category");
+                var data = await dbConnection.QueryAsync<AdsCategoryDto>(query, parameters);
 
-            return data.ToList();
+                var result = new AdsCategoryItemDto
+                {
+                    DataOfRecords = data.ToList().Count,
+                    AdsCategoryList = data.ToList(),
+                };
+                return new NewApiResponse<AdsCategoryItemDto>(HttpStatusCode.OK, result);
+            }
+            catch (Exception ex)
+            {
+
+                return new NewApiResponse<AdsCategoryItemDto>(
+                        HttpStatusCode.BadRequest,
+                        "An error occurred while retrieving data.",
+                        ex.Message
+                    );
+            }
+
         }
 
-        public async Task<AdsCategoryDto> GetAdsCategoryByCriteria(GetAdsCategoryByCriteriaCommand request)
+        public async Task<NewApiResponse<AdsCategoryDto>> GetAdsCategoryByCriteria(GetAdsCategoryByCriteriaCommand request)
         {
-            var parameters = new DynamicParameters();
-            parameters.Add("@AdsCategoryCode", request.FilterAdsCategoryCode ?? (object)DBNull.Value);
+            try
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("@AdsCategoryCode", request.FilterAdsCategoryCode, DbType.String, ParameterDirection.Input);
+                var query = await queryLoader.LoadQueryAsync("MasterData/AdsCategory/Sql/search_ads_category_by_code");
 
-            var query = await queryLoader.LoadQueryAsync("MasterData/AdsCategory/Sql/search_ads_category_by_code");
+                var data = await dbConnection.QueryFirstOrDefaultAsync<AdsCategoryDto>(query, parameters);
 
-            var data = await dbConnection.QueryFirstOrDefaultAsync<AdsCategoryDto>(query, parameters);
+                return new NewApiResponse<AdsCategoryDto>(HttpStatusCode.OK, data);
+            }
+            catch (Exception ex)
+            {
 
-            return data;
+                return new NewApiResponse<AdsCategoryDto>(
+                        HttpStatusCode.BadRequest,
+                        "An error occurred while retrieving data.",
+                        ex.Message
+                    );
+            }
+            
         }
-        public async Task<List<AdsCategoryDto>> GetAdsCategoriesDdl(GetAdsCategoryDdlCommand request)
+        public async Task<NewApiResponse<AdsCategoryItemDto>> GetAdsCategoriesDdl(GetAdsCategoryDdlCommand request)
         {
-            var parameters = new DynamicParameters();
+            try
+            {
+                var parameters = new DynamicParameters();
 
-            parameters.Add("@AdsCategoryCode", request.FilterAdsCategoryCode ?? (object)DBNull.Value);
-            parameters.Add("@AdsCategoryName", request.FilterAdsCategoryName ?? (object)DBNull.Value);
+                parameters.Add("@AdsCategoryCode", request.FilterAdsCategoryCode, DbType.String, ParameterDirection.Input);
+                parameters.Add("@AdsCategoryName", request.FilterAdsCategoryName, DbType.String, ParameterDirection.Input);
 
-            var query = await queryLoader.LoadQueryAsync("MasterData/AdsCategory/Sql/search_ads_category_ddl");
-            var data = await dbConnection.QueryAsync<AdsCategoryDto>(query, parameters);
 
-            return data.ToList();
+                var query = await queryLoader.LoadQueryAsync("MasterData/AdsCategory/Sql/search_ads_category_ddl");
+                var data = await dbConnection.QueryAsync<AdsCategoryDto>(query, parameters);
+
+                var result = new AdsCategoryItemDto
+                {
+                    DataOfRecords = data.ToList().Count,
+                    AdsCategoryList = data.ToList(),
+                };
+                return new NewApiResponse<AdsCategoryItemDto>(HttpStatusCode.OK, result);
+            }
+            catch (Exception ex)
+            {
+
+                return new NewApiResponse<AdsCategoryItemDto>(
+                        HttpStatusCode.BadRequest,
+                        "An error occurred while retrieving data.",
+                        ex.Message
+                    );
+            }
         }
-        public async Task SubmitAdsCategory(SubmitAdsCategoryCommand request)
+        public async Task<ApiResponse> SubmitAdsCategory(SubmitAdsCategoryCommand request)
         {
-            var parameters = new DynamicParameters();
-            parameters.Add("@Action", request.Action);
-            parameters.Add("@AdsCategoryCode", request.AdsCategoryCode);
-            parameters.Add("@AdsCategoryName", request.AdsCategoryName);
-            parameters.Add("@User", "admin");
+            try
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("@Action", request.Action);
+                parameters.Add("@AdsCategoryCode", request.AdsCategoryCode);
+                parameters.Add("@AdsCategoryName", request.AdsCategoryName);
+                parameters.Add("@User", "admin");
 
-            var query = await queryLoader.LoadQueryAsync("MasterData/AdsCategory/Sql/submit_ads_category");
-            await dbConnection.ExecuteAsync(query, parameters);
+                var query = await queryLoader.LoadQueryAsync("MasterData/AdsCategory/Sql/submit_ads_category");
+                await dbConnection.ExecuteAsync(query, parameters);
+
+                return new ApiResponse(HttpStatusCode.OK, $"{request.Action} {request.AdsCategoryCode} successfully");
+            }
+            catch (Exception ex)
+            {
+                return new ApiResponse(HttpStatusCode.BadRequest, $"Failed to {request.Action} {request.AdsCategoryCode}", ex.Message.ToString());
+            }
+            
         }
-        public async Task DeleteAdsCategory(DeleteAdsCategoryCommand request)
+        public async Task<ApiResponse> DeleteAdsCategory(DeleteAdsCategoryCommand request)
         {
-            var parameters = new DynamicParameters();
-            parameters.Add("@AdsCategoryCode", request.AdsCategoryCode);
+            try
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("@AdsCategoryCode", request.AdsCategoryCode);
 
-            var query = await queryLoader.LoadQueryAsync("MasterData/AdsCategory/Sql/delete_ads_category");
-            await dbConnection.ExecuteAsync(query, parameters);
+                var query = await queryLoader.LoadQueryAsync("MasterData/AdsCategory/Sql/delete_ads_category");
+                await dbConnection.ExecuteAsync(query, parameters);
+
+                return new ApiResponse(HttpStatusCode.OK, $"Delete {request.AdsCategoryCode} successfully");
+            }
+            catch (Exception ex)
+            {
+                return new ApiResponse(HttpStatusCode.BadRequest, $"Failed to delete {request.AdsCategoryCode}",ex.Message.ToString());
+            }
+            
         }
 
     }

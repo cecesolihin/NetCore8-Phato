@@ -18,41 +18,24 @@ namespace ThePatho.Controllers.Identity
             mediator = _mediator ?? throw new ArgumentNullException(nameof(mediator)); 
         }
 
-        [HttpPost(ApiRoutes.Methods.Register)]
-        public async Task<IActionResult> Register([FromBody] RegisterCommand command,CancellationToken cancellationToken)
+        private static IActionResult ApiResult<TResponse>(TResponse response) where TResponse : ApiResponse
         {
-            try
-            {
-                var result = await mediator.Send(command, cancellationToken);
-
-                var response = new ApiResponse<string>(HttpStatusCode.OK, result.JwtToken, "Process Successed");
-
-                return Ok(response);
-            }
-            catch (Exception ex)
-            {
-                var errorResponse = new ApiResponse<string>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
-
-                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
-            }
+            return new ApiResult<TResponse>(response);
         }
+        //[HttpPost(ApiRoutes.Methods.Register)]
+        //public async Task<IActionResult> Register([FromBody] RegisterCommand command,CancellationToken cancellationToken)
+        //{
+        //    var result = await mediator.Send(command, cancellationToken);
+
+        //    return ApiResult(result);
+        //}
+       
         [HttpPost(ApiRoutes.Methods.Login)]
         public async Task<IActionResult> Login([FromBody] LoginCommand command, CancellationToken cancellationToken)
         {
-            try
-            {
-                var result = await mediator.Send(command, cancellationToken);
+            var result = await mediator.Send(command, cancellationToken);
 
-                var response = new ApiResponse<string>(HttpStatusCode.OK, result.JwtToken, "Process Successed");
-
-                return Ok(response);
-            }
-            catch (Exception ex)
-            {
-                var errorResponse = new ApiResponse<string>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
-
-                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
-            }
+            return ApiResult(result);
         }
     }
    

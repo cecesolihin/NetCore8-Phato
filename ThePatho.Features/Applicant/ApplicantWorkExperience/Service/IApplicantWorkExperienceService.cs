@@ -1,13 +1,14 @@
 using ThePatho.Features.Applicant.ApplicantWorkExperience.Commands;
 using ThePatho.Features.Applicant.ApplicantWorkExperience.DTO;
+using ThePatho.Features.ConfigurationExtensions;
 
 namespace ThePatho.Features.Applicant.ApplicantWorkExperience.Service
 {
     public interface IApplicantWorkExperienceService
     {
-        Task<List<ApplicantWorkExperienceDto>> GetApplicantWorkExperience(GetApplicantWorkExperienceCommand request);
-        Task<ApplicantWorkExperienceDto> GetApplicantWorkExperienceByCriteria(GetApplicantWorkExperienceByCriteriaCommand request);
-        Task<bool> SubmitApplicantWorkExperience(SubmitApplicantWorkExperienceCommand request);
-        Task<bool> DeleteApplicantWorkExperience(DeleteApplicantWorkExperienceCommand request);
+        Task<NewApiResponse<ApplicantWorkExperienceItemDto>> GetApplicantWorkExperience(GetApplicantWorkExperienceCommand request);
+        Task<NewApiResponse<ApplicantWorkExperienceDto>> GetApplicantWorkExperienceByCriteria(GetApplicantWorkExperienceByCriteriaCommand request);
+        Task<ApiResponse> SubmitApplicantWorkExperience(SubmitApplicantWorkExperienceCommand request);
+        Task<ApiResponse> DeleteApplicantWorkExperience(DeleteApplicantWorkExperienceCommand request);
     }
 }

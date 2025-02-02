@@ -21,118 +21,52 @@ namespace ThePatho.Controllers
         {
             mediator = _mediator ?? throw new ArgumentNullException(nameof(mediator)); 
         }
+        private static IActionResult ApiResult<TResponse>(TResponse response) where TResponse : ApiResponse
+        {
+            return new ApiResult<TResponse>(response);
+        }
 
         [HttpPost(ApiRoutes.Methods.GetList)]
         public async Task<IActionResult> GetQuestionSettingDetailList([FromBody] GetQuestionSettingDetailCommand command,
             CancellationToken cancellationToken)
         {
-            try
-            {
-                var result = await mediator.Send(command, cancellationToken);
+            var result = await mediator.Send(command, cancellationToken);
 
-                var response = new ApiResponse<List<QuestionSettingDetailDto>>(HttpStatusCode.OK, result.QuestionSettingDetailList, "Process Successed");
-
-                return Ok(response);
-            }
-            catch (Exception ex)
-            {
-                var errorResponse = new ApiResponse<List<QuestionSettingDetailDto>>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
-
-                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
-            }
+            return ApiResult(result);
         }
 
         [HttpGet(ApiRoutes.Methods.GetByCriteria)]
         public async Task<IActionResult> GetQuestionSettingDetailByCriteria([FromQuery] GetQuestionSettingDetailByCriteriaCommand command,
             CancellationToken cancellationToken)
         {
-            try
-            {
-                var result = await mediator.Send(command, cancellationToken);
+            var result = await mediator.Send(command, cancellationToken);
 
-                var response = new ApiResponse<List<QuestionSettingDetailDto>>(HttpStatusCode.OK, result.QuestionSettingDetailList, "Process Successed");
-
-                return Ok(response);
-            }
-            catch (Exception ex)
-            {
-                var errorResponse = new ApiResponse<QuestionSettingDetailDto>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
-
-                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
-            }
+            return ApiResult(result);
         }
 
         [HttpGet(ApiRoutes.Methods.GetDdl)]
         public async Task<IActionResult> GetQuestionSettingDetailDdl([FromQuery] GetQuestionSettingDetailDdlCommand command,
             CancellationToken cancellationToken)
         {
-            try
-            {
-                var result = await mediator.Send(command, cancellationToken);
+            var result = await mediator.Send(command, cancellationToken);
 
-                var response = new ApiResponse<List<QuestionSettingDetailDto>>(HttpStatusCode.OK, result.QuestionSettingDetailList, "Process Successed");
-
-                return Ok(response);
-            }
-            catch (Exception ex)
-            {
-                var errorResponse = new ApiResponse<List<QuestionSettingDetailDto>>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
-
-                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
-            }
+            return ApiResult(result);
         }
 
         [HttpPost(ApiRoutes.Methods.Submit)]
         public async Task<IActionResult> SubmitQuestionSettingDetail([FromBody] SubmitQuestionSettingDetailCommand command, CancellationToken cancellationToken)
         {
-            try
-            {
-                var result = await mediator.Send(command, cancellationToken);
+            var result = await mediator.Send(command, cancellationToken);
 
-                var response = new ApiResponse<string>(
-                    HttpStatusCode.OK,
-                    result,
-                    "Process succeeded"
-                );
-
-                return Ok(response);
-            }
-            catch (Exception ex)
-            {
-                var errorResponse = new ApiResponse<string>(
-                    HttpStatusCode.InternalServerError,
-                    null,
-                    "Internal Server Error",
-                    ex.Message
-                );
-
-                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
-            }
+            return ApiResult(result);
         }
 
         [HttpDelete(ApiRoutes.Methods.Delete)]
         public async Task<IActionResult> DeleteQuestionSettingDetail([FromBody] DeleteQuestionSettingDetailCommand command, CancellationToken cancellationToken)
         {
-            try
-            {
-                var result = await mediator.Send(command, cancellationToken);
+            var result = await mediator.Send(command, cancellationToken);
 
-                if (result)
-                {
-                    var response = new ApiResponse<string>(HttpStatusCode.OK, command.QuestDetailId.ToString(), "Question Setting Detail deleted successfully");
-                    return Ok(response);
-                }
-                else
-                {
-                    var errorResponse = new ApiResponse<string>(HttpStatusCode.InternalServerError, null, "Failed to delete Question Setting Detail");
-                    return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
-                }
-            }
-            catch (Exception ex)
-            {
-                var errorResponse = new ApiResponse<string>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
-            }
+            return ApiResult(result);
         }
     }
 }

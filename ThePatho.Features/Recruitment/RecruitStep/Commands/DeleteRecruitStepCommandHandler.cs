@@ -1,10 +1,11 @@
 ﻿using MediatR;
 using System;
+using ThePatho.Features.ConfigurationExtensions;
 using ThePatho.Features.Recruitment.RecruitStep.Service;
 
 namespace ThePatho.Features.Recruitment.RecruitStep.Commands
 {
-    public class DeleteRecruitStepCommandHandler : IRequestHandler<DeleteRecruitStepCommand, bool>
+    public class DeleteRecruitStepCommandHandler : IRequestHandler<DeleteRecruitStepCommand, ApiResponse>
     {
         private readonly IRecruitStepService recruitStepService;
 
@@ -13,18 +14,10 @@ namespace ThePatho.Features.Recruitment.RecruitStep.Commands
             recruitStepService = _recruitStepService;
         }
 
-        public async Task<bool> Handle(DeleteRecruitStepCommand request, CancellationToken cancellationToken)
+        public async Task<ApiResponse> Handle(DeleteRecruitStepCommand request, CancellationToken cancellationToken)
         {
-            try
-            {
-                await recruitStepService.DeleteRecruitStep(request);
-                return true;
-            }
-            catch
-            {
-                // Log the error here if needed
-                return false;
-            }
+            return await recruitStepService.DeleteRecruitStep(request);
+            
         }
     }
 }

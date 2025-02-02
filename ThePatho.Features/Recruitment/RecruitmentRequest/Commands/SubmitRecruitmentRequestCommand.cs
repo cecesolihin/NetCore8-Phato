@@ -1,9 +1,10 @@
 ﻿using MediatR;
 using System.Text.Json.Serialization;
+using ThePatho.Features.ConfigurationExtensions;
 
 namespace ThePatho.Features.Recruitment.RecruitmentRequest.Commands
 {
-    public class SubmitRecruitmentRequestCommand : IRequest<string>
+    public class SubmitRecruitmentRequestCommand : IRequest<ApiResponse>
     {
         [JsonPropertyName("request_no")]
         public string RequestNo { get; set; }

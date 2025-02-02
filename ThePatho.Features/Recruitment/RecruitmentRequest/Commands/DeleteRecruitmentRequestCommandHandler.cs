@@ -1,10 +1,11 @@
 ﻿using MediatR;
 using System;
+using ThePatho.Features.ConfigurationExtensions;
 using ThePatho.Features.Recruitment.RecruitmentRequest.Service;
 
 namespace ThePatho.Features.Recruitment.RecruitmentRequest.Commands
 {
-    public class DeleteRecruitmentRequestCommandHandler : IRequestHandler<DeleteRecruitmentRequestCommand, bool>
+    public class DeleteRecruitmentRequestCommandHandler : IRequestHandler<DeleteRecruitmentRequestCommand, ApiResponse>
     {
         private readonly IRecruitmentRequestService recruitmentRequestService;
 
@@ -13,18 +14,11 @@ namespace ThePatho.Features.Recruitment.RecruitmentRequest.Commands
             recruitmentRequestService = _recruitmentRequestService;
         }
 
-        public async Task<bool> Handle(DeleteRecruitmentRequestCommand request, CancellationToken cancellationToken)
+        public async Task<ApiResponse> Handle(DeleteRecruitmentRequestCommand request, CancellationToken cancellationToken)
         {
-            try
-            {
-                await recruitmentRequestService.DeleteRecruitmentRequest(request);
-                return true;
-            }
-            catch
-            {
-                // Log the error here if needed
-                return false;
-            }
+           
+            return await recruitmentRequestService.DeleteRecruitmentRequest(request);
+               
         }
     }
 }

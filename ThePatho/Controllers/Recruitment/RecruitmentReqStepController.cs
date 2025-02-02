@@ -18,45 +18,27 @@ namespace ThePatho.Controllers
         {
             mediator = _mediator ?? throw new ArgumentNullException(nameof(mediator)); 
         }
+        private static IActionResult ApiResult<TResponse>(TResponse response) where TResponse : ApiResponse
+        {
+            return new ApiResult<TResponse>(response);
+        }
 
         [HttpPost(ApiRoutes.Methods.GetList)]
         public async Task<IActionResult> GetRecruitmentReqStepList([FromBody] GetRecruitmentReqStepCommand command,
             CancellationToken cancellationToken)
         {
-            try
-            {
-                var result = await mediator.Send(command, cancellationToken);
+            var result = await mediator.Send(command, cancellationToken);
 
-                var response = new ApiResponse<List<RecruitmentReqStepDto>>(HttpStatusCode.OK, result.RecruitmentReqStepList, "Process Successed");
-
-                return Ok(response);
-            }
-            catch (Exception ex)
-            {
-                var errorResponse = new ApiResponse<List<RecruitmentReqStepDto>>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
-
-                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
-            }
+            return ApiResult(result);
         }
 
         [HttpGet(ApiRoutes.Methods.GetByCriteria)]
         public async Task<IActionResult> GetRecruitmentReqStepByCriteria([FromQuery] GetRecruitmentReqStepByCriteriaCommand command,
             CancellationToken cancellationToken)
         {
-            try
-            {
-                var result = await mediator.Send(command, cancellationToken);
+            var result = await mediator.Send(command, cancellationToken);
 
-                var response = new ApiResponse<List<RecruitmentReqStepDto>>(HttpStatusCode.OK, result.RecruitmentReqStepList, "Process Successed");
-
-                return Ok(response);
-            }
-            catch (Exception ex)
-            {
-                var errorResponse = new ApiResponse<RecruitmentReqStepDto>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
-
-                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
-            }
+            return ApiResult(result);
         }
     }
 }

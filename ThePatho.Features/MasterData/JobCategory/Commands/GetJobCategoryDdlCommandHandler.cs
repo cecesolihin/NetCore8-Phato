@@ -1,10 +1,11 @@
 ﻿using MediatR;
+using ThePatho.Features.ConfigurationExtensions;
 using ThePatho.Features.MasterData.JobCategory.DTO;
 using ThePatho.Features.MasterData.JobCategory.Service;
 
 namespace ThePatho.Features.MasterData.JobCategory.Commands
 {
-    public class GetJobCategoryDdlCommandHandler : IRequestHandler<GetJobCategoryDdlCommand, JobCategoryItemDto>
+    public class GetJobCategoryDdlCommandHandler : IRequestHandler<GetJobCategoryDdlCommand, NewApiResponse<JobCategoryItemDto>>
     {
         private readonly IJobCategoryService jobCategoryService;
 
@@ -13,15 +14,9 @@ namespace ThePatho.Features.MasterData.JobCategory.Commands
             jobCategoryService = _JobCategoryService;
         }
 
-        public async Task<JobCategoryItemDto> Handle(GetJobCategoryDdlCommand request, CancellationToken cancellationToken)
+        public async Task<NewApiResponse<JobCategoryItemDto>> Handle(GetJobCategoryDdlCommand request, CancellationToken cancellationToken)
         {
-            var data = await jobCategoryService.GetJobCategoryDdl(request);
-
-            return new JobCategoryItemDto
-            {
-                DataOfRecords = data.Count,
-                JobCategoryList = data
-            };
+            return await jobCategoryService.GetJobCategoryDdl(request);
         }
     }
 }

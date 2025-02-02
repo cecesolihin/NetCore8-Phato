@@ -1,10 +1,11 @@
 ﻿using MediatR;
 using System.Text.Json.Serialization;
+using ThePatho.Features.ConfigurationExtensions;
 using ThePatho.Features.Recruitment.MPP.DTO;
 
 namespace ThePatho.Features.Recruitment.MPP.Commands
 {
-    public class GetMPPCommand :IRequest<MPPItemDto>
+    public class GetMPPCommand :IRequest<NewApiResponse<MPPItemDto>>
     {
         [JsonPropertyName("filter_MppNo")]
         public string? FilterMppNo { get; set; }

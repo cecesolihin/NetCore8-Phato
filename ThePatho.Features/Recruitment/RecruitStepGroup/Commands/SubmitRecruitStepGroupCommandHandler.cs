@@ -1,9 +1,10 @@
 ﻿using MediatR;
+using ThePatho.Features.ConfigurationExtensions;
 using ThePatho.Features.Recruitment.RecruitStepGroup.Service;
 
 namespace ThePatho.Features.Recruitment.RecruitStepGroup.Commands
 {
-    public class SubmitRecruitStepGroupCommandHandler : IRequestHandler<SubmitRecruitStepGroupCommand, string>
+    public class SubmitRecruitStepGroupCommandHandler : IRequestHandler<SubmitRecruitStepGroupCommand, ApiResponse>
     {
         private readonly IRecruitStepGroupService recruitStepGroupService;
 
@@ -12,19 +13,9 @@ namespace ThePatho.Features.Recruitment.RecruitStepGroup.Commands
             recruitStepGroupService = _recruitStepGroupService;
         }
 
-        public async Task<string> Handle(SubmitRecruitStepGroupCommand request, CancellationToken cancellationToken)
+        public async Task<ApiResponse> Handle(SubmitRecruitStepGroupCommand request, CancellationToken cancellationToken)
         {
-            await recruitStepGroupService.SubmitRecruitStepGroup(request);
-            if (request.Action == "ADD")
-            {
-                return "Requirement Step Group successfully added.";
-            }
-            else if (request.Action == "EDIT")
-            {
-                return "Requirement Step Group successfully updated.";
-            }
-
-            throw new ArgumentException("Invalid action specified. Use 'ADD' or 'EDIT'.");
+            return await recruitStepGroupService.SubmitRecruitStepGroup(request);
         }
     }
 }

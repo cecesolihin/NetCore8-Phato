@@ -1,25 +1,21 @@
 ﻿using MediatR;
+using ThePatho.Features.ConfigurationExtensions;
 using ThePatho.Features.Recruitment.RecruitmentReqStep.DTO;
 using ThePatho.Features.Recruitment.RecruitmentReqStep.Service;
  
 namespace ThePatho.Features.Recruitment.RecruitmentReqStep.Commands
 {
-    public class GetRecruitmentReqStepByCriteriaCommandHandler : IRequestHandler<GetRecruitmentReqStepByCriteriaCommand, RecruitmentReqStepItemDto>
+    public class GetRecruitmentReqStepByCriteriaCommandHandler : IRequestHandler<GetRecruitmentReqStepByCriteriaCommand, NewApiResponse<RecruitmentReqStepItemDto>>
     {
         private readonly IRecruitmentReqStepService recruitmentReqStepService;
         public GetRecruitmentReqStepByCriteriaCommandHandler(IRecruitmentReqStepService _recruitmentReqStepService)
         {
             recruitmentReqStepService = _recruitmentReqStepService;
         }
-        public async Task<RecruitmentReqStepItemDto> Handle(GetRecruitmentReqStepByCriteriaCommand request, CancellationToken cancellationToken)
+        public async Task<NewApiResponse<RecruitmentReqStepItemDto>> Handle(GetRecruitmentReqStepByCriteriaCommand request, CancellationToken cancellationToken)
         {
-            var data = await recruitmentReqStepService.GetRecruitmentReqStepByCriteria(request);
+            return await recruitmentReqStepService.GetRecruitmentReqStepByCriteria(request);
 
-            return new RecruitmentReqStepItemDto
-            {
-                DataOfRecords = data.Count,
-                RecruitmentReqStepList = data,
-            };
         }
     }
 }

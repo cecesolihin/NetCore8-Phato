@@ -1,21 +1,21 @@
 ﻿using MediatR;
 using ThePatho.Features.Applicant.ApplicantAddress.DTO;
 using ThePatho.Features.Applicant.ApplicantAddress.Service;
+using ThePatho.Features.ConfigurationExtensions;
 
 namespace ThePatho.Features.Applicant.ApplicantAddress.Commands
 {
-    public class GetApplicantAddressByCriteriaCommandHandler : IRequestHandler<GetApplicantAddressByCriteriaCommand, ApplicantAddressDto>
+    public class GetApplicantAddressByCriteriaCommandHandler : IRequestHandler<GetApplicantAddressByCriteriaCommand, NewApiResponse<ApplicantAddressDto>>
     {
         private readonly IApplicantAddressService applicantAddressService; 
         public GetApplicantAddressByCriteriaCommandHandler(IApplicantAddressService _applicantAddressService)
         {
             applicantAddressService = _applicantAddressService;
         }
-        public async Task<ApplicantAddressDto> Handle(GetApplicantAddressByCriteriaCommand request, CancellationToken cancellationToken)
+        public async Task<NewApiResponse<ApplicantAddressDto>> Handle(GetApplicantAddressByCriteriaCommand request, CancellationToken cancellationToken)
         {
-            var data = await applicantAddressService.GetApplicantAddressByCriteria(request);
+            return await applicantAddressService.GetApplicantAddressByCriteria(request);
 
-            return data;
         }
     }
 }

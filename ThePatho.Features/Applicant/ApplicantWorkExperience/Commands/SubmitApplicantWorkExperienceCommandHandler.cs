@@ -1,9 +1,10 @@
 ﻿using MediatR;
 using ThePatho.Features.Applicant.ApplicantWorkExperience.Service;
+using ThePatho.Features.ConfigurationExtensions;
 
 namespace ThePatho.Features.Applicant.ApplicantWorkExperience.Commands
 {
-    public class SubmitApplicantWorkExperienceCommandHandler : IRequestHandler<SubmitApplicantWorkExperienceCommand, string>
+    public class SubmitApplicantWorkExperienceCommandHandler : IRequestHandler<SubmitApplicantWorkExperienceCommand, ApiResponse>
     {
         private readonly IApplicantWorkExperienceService applicantWorkExperienceService;
 
@@ -12,19 +13,9 @@ namespace ThePatho.Features.Applicant.ApplicantWorkExperience.Commands
             applicantWorkExperienceService = _applicantWorkExperienceService;
         }
 
-        public async Task<string> Handle(SubmitApplicantWorkExperienceCommand request, CancellationToken cancellationToken)
+        public async Task<ApiResponse> Handle(SubmitApplicantWorkExperienceCommand request, CancellationToken cancellationToken)
         {
-            await applicantWorkExperienceService.SubmitApplicantWorkExperience(request);
-            if (request.Action == "ADD")
-            {
-                return "Scoring Setting successfully added.";
-            }
-            else if (request.Action == "EDIT")
-            {
-                return "Scoring Setting successfully updated.";
-            }
-
-            throw new ArgumentException("Invalid action specified. Use 'ADD' or 'EDIT'.");
+            return await applicantWorkExperienceService.SubmitApplicantWorkExperience(request);
         }
     }
 }

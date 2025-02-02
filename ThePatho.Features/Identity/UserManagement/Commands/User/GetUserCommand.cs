@@ -1,10 +1,11 @@
 ﻿using MediatR;
 using System.Text.Json.Serialization;
+using ThePatho.Features.ConfigurationExtensions;
 using ThePatho.Features.Identity.UserManagement.DTO;
 
 namespace ThePatho.Features.Identity.UserManagement.Commands.User
 {
-    public class GetUserCommand : IRequest<UserItemDto>
+    public class GetUserCommand : IRequest<NewApiResponse<UserItemDto>>
     {
         [JsonPropertyName("filter_UserName")]
         public string? FilterUserName { get; set; }

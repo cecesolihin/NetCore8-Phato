@@ -1,10 +1,11 @@
 ﻿using MediatR;
 using System;
 using ThePatho.Features.Applicant.ApplicantWorkExperience.Service;
+using ThePatho.Features.ConfigurationExtensions;
 
 namespace ThePatho.Features.Applicant.ApplicantWorkExperience.Commands
 {
-    public class DeleteApplicantWorkExperienceCommandHandler : IRequestHandler<DeleteApplicantWorkExperienceCommand, bool>
+    public class DeleteApplicantWorkExperienceCommandHandler : IRequestHandler<DeleteApplicantWorkExperienceCommand, ApiResponse>
     {
         private readonly IApplicantWorkExperienceService applicantWorkExperienceService;
 
@@ -13,18 +14,9 @@ namespace ThePatho.Features.Applicant.ApplicantWorkExperience.Commands
             applicantWorkExperienceService = _applicantWorkExperienceService;
         }
 
-        public async Task<bool> Handle(DeleteApplicantWorkExperienceCommand request, CancellationToken cancellationToken)
+        public async Task<ApiResponse> Handle(DeleteApplicantWorkExperienceCommand request, CancellationToken cancellationToken)
         {
-            try
-            {
-                await applicantWorkExperienceService.DeleteApplicantWorkExperience(request);
-                return true;
-            }
-            catch
-            {
-                // Log the error here if needed
-                return false;
-            }
+            return await applicantWorkExperienceService.DeleteApplicantWorkExperience(request);
         }
     }
 }

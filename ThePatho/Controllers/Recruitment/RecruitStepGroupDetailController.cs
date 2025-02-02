@@ -21,45 +21,27 @@ namespace ThePatho.Controllers
         {
             mediator = _mediator ?? throw new ArgumentNullException(nameof(mediator)); 
         }
+        private static IActionResult ApiResult<TResponse>(TResponse response) where TResponse : ApiResponse
+        {
+            return new ApiResult<TResponse>(response);
+        }
 
         [HttpPost(ApiRoutes.Methods.GetList)]
         public async Task<IActionResult> GetRecruitStepList([FromBody] GetRecruitStepCommand command,
             CancellationToken cancellationToken)
         {
-            try
-            {
-                var result = await mediator.Send(command, cancellationToken);
+            var result = await mediator.Send(command, cancellationToken);
 
-                var response = new ApiResponse<List<RecruitStepDto>>(HttpStatusCode.OK, result.RecruitStepList, "Process Successed");
-
-                return Ok(response);
-            }
-            catch (Exception ex)
-            {
-                var errorResponse = new ApiResponse<List<RecruitStepDto>>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
-
-                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
-            }
+            return ApiResult(result);
         }
 
         [HttpGet(ApiRoutes.Methods.GetByCriteria)]
         public async Task<IActionResult> GetRecruitStepDetailByCriteria([FromQuery] GetRecruitStepByCriteriaCommand command,
             CancellationToken cancellationToken)
         {
-            try
-            {
-                var result = await mediator.Send(command, cancellationToken);
+            var result = await mediator.Send(command, cancellationToken);
 
-                var response = new ApiResponse<RecruitStepDto>(HttpStatusCode.OK, result, "Process Successed");
-
-                return Ok(response);
-            }
-            catch (Exception ex)
-            {
-                var errorResponse = new ApiResponse<RecruitStepDto>(HttpStatusCode.InternalServerError, null, "Internal Server Error", ex.Message);
-
-                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
-            }
+            return ApiResult(result);
         }
     }
 }

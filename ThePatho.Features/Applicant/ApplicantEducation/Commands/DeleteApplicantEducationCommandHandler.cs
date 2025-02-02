@@ -1,10 +1,11 @@
 ﻿using MediatR;
 using System;
 using ThePatho.Features.Applicant.ApplicantEducation.Service;
+using ThePatho.Features.ConfigurationExtensions;
 
 namespace ThePatho.Features.Applicant.ApplicantEducation.Commands
 {
-    public class DeleteApplicantEducationCommandHandler : IRequestHandler<DeleteApplicantEducationCommand, bool>
+    public class DeleteApplicantEducationCommandHandler : IRequestHandler<DeleteApplicantEducationCommand, ApiResponse>
     {
         private readonly IApplicantEducationService applicantEducationService;
 
@@ -13,18 +14,10 @@ namespace ThePatho.Features.Applicant.ApplicantEducation.Commands
             applicantEducationService = _applicantEducationService;
         }
 
-        public async Task<bool> Handle(DeleteApplicantEducationCommand request, CancellationToken cancellationToken)
+        public async Task<ApiResponse> Handle(DeleteApplicantEducationCommand request, CancellationToken cancellationToken)
         {
-            try
-            {
-                await applicantEducationService.DeleteApplicantEducation(request);
-                return true;
-            }
-            catch
-            {
-                // Log the error here if needed
-                return false;
-            }
+            return await applicantEducationService.DeleteApplicantEducation(request);
+                
         }
     }
 }

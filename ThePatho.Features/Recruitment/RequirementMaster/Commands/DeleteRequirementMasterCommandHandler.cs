@@ -1,10 +1,11 @@
 ﻿using MediatR;
 using System;
+using ThePatho.Features.ConfigurationExtensions;
 using ThePatho.Features.Recruitment.RequirementMaster.Service;
 
 namespace ThePatho.Features.Recruitment.RequirementMaster.Commands
 {
-    public class DeleteRequirementMasterCommandHandler : IRequestHandler<DeleteRequirementMasterCommand, bool>
+    public class DeleteRequirementMasterCommandHandler : IRequestHandler<DeleteRequirementMasterCommand, ApiResponse>
     {
         private readonly IRequirementMasterService requirementMasterService;
 
@@ -13,18 +14,10 @@ namespace ThePatho.Features.Recruitment.RequirementMaster.Commands
             requirementMasterService = _requirementMasterService;
         }
 
-        public async Task<bool> Handle(DeleteRequirementMasterCommand request, CancellationToken cancellationToken)
+        public async Task<ApiResponse> Handle(DeleteRequirementMasterCommand request, CancellationToken cancellationToken)
         {
-            try
-            {
-                await requirementMasterService.DeleteRequirementMaster(request);
-                return true;
-            }
-            catch
-            {
-                // Log the error here if needed
-                return false;
-            }
+            return await requirementMasterService.DeleteRequirementMaster(request);
+                
         }
     }
 }

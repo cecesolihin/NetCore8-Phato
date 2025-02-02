@@ -1,11 +1,11 @@
 using MediatR;
-
+using ThePatho.Features.ConfigurationExtensions;
 using ThePatho.Features.MasterSetting.ScoringSettingDetail.DTO;
 using ThePatho.Features.MasterSetting.ScoringSettingDetail.Service;
 
 namespace ThePatho.Features.MasterSetting.ScoringSettingDetail.Commands
 {
-    public class GetScoringSettingDetailCommandHandler : IRequestHandler<GetScoringSettingDetailCommand, ScoringSettingDetailItemDto>
+    public class GetScoringSettingDetailCommandHandler : IRequestHandler<GetScoringSettingDetailCommand, NewApiResponse<ScoringSettingDetailItemDto>>
     {
         private readonly IScoringSettingDetailService scoringSettingDetailService;
 
@@ -14,15 +14,9 @@ namespace ThePatho.Features.MasterSetting.ScoringSettingDetail.Commands
             scoringSettingDetailService = _scoringSettingDetailService;
         }
 
-        public async Task<ScoringSettingDetailItemDto> Handle(GetScoringSettingDetailCommand request, CancellationToken cancellationToken)
+        public async Task<NewApiResponse<ScoringSettingDetailItemDto>> Handle(GetScoringSettingDetailCommand request, CancellationToken cancellationToken)
         {
-            var data = await scoringSettingDetailService.GetScoringSettingDetail(request);
-
-            return new ScoringSettingDetailItemDto
-            {
-                DataOfRecords = data.Count,
-                ScoringSettingDetailList = data
-            };
+            return await scoringSettingDetailService.GetScoringSettingDetail(request);
         }
     }
 }

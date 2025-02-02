@@ -1,9 +1,10 @@
 ﻿using MediatR;
 using ThePatho.Features.Applicant.ApplicantIdentity.Service;
+using ThePatho.Features.ConfigurationExtensions;
 
 namespace ThePatho.Features.Applicant.ApplicantIdentity.Commands
 {
-    public class SubmitApplicantIdentityCommandHandler : IRequestHandler<SubmitApplicantIdentityCommand, string>
+    public class SubmitApplicantIdentityCommandHandler : IRequestHandler<SubmitApplicantIdentityCommand, ApiResponse>
     {
         private readonly IApplicantIdentityService applicantIdentityService;
 
@@ -12,19 +13,9 @@ namespace ThePatho.Features.Applicant.ApplicantIdentity.Commands
             applicantIdentityService = _applicantIdentityService;
         }
 
-        public async Task<string> Handle(SubmitApplicantIdentityCommand request, CancellationToken cancellationToken)
+        public async Task<ApiResponse> Handle(SubmitApplicantIdentityCommand request, CancellationToken cancellationToken)
         {
-            await applicantIdentityService.SubmitApplicantIdentity(request);
-            if (request.Action == "ADD")
-            {
-                return "Applicant Identity successfully added.";
-            }
-            else if (request.Action == "EDIT")
-            {
-                return "Applicant Identity successfully updated.";
-            }
-
-            throw new ArgumentException("Invalid action specified. Use 'ADD' or 'EDIT'.");
+            return await applicantIdentityService.SubmitApplicantIdentity(request);
         }
     }
 }

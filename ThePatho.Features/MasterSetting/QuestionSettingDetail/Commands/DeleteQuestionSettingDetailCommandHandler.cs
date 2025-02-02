@@ -1,10 +1,11 @@
 ﻿
 using MediatR;
+using ThePatho.Features.ConfigurationExtensions;
 using ThePatho.Features.MasterSetting.QuestionSettingDetail.Service;
 
 namespace ThePatho.Features.MasterSetting.QuestionSettingDetail.Commands
 {
-    public class DeleteQuestionSettingDetailCommandHandler : IRequestHandler<DeleteQuestionSettingDetailCommand, bool>
+    public class DeleteQuestionSettingDetailCommandHandler : IRequestHandler<DeleteQuestionSettingDetailCommand, ApiResponse>
     {
         private readonly IQuestionSettingDetailService questionSettingDetailService;
 
@@ -13,18 +14,10 @@ namespace ThePatho.Features.MasterSetting.QuestionSettingDetail.Commands
             questionSettingDetailService = _questionSettingDetailService;
         }
 
-        public async Task<bool> Handle(DeleteQuestionSettingDetailCommand request, CancellationToken cancellationToken)
+        public async Task<ApiResponse> Handle(DeleteQuestionSettingDetailCommand request, CancellationToken cancellationToken)
         {
-            try
-            {
-                await questionSettingDetailService.DeleteQuestionSettingDetail(request);
-                return true;
-            }
-            catch
-            {
-                // Log the error here if needed
-                return false;
-            }
+            return await questionSettingDetailService.DeleteQuestionSettingDetail(request);
+            
         }
     }
 

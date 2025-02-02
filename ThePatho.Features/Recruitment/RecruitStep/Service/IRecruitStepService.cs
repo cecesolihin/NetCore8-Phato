@@ -1,4 +1,5 @@
 
+using ThePatho.Features.ConfigurationExtensions;
 using ThePatho.Features.Recruitment.RecruitStep.Commands;
 using ThePatho.Features.Recruitment.RecruitStep.DTO;
 
@@ -6,9 +7,9 @@ namespace ThePatho.Features.Recruitment.RecruitStep.Service
 {
     public interface IRecruitStepService
     {
-        Task<List<RecruitStepDto>> GetRecruitStep(GetRecruitStepCommand request);
-        Task<RecruitStepDto> GetRecruitStepByCriteria(GetRecruitStepByCriteriaCommand request);
-        Task<bool> SubmitRecruitStep(SubmitRecruitStepCommand request);
-        Task<bool> DeleteRecruitStep(DeleteRecruitStepCommand request);
+        Task<NewApiResponse<RecruitStepItemDto>> GetRecruitStep(GetRecruitStepCommand request);
+        Task<NewApiResponse<RecruitStepDto>> GetRecruitStepByCriteria(GetRecruitStepByCriteriaCommand request);
+        Task<ApiResponse> SubmitRecruitStep(SubmitRecruitStepCommand request);
+        Task<ApiResponse> DeleteRecruitStep(DeleteRecruitStepCommand request);
     }
 }

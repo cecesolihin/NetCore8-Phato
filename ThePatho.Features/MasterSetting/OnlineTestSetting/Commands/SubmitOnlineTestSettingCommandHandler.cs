@@ -1,9 +1,10 @@
 ﻿using MediatR;
+using ThePatho.Features.ConfigurationExtensions;
 using ThePatho.Features.MasterSetting.OnlineTestSetting.Service;
 
 namespace ThePatho.Features.MasterSetting.OnlineTestSetting.Commands
 {
-    public class SubmitOnlineTestSettingCommandHandler : IRequestHandler<SubmitOnlineTestSettingCommand, string>
+    public class SubmitOnlineTestSettingCommandHandler : IRequestHandler<SubmitOnlineTestSettingCommand, ApiResponse>
     {
         private readonly IOnlineTestSettingService onlineTestSettingService;
 
@@ -12,19 +13,9 @@ namespace ThePatho.Features.MasterSetting.OnlineTestSetting.Commands
             onlineTestSettingService = _onlineTestSettingService;
         }
 
-        public async Task<string> Handle(SubmitOnlineTestSettingCommand request, CancellationToken cancellationToken)
+        public async Task<ApiResponse> Handle(SubmitOnlineTestSettingCommand request, CancellationToken cancellationToken)
         {
-            await onlineTestSettingService.SubmitOnlineTestSetting(request);
-            if (request.Action == "ADD")
-            {
-                return "Online Test Setting successfully added.";
-            }
-            else if (request.Action == "EDIT")
-            {
-                return "Online Test Setting successfully updated.";
-            }
-
-            throw new ArgumentException("Invalid action specified. Use 'ADD' or 'EDIT'.");
+           return await onlineTestSettingService.SubmitOnlineTestSetting(request);
         }
     }
 }

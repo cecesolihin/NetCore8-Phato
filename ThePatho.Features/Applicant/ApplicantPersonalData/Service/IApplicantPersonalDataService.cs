@@ -1,13 +1,14 @@
 using ThePatho.Features.Applicant.ApplicantPersonalData.Commands;
 using ThePatho.Features.Applicant.ApplicantPersonalData.DTO;
+using ThePatho.Features.ConfigurationExtensions;
 
 namespace ThePatho.Features.Applicant.ApplicantPersonalData.Service
 {
     public interface IApplicantPersonalDataService
     {
-        Task<List<ApplicantPersonalDataDto>> GetApplicantPersonalData(GetApplicantPersonalDataCommand request);
-        Task<ApplicantPersonalDataDto> GetApplicantPersonalDataByCriteria(GetApplicantPersonalDataByCriteriaCommand request);
-        Task<bool> SubmitApplicantPersonalData(SubmitApplicantPersonalDataCommand request);
-        Task<bool> DeleteApplicantPersonalData(DeleteApplicantPersonalDataCommand request);
+        Task<NewApiResponse<ApplicantPersonalDataItemDto>> GetApplicantPersonalData(GetApplicantPersonalDataCommand request);
+        Task<NewApiResponse<ApplicantPersonalDataDto>> GetApplicantPersonalDataByCriteria(GetApplicantPersonalDataByCriteriaCommand request);
+        Task<ApiResponse> SubmitApplicantPersonalData(SubmitApplicantPersonalDataCommand request);
+        Task<ApiResponse> DeleteApplicantPersonalData(DeleteApplicantPersonalDataCommand request);
     }
 }
