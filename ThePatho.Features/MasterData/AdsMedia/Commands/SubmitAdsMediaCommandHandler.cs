@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.MasterData.AdsMedia.Service;
 
 namespace ThePatho.Features.MasterData.AdsMedia.Commands

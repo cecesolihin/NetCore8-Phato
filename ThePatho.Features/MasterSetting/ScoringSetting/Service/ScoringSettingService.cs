@@ -2,7 +2,7 @@ using Dapper;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
 using System.Net;
-using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.MasterSetting.ScoringSetting.Commands;
 using ThePatho.Features.MasterSetting.ScoringSetting.DTO;
 using ThePatho.Features.MasterSetting.ScoringSettingDetail.DTO;
@@ -25,7 +25,7 @@ namespace ThePatho.Features.MasterSetting.ScoringSetting.Service
             dbConnection = _dbConnection;
         }
 
-        public async Task<NewApiResponse<ScoringSettingItemDto>> GetScoringSetting(GetScoringSettingCommand request)
+        public async Task<ApiResponse<ScoringSettingItemDto>> GetScoringSetting(GetScoringSettingCommand request)
         {
             try
             {
@@ -44,11 +44,11 @@ namespace ThePatho.Features.MasterSetting.ScoringSetting.Service
                     DataOfRecords = data.ToList().Count,
                     ScoringSettingList = data.ToList(),
                 };
-                return new NewApiResponse<ScoringSettingItemDto>(HttpStatusCode.OK, result);
+                return new ApiResponse<ScoringSettingItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
-                return new NewApiResponse<ScoringSettingItemDto>(
+                return new ApiResponse<ScoringSettingItemDto>(
                          HttpStatusCode.BadRequest,
                          "An error occurred while retrieving data.",
                          ex.Message
@@ -56,7 +56,7 @@ namespace ThePatho.Features.MasterSetting.ScoringSetting.Service
             }
         }
 
-        public async Task<NewApiResponse<ScoringSettingDto>> GetScoringSettingByCriteria(GetScoringSettingByCriteriaCommand request)
+        public async Task<ApiResponse<ScoringSettingDto>> GetScoringSettingByCriteria(GetScoringSettingByCriteriaCommand request)
         {
             try
             {
@@ -66,11 +66,11 @@ namespace ThePatho.Features.MasterSetting.ScoringSetting.Service
                 var query = await queryLoader.LoadQueryAsync("MasterSetting/ScoringSetting/Sql/search_scoring_setting_by_code");
 
                 var data = await dbConnection.QueryFirstOrDefaultAsync<ScoringSettingDto>(query, parameters);
-                return new NewApiResponse<ScoringSettingDto>(HttpStatusCode.OK, data);
+                return new ApiResponse<ScoringSettingDto>(HttpStatusCode.OK, data);
             }
             catch (Exception ex)
             {
-                return new NewApiResponse<ScoringSettingDto>(
+                return new ApiResponse<ScoringSettingDto>(
                                         HttpStatusCode.BadRequest,
                                         "An error occurred while retrieving data.",
                                         ex.Message
@@ -78,7 +78,7 @@ namespace ThePatho.Features.MasterSetting.ScoringSetting.Service
             }
         }
 
-        public async Task<NewApiResponse<ScoringSettingItemDto>> GetScoringSettingDdl(GetScoringSettingDdlCommand request)
+        public async Task<ApiResponse<ScoringSettingItemDto>> GetScoringSettingDdl(GetScoringSettingDdlCommand request)
         {
             try
             {
@@ -93,11 +93,11 @@ namespace ThePatho.Features.MasterSetting.ScoringSetting.Service
                     DataOfRecords = data.ToList().Count,
                     ScoringSettingList = data.ToList(),
                 };
-                return new NewApiResponse<ScoringSettingItemDto>(HttpStatusCode.OK, result);
+                return new ApiResponse<ScoringSettingItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
-                return new NewApiResponse<ScoringSettingItemDto>(
+                return new ApiResponse<ScoringSettingItemDto>(
                          HttpStatusCode.BadRequest,
                          "An error occurred while retrieving data.",
                          ex.Message

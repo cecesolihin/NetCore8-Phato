@@ -3,7 +3,7 @@ using SqlKata;
 using SqlKata.Execution;
 using System.Net;
 using ThePatho.Domain.Constants;
-using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Recruitment.RecruitStep.Commands;
 using ThePatho.Features.Recruitment.RecruitStepGroupDetail.DTO;
 using ThePatho.Infrastructure.Persistance;
@@ -20,7 +20,7 @@ namespace ThePatho.Features.Recruitment.RecruitStepGroupDetail.Service
             dapperContext = _dapperContext;
         }
 
-        public async Task<NewApiResponse<RecruitStepGroupDetailItemDto>> GetRecruitStepGroupDetail(GetRecruitStepGroupDetailCommand request)
+        public async Task<ApiResponse<RecruitStepGroupDetailItemDto>> GetRecruitStepGroupDetail(GetRecruitStepGroupDetailCommand request)
         {
             try
             {
@@ -57,12 +57,12 @@ namespace ThePatho.Features.Recruitment.RecruitStepGroupDetail.Service
                     DataOfRecords = data.ToList().Count,
                     RecruitStepGroupDetailList = data.ToList(),
                 };
-                return new NewApiResponse<RecruitStepGroupDetailItemDto>(HttpStatusCode.OK, result);
+                return new ApiResponse<RecruitStepGroupDetailItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
 
-                return new NewApiResponse<RecruitStepGroupDetailItemDto>(
+                return new ApiResponse<RecruitStepGroupDetailItemDto>(
                         HttpStatusCode.BadRequest,
                         "An error occurred while retrieving data.",
                         ex.Message
@@ -70,7 +70,7 @@ namespace ThePatho.Features.Recruitment.RecruitStepGroupDetail.Service
             }
         }
 
-        public async Task<NewApiResponse<RecruitStepGroupDetailItemDto>> GetRecruitStepGroupDetailByCriteria(GetRecruitStepGroupDetailByCriteriaCommand request)
+        public async Task<ApiResponse<RecruitStepGroupDetailItemDto>> GetRecruitStepGroupDetailByCriteria(GetRecruitStepGroupDetailByCriteriaCommand request)
         {
             try
             {
@@ -98,12 +98,12 @@ namespace ThePatho.Features.Recruitment.RecruitStepGroupDetail.Service
                     DataOfRecords = data.ToList().Count,
                     RecruitStepGroupDetailList = data.ToList(),
                 };
-                return new NewApiResponse<RecruitStepGroupDetailItemDto>(HttpStatusCode.OK, result);
+                return new ApiResponse<RecruitStepGroupDetailItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
 
-                return new NewApiResponse<RecruitStepGroupDetailItemDto>(
+                return new ApiResponse<RecruitStepGroupDetailItemDto>(
                         HttpStatusCode.BadRequest,
                         "An error occurred while retrieving data.",
                         ex.Message

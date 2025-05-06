@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Dapper;
 using System.Data;
 using ThePatho.Features.MasterData.AdsCategory.Commands;
-using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Provider.ApiResponse;
 using System.Net;
 
 namespace ThePatho.Features.MasterData.AdsCategory.Service
@@ -24,7 +24,7 @@ namespace ThePatho.Features.MasterData.AdsCategory.Service
             dbConnection = _dbConnection;
         }
 
-        public async Task<NewApiResponse<AdsCategoryItemDto>> GetAllAdsCategories(GetAdsCategoryCommand request)
+        public async Task<ApiResponse<AdsCategoryItemDto>> GetAllAdsCategories(GetAdsCategoryCommand request)
         {
             try
             {
@@ -44,12 +44,12 @@ namespace ThePatho.Features.MasterData.AdsCategory.Service
                     DataOfRecords = data.ToList().Count,
                     AdsCategoryList = data.ToList(),
                 };
-                return new NewApiResponse<AdsCategoryItemDto>(HttpStatusCode.OK, result);
+                return new ApiResponse<AdsCategoryItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
 
-                return new NewApiResponse<AdsCategoryItemDto>(
+                return new ApiResponse<AdsCategoryItemDto>(
                         HttpStatusCode.BadRequest,
                         "An error occurred while retrieving data.",
                         ex.Message
@@ -58,7 +58,7 @@ namespace ThePatho.Features.MasterData.AdsCategory.Service
 
         }
 
-        public async Task<NewApiResponse<AdsCategoryDto>> GetAdsCategoryByCriteria(GetAdsCategoryByCriteriaCommand request)
+        public async Task<ApiResponse<AdsCategoryDto>> GetAdsCategoryByCriteria(GetAdsCategoryByCriteriaCommand request)
         {
             try
             {
@@ -68,12 +68,12 @@ namespace ThePatho.Features.MasterData.AdsCategory.Service
 
                 var data = await dbConnection.QueryFirstOrDefaultAsync<AdsCategoryDto>(query, parameters);
 
-                return new NewApiResponse<AdsCategoryDto>(HttpStatusCode.OK, data);
+                return new ApiResponse<AdsCategoryDto>(HttpStatusCode.OK, data);
             }
             catch (Exception ex)
             {
 
-                return new NewApiResponse<AdsCategoryDto>(
+                return new ApiResponse<AdsCategoryDto>(
                         HttpStatusCode.BadRequest,
                         "An error occurred while retrieving data.",
                         ex.Message
@@ -81,7 +81,7 @@ namespace ThePatho.Features.MasterData.AdsCategory.Service
             }
             
         }
-        public async Task<NewApiResponse<AdsCategoryItemDto>> GetAdsCategoriesDdl(GetAdsCategoryDdlCommand request)
+        public async Task<ApiResponse<AdsCategoryItemDto>> GetAdsCategoriesDdl(GetAdsCategoryDdlCommand request)
         {
             try
             {
@@ -99,12 +99,12 @@ namespace ThePatho.Features.MasterData.AdsCategory.Service
                     DataOfRecords = data.ToList().Count,
                     AdsCategoryList = data.ToList(),
                 };
-                return new NewApiResponse<AdsCategoryItemDto>(HttpStatusCode.OK, result);
+                return new ApiResponse<AdsCategoryItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
 
-                return new NewApiResponse<AdsCategoryItemDto>(
+                return new ApiResponse<AdsCategoryItemDto>(
                         HttpStatusCode.BadRequest,
                         "An error occurred while retrieving data.",
                         ex.Message

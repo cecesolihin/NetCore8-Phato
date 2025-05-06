@@ -2,7 +2,7 @@ using Dapper;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
 using System.Net;
-using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.MasterSetting.OnlineTestSetting.Commands;
 using ThePatho.Features.MasterSetting.OnlineTestSetting.DTO;
 using ThePatho.Features.MasterSetting.QuestionSetting.DTO;
@@ -23,7 +23,7 @@ namespace ThePatho.Features.MasterSetting.OnlineTestSetting.Service
             dbConnection = _dbConnection;
         }
 
-        public async Task<NewApiResponse<OnlineTestSettingItemDto>> GetOnlineTestSetting(GetOnlineTestSettingCommand request)
+        public async Task<ApiResponse<OnlineTestSettingItemDto>> GetOnlineTestSetting(GetOnlineTestSettingCommand request)
         {
             try
             {
@@ -43,11 +43,11 @@ namespace ThePatho.Features.MasterSetting.OnlineTestSetting.Service
                     DataOfRecords = data.ToList().Count,
                     OnlineTestSettingList = data.ToList(),
                 };
-                return new NewApiResponse<OnlineTestSettingItemDto>(HttpStatusCode.OK, result);
+                return new ApiResponse<OnlineTestSettingItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
-                return new NewApiResponse<OnlineTestSettingItemDto>(
+                return new ApiResponse<OnlineTestSettingItemDto>(
                          HttpStatusCode.BadRequest,
                          "An error occurred while retrieving data.",
                          ex.Message
@@ -56,7 +56,7 @@ namespace ThePatho.Features.MasterSetting.OnlineTestSetting.Service
 
         }
 
-        public async Task<NewApiResponse<OnlineTestSettingDto>> GetOnlineTestSettingByCriteria(GetOnlineTestSettingByCriteriaCommand request)
+        public async Task<ApiResponse<OnlineTestSettingDto>> GetOnlineTestSettingByCriteria(GetOnlineTestSettingByCriteriaCommand request)
         {
             try
             {
@@ -66,11 +66,11 @@ namespace ThePatho.Features.MasterSetting.OnlineTestSetting.Service
                 var query = await queryLoader.LoadQueryAsync("MasterSetting/OnlineTestSetting/Sql/search_online_setting_by_code");
 
                 var data = await dbConnection.QueryFirstOrDefaultAsync<OnlineTestSettingDto>(query, parameters);
-                return new NewApiResponse<OnlineTestSettingDto>(HttpStatusCode.OK, data);
+                return new ApiResponse<OnlineTestSettingDto>(HttpStatusCode.OK, data);
             }
             catch (Exception ex)
             {
-                return new NewApiResponse<OnlineTestSettingDto>(
+                return new ApiResponse<OnlineTestSettingDto>(
                                         HttpStatusCode.BadRequest,
                                         "An error occurred while retrieving data.",
                                         ex.Message
@@ -78,7 +78,7 @@ namespace ThePatho.Features.MasterSetting.OnlineTestSetting.Service
             }
         }
 
-        public async Task<NewApiResponse<OnlineTestSettingItemDto>> GetOnlineTestSettingDdl(GetOnlineTestSettingDdlCommand request)
+        public async Task<ApiResponse<OnlineTestSettingItemDto>> GetOnlineTestSettingDdl(GetOnlineTestSettingDdlCommand request)
         {
             try
             {
@@ -93,11 +93,11 @@ namespace ThePatho.Features.MasterSetting.OnlineTestSetting.Service
                     DataOfRecords = data.ToList().Count,
                     OnlineTestSettingList = data.ToList(),
                 };
-                return new NewApiResponse<OnlineTestSettingItemDto>(HttpStatusCode.OK, result);
+                return new ApiResponse<OnlineTestSettingItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
-                return new NewApiResponse<OnlineTestSettingItemDto>(
+                return new ApiResponse<OnlineTestSettingItemDto>(
                          HttpStatusCode.BadRequest,
                          "An error occurred while retrieving data.",
                          ex.Message
@@ -108,6 +108,20 @@ namespace ThePatho.Features.MasterSetting.OnlineTestSetting.Service
         {
             try
             {
+                #region [Validation]
+                // Validasi tanggal
+                if (request.OnlineTestDateFrom > request.OnlineTestDateTo)
+                {
+                    return new ApiResponse(HttpStatusCode.BadRequest, "Tanggal mulai tidak boleh lebih besar dari tanggal selesai.");
+                }
+
+                // Validasi waktu
+                if (request.OnlineTestTimeFrom > request.OnlineTestTimeTo)
+                {
+                    return new ApiResponse(HttpStatusCode.BadRequest, "Waktu mulai tidak boleh lebih besar dari waktu selesai.");
+                }
+                #endregion
+
                 var parameters = new DynamicParameters();
                 parameters.Add("@OnlineTestCode", request.OnlineTestCode);
                 parameters.Add("@OnlineTestName", request.OnlineTestName);

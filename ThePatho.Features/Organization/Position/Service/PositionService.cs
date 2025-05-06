@@ -4,7 +4,7 @@ using SqlKata;
 using SqlKata.Execution;
 using System.Net;
 using ThePatho.Domain.Constants;
-using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.MasterData.AdsCategory.DTO;
 using ThePatho.Features.Organization.Position.Commands;
 using ThePatho.Features.Organization.Position.DTO;
@@ -22,7 +22,7 @@ namespace ThePatho.Features.Organization.Position.Service
             dapperContext = _dapperContext;
         }
 
-        public async Task<NewApiResponse<PositionItemDto>> GetPosition(GetPositionCommand request)
+        public async Task<ApiResponse<PositionItemDto>> GetPosition(GetPositionCommand request)
         {
             try
             {
@@ -64,11 +64,11 @@ namespace ThePatho.Features.Organization.Position.Service
                     DataOfRecords = data.ToList().Count,
                     PositionList = data.ToList(),
                 };
-                return new NewApiResponse<PositionItemDto>(HttpStatusCode.OK, result);
+                return new ApiResponse<PositionItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
-                return new NewApiResponse<PositionItemDto>(
+                return new ApiResponse<PositionItemDto>(
                          HttpStatusCode.BadRequest,
                          "An error occurred while retrieving data.",
                          ex.Message
@@ -76,7 +76,7 @@ namespace ThePatho.Features.Organization.Position.Service
             }
         }
 
-        public async Task<NewApiResponse<PositionDto>> GetPositionByCriteria(GetPositionByCriteriaCommand request)
+        public async Task<ApiResponse<PositionDto>> GetPositionByCriteria(GetPositionByCriteriaCommand request)
         {
             try
             {
@@ -103,11 +103,11 @@ namespace ThePatho.Features.Organization.Position.Service
                     );
 
                 var data = await db.FirstOrDefaultAsync<PositionDto>(query);
-                return new NewApiResponse<PositionDto>(HttpStatusCode.OK, data);
+                return new ApiResponse<PositionDto>(HttpStatusCode.OK, data);
             }
             catch (Exception ex)
             {
-                return new NewApiResponse<PositionDto>(
+                return new ApiResponse<PositionDto>(
                          HttpStatusCode.BadRequest,
                          "An error occurred while retrieving data.",
                          ex.Message

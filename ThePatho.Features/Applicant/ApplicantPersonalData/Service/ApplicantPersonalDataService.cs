@@ -7,7 +7,7 @@ using ThePatho.Features.Applicant.ApplicantOnlineTestAnswer.DTO;
 using ThePatho.Features.Applicant.ApplicantPersonalData.Commands;
 using ThePatho.Features.Applicant.ApplicantPersonalData.DTO;
 using ThePatho.Features.Applicant.ApplicantPersonalData.Service;
-using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Infrastructure.Persistance;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -22,7 +22,7 @@ namespace ThePatho.Features.Applicant.ApplicantPersonalData.Service
             dapperContext = _dapperContext;
         }
 
-        public async Task<NewApiResponse<ApplicantPersonalDataItemDto>> GetApplicantPersonalData(GetApplicantPersonalDataCommand request)
+        public async Task<ApiResponse<ApplicantPersonalDataItemDto>> GetApplicantPersonalData(GetApplicantPersonalDataCommand request)
         {
             try
             {
@@ -75,12 +75,12 @@ namespace ThePatho.Features.Applicant.ApplicantPersonalData.Service
                     DataOfRecords = data.ToList().Count,
                     ApplicantPersonalDataList = data.ToList(),
                 };
-                return new NewApiResponse<ApplicantPersonalDataItemDto>(HttpStatusCode.OK, result);
+                return new ApiResponse<ApplicantPersonalDataItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
 
-                return new NewApiResponse<ApplicantPersonalDataItemDto>(
+                return new ApiResponse<ApplicantPersonalDataItemDto>(
                         HttpStatusCode.BadRequest,
                         "An error occurred while retrieving data.",
                         ex.Message
@@ -88,7 +88,7 @@ namespace ThePatho.Features.Applicant.ApplicantPersonalData.Service
             }
         }
 
-        public async Task<NewApiResponse<ApplicantPersonalDataDto>> GetApplicantPersonalDataByCriteria(GetApplicantPersonalDataByCriteriaCommand request)
+        public async Task<ApiResponse<ApplicantPersonalDataDto>> GetApplicantPersonalDataByCriteria(GetApplicantPersonalDataByCriteriaCommand request)
         {
             try
             {
@@ -121,12 +121,12 @@ namespace ThePatho.Features.Applicant.ApplicantPersonalData.Service
                     );
                 var data = await db.FirstOrDefaultAsync<ApplicantPersonalDataDto>(query);
                 
-                return new NewApiResponse<ApplicantPersonalDataDto>(HttpStatusCode.OK, data);
+                return new ApiResponse<ApplicantPersonalDataDto>(HttpStatusCode.OK, data);
             }
             catch (Exception ex)
             {
 
-                return new NewApiResponse<ApplicantPersonalDataDto>(
+                return new ApiResponse<ApplicantPersonalDataDto>(
                         HttpStatusCode.BadRequest,
                         "An error occurred while retrieving data.",
                         ex.Message

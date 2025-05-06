@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Recruitment.RequirementMaster.Service;
 
 namespace ThePatho.Features.Recruitment.RequirementMaster.Commands

@@ -7,7 +7,7 @@ using ThePatho.Features.Applicant.ApplicantAddress.DTO;
 using ThePatho.Features.Applicant.ApplicantDocument.Commands;
 using ThePatho.Features.Applicant.ApplicantDocument.DTO;
 using ThePatho.Features.Applicant.ApplicantDocument.Service;
-using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Infrastructure.Persistance;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -22,7 +22,7 @@ namespace ThePatho.Features.Applicant.ApplicantDocument.Service
             dapperContext = _dapperContext;
         }
 
-        public async Task<NewApiResponse<ApplicantDocumentItemDto>> GetApplicantDocument(GetApplicantDocumentCommand request)
+        public async Task<ApiResponse<ApplicantDocumentItemDto>> GetApplicantDocument(GetApplicantDocumentCommand request)
         {
             try
             {
@@ -57,12 +57,12 @@ namespace ThePatho.Features.Applicant.ApplicantDocument.Service
                     DataOfRecords = data.ToList().Count,
                     ApplicantDocumentList = data.ToList(),
                 };
-                return new NewApiResponse<ApplicantDocumentItemDto>(HttpStatusCode.OK, result);
+                return new ApiResponse<ApplicantDocumentItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
 
-                return new NewApiResponse<ApplicantDocumentItemDto>(
+                return new ApiResponse<ApplicantDocumentItemDto>(
                         HttpStatusCode.BadRequest,
                         "An error occurred while retrieving data.",
                         ex.Message
@@ -70,7 +70,7 @@ namespace ThePatho.Features.Applicant.ApplicantDocument.Service
             }
         }
 
-        public async Task<NewApiResponse<ApplicantDocumentDto>> GetApplicantDocumentByCriteria(GetApplicantDocumentByCriteriaCommand request)
+        public async Task<ApiResponse<ApplicantDocumentDto>> GetApplicantDocumentByCriteria(GetApplicantDocumentByCriteriaCommand request)
         {
             try
             {
@@ -91,12 +91,12 @@ namespace ThePatho.Features.Applicant.ApplicantDocument.Service
                     );
                 var data = await db.FirstOrDefaultAsync<ApplicantDocumentDto>(query);
                 
-                return new NewApiResponse<ApplicantDocumentDto>(HttpStatusCode.OK, data);
+                return new ApiResponse<ApplicantDocumentDto>(HttpStatusCode.OK, data);
             }
             catch (Exception ex)
             {
 
-                return new NewApiResponse<ApplicantDocumentDto>(
+                return new ApiResponse<ApplicantDocumentDto>(
                         HttpStatusCode.BadRequest,
                         "An error occurred while retrieving data.",
                         ex.Message

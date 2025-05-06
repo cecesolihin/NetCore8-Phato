@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using System;
 using ThePatho.Features.Applicant.Applicant.Service;
-using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Provider.ApiResponse;
 
 namespace ThePatho.Features.Applicant.Applicant.Commands
 {

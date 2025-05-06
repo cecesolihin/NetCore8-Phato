@@ -1,7 +1,7 @@
 ﻿
 using MediatR;
 using System.Text.Json.Serialization;
-using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Provider.ApiResponse;
 
 namespace ThePatho.Features.Applicant.ApplicantRecruitStep.Commands
 {

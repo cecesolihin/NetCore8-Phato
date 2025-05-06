@@ -5,7 +5,7 @@ using ThePatho.Features.Recruitment.RequirementMaster.DTO;
 using ThePatho.Features.Recruitment.RequirementMaster.Commands;
 using ThePatho.Infrastructure.Persistance;
 using SqlKata;
-using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Provider.ApiResponse;
 using System.Net;
 using ThePatho.Features.Recruitment.RequirementRecRequest.DTO;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -21,7 +21,7 @@ namespace ThePatho.Features.Recruitment.RequirementMaster.Service
             dapperContext = _dapperContext;
         }
 
-        public async Task<NewApiResponse<RequirementMasterItemDto>> GetRequirementMaster(GetRequirementMasterCommand request)
+        public async Task<ApiResponse<RequirementMasterItemDto>> GetRequirementMaster(GetRequirementMasterCommand request)
         {
             try
             {
@@ -54,12 +54,12 @@ namespace ThePatho.Features.Recruitment.RequirementMaster.Service
                     DataOfRecords = data.ToList().Count,
                     RequirementMasterList = data.ToList(),
                 };
-                return new NewApiResponse<RequirementMasterItemDto>(HttpStatusCode.OK, result);
+                return new ApiResponse<RequirementMasterItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
 
-                return new NewApiResponse<RequirementMasterItemDto>(
+                return new ApiResponse<RequirementMasterItemDto>(
                         HttpStatusCode.BadRequest,
                         "An error occurred while retrieving data.",
                         ex.Message
@@ -67,7 +67,7 @@ namespace ThePatho.Features.Recruitment.RequirementMaster.Service
             }
         }
 
-        public async Task<NewApiResponse<RequirementMasterItemDto>> GetRequirementMasterByCriteria(GetRequirementMasterByCriteriaCommand request)
+        public async Task<ApiResponse<RequirementMasterItemDto>> GetRequirementMasterByCriteria(GetRequirementMasterByCriteriaCommand request)
         {
             try
             {
@@ -90,12 +90,12 @@ namespace ThePatho.Features.Recruitment.RequirementMaster.Service
                     DataOfRecords = data.ToList().Count,
                     RequirementMasterList = data.ToList(),
                 };
-                return new NewApiResponse<RequirementMasterItemDto>(HttpStatusCode.OK, result);
+                return new ApiResponse<RequirementMasterItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
 
-                return new NewApiResponse<RequirementMasterItemDto>(
+                return new ApiResponse<RequirementMasterItemDto>(
                         HttpStatusCode.BadRequest,
                         "An error occurred while retrieving data.",
                         ex.Message

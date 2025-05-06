@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Provider.ApiResponse;
 
 namespace ThePatho.Features.Applicant.ApplicantEducation.Commands
 {

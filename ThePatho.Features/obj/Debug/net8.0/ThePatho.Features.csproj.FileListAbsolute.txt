@@ -4,7 +4,9 @@ D:\COURSES\ThePatho\ThePatho.Features\bin\Debug\net8.0\ThePatho.Features.dll
 D:\COURSES\ThePatho\ThePatho.Features\bin\Debug\net8.0\ThePatho.Features.pdb
 D:\COURSES\ThePatho\ThePatho.Features\bin\Debug\net8.0\ThePatho.Domain.dll
 D:\COURSES\ThePatho\ThePatho.Features\bin\Debug\net8.0\ThePatho.Infrastructure.dll
+D:\COURSES\ThePatho\ThePatho.Features\bin\Debug\net8.0\ThePatho.Provider.dll
 D:\COURSES\ThePatho\ThePatho.Features\bin\Debug\net8.0\ThePatho.Infrastructure.pdb
+D:\COURSES\ThePatho\ThePatho.Features\bin\Debug\net8.0\ThePatho.Provider.pdb
 D:\COURSES\ThePatho\ThePatho.Features\bin\Debug\net8.0\ThePatho.Domain.pdb
 D:\COURSES\ThePatho\ThePatho.Features\obj\Debug\net8.0\ThePatho.Features.csproj.AssemblyReference.cache
 D:\COURSES\ThePatho\ThePatho.Features\obj\Debug\net8.0\ThePatho.Features.GeneratedMSBuildEditorConfig.editorconfig

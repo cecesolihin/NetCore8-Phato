@@ -5,12 +5,19 @@ using SqlKata.Execution;
 using System.Data.Entity;
 using ThePatho.Domain.Constants;
 using ThePatho.Domain.Models.Identity;
-using ThePatho.Features.ConfigurationExtensions.Jwt;
-using ThePatho.Features.ConfigurationExtensions;
 using ThePatho.Features.Identity.Authentication.Commands;
-using ThePatho.Features.Recruitment.RecruitStep.DTO;
 using ThePatho.Infrastructure.Persistance;
+using ThePatho.Provider.ApiResponse;
 using System.Net;
+using ThePatho.Provider.Jwt;
+using ThePatho.Provider.Jwt.Token;
+using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
+using System.Text;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Http.Authentication;
+using System.Threading;
 
 namespace ThePatho.Features.Identity.Authentication.Service
 {
@@ -18,16 +25,28 @@ namespace ThePatho.Features.Identity.Authentication.Service
     {
         //private readonly UserManager<User> _userManager;
         private readonly IJwtTokenGenerator jwtTokenGenerator;
+        private readonly ITokenGenerator tokenGenerator;
         private readonly ApplicationDbContext dbContext;
         private readonly DapperContext dapperContext;
+        private readonly IConfiguration configuration;
 
-        public AuthenticationService(ApplicationDbContext _dbContext,IJwtTokenGenerator _jwtTokenGenerator, DapperContext _dapperContext)
+        public AuthenticationService
+        (
+            ApplicationDbContext _dbContext,
+            IJwtTokenGenerator _jwtTokenGenerator, 
+            DapperContext _dapperContext,
+            IConfiguration _configuration,
+            ITokenGenerator _tokenGenerator)
         {
             // _userManager = userManager;
             jwtTokenGenerator = _jwtTokenGenerator;
             dbContext = _dbContext;
             dapperContext = _dapperContext;
+            tokenGenerator = _tokenGenerator;
+            configuration = _configuration;
         }
+
+
         //public async Task<string> RegisterAsync(RegisterCommand request)
         //{
         //    var user = new User
@@ -67,7 +86,7 @@ namespace ThePatho.Features.Identity.Authentication.Service
         //    var token = _jwtTokenGenerator.GenerateToken(user);
         //    return token;
         //}
-        public async Task<NewApiResponse<JwtResult>> LoginAsync(LoginCommand request)
+        public async Task<ApiResponse<JwtResult>> LoginAsync(LoginCommand request, CancellationToken cancellationToken)
         {
             using var connection = dapperContext.CreateConnection();
             var db = new QueryFactory(connection, dapperContext.Compiler);
@@ -104,13 +123,37 @@ namespace ThePatho.Features.Identity.Authentication.Service
             {
                 throw new UnauthorizedAccessException("Invalid credentials.");
             }
+            //var jwtResult = jwtTokenGenerator.GenerateToken(user);
 
-            var jwtResult = jwtTokenGenerator.GenerateToken(user);
+            var authenticationResult = await this.Authenticate(user, cancellationToken);
 
-            return new NewApiResponse<JwtResult>(HttpStatusCode.OK, new JwtResult() { JwtToken = jwtResult, RefreshToken=jwtResult});
+            return new ApiResponse<JwtResult>(
+                HttpStatusCode.OK,
+                authenticationResult
+            );
         }
 
-        public async Task<NewApiResponse<JwtResult>> RegisterAsync(RegisterCommand request)
+        public async Task<JwtResult> Authenticate(User user, CancellationToken token)
+        {
+            var refreshToken = tokenGenerator.GenerateRefreshToken();
+
+            //var sessionId = Ulid.NewUlid().ToString();
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]!));
+            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+            var claims = new[]
+            {
+                new Claim(JwtRegisteredClaimNames.Sub, user.UserId),
+                new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                new Claim(ClaimTypes.Name, user.Username),
+                new Claim("fullName", user.FullName ?? ""),
+                new Claim("isActive", user.IsActive.ToString()),
+            };
+            var userJwt = tokenGenerator.GenerateToken(claims);
+
+            return new JwtResult(userJwt, refreshToken);
+        }
+        public async Task<ApiResponse<JwtResult>> RegisterAsync(RegisterCommand request)
         {
             throw new NotImplementedException();
         }

@@ -36,8 +36,11 @@ D:\COURSES\ThePatho\ThePatho\bin\Debug\net8.0\Microsoft.Extensions.Configuration
 D:\COURSES\ThePatho\ThePatho\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
 D:\COURSES\ThePatho\ThePatho\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
 D:\COURSES\ThePatho\ThePatho\bin\Debug\net8.0\Microsoft.Extensions.DependencyModel.dll
+D:\COURSES\ThePatho\ThePatho\bin\Debug\net8.0\Microsoft.Extensions.Diagnostics.Abstractions.dll
+D:\COURSES\ThePatho\ThePatho\bin\Debug\net8.0\Microsoft.Extensions.Hosting.Abstractions.dll
 D:\COURSES\ThePatho\ThePatho\bin\Debug\net8.0\Microsoft.Extensions.Logging.dll
 D:\COURSES\ThePatho\ThePatho\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+D:\COURSES\ThePatho\ThePatho\bin\Debug\net8.0\Microsoft.Extensions.ObjectPool.dll
 D:\COURSES\ThePatho\ThePatho\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
 D:\COURSES\ThePatho\ThePatho\bin\Debug\net8.0\Microsoft.Extensions.Primitives.dll
 D:\COURSES\ThePatho\ThePatho\bin\Debug\net8.0\Microsoft.Identity.Client.dll
@@ -88,9 +91,11 @@ D:\COURSES\ThePatho\ThePatho\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Win
 D:\COURSES\ThePatho\ThePatho\bin\Debug\net8.0\ThePatho.Domain.dll
 D:\COURSES\ThePatho\ThePatho\bin\Debug\net8.0\ThePatho.Features.dll
 D:\COURSES\ThePatho\ThePatho\bin\Debug\net8.0\ThePatho.Infrastructure.dll
+D:\COURSES\ThePatho\ThePatho\bin\Debug\net8.0\ThePatho.Provider.dll
 D:\COURSES\ThePatho\ThePatho\bin\Debug\net8.0\ThePatho.Domain.pdb
 D:\COURSES\ThePatho\ThePatho\bin\Debug\net8.0\ThePatho.Features.pdb
 D:\COURSES\ThePatho\ThePatho\bin\Debug\net8.0\ThePatho.Infrastructure.pdb
+D:\COURSES\ThePatho\ThePatho\bin\Debug\net8.0\ThePatho.Provider.pdb
 D:\COURSES\ThePatho\ThePatho\obj\Debug\net8.0\ThePatho.csproj.AssemblyReference.cache
 D:\COURSES\ThePatho\ThePatho\obj\Debug\net8.0\ThePatho.GeneratedMSBuildEditorConfig.editorconfig
 D:\COURSES\ThePatho\ThePatho\obj\Debug\net8.0\ThePatho.AssemblyInfoInputs.cache
@@ -113,3 +118,4 @@ D:\COURSES\ThePatho\ThePatho\obj\Debug\net8.0\refint\ThePatho.dll
 D:\COURSES\ThePatho\ThePatho\obj\Debug\net8.0\ThePatho.pdb
 D:\COURSES\ThePatho\ThePatho\obj\Debug\net8.0\ThePatho.genruntimeconfig.cache
 D:\COURSES\ThePatho\ThePatho\obj\Debug\net8.0\ref\ThePatho.dll
+D:\COURSES\ThePatho\ThePatho\bin\Debug\net8.0\Microsoft.Bcl.Memory.dll

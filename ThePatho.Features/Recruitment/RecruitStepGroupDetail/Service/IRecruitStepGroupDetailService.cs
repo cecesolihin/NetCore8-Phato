@@ -1,4 +1,4 @@
-using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Recruitment.RecruitStep.Commands;
 using ThePatho.Features.Recruitment.RecruitStepGroup.Commands;
 using ThePatho.Features.Recruitment.RecruitStepGroup.DTO;
@@ -8,7 +8,7 @@ namespace ThePatho.Features.Recruitment.RecruitStepGroupDetail.Service
 {
     public interface IRecruitStepGroupDetailService
     {
-        Task<NewApiResponse<RecruitStepGroupDetailItemDto>> GetRecruitStepGroupDetail(GetRecruitStepGroupDetailCommand request);
-        Task<NewApiResponse<RecruitStepGroupDetailItemDto>> GetRecruitStepGroupDetailByCriteria(GetRecruitStepGroupDetailByCriteriaCommand request);
+        Task<ApiResponse<RecruitStepGroupDetailItemDto>> GetRecruitStepGroupDetail(GetRecruitStepGroupDetailCommand request);
+        Task<ApiResponse<RecruitStepGroupDetailItemDto>> GetRecruitStepGroupDetailByCriteria(GetRecruitStepGroupDetailByCriteriaCommand request);
     }
 }

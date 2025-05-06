@@ -1,11 +1,11 @@
 using MediatR;
 using System.Text.Json.Serialization;
-using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.MasterSetting.ScoringSettingDetail.DTO;
 
 namespace ThePatho.Features.MasterSetting.ScoringSettingDetail.Commands
 {
-    public class GetScoringSettingDetailCommand : IRequest<NewApiResponse<ScoringSettingDetailItemDto>>
+    public class GetScoringSettingDetailCommand : IRequest<ApiResponse<ScoringSettingDetailItemDto>>
     {
         [JsonPropertyName("filter_ScoringCode")]
         public string? FilterScoringCode { get; set; }

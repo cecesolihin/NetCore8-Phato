@@ -1,11 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ThePatho.Features.ConfigurationExtensions
+namespace ThePatho.Provider.ApiResponse
 {
     public sealed class ApiResult<TResponse> : IActionResult where TResponse : ApiResponse
     {

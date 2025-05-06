@@ -3,7 +3,7 @@ using SqlKata;
 using SqlKata.Execution;
 using System.Net;
 using ThePatho.Domain.Constants;
-using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.MasterData.AdsCategory.DTO;
 using ThePatho.Features.Recruitment.RecruitStepGroup.Commands;
 using ThePatho.Features.Recruitment.RecruitStepGroup.DTO;
@@ -22,7 +22,7 @@ namespace ThePatho.Features.Recruitment.RecruitStepGroup.Service
             dapperContext = _dapperContext;
         }
 
-        public async Task<NewApiResponse<RecruitStepGroupItemDto>> GetRecruitStepGroup(GetRecruitStepGroupCommand request)
+        public async Task<ApiResponse<RecruitStepGroupItemDto>> GetRecruitStepGroup(GetRecruitStepGroupCommand request)
         {
             try
             {
@@ -55,12 +55,12 @@ namespace ThePatho.Features.Recruitment.RecruitStepGroup.Service
                     DataOfRecords = data.ToList().Count,
                     RecruitStepGroupList = data.ToList(),
                 };
-                return new NewApiResponse<RecruitStepGroupItemDto>(HttpStatusCode.OK, result);
+                return new ApiResponse<RecruitStepGroupItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
 
-                return new NewApiResponse<RecruitStepGroupItemDto>(
+                return new ApiResponse<RecruitStepGroupItemDto>(
                         HttpStatusCode.BadRequest,
                         "An error occurred while retrieving data.",
                         ex.Message
@@ -69,7 +69,7 @@ namespace ThePatho.Features.Recruitment.RecruitStepGroup.Service
 
         }
 
-        public async Task<NewApiResponse<RecruitStepGroupDto>> GetRecruitStepGroupByCriteria(GetRecruitStepGroupByCriteriaCommand request)
+        public async Task<ApiResponse<RecruitStepGroupDto>> GetRecruitStepGroupByCriteria(GetRecruitStepGroupByCriteriaCommand request)
         {
             try
             {
@@ -87,12 +87,12 @@ namespace ThePatho.Features.Recruitment.RecruitStepGroup.Service
                         q => q.WhereIn("rec_step_group_code", request.FilterStepGroupCode)
                     );
                 var data = await db.FirstOrDefaultAsync<RecruitStepGroupDto>(query);
-                return new NewApiResponse<RecruitStepGroupDto>(HttpStatusCode.OK, data);
+                return new ApiResponse<RecruitStepGroupDto>(HttpStatusCode.OK, data);
             }
             catch (Exception ex)
             {
 
-                return new NewApiResponse<RecruitStepGroupDto>(
+                return new ApiResponse<RecruitStepGroupDto>(
                         HttpStatusCode.BadRequest,
                         "An error occurred while retrieving data.",
                         ex.Message

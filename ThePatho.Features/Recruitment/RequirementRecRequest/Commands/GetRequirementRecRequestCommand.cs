@@ -5,12 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Recruitment.RequirementRecRequest.DTO;
 
 namespace ThePatho.Features.Recruitment.RequirementRecRequest.Commands
 {
-    public class GetRequirementRecRequestCommand :IRequest<NewApiResponse<RequirementRecRequestItemDto>>
+    public class GetRequirementRecRequestCommand :IRequest<ApiResponse<RequirementRecRequestItemDto>>
     {
         [JsonPropertyName("filter_RequestNo")]
         public string? FilterRequestNo { get; set; }

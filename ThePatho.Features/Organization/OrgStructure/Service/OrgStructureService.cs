@@ -3,7 +3,7 @@ using SqlKata;
 using SqlKata.Execution;
 using System.Net;
 using ThePatho.Domain.Constants;
-using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Organization.OrgStructure.Commands;
 using ThePatho.Features.Organization.OrgStructure.DTO;
 using ThePatho.Features.Organization.Position.DTO;
@@ -21,7 +21,7 @@ namespace ThePatho.Features.Organization.OrgStructure.Service
             dapperContext = _dapperContext;
         }
 
-        public async Task<NewApiResponse<OrgStructureItemDto>> GetOrgStructure(GetOrgStructureCommand request)
+        public async Task<ApiResponse<OrgStructureItemDto>> GetOrgStructure(GetOrgStructureCommand request)
         {
             try
             {
@@ -64,11 +64,11 @@ namespace ThePatho.Features.Organization.OrgStructure.Service
                     DataOfRecords = data.ToList().Count,
                     OrgStructureList = data.ToList(),
                 };
-                return new NewApiResponse<OrgStructureItemDto>(HttpStatusCode.OK, result);
+                return new ApiResponse<OrgStructureItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
-                return new NewApiResponse<OrgStructureItemDto>(
+                return new ApiResponse<OrgStructureItemDto>(
                          HttpStatusCode.BadRequest,
                          "An error occurred while retrieving data.",
                          ex.Message
@@ -77,7 +77,7 @@ namespace ThePatho.Features.Organization.OrgStructure.Service
            
         }
 
-        public async Task<NewApiResponse<OrgStructureDto>> GetOrgStructureByCriteria(GetOrgStructureByCriteriaCommand request)
+        public async Task<ApiResponse<OrgStructureDto>> GetOrgStructureByCriteria(GetOrgStructureByCriteriaCommand request)
         {
             try
             {
@@ -103,11 +103,11 @@ namespace ThePatho.Features.Organization.OrgStructure.Service
                     );
 
                 var data = await db.FirstOrDefaultAsync<OrgStructureDto>(query);
-                return new NewApiResponse<OrgStructureDto>(HttpStatusCode.OK, data);
+                return new ApiResponse<OrgStructureDto>(HttpStatusCode.OK, data);
             }
             catch (Exception ex)
             {
-                return new NewApiResponse<OrgStructureDto>(
+                return new ApiResponse<OrgStructureDto>(
                                         HttpStatusCode.BadRequest,
                                         "An error occurred while retrieving data.",
                                         ex.Message

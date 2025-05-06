@@ -22,7 +22,7 @@ SELECT
     CONVERT(VARCHAR, modified_date, 120) AS ModifiedDate
 FROM dbo.TMOnlineTestSetting
 WHERE
-    (@FilterQuestionCode IS NULL OR online_test_code LIKE '%' + @FilterQuestionCode + '%') AND
+    (@OnlineTestCode IS NULL OR online_test_code LIKE '%' + @OnlineTestCode + '%') AND
     (@OnlineTestName IS NULL OR online_test_name LIKE '%' + @OnlineTestName + '%') AND
     (@TestQuestion IS NULL OR test_question LIKE '%' + @TestQuestion + '%') 
     ORDER BY

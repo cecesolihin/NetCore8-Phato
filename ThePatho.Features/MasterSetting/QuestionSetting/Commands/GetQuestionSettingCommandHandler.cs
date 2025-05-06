@@ -1,11 +1,11 @@
 using MediatR;
-using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.MasterSetting.QuestionSetting.DTO;
 using ThePatho.Features.MasterSetting.QuestionSetting.Service;
 
 namespace ThePatho.Features.MasterSetting.QuestionSetting.Commands
 {
-    public class GetQuestionSettingCommandHandler : IRequestHandler<GetQuestionSettingCommand, NewApiResponse<QuestionSettingItemDto>>
+    public class GetQuestionSettingCommandHandler : IRequestHandler<GetQuestionSettingCommand, ApiResponse<QuestionSettingItemDto>>
     {
         private readonly IQuestionSettingService questionSettingService;
 
@@ -14,7 +14,7 @@ namespace ThePatho.Features.MasterSetting.QuestionSetting.Commands
             questionSettingService = _questionSettingService;
         }
 
-        public async Task<NewApiResponse<QuestionSettingItemDto>> Handle(GetQuestionSettingCommand request, CancellationToken cancellationToken)
+        public async Task<ApiResponse<QuestionSettingItemDto>> Handle(GetQuestionSettingCommand request, CancellationToken cancellationToken)
         {
             return await questionSettingService.GetQuestionSetting(request);
         }

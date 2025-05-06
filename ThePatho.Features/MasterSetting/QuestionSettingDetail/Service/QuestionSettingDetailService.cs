@@ -2,7 +2,7 @@ using Dapper;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
 using System.Net;
-using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.MasterSetting.QuestionSetting.Commands;
 using ThePatho.Features.MasterSetting.QuestionSettingDetail.Commands;
 using ThePatho.Features.MasterSetting.QuestionSettingDetail.DTO;
@@ -25,7 +25,7 @@ namespace ThePatho.Features.MasterSetting.QuestionSettingDetail.Service
             dbConnection = _dbConnection;
         }
 
-        public async Task<NewApiResponse<QuestionSettingDetailItemDto>> GetQuestionSettingDetail(GetQuestionSettingDetailCommand request)
+        public async Task<ApiResponse<QuestionSettingDetailItemDto>> GetQuestionSettingDetail(GetQuestionSettingDetailCommand request)
         {
             try
             {
@@ -44,11 +44,11 @@ namespace ThePatho.Features.MasterSetting.QuestionSettingDetail.Service
                     DataOfRecords = data.ToList().Count,
                     QuestionSettingDetailList = data.ToList(),
                 };
-                return new NewApiResponse<QuestionSettingDetailItemDto>(HttpStatusCode.OK, result);
+                return new ApiResponse<QuestionSettingDetailItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
-                return new NewApiResponse<QuestionSettingDetailItemDto>(
+                return new ApiResponse<QuestionSettingDetailItemDto>(
                          HttpStatusCode.BadRequest,
                          "An error occurred while retrieving data.",
                          ex.Message
@@ -56,7 +56,7 @@ namespace ThePatho.Features.MasterSetting.QuestionSettingDetail.Service
             }
         }
 
-        public async Task<NewApiResponse<QuestionSettingDetailItemDto>> GetQuestionSettingDetailByCriteria(GetQuestionSettingDetailByCriteriaCommand request)
+        public async Task<ApiResponse<QuestionSettingDetailItemDto>> GetQuestionSettingDetailByCriteria(GetQuestionSettingDetailByCriteriaCommand request)
         {
             try
             {
@@ -71,11 +71,11 @@ namespace ThePatho.Features.MasterSetting.QuestionSettingDetail.Service
                     DataOfRecords = data.ToList().Count,
                     QuestionSettingDetailList = data.ToList(),
                 };
-                return new NewApiResponse<QuestionSettingDetailItemDto>(HttpStatusCode.OK, result);
+                return new ApiResponse<QuestionSettingDetailItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
-                return new NewApiResponse<QuestionSettingDetailItemDto>(
+                return new ApiResponse<QuestionSettingDetailItemDto>(
                          HttpStatusCode.BadRequest,
                          "An error occurred while retrieving data.",
                          ex.Message
@@ -83,7 +83,7 @@ namespace ThePatho.Features.MasterSetting.QuestionSettingDetail.Service
             }
         }
 
-        public async Task<NewApiResponse<QuestionSettingDetailItemDto>> GetQuestionSettingDetailDdl(GetQuestionSettingDetailDdlCommand request)
+        public async Task<ApiResponse<QuestionSettingDetailItemDto>> GetQuestionSettingDetailDdl(GetQuestionSettingDetailDdlCommand request)
         {
             try
             {
@@ -99,11 +99,11 @@ namespace ThePatho.Features.MasterSetting.QuestionSettingDetail.Service
                     DataOfRecords = data.ToList().Count,
                     QuestionSettingDetailList = data.ToList(),
                 };
-                return new NewApiResponse<QuestionSettingDetailItemDto>(HttpStatusCode.OK, result);
+                return new ApiResponse<QuestionSettingDetailItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
-                return new NewApiResponse<QuestionSettingDetailItemDto>(
+                return new ApiResponse<QuestionSettingDetailItemDto>(
                          HttpStatusCode.BadRequest,
                          "An error occurred while retrieving data.",
                          ex.Message

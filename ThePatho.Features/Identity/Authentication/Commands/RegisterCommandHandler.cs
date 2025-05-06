@@ -1,18 +1,18 @@
 ﻿using MediatR;
-using ThePatho.Features.ConfigurationExtensions;
-using ThePatho.Features.ConfigurationExtensions.Jwt;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Identity.Authentication.Service;
+using ThePatho.Provider.Jwt;
 
 namespace ThePatho.Features.Identity.Authentication.Commands
 {
-    public class RegisterCommandHandler : IRequestHandler<RegisterCommand, NewApiResponse<JwtResult>>
+    public class RegisterCommandHandler : IRequestHandler<RegisterCommand, ApiResponse<JwtResult>>
     {
         private readonly IAuthenticationService authenticationService;
         public RegisterCommandHandler(IAuthenticationService _authenticationService)
         {
            authenticationService = _authenticationService;
         }
-        public async Task<NewApiResponse<JwtResult>> Handle(RegisterCommand request, CancellationToken cancellationToken)
+        public async Task<ApiResponse<JwtResult>> Handle(RegisterCommand request, CancellationToken cancellationToken)
         {
             return await authenticationService.RegisterAsync(request);
           

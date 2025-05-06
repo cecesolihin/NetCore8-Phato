@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using ThePatho.Features.Applicant.ApplicantPersonalData.Service;
-using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Provider.ApiResponse;
 
 namespace ThePatho.Features.Applicant.ApplicantPersonalData.Commands
 {

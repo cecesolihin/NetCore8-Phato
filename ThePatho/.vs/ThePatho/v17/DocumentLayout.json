@@ -3,28 +3,19 @@
   "WorkspaceRootPath": "D:\\COURSES\\ThePatho\\ThePatho\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\configurationextensions\\apiresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\mastersetting\\onlinetestsetting\\service\\onlinetestsettingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\configurationextensions\\apiresponse_old.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\mastersetting\\onlinetestsetting\\sql\\search_online_setting.sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\configurationextensions\\apiresult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\mastersetting\\onlinetestsetting\\sql\\submit_online_setting.sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\identity\\authentication\\service\\authenticationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\mastersetting\\onlinetestsetting\\sql\\submit_online_setting.sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}|CodeFrame"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\identity\\authentication\\service\\iauthenticationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\identity\\authentication\\commands\\registercommandhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\identity\\usermanagement\\service\\usermanagementservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\applicant\\applicant\\service\\applicantservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\mastersetting\\onlinetestsetting\\sql\\search_online_setting.sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}|CodeFrame"
     }
   ],
   "DocumentGroupContainers": [
@@ -36,32 +27,6 @@
           "DockedWidth": 317,
           "SelectedChildIndex": 5,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ApiResponse_old.cs",
-              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\ConfigurationExtensions\\ApiResponse_old.cs",
-              "RelativeDocumentMoniker": "..\\ThePatho.Features\\ConfigurationExtensions\\ApiResponse_old.cs",
-              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\ConfigurationExtensions\\ApiResponse_old.cs",
-              "RelativeToolTip": "..\\ThePatho.Features\\ConfigurationExtensions\\ApiResponse_old.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-02T05:58:36.829Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "ApiResult.cs",
-              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\ConfigurationExtensions\\ApiResult.cs",
-              "RelativeDocumentMoniker": "..\\ThePatho.Features\\ConfigurationExtensions\\ApiResult.cs",
-              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\ConfigurationExtensions\\ApiResult.cs",
-              "RelativeToolTip": "..\\ThePatho.Features\\ConfigurationExtensions\\ApiResult.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-02T05:58:09.417Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:129:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
@@ -76,80 +41,39 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "submit_online_setting.sql ",
+              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\MasterSetting\\OnlineTestSetting\\Sql\\submit_online_setting.sql",
+              "RelativeDocumentMoniker": "..\\ThePatho.Features\\MasterSetting\\OnlineTestSetting\\Sql\\submit_online_setting.sql",
+              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\MasterSetting\\OnlineTestSetting\\Sql\\submit_online_setting.sql",
+              "RelativeToolTip": "..\\ThePatho.Features\\MasterSetting\\OnlineTestSetting\\Sql\\submit_online_setting.sql",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
+              "WhenOpened": "2025-03-03T07:23:19.485Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "search_online_setting.sql ",
+              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\MasterSetting\\OnlineTestSetting\\Sql\\search_online_setting.sql",
+              "RelativeDocumentMoniker": "..\\ThePatho.Features\\MasterSetting\\OnlineTestSetting\\Sql\\search_online_setting.sql",
+              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\MasterSetting\\OnlineTestSetting\\Sql\\search_online_setting.sql",
+              "RelativeToolTip": "..\\ThePatho.Features\\MasterSetting\\OnlineTestSetting\\Sql\\search_online_setting.sql",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
+              "WhenOpened": "2025-03-03T07:13:51.983Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "ApiResponse.cs",
-              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\ConfigurationExtensions\\ApiResponse.cs",
-              "RelativeDocumentMoniker": "..\\ThePatho.Features\\ConfigurationExtensions\\ApiResponse.cs",
-              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\ConfigurationExtensions\\ApiResponse.cs",
-              "RelativeToolTip": "..\\ThePatho.Features\\ConfigurationExtensions\\ApiResponse.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAA8AAAA",
+              "Title": "OnlineTestSettingService.cs",
+              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\MasterSetting\\OnlineTestSetting\\Service\\OnlineTestSettingService.cs",
+              "RelativeDocumentMoniker": "..\\ThePatho.Features\\MasterSetting\\OnlineTestSetting\\Service\\OnlineTestSettingService.cs",
+              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\MasterSetting\\OnlineTestSetting\\Service\\OnlineTestSettingService.cs",
+              "RelativeToolTip": "..\\ThePatho.Features\\MasterSetting\\OnlineTestSetting\\Service\\OnlineTestSettingService.cs",
+              "ViewState": "AQIAAFsAAAAAAAAAAAAkwG4AAAAQAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-02T05:58:25.508Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "IAuthenticationService.cs",
-              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Identity\\Authentication\\Service\\IAuthenticationService.cs",
-              "RelativeDocumentMoniker": "..\\ThePatho.Features\\Identity\\Authentication\\Service\\IAuthenticationService.cs",
-              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Identity\\Authentication\\Service\\IAuthenticationService.cs",
-              "RelativeToolTip": "..\\ThePatho.Features\\Identity\\Authentication\\Service\\IAuthenticationService.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-02T05:56:33.481Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "AuthenticationService.cs",
-              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Identity\\Authentication\\Service\\AuthenticationService.cs",
-              "RelativeDocumentMoniker": "..\\ThePatho.Features\\Identity\\Authentication\\Service\\AuthenticationService.cs",
-              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Identity\\Authentication\\Service\\AuthenticationService.cs",
-              "RelativeToolTip": "..\\ThePatho.Features\\Identity\\Authentication\\Service\\AuthenticationService.cs",
-              "ViewState": "AQIAAE4AAAAAAAAAAAAYwG0AAAAlAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-02T05:56:31.802Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "RegisterCommandHandler.cs",
-              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Identity\\Authentication\\Commands\\RegisterCommandHandler.cs",
-              "RelativeDocumentMoniker": "..\\ThePatho.Features\\Identity\\Authentication\\Commands\\RegisterCommandHandler.cs",
-              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Identity\\Authentication\\Commands\\RegisterCommandHandler.cs",
-              "RelativeToolTip": "..\\ThePatho.Features\\Identity\\Authentication\\Commands\\RegisterCommandHandler.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-02T05:56:23.067Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "UserManagementService.cs",
-              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Identity\\UserManagement\\Service\\UserManagementService.cs",
-              "RelativeDocumentMoniker": "..\\ThePatho.Features\\Identity\\UserManagement\\Service\\UserManagementService.cs",
-              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Identity\\UserManagement\\Service\\UserManagementService.cs",
-              "RelativeToolTip": "..\\ThePatho.Features\\Identity\\UserManagement\\Service\\UserManagementService.cs",
-              "ViewState": "AQIAABgAAAAAAAAAAAAUwCsAAAA0AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-02T05:39:38.34Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "ApplicantService.cs",
-              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Applicant\\Applicant\\Service\\ApplicantService.cs",
-              "RelativeDocumentMoniker": "..\\ThePatho.Features\\Applicant\\Applicant\\Service\\ApplicantService.cs",
-              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Applicant\\Applicant\\Service\\ApplicantService.cs",
-              "RelativeToolTip": "..\\ThePatho.Features\\Applicant\\Applicant\\Service\\ApplicantService.cs",
-              "ViewState": "AQIAACQAAAAAAAAAAAAYwD4AAAAQAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-02T05:23:55.789Z",
+              "WhenOpened": "2025-03-03T07:13:41.444Z",
               "EditorCaption": ""
             }
           ]

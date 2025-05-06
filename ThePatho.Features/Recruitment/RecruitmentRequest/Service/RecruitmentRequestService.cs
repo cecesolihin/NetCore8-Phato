@@ -6,7 +6,7 @@ using ThePatho.Features.Recruitment.RecruitmentRequest.Commands;
 using ThePatho.Infrastructure.Persistance;
 using SqlKata;
 using System.Data.Entity.Infrastructure;
-using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Provider.ApiResponse;
 using System.Net;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using ThePatho.Features.Recruitment.RecruitmentReqStep.DTO;
@@ -23,7 +23,7 @@ namespace ThePatho.Features.Recruitment.RecruitmentRequest.Service
             dapperContext = _dapperContext;
         }
 
-        public async Task<NewApiResponse<RecruitmentRequestItemDto>> GetRecruitmentRequest(GetRecruitmentRequestCommand request)
+        public async Task<ApiResponse<RecruitmentRequestItemDto>> GetRecruitmentRequest(GetRecruitmentRequestCommand request)
         {
             try
             {
@@ -117,12 +117,12 @@ namespace ThePatho.Features.Recruitment.RecruitmentRequest.Service
                     DataOfRecords = data.ToList().Count,
                     RecruitmentRequestList = data.ToList(),
                 };
-                return new NewApiResponse<RecruitmentRequestItemDto>(HttpStatusCode.OK, result);
+                return new ApiResponse<RecruitmentRequestItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
 
-                return new NewApiResponse<RecruitmentRequestItemDto>(
+                return new ApiResponse<RecruitmentRequestItemDto>(
                         HttpStatusCode.BadRequest,
                         "An error occurred while retrieving data.",
                         ex.Message
@@ -130,7 +130,7 @@ namespace ThePatho.Features.Recruitment.RecruitmentRequest.Service
             }
         }
 
-        public async Task<NewApiResponse<RecruitmentRequestDto>> GetRecruitmentRequestByCriteria(GetRecruitmentRequestByCriteriaCommand request)
+        public async Task<ApiResponse<RecruitmentRequestDto>> GetRecruitmentRequestByCriteria(GetRecruitmentRequestByCriteriaCommand request)
         {
             try
             {
@@ -179,12 +179,12 @@ namespace ThePatho.Features.Recruitment.RecruitmentRequest.Service
                         q => q.WhereIn("recruit_step_code", request.FilterRequestNo)
                     );
                 var data = await db.FirstOrDefaultAsync<RecruitmentRequestDto>(query);
-                return new NewApiResponse<RecruitmentRequestDto>(HttpStatusCode.OK, data);
+                return new ApiResponse<RecruitmentRequestDto>(HttpStatusCode.OK, data);
             }
             catch (Exception ex)
             {
 
-                return new NewApiResponse<RecruitmentRequestDto>(
+                return new ApiResponse<RecruitmentRequestDto>(
                         HttpStatusCode.BadRequest,
                         "An error occurred while retrieving data.",
                         ex.Message

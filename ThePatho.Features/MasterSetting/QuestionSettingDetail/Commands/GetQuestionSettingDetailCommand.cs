@@ -1,11 +1,11 @@
 using MediatR;
 using System.Text.Json.Serialization;
-using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.MasterSetting.QuestionSettingDetail.DTO;
 
 namespace ThePatho.Features.MasterSetting.QuestionSettingDetail.Commands
 {
-    public class GetQuestionSettingDetailCommand : IRequest<NewApiResponse<QuestionSettingDetailItemDto>>
+    public class GetQuestionSettingDetailCommand : IRequest<ApiResponse<QuestionSettingDetailItemDto>>
     {
         [JsonPropertyName("filter_QuestionCode")]
         public string? FilterQuestionCode { get; set; }

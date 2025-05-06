@@ -1,11 +1,11 @@
 ﻿using MediatR;
 using System.Text.Json.Serialization;
-using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Organization.JobLevel.DTO;
 
 namespace ThePatho.Features.Organization.JobLevel.Commands
 {
-    public class GetJobLevelCommand :IRequest<NewApiResponse<JobLevelItemDto>>
+    public class GetJobLevelCommand :IRequest<ApiResponse<JobLevelItemDto>>
     {
         [JsonPropertyName("filter_JobLevelName")]
         public string? FilterJobLevelName { get; set; }

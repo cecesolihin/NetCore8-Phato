@@ -1,13 +1,13 @@
 ﻿
 using MediatR;
-using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.MasterData.JobCategory.Commands;
 using ThePatho.Features.MasterData.JobCategory.DTO;
 using ThePatho.Features.MasterData.JobCategory.Service;
 
 namespace ThePatho.Features.MasterData.AdsCategory.Commands
 {
-    public class GetJobCategoryCommandHandler : IRequestHandler<GetJobCategoryCommand, NewApiResponse<JobCategoryItemDto>>
+    public class GetJobCategoryCommandHandler : IRequestHandler<GetJobCategoryCommand, ApiResponse<JobCategoryItemDto>>
     {
         private readonly IJobCategoryService jobCategoryService; 
 
@@ -16,7 +16,7 @@ namespace ThePatho.Features.MasterData.AdsCategory.Commands
             jobCategoryService = _JobCategoryService;
         }
 
-        public async Task<NewApiResponse<JobCategoryItemDto>> Handle(GetJobCategoryCommand request, CancellationToken cancellationToken)
+        public async Task<ApiResponse<JobCategoryItemDto>> Handle(GetJobCategoryCommand request, CancellationToken cancellationToken)
         {
             return await jobCategoryService.GetJobCategory(request);
         }

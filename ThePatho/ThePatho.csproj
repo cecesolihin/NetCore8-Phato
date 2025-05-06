@@ -23,7 +23,6 @@
     <Folder Include="Controllers\MasterData\" />
     <Folder Include="Controllers\MasterSetting\" />
     <Folder Include="Controllers\Applicant\" />
-    <Folder Include="Controllers\Configuration\" />
   </ItemGroup>
 
 </Project>

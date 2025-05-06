@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
-using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Identity.UserManagement.Commands.Group;
 using ThePatho.Features.Identity.UserManagement.Commands.GroupRole;
 using ThePatho.Features.Identity.UserManagement.Commands.Role;

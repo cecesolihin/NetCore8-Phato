@@ -1,11 +1,11 @@
 ﻿using MediatR;
 using System.Text.Json.Serialization;
 using ThePatho.Features.Applicant.ApplicantOnlineTestAnswer.DTO;
-using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Provider.ApiResponse;
 
 namespace ThePatho.Features.Applicant.ApplicantOnlineTestAnswer.Commands
 {
-    public class GetApplicantOnlineTestAnswerCommand :IRequest<NewApiResponse<ApplicantOnlineTestAnswerItemDto>>
+    public class GetApplicantOnlineTestAnswerCommand :IRequest<ApiResponse<ApplicantOnlineTestAnswerItemDto>>
     {
         [JsonPropertyName("filter_AppAnswerId")]
         public string? FilterAppAnswerId { get; set; }

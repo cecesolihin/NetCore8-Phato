@@ -7,7 +7,7 @@ using ThePatho.Features.Applicant.ApplicantDocument.DTO;
 using ThePatho.Features.Applicant.ApplicantEducation.Commands;
 using ThePatho.Features.Applicant.ApplicantEducation.DTO;
 using ThePatho.Features.Applicant.ApplicantEducation.Service;
-using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Infrastructure.Persistance;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -23,7 +23,7 @@ namespace ThePatho.Features.Applicant.ApplicantEducation.Service
         }
 
 
-        public async Task<NewApiResponse<ApplicantEducationItemDto>> GetApplicantEducation(GetApplicantEducationCommand request)
+        public async Task<ApiResponse<ApplicantEducationItemDto>> GetApplicantEducation(GetApplicantEducationCommand request)
         {
             try
             {
@@ -78,12 +78,12 @@ namespace ThePatho.Features.Applicant.ApplicantEducation.Service
                     DataOfRecords = data.ToList().Count,
                     ApplicantEducationList = data.ToList(),
                 };
-                return new NewApiResponse<ApplicantEducationItemDto>(HttpStatusCode.OK, result);
+                return new ApiResponse<ApplicantEducationItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
 
-                return new NewApiResponse<ApplicantEducationItemDto>(
+                return new ApiResponse<ApplicantEducationItemDto>(
                         HttpStatusCode.BadRequest,
                         "An error occurred while retrieving data.",
                         ex.Message
@@ -91,7 +91,7 @@ namespace ThePatho.Features.Applicant.ApplicantEducation.Service
             }
         }
 
-        public async Task<NewApiResponse<ApplicantEducationDto>> GetApplicantEducationByCriteria(GetApplicantEducationByCriteriaCommand request)
+        public async Task<ApiResponse<ApplicantEducationDto>> GetApplicantEducationByCriteria(GetApplicantEducationByCriteriaCommand request)
         {
             try
             {
@@ -123,12 +123,12 @@ namespace ThePatho.Features.Applicant.ApplicantEducation.Service
                     );
                 var data = await db.FirstOrDefaultAsync<ApplicantEducationDto>(query);
                 
-                return new NewApiResponse<ApplicantEducationDto>(HttpStatusCode.OK, data);
+                return new ApiResponse<ApplicantEducationDto>(HttpStatusCode.OK, data);
             }
             catch (Exception ex)
             {
 
-                return new NewApiResponse<ApplicantEducationDto>(
+                return new ApiResponse<ApplicantEducationDto>(
                         HttpStatusCode.BadRequest,
                         "An error occurred while retrieving data.",
                         ex.Message

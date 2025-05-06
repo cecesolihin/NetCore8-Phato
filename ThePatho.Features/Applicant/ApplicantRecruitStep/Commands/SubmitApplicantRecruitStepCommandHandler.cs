@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using ThePatho.Features.Applicant.ApplicantRecruitStep.Service;
-using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Provider.ApiResponse;
 
 namespace ThePatho.Features.Applicant.ApplicantRecruitStep.Commands
 {

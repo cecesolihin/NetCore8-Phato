@@ -7,7 +7,7 @@ using ThePatho.Features.Applicant.ApplicantSkill.DTO;
 using ThePatho.Features.Applicant.ApplicantWorkExperience.Commands;
 using ThePatho.Features.Applicant.ApplicantWorkExperience.DTO;
 using ThePatho.Features.Applicant.ApplicantWorkExperience.Service;
-using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Infrastructure.Persistance;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -22,7 +22,7 @@ namespace ThePatho.Features.Applicant.ApplicantWorkExperience.Service
             dapperContext = _dapperContext;
         }
 
-        public async Task<NewApiResponse<ApplicantWorkExperienceItemDto>> GetApplicantWorkExperience(GetApplicantWorkExperienceCommand request)
+        public async Task<ApiResponse<ApplicantWorkExperienceItemDto>> GetApplicantWorkExperience(GetApplicantWorkExperienceCommand request)
         {
             try
             {
@@ -82,12 +82,12 @@ namespace ThePatho.Features.Applicant.ApplicantWorkExperience.Service
                     DataOfRecords = data.ToList().Count,
                     ApplicantWorkExperienceList = data.ToList(),
                 };
-                return new NewApiResponse<ApplicantWorkExperienceItemDto>(HttpStatusCode.OK, result);
+                return new ApiResponse<ApplicantWorkExperienceItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
 
-                return new NewApiResponse<ApplicantWorkExperienceItemDto>(
+                return new ApiResponse<ApplicantWorkExperienceItemDto>(
                         HttpStatusCode.BadRequest,
                         "An error occurred while retrieving data.",
                         ex.Message
@@ -95,7 +95,7 @@ namespace ThePatho.Features.Applicant.ApplicantWorkExperience.Service
             }
         }
 
-        public async Task<NewApiResponse<ApplicantWorkExperienceDto>> GetApplicantWorkExperienceByCriteria(GetApplicantWorkExperienceByCriteriaCommand request)
+        public async Task<ApiResponse<ApplicantWorkExperienceDto>> GetApplicantWorkExperienceByCriteria(GetApplicantWorkExperienceByCriteriaCommand request)
         {
             try
             {
@@ -132,12 +132,12 @@ namespace ThePatho.Features.Applicant.ApplicantWorkExperience.Service
                     );
                 var data = await db.FirstOrDefaultAsync<ApplicantWorkExperienceDto>(query);
                 
-                return new NewApiResponse<ApplicantWorkExperienceDto>(HttpStatusCode.OK, data);
+                return new ApiResponse<ApplicantWorkExperienceDto>(HttpStatusCode.OK, data);
             }
             catch (Exception ex)
             {
 
-                return new NewApiResponse<ApplicantWorkExperienceDto>(
+                return new ApiResponse<ApplicantWorkExperienceDto>(
                         HttpStatusCode.BadRequest,
                         "An error occurred while retrieving data.",
                         ex.Message

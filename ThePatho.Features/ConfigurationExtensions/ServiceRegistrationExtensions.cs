@@ -34,6 +34,8 @@ using ThePatho.Features.Recruitment.RecruitStepGroup.Service;
 using ThePatho.Features.Recruitment.RecruitStepGroupDetail.Service;
 using ThePatho.Features.Recruitment.RequirementMaster.Service;
 using ThePatho.Features.Recruitment.RequirementRecRequest.Service;
+using ThePatho.Provider.DateTimeProvider;
+using ThePatho.Provider.Jwt.Token;
 
 public static class ServiceRegistrationExtensions
 {
@@ -44,6 +46,8 @@ public static class ServiceRegistrationExtensions
         services.AddScoped<IUserManagementService, UserManagementService>();
         services.AddScoped<IAuthenticationService, AuthenticationService>();
         services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
+        services.AddScoped<ITokenGenerator, TokenGenerator>();
+        services.AddScoped<IDateTimeService, DateTimeService>();
         #endregion
 
         #region [Master Data]

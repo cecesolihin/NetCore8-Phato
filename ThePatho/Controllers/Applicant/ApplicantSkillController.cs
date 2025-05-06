@@ -4,7 +4,7 @@ using System.Net;
 using ThePatho.Domain.Models;
 using ThePatho.Features.Applicant.ApplicantSkill.Commands;
 using ThePatho.Features.Applicant.ApplicantSkill.DTO;
-using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Provider.ApiResponse;
 
 namespace ThePatho.Controllers
 {

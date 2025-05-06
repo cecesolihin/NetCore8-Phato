@@ -1,18 +1,18 @@
 ﻿using MediatR;
 using ThePatho.Features.Applicant.ApplicantDocument.DTO;
 using ThePatho.Features.Applicant.ApplicantDocument.Service;
-using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Provider.ApiResponse;
 
 namespace ThePatho.Features.Applicant.ApplicantDocument.Commands
 {
-    public class GetApplicantDocumentCommandHandler : IRequestHandler<GetApplicantDocumentCommand, NewApiResponse<ApplicantDocumentItemDto>>
+    public class GetApplicantDocumentCommandHandler : IRequestHandler<GetApplicantDocumentCommand, ApiResponse<ApplicantDocumentItemDto>>
     {
         private readonly IApplicantDocumentService applicantDocumentService;
         public GetApplicantDocumentCommandHandler(IApplicantDocumentService _applicantDocumentService)
         {
             applicantDocumentService =_applicantDocumentService; 
         }
-        public async Task<NewApiResponse<ApplicantDocumentItemDto>> Handle(GetApplicantDocumentCommand request, CancellationToken cancellationToken)
+        public async Task<ApiResponse<ApplicantDocumentItemDto>> Handle(GetApplicantDocumentCommand request, CancellationToken cancellationToken)
         {
             return await applicantDocumentService.GetApplicantDocument(request);
 

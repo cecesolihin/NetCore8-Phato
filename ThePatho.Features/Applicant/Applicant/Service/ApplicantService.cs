@@ -5,7 +5,7 @@ using ThePatho.Domain.Constants;
 using ThePatho.Features.Applicant.Applicant.DTO;
 using ThePatho.Features.Applicant.Applicant.Commands;
 using ThePatho.Infrastructure.Persistance;
-using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Provider.ApiResponse;
 using System.Net;
 
 namespace ThePatho.Features.Applicant.Applicant.Service
@@ -19,7 +19,7 @@ namespace ThePatho.Features.Applicant.Applicant.Service
             dapperContext = _dapperContext; 
         }
 
-        public async Task<NewApiResponse<ApplicantItemDto>> GetApplicant(GetApplicantCommand request)
+        public async Task<ApiResponse<ApplicantItemDto>> GetApplicant(GetApplicantCommand request)
         {
             try
             {
@@ -65,12 +65,12 @@ namespace ThePatho.Features.Applicant.Applicant.Service
                     DataOfRecords = data.ToList().Count,
                     ApplicantList = data.ToList(),
                 };
-                return new NewApiResponse<ApplicantItemDto>(HttpStatusCode.OK, result);
+                return new ApiResponse<ApplicantItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
 
-                return new NewApiResponse<ApplicantItemDto>(
+                return new ApiResponse<ApplicantItemDto>(
                         HttpStatusCode.BadRequest,
                         "An error occurred while retrieving data.",
                         ex.Message
@@ -78,7 +78,7 @@ namespace ThePatho.Features.Applicant.Applicant.Service
             }
         }
 
-        public async Task<NewApiResponse<ApplicantDto>> GetApplicantByCriteria(GetApplicantByCriteriaCommand request)
+        public async Task<ApiResponse<ApplicantDto>> GetApplicantByCriteria(GetApplicantByCriteriaCommand request)
         {
             try
             {
@@ -107,12 +107,12 @@ namespace ThePatho.Features.Applicant.Applicant.Service
                     );
                 var data = await db.FirstOrDefaultAsync<ApplicantDto>(query);
                 
-                return new NewApiResponse<ApplicantDto>(HttpStatusCode.OK, data);
+                return new ApiResponse<ApplicantDto>(HttpStatusCode.OK, data);
             }
             catch (Exception ex)
             {
 
-                return new NewApiResponse<ApplicantDto>(
+                return new ApiResponse<ApplicantDto>(
                         HttpStatusCode.BadRequest,
                         "An error occurred while retrieving data.",
                         ex.Message

@@ -3,7 +3,7 @@ using SqlKata;
 using SqlKata.Execution;
 using System.Net;
 using ThePatho.Domain.Constants;
-using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Organization.OrgLevel.Commands;
 using ThePatho.Features.Organization.OrgLevel.DTO;
 using ThePatho.Features.Organization.OrgStructure.DTO;
@@ -21,7 +21,7 @@ namespace ThePatho.Features.Organization.OrgLevel.Service
             dapperContext = _dapperContext;
         }
 
-        public async Task<NewApiResponse<OrgLevelItemDto>> GetOrganizationLevel(GetOrgLevelCommand request)
+        public async Task<ApiResponse<OrgLevelItemDto>> GetOrganizationLevel(GetOrgLevelCommand request)
         {
             try
             {
@@ -58,11 +58,11 @@ namespace ThePatho.Features.Organization.OrgLevel.Service
                     DataOfRecords = data.ToList().Count,
                     OrganizationLevelList = data.ToList(),
                 };
-                return new NewApiResponse<OrgLevelItemDto>(HttpStatusCode.OK, result);
+                return new ApiResponse<OrgLevelItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
-                return new NewApiResponse<OrgLevelItemDto>(
+                return new ApiResponse<OrgLevelItemDto>(
                          HttpStatusCode.BadRequest,
                          "An error occurred while retrieving data.",
                          ex.Message
@@ -70,7 +70,7 @@ namespace ThePatho.Features.Organization.OrgLevel.Service
             }
         }
 
-        public async Task<NewApiResponse<OrgLevelDto>> GetOrganizationLevelByCriteria(GetOrgLevelByCriteriaCommand request)
+        public async Task<ApiResponse<OrgLevelDto>> GetOrganizationLevelByCriteria(GetOrgLevelByCriteriaCommand request)
         {
             try
             {
@@ -93,11 +93,11 @@ namespace ThePatho.Features.Organization.OrgLevel.Service
                     );
 
                 var data = await db.FirstOrDefaultAsync<OrgLevelDto>(query);
-                return new NewApiResponse<OrgLevelDto>(HttpStatusCode.OK, data);
+                return new ApiResponse<OrgLevelDto>(HttpStatusCode.OK, data);
             }
             catch (Exception ex)
             {
-                return new NewApiResponse<OrgLevelDto>(
+                return new ApiResponse<OrgLevelDto>(
                                         HttpStatusCode.BadRequest,
                                         "An error occurred while retrieving data.",
                                         ex.Message

@@ -1,7 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
-using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Recruitment.RequirementRecRequest.Commands;
 using ThePatho.Features.Recruitment.RequirementRecRequest.DTO;
 using ThePatho.Features.Recruitment.RequirementRecRequest.Service;

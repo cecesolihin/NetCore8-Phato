@@ -3,12 +3,10 @@ using SqlKata;
 using SqlKata.Execution;
 using System.Net;
 using ThePatho.Domain.Constants;
-using ThePatho.Features.ConfigurationExtensions;
-using ThePatho.Features.MasterData.AdsCategory.DTO;
 using ThePatho.Features.Recruitment.RequirementRecRequest.Commands;
 using ThePatho.Features.Recruitment.RequirementRecRequest.DTO;
 using ThePatho.Infrastructure.Persistance;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using ThePatho.Provider.ApiResponse;
 
 namespace ThePatho.Features.Recruitment.RequirementRecRequest.Service
 {
@@ -20,7 +18,7 @@ namespace ThePatho.Features.Recruitment.RequirementRecRequest.Service
             dapperContext = _dapperContext;
         }
 
-        public async Task<NewApiResponse<RequirementRecRequestItemDto>> GetRequirementRecRequest(GetRequirementRecRequestCommand request)
+        public async Task<ApiResponse<RequirementRecRequestItemDto>> GetRequirementRecRequest(GetRequirementRecRequestCommand request)
         {
             try
             {
@@ -57,12 +55,12 @@ namespace ThePatho.Features.Recruitment.RequirementRecRequest.Service
                     DataOfRecords = data.ToList().Count,
                     RequirementRecRequestList = data.ToList(),
                 };
-                return new NewApiResponse<RequirementRecRequestItemDto>(HttpStatusCode.OK, result);
+                return new ApiResponse<RequirementRecRequestItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
 
-                return new NewApiResponse<RequirementRecRequestItemDto>(
+                return new ApiResponse<RequirementRecRequestItemDto>(
                         HttpStatusCode.BadRequest,
                         "An error occurred while retrieving data.",
                         ex.Message
@@ -71,7 +69,7 @@ namespace ThePatho.Features.Recruitment.RequirementRecRequest.Service
 
         }
 
-        public async Task<NewApiResponse<RequirementRecRequestItemDto>> GetRequirementRecRequestByCriteria(GetRequirementRecRequestByCriteriaCommand request)
+        public async Task<ApiResponse<RequirementRecRequestItemDto>> GetRequirementRecRequestByCriteria(GetRequirementRecRequestByCriteriaCommand request)
         {
             try
             {
@@ -95,12 +93,12 @@ namespace ThePatho.Features.Recruitment.RequirementRecRequest.Service
                     DataOfRecords = data.ToList().Count,
                     RequirementRecRequestList = data.ToList(),
                 };
-                return new NewApiResponse<RequirementRecRequestItemDto>(HttpStatusCode.OK, result);
+                return new ApiResponse<RequirementRecRequestItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
 
-                return new NewApiResponse<RequirementRecRequestItemDto>(
+                return new ApiResponse<RequirementRecRequestItemDto>(
                         HttpStatusCode.BadRequest,
                         "An error occurred while retrieving data.",
                         ex.Message

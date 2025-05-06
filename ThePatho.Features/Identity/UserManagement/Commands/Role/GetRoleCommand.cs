@@ -1,11 +1,11 @@
 ﻿using MediatR;
 using System.Text.Json.Serialization;
-using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Identity.UserManagement.DTO;
 
 namespace ThePatho.Features.Identity.UserManagement.Commands.Role
 {
-    public class GetRoleCommand : IRequest<NewApiResponse<RoleItemDto>>
+    public class GetRoleCommand : IRequest<ApiResponse<RoleItemDto>>
     {
         [JsonPropertyName("filter_RoleName")]
         public string? FilterRoleName { get; set; }

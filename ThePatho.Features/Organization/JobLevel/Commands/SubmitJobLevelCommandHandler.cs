@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Organization.JobLevel.Service;
 
 namespace ThePatho.Features.Organization.JobLevel.Commands

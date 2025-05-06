@@ -3,7 +3,7 @@ using SqlKata;
 using SqlKata.Execution;
 using System.Net;
 using ThePatho.Domain.Constants;
-using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Organization.JobLevel.Commands;
 using ThePatho.Features.Organization.JobLevel.DTO;
 using ThePatho.Features.Organization.OrgLevel.DTO;
@@ -22,7 +22,7 @@ namespace ThePatho.Features.Organization.JobLevel.Service
             dapperContext = _dapperContext;
         }
 
-        public async Task<NewApiResponse<JobLevelItemDto>> GetJobLevel(GetJobLevelCommand request)
+        public async Task<ApiResponse<JobLevelItemDto>> GetJobLevel(GetJobLevelCommand request)
         {
             try
             {
@@ -61,11 +61,11 @@ namespace ThePatho.Features.Organization.JobLevel.Service
                     DataOfRecords = data.ToList().Count,
                     JobLevelList = data.ToList(),
                 };
-                return new NewApiResponse<JobLevelItemDto>(HttpStatusCode.OK, result);
+                return new ApiResponse<JobLevelItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
-                return new NewApiResponse<JobLevelItemDto>(
+                return new ApiResponse<JobLevelItemDto>(
                          HttpStatusCode.BadRequest,
                          "An error occurred while retrieving data.",
                          ex.Message
@@ -74,7 +74,7 @@ namespace ThePatho.Features.Organization.JobLevel.Service
 
         }
 
-        public async Task<NewApiResponse<JobLevelDto>> GetJobLevelByCriteria(GetJobLevelByCriteriaCommand request)
+        public async Task<ApiResponse<JobLevelDto>> GetJobLevelByCriteria(GetJobLevelByCriteriaCommand request)
         {
             try
             {
@@ -99,11 +99,11 @@ namespace ThePatho.Features.Organization.JobLevel.Service
                     );
 
                 var data = await db.FirstOrDefaultAsync<JobLevelDto>(query);
-                return new NewApiResponse<JobLevelDto>(HttpStatusCode.OK, data);
+                return new ApiResponse<JobLevelDto>(HttpStatusCode.OK, data);
             }
             catch (Exception ex)
             {
-                return new NewApiResponse<JobLevelDto>(
+                return new ApiResponse<JobLevelDto>(
                                         HttpStatusCode.BadRequest,
                                         "An error occurred while retrieving data.",
                                         ex.Message

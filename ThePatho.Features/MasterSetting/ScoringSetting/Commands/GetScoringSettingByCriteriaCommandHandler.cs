@@ -1,11 +1,11 @@
 using MediatR;
-using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.MasterSetting.ScoringSetting.DTO;
 using ThePatho.Features.MasterSetting.ScoringSetting.Service;
 
 namespace ThePatho.Features.MasterSetting.ScoringSetting.Commands
 {
-    public class GetScoringSettingByCriteriaCommandHandler : IRequestHandler<GetScoringSettingByCriteriaCommand, NewApiResponse<ScoringSettingDto>>
+    public class GetScoringSettingByCriteriaCommandHandler : IRequestHandler<GetScoringSettingByCriteriaCommand, ApiResponse<ScoringSettingDto>>
     {
         private readonly IScoringSettingService scoringSettingService;
 
@@ -14,7 +14,7 @@ namespace ThePatho.Features.MasterSetting.ScoringSetting.Commands
             scoringSettingService = _scoringSettingService;
         }
 
-        public async Task<NewApiResponse<ScoringSettingDto>> Handle(GetScoringSettingByCriteriaCommand request, CancellationToken cancellationToken)
+        public async Task<ApiResponse<ScoringSettingDto>> Handle(GetScoringSettingByCriteriaCommand request, CancellationToken cancellationToken)
         {
             return await scoringSettingService.GetScoringSettingByCriteria(request);
 

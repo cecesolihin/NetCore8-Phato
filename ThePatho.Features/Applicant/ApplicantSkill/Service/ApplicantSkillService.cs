@@ -8,7 +8,7 @@ using ThePatho.Features.Applicant.Applicant.DTO;
 using ThePatho.Features.Applicant.ApplicantSkill.Commands;
 using ThePatho.Features.Applicant.ApplicantSkill.DTO;
 using ThePatho.Features.Applicant.ApplicantSkill.Service;
-using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Infrastructure.Persistance;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -23,7 +23,7 @@ namespace ThePatho.Features.Applicant.ApplicantSkill.Service
             dapperContext = _dapperContext;
         }
 
-        public async Task<NewApiResponse<ApplicantSkillItemDto>> GetApplicantSkill(GetApplicantSkillCommand request)
+        public async Task<ApiResponse<ApplicantSkillItemDto>> GetApplicantSkill(GetApplicantSkillCommand request)
         {
             try
             {
@@ -61,12 +61,12 @@ namespace ThePatho.Features.Applicant.ApplicantSkill.Service
                     DataOfRecords = data.ToList().Count,
                     ApplicantSkillList = data.ToList(),
                 };
-                return new NewApiResponse<ApplicantSkillItemDto>(HttpStatusCode.OK, result);
+                return new ApiResponse<ApplicantSkillItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
 
-                return new NewApiResponse<ApplicantSkillItemDto>(
+                return new ApiResponse<ApplicantSkillItemDto>(
                         HttpStatusCode.BadRequest,
                         "An error occurred while retrieving data.",
                         ex.Message
@@ -74,7 +74,7 @@ namespace ThePatho.Features.Applicant.ApplicantSkill.Service
             }
         }
 
-        public async Task<NewApiResponse<ApplicantSkillDto>> GetApplicantSkillByCriteria(GetApplicantSkillByCriteriaCommand request)
+        public async Task<ApiResponse<ApplicantSkillDto>> GetApplicantSkillByCriteria(GetApplicantSkillByCriteriaCommand request)
         {
             try
             {
@@ -97,12 +97,12 @@ namespace ThePatho.Features.Applicant.ApplicantSkill.Service
                         q => q.WhereIn("applicant_no", request.FilterApplicantNo)
                     );
                 var data = await db.FirstOrDefaultAsync<ApplicantSkillDto>(query);
-                return new NewApiResponse<ApplicantSkillDto>(HttpStatusCode.OK, data);
+                return new ApiResponse<ApplicantSkillDto>(HttpStatusCode.OK, data);
             }
             catch (Exception ex)
             {
 
-                return new NewApiResponse<ApplicantSkillDto>(
+                return new ApiResponse<ApplicantSkillDto>(
                         HttpStatusCode.BadRequest,
                         "An error occurred while retrieving data.",
                         ex.Message

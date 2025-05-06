@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using System.Text.Json.Serialization;
 
-namespace ThePatho.Features.ConfigurationExtensions
+namespace ThePatho.Provider.ApiResponse
 {
     public class ApiResponse
     {
@@ -18,16 +18,16 @@ namespace ThePatho.Features.ConfigurationExtensions
         [JsonPropertyOrder(2)] public string Message { get; }
         [JsonPropertyOrder(3)] public string? MessageDetail { get; protected set; }
     }
-    public sealed class NewApiResponse<TType> : ApiResponse
+    public sealed class ApiResponse<TType> : ApiResponse
     {
 
-        public NewApiResponse(HttpStatusCode code, string? message = default, string? messageDetail = default)
+        public ApiResponse(HttpStatusCode code, string? message = default, string? messageDetail = default)
             : base(code, message, messageDetail)
         {
             Data = default;
         }
 
-        public NewApiResponse(HttpStatusCode code, TType? data) : base(code)
+        public ApiResponse(HttpStatusCode code, TType? data) : base(code)
         {
             Data = data;
         }

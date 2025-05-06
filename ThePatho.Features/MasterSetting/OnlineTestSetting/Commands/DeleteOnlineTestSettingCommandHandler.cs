@@ -1,6 +1,6 @@
 ﻿
 using MediatR;
-using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.MasterSetting.OnlineTestSetting.Service;
 
 namespace ThePatho.Features.MasterSetting.OnlineTestSetting.Commands

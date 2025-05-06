@@ -5,7 +5,7 @@ using ThePatho.Features.Applicant.ApplicantAddress.DTO;
 using ThePatho.Features.Applicant.ApplicantAddress.Commands;
 using ThePatho.Infrastructure.Persistance;
 using SqlKata;
-using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Provider.ApiResponse;
 using System.Net;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using ThePatho.Features.MasterData.AdsCategory.DTO;
@@ -21,7 +21,7 @@ namespace ThePatho.Features.Applicant.ApplicantAddress.Service
             dapperContext = _dapperContext;
         }
 
-        public async Task<NewApiResponse<ApplicantAddressItemDto>> GetApplicantAddress(GetApplicantAddressCommand request)
+        public async Task<ApiResponse<ApplicantAddressItemDto>> GetApplicantAddress(GetApplicantAddressCommand request)
         {
             try
             {
@@ -82,12 +82,12 @@ namespace ThePatho.Features.Applicant.ApplicantAddress.Service
                     DataOfRecords = data.ToList().Count,
                     ApplicantAddressList = data.ToList(),
                 };
-                return new NewApiResponse<ApplicantAddressItemDto>(HttpStatusCode.OK, result);
+                return new ApiResponse<ApplicantAddressItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
 
-                return new NewApiResponse<ApplicantAddressItemDto>(
+                return new ApiResponse<ApplicantAddressItemDto>(
                         HttpStatusCode.BadRequest,
                         "An error occurred while retrieving data.",
                         ex.Message
@@ -95,7 +95,7 @@ namespace ThePatho.Features.Applicant.ApplicantAddress.Service
             }
         }
 
-        public async Task<NewApiResponse<ApplicantAddressDto>> GetApplicantAddressByCriteria(GetApplicantAddressByCriteriaCommand request)
+        public async Task<ApiResponse<ApplicantAddressDto>> GetApplicantAddressByCriteria(GetApplicantAddressByCriteriaCommand request)
         {
             try
             {
@@ -133,12 +133,12 @@ namespace ThePatho.Features.Applicant.ApplicantAddress.Service
                     );
                 var data = await db.FirstOrDefaultAsync<ApplicantAddressDto>(query);
                
-                return new NewApiResponse<ApplicantAddressDto>(HttpStatusCode.OK, data);
+                return new ApiResponse<ApplicantAddressDto>(HttpStatusCode.OK, data);
             }
             catch (Exception ex)
             {
 
-                return new NewApiResponse<ApplicantAddressDto>(
+                return new ApiResponse<ApplicantAddressDto>(
                         HttpStatusCode.BadRequest,
                         "An error occurred while retrieving data.",
                         ex.Message

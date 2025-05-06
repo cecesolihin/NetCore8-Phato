@@ -7,6 +7,8 @@ using System.Text;
 using ThePatho.Features.MasterData.AdsCategory.Commands;
 
 using ThePatho.Infrastructure.Persistance;
+using ThePatho.Provider.DateTimeProvider;
+using ThePatho.Provider.Jwt;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -66,6 +68,12 @@ builder.Services.AddScoped<IDbConnection>(sp =>
 });
 builder.Services.AddSingleton<DapperContext>();
 builder.Services.AddApplicationServices();
+
+var jwtConfig = builder.Configuration.GetSection("Jwt").Get<JwtConfiguration>();
+
+builder.Services.Configure<JwtConfiguration>(builder.Configuration.GetSection("Jwt"));
+builder.Services.AddSingleton(jwtConfig);
+builder.Services.AddScoped<IDateTimeService, DateTimeService>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>

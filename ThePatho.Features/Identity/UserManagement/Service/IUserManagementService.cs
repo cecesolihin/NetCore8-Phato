@@ -1,4 +1,4 @@
-﻿using ThePatho.Features.ConfigurationExtensions;
+﻿using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Identity.UserManagement.Commands.Group;
 using ThePatho.Features.Identity.UserManagement.Commands.GroupRole;
 using ThePatho.Features.Identity.UserManagement.Commands.Role;
@@ -11,28 +11,28 @@ namespace ThePatho.Features.Identity.UserManagement.Service
     public interface IUserManagementService
     {
         #region [User]
-        Task<NewApiResponse<UserItemDto>> GetUserList(GetUserCommand request);
-        Task<NewApiResponse<UserDto>> GetUserByCriteria(GetUserByCriteriaCommand request);
+        Task<ApiResponse<UserItemDto>> GetUserList(GetUserCommand request);
+        Task<ApiResponse<UserDto>> GetUserByCriteria(GetUserByCriteriaCommand request);
         #endregion
 
         #region [Group]
-        Task<NewApiResponse<GroupItemDto>> GetGroupList(GetGroupCommand request);
-        Task<NewApiResponse<GroupDto>> GetGroupByCriteria(GetGroupByCriteriaCommand request);
+        Task<ApiResponse<GroupItemDto>> GetGroupList(GetGroupCommand request);
+        Task<ApiResponse<GroupDto>> GetGroupByCriteria(GetGroupByCriteriaCommand request);
         #endregion
 
         #region [Role]
-        Task<NewApiResponse<RoleItemDto>> GetRoleList(GetRoleCommand request);
-        Task<NewApiResponse<RoleItemDto>> GetRoleByCriteria(GetRoleByCriteriaCommand request);
+        Task<ApiResponse<RoleItemDto>> GetRoleList(GetRoleCommand request);
+        Task<ApiResponse<RoleItemDto>> GetRoleByCriteria(GetRoleByCriteriaCommand request);
         #endregion
 
         #region [Group Role]
-        Task<NewApiResponse<GroupRoleItemDto>> GetGroupRoleList(GetGroupRoleCommand request);
-        Task<NewApiResponse<GroupRoleItemDto>> GetGroupRoleByCriteria(GetGroupRoleByCriteriaCommand request);
+        Task<ApiResponse<GroupRoleItemDto>> GetGroupRoleList(GetGroupRoleCommand request);
+        Task<ApiResponse<GroupRoleItemDto>> GetGroupRoleByCriteria(GetGroupRoleByCriteriaCommand request);
         #endregion
 
         #region [User Group]
-        Task<NewApiResponse<UserGroupItemDto>> GetUserGroupList(GetUserGroupCommand request);
-        Task<NewApiResponse<UserGroupItemDto>> GetUserGroupByCriteria(GetUserGroupByCriteriaCommand request);
+        Task<ApiResponse<UserGroupItemDto>> GetUserGroupList(GetUserGroupCommand request);
+        Task<ApiResponse<UserGroupItemDto>> GetUserGroupByCriteria(GetUserGroupByCriteriaCommand request);
         #endregion
     }
 }

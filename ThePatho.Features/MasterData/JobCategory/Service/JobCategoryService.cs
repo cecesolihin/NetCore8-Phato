@@ -2,7 +2,7 @@ using Dapper;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
 using System.Net;
-using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.MasterData.JobCategory.Commands;
 using ThePatho.Features.MasterData.JobCategory.DTO;
 using ThePatho.Infrastructure.Persistance;
@@ -23,7 +23,7 @@ namespace ThePatho.Features.MasterData.JobCategory.Service
             dbConnection = _dbConnection;
         }
 
-        public async Task<NewApiResponse<JobCategoryItemDto>> GetJobCategory(GetJobCategoryCommand request)
+        public async Task<ApiResponse<JobCategoryItemDto>> GetJobCategory(GetJobCategoryCommand request)
         {
             try
             {
@@ -43,12 +43,12 @@ namespace ThePatho.Features.MasterData.JobCategory.Service
                     DataOfRecords = data.ToList().Count,
                     JobCategoryList = data.ToList(),
                 };
-                return new NewApiResponse<JobCategoryItemDto>(HttpStatusCode.OK, result);
+                return new ApiResponse<JobCategoryItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
 
-                return new NewApiResponse<JobCategoryItemDto>(
+                return new ApiResponse<JobCategoryItemDto>(
                          HttpStatusCode.BadRequest,
                          "An error occurred while retrieving data.",
                          ex.Message
@@ -57,7 +57,7 @@ namespace ThePatho.Features.MasterData.JobCategory.Service
             
         }
 
-        public async Task<NewApiResponse<JobCategoryDto>> GetJobCategoryByCriteria(GetJobCategoryByCriteriaCommand request)
+        public async Task<ApiResponse<JobCategoryDto>> GetJobCategoryByCriteria(GetJobCategoryByCriteriaCommand request)
         {
             try
             {
@@ -68,11 +68,11 @@ namespace ThePatho.Features.MasterData.JobCategory.Service
 
                 var data = await dbConnection.QueryFirstOrDefaultAsync<JobCategoryDto>(query, parameters);
 
-                return new NewApiResponse<JobCategoryDto>(HttpStatusCode.OK, data);
+                return new ApiResponse<JobCategoryDto>(HttpStatusCode.OK, data);
             }
             catch (Exception ex)
             {
-                return new NewApiResponse<JobCategoryDto>(
+                return new ApiResponse<JobCategoryDto>(
                                         HttpStatusCode.BadRequest,
                                         "An error occurred while retrieving data.",
                                         ex.Message
@@ -81,7 +81,7 @@ namespace ThePatho.Features.MasterData.JobCategory.Service
             
         }
 
-        public async Task<NewApiResponse<JobCategoryItemDto>> GetJobCategoryDdl(GetJobCategoryDdlCommand request)
+        public async Task<ApiResponse<JobCategoryItemDto>> GetJobCategoryDdl(GetJobCategoryDdlCommand request)
         {
             try
             {
@@ -97,12 +97,12 @@ namespace ThePatho.Features.MasterData.JobCategory.Service
                     DataOfRecords = data.ToList().Count,
                     JobCategoryList = data.ToList(),
                 };
-                return new NewApiResponse<JobCategoryItemDto>(HttpStatusCode.OK, result);
+                return new ApiResponse<JobCategoryItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
 
-                return new NewApiResponse<JobCategoryItemDto>(
+                return new ApiResponse<JobCategoryItemDto>(
                          HttpStatusCode.BadRequest,
                          "An error occurred while retrieving data.",
                          ex.Message

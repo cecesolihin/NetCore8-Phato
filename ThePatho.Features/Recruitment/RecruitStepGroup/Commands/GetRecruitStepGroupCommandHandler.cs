@@ -1,18 +1,18 @@
 ﻿using MediatR;
-using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Recruitment.RecruitStepGroup.DTO;
 using ThePatho.Features.Recruitment.RecruitStepGroup.Service;
 
 namespace ThePatho.Features.Recruitment.RecruitStepGroup.Commands
 {
-    public class GetRecruitStepGroupCommandHandler : IRequestHandler<GetRecruitStepGroupCommand, NewApiResponse<RecruitStepGroupItemDto>>
+    public class GetRecruitStepGroupCommandHandler : IRequestHandler<GetRecruitStepGroupCommand, ApiResponse<RecruitStepGroupItemDto>>
     {
         private readonly IRecruitStepGroupService recruitStepGroupService;
         public GetRecruitStepGroupCommandHandler(IRecruitStepGroupService _recruitStepGroupService)
         {
             recruitStepGroupService = _recruitStepGroupService;
         }
-        public async Task<NewApiResponse<RecruitStepGroupItemDto>> Handle(GetRecruitStepGroupCommand request, CancellationToken cancellationToken)
+        public async Task<ApiResponse<RecruitStepGroupItemDto>> Handle(GetRecruitStepGroupCommand request, CancellationToken cancellationToken)
         {
             return await recruitStepGroupService.GetRecruitStepGroup(request);
         }

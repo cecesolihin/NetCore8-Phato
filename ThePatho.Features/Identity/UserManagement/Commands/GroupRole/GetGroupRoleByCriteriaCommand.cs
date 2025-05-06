@@ -1,11 +1,11 @@
 ﻿using MediatR;
 using System.Text.Json.Serialization;
-using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Identity.UserManagement.DTO;
 
 namespace ThePatho.Features.Identity.UserManagement.Commands.GroupRole
 {
-    public class GetGroupRoleByCriteriaCommand : IRequest<NewApiResponse<GroupRoleItemDto>>
+    public class GetGroupRoleByCriteriaCommand : IRequest<ApiResponse<GroupRoleItemDto>>
     {
         [JsonPropertyName("filter_Group")]
         public string? FilterGroup { get; set; }

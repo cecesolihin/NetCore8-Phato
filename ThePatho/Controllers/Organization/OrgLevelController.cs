@@ -2,7 +2,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using ThePatho.Domain.Models;
-using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Organization.OrgLevel.Commands;
 using ThePatho.Features.Organization.OrgLevel.DTO;
 using ThePatho.Features.Organization.OrgLevel.Service;

@@ -2,11 +2,10 @@ using Dapper;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
 using System.Net;
-using ThePatho.Features.ConfigurationExtensions;
 using ThePatho.Features.MasterSetting.ScoringSettingDetail.Commands;
 using ThePatho.Features.MasterSetting.ScoringSettingDetail.DTO;
-using ThePatho.Features.Organization.JobLevel.DTO;
 using ThePatho.Infrastructure.Persistance;
+using ThePatho.Provider.ApiResponse;
 
 namespace ThePatho.Features.MasterSetting.ScoringSettingDetail.Service
 {
@@ -24,7 +23,7 @@ namespace ThePatho.Features.MasterSetting.ScoringSettingDetail.Service
             dbConnection = _dbConnection;
         }
 
-        public async Task<NewApiResponse<ScoringSettingDetailItemDto>> GetScoringSettingDetail(GetScoringSettingDetailCommand request)
+        public async Task<ApiResponse<ScoringSettingDetailItemDto>> GetScoringSettingDetail(GetScoringSettingDetailCommand request)
         {
             try
             {
@@ -43,11 +42,11 @@ namespace ThePatho.Features.MasterSetting.ScoringSettingDetail.Service
                     DataOfRecords = data.ToList().Count,
                     ScoringSettingDetailList = data.ToList(),
                 };
-                return new NewApiResponse<ScoringSettingDetailItemDto>(HttpStatusCode.OK, result);
+                return new ApiResponse<ScoringSettingDetailItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
-                return new NewApiResponse<ScoringSettingDetailItemDto>(
+                return new ApiResponse<ScoringSettingDetailItemDto>(
                          HttpStatusCode.BadRequest,
                          "An error occurred while retrieving data.",
                          ex.Message
@@ -55,7 +54,7 @@ namespace ThePatho.Features.MasterSetting.ScoringSettingDetail.Service
             }
         }
 
-        public async Task<NewApiResponse<ScoringSettingDetailItemDto>> GetScoringSettingDetailByCriteria(GetScoringSettingDetailByCriteriaCommand request)
+        public async Task<ApiResponse<ScoringSettingDetailItemDto>> GetScoringSettingDetailByCriteria(GetScoringSettingDetailByCriteriaCommand request)
         {
             try
             {
@@ -71,11 +70,11 @@ namespace ThePatho.Features.MasterSetting.ScoringSettingDetail.Service
                     DataOfRecords = data.ToList().Count,
                     ScoringSettingDetailList = data.ToList(),
                 };
-                return new NewApiResponse<ScoringSettingDetailItemDto>(HttpStatusCode.OK, result);
+                return new ApiResponse<ScoringSettingDetailItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
-                return new NewApiResponse<ScoringSettingDetailItemDto>(
+                return new ApiResponse<ScoringSettingDetailItemDto>(
                          HttpStatusCode.BadRequest,
                          "An error occurred while retrieving data.",
                          ex.Message
@@ -84,7 +83,7 @@ namespace ThePatho.Features.MasterSetting.ScoringSettingDetail.Service
 
         }
 
-        public async Task<NewApiResponse<ScoringSettingDetailItemDto>> GetScoringSettingDetailDdl(GetScoringSettingDetailDdlCommand request)
+        public async Task<ApiResponse<ScoringSettingDetailItemDto>> GetScoringSettingDetailDdl(GetScoringSettingDetailDdlCommand request)
         {
             try
             {
@@ -99,11 +98,11 @@ namespace ThePatho.Features.MasterSetting.ScoringSettingDetail.Service
                     DataOfRecords = data.ToList().Count,
                     ScoringSettingDetailList = data.ToList(),
                 };
-                return new NewApiResponse<ScoringSettingDetailItemDto>(HttpStatusCode.OK, result);
+                return new ApiResponse<ScoringSettingDetailItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
-                return new NewApiResponse<ScoringSettingDetailItemDto>(
+                return new ApiResponse<ScoringSettingDetailItemDto>(
                          HttpStatusCode.BadRequest,
                          "An error occurred while retrieving data.",
                          ex.Message

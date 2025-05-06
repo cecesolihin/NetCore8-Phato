@@ -3,7 +3,7 @@ using SqlKata;
 using SqlKata.Execution;
 using System.Net;
 using ThePatho.Domain.Constants;
-using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.MasterData.AdsCategory.DTO;
 using ThePatho.Features.Recruitment.MPP.Commands;
 using ThePatho.Features.Recruitment.MPP.DTO;
@@ -22,7 +22,7 @@ namespace ThePatho.Features.Recruitment.MPP.Service
             dapperContext = _dapperContext;
         }
 
-        public async Task<NewApiResponse<MPPItemDto>> GetMPP(GetMPPCommand request)
+        public async Task<ApiResponse<MPPItemDto>> GetMPP(GetMPPCommand request)
         {
             try
             {
@@ -62,12 +62,12 @@ namespace ThePatho.Features.Recruitment.MPP.Service
                     DataOfRecords = data.ToList().Count,
                     MPPList = data.ToList(),
                 };
-                return new NewApiResponse<MPPItemDto>(HttpStatusCode.OK, result);
+                return new ApiResponse<MPPItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
 
-                return new NewApiResponse<MPPItemDto>(
+                return new ApiResponse<MPPItemDto>(
                         HttpStatusCode.BadRequest,
                         "An error occurred while retrieving data.",
                         ex.Message
@@ -75,7 +75,7 @@ namespace ThePatho.Features.Recruitment.MPP.Service
             }
         }
 
-        public async Task<NewApiResponse<MPPDto>> GetMPPByCriteria(GetMPPByCriteriaCommand request)
+        public async Task<ApiResponse<MPPDto>> GetMPPByCriteria(GetMPPByCriteriaCommand request)
         {
             try
             {
@@ -97,12 +97,12 @@ namespace ThePatho.Features.Recruitment.MPP.Service
                         q => q.WhereIn("mpp_no", request.FilterMPPNo)
                     );
                 var data = await db.FirstOrDefaultAsync<MPPDto>(query);
-                return new NewApiResponse<MPPDto>(HttpStatusCode.OK, data);
+                return new ApiResponse<MPPDto>(HttpStatusCode.OK, data);
             }
             catch (Exception ex)
             {
 
-                return new NewApiResponse<MPPDto>(
+                return new ApiResponse<MPPDto>(
                         HttpStatusCode.BadRequest,
                         "An error occurred while retrieving data.",
                         ex.Message

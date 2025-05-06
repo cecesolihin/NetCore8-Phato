@@ -14,8 +14,8 @@ WHERE
     (@JobCategoryCode IS NULL OR job_category_code LIKE '%' + @JobCategoryCode + '%') AND
     (@JobCategoryName IS NULL OR job_category_name LIKE '%' + @JobCategoryName + '%') 
     ORDER BY
-    CASE WHEN @SortBy = 'JobCategoryCode' THEN ads_code END,
-    CASE WHEN @SortBy = 'JobCategoryName' THEN ads_name END,
+    CASE WHEN @SortBy = 'JobCategoryCode' THEN job_category_code END,
+    CASE WHEN @SortBy = 'JobCategoryName' THEN job_category_name END,
     CASE WHEN @SortBy = 'InsertedDate' THEN CONVERT(DATETIME, inserted_date, 120) END
     , CASE @OrderBy
         WHEN 'ASC' THEN 1

@@ -3,7 +3,7 @@ using SqlKata;
 using SqlKata.Execution;
 using System.Net;
 using ThePatho.Domain.Constants;
-using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.MasterData.AdsCategory.DTO;
 using ThePatho.Features.Recruitment.RecruitStep.Commands;
 using ThePatho.Features.Recruitment.RecruitStep.DTO;
@@ -22,7 +22,7 @@ namespace ThePatho.Features.Recruitment.RecruitStep.Service
             dapperContext = _dapperContext;
         }
 
-        public async Task<NewApiResponse<RecruitStepItemDto>> GetRecruitStep(GetRecruitStepCommand request)
+        public async Task<ApiResponse<RecruitStepItemDto>> GetRecruitStep(GetRecruitStepCommand request)
         {
             try
             {
@@ -57,12 +57,12 @@ namespace ThePatho.Features.Recruitment.RecruitStep.Service
                     DataOfRecords = data.ToList().Count,
                     RecruitStepList = data.ToList(),
                 };
-                return new NewApiResponse<RecruitStepItemDto>(HttpStatusCode.OK, result);
+                return new ApiResponse<RecruitStepItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
 
-                return new NewApiResponse<RecruitStepItemDto>(
+                return new ApiResponse<RecruitStepItemDto>(
                         HttpStatusCode.BadRequest,
                         "An error occurred while retrieving data.",
                         ex.Message
@@ -70,7 +70,7 @@ namespace ThePatho.Features.Recruitment.RecruitStep.Service
             }
         }
 
-        public async Task<NewApiResponse<RecruitStepDto>> GetRecruitStepByCriteria(GetRecruitStepByCriteriaCommand request)
+        public async Task<ApiResponse<RecruitStepDto>> GetRecruitStepByCriteria(GetRecruitStepByCriteriaCommand request)
         {
             try
             {
@@ -90,12 +90,12 @@ namespace ThePatho.Features.Recruitment.RecruitStep.Service
                         q => q.WhereIn("recruit_step_code", request.FilterStepCode)
                     );
                 var data = await db.FirstOrDefaultAsync<RecruitStepDto>(query);
-                return new NewApiResponse<RecruitStepDto>(HttpStatusCode.OK, data);
+                return new ApiResponse<RecruitStepDto>(HttpStatusCode.OK, data);
             }
             catch (Exception ex)
             {
 
-                return new NewApiResponse<RecruitStepDto>(
+                return new ApiResponse<RecruitStepDto>(
                         HttpStatusCode.BadRequest,
                         "An error occurred while retrieving data.",
                         ex.Message

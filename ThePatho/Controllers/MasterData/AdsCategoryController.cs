@@ -2,7 +2,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using ThePatho.Domain.Models;
-using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.MasterData.AdsCategory.Commands;
 using ThePatho.Features.MasterData.AdsCategory.DTO;
 using ThePatho.Features.MasterData.AdsCategory.Service;

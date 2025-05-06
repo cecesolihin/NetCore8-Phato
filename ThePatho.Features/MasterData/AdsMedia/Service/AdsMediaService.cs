@@ -1,12 +1,11 @@
 using Dapper;
 using System.Data;
 using System.Net;
-using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.MasterData.AdsCategory.DTO;
 using ThePatho.Features.MasterData.AdsMedia.Commands;
 using ThePatho.Features.MasterData.AdsMedia.DTO;
 using ThePatho.Infrastructure.Persistance;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ThePatho.Features.MasterData.AdsMedia.Service
 {
@@ -24,7 +23,7 @@ namespace ThePatho.Features.MasterData.AdsMedia.Service
             dbConnection = _dbConnection;
         }
 
-        public async Task<NewApiResponse<AdsMediaItemDto>> GetAdsMedia(GetAdsMediaCommand request)
+        public async Task<ApiResponse<AdsMediaItemDto>> GetAdsMedia(GetAdsMediaCommand request)
         {
             try
             {
@@ -45,12 +44,12 @@ namespace ThePatho.Features.MasterData.AdsMedia.Service
                     DataOfRecords = data.ToList().Count,
                     AdsMediaList = data.ToList(),
                 };
-                return new NewApiResponse<AdsMediaItemDto>(HttpStatusCode.OK, result);
+                return new ApiResponse<AdsMediaItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
 
-                return new NewApiResponse<AdsMediaItemDto>(
+                return new ApiResponse<AdsMediaItemDto>(
                         HttpStatusCode.BadRequest,
                         "An error occurred while retrieving data.",
                         ex.Message
@@ -59,7 +58,7 @@ namespace ThePatho.Features.MasterData.AdsMedia.Service
             
         }
 
-        public async Task<NewApiResponse<AdsMediaDto>> GetAdsMediaByCriteria(GetAdsMediaByCriteriaCommand request)
+        public async Task<ApiResponse<AdsMediaDto>> GetAdsMediaByCriteria(GetAdsMediaByCriteriaCommand request)
         {
             try
             {
@@ -70,11 +69,11 @@ namespace ThePatho.Features.MasterData.AdsMedia.Service
 
                 var data = await dbConnection.QueryFirstOrDefaultAsync<AdsMediaDto>(query, parameters);
 
-                return new NewApiResponse<AdsMediaDto>(HttpStatusCode.OK, data);
+                return new ApiResponse<AdsMediaDto>(HttpStatusCode.OK, data);
             }
             catch (Exception ex)
             {
-                return new NewApiResponse<AdsMediaDto>(
+                return new ApiResponse<AdsMediaDto>(
                         HttpStatusCode.BadRequest,
                         "An error occurred while retrieving data.",
                         ex.Message
@@ -83,7 +82,7 @@ namespace ThePatho.Features.MasterData.AdsMedia.Service
             
         }
 
-        public async Task<NewApiResponse<AdsMediaItemDto>> GetAdsMediaDdl(GetAdsMediaDdlCommand request)
+        public async Task<ApiResponse<AdsMediaItemDto>> GetAdsMediaDdl(GetAdsMediaDdlCommand request)
         {
             try
             {
@@ -99,11 +98,11 @@ namespace ThePatho.Features.MasterData.AdsMedia.Service
                     DataOfRecords = data.ToList().Count,
                     AdsMediaList = data.ToList(),
                 };
-                return new NewApiResponse<AdsMediaItemDto>(HttpStatusCode.OK, result);
+                return new ApiResponse<AdsMediaItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
-                return new NewApiResponse<AdsMediaItemDto>(
+                return new ApiResponse<AdsMediaItemDto>(
                         HttpStatusCode.BadRequest,
                         "An error occurred while retrieving data.",
                         ex.Message

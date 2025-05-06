@@ -3,7 +3,7 @@ using SqlKata.Execution;
 using System.Net;
 using ThePatho.Domain.Constants;
 using ThePatho.Features.Applicant.Applicant.DTO;
-using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Identity.UserManagement.Commands.Group;
 using ThePatho.Features.Identity.UserManagement.Commands.GroupRole;
 using ThePatho.Features.Identity.UserManagement.Commands.Role;
@@ -25,7 +25,7 @@ namespace ThePatho.Features.Identity.UserManagement.Service
         }
 
         #region [User]
-        public async Task<NewApiResponse<UserItemDto>> GetUserList(GetUserCommand request)
+        public async Task<ApiResponse<UserItemDto>> GetUserList(GetUserCommand request)
         {
             try
             { 
@@ -72,19 +72,19 @@ namespace ThePatho.Features.Identity.UserManagement.Service
                     DataOfRecords = data.ToList().Count,
                     UserList = data.ToList(),
                 };
-                return new NewApiResponse<UserItemDto>(HttpStatusCode.OK, result);
+                return new ApiResponse<UserItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
 
-                return new NewApiResponse<UserItemDto>(
+                return new ApiResponse<UserItemDto>(
                         HttpStatusCode.BadRequest,
                         "An error occurred while retrieving data.",
                         ex.Message
                     );
             }
         }
-        public async Task<NewApiResponse<UserDto>> GetUserByCriteria(GetUserByCriteriaCommand request)
+        public async Task<ApiResponse<UserDto>> GetUserByCriteria(GetUserByCriteriaCommand request)
         {
             try
             { 
@@ -114,12 +114,12 @@ namespace ThePatho.Features.Identity.UserManagement.Service
                     );
                 var data = await db.FirstOrDefaultAsync<UserDto>(query);
                 
-                return new NewApiResponse<UserDto>(HttpStatusCode.OK, data);
+                return new ApiResponse<UserDto>(HttpStatusCode.OK, data);
             }
             catch (Exception ex)
             {
 
-                return new NewApiResponse<UserDto>(
+                return new ApiResponse<UserDto>(
                         HttpStatusCode.BadRequest,
                         "An error occurred while retrieving data.",
                         ex.Message
@@ -129,7 +129,7 @@ namespace ThePatho.Features.Identity.UserManagement.Service
         #endregion
 
         #region [Group]
-        public async Task<NewApiResponse<GroupItemDto>> GetGroupList(GetGroupCommand request)
+        public async Task<ApiResponse<GroupItemDto>> GetGroupList(GetGroupCommand request)
         {
             try 
             { 
@@ -163,19 +163,19 @@ namespace ThePatho.Features.Identity.UserManagement.Service
                     DataOfRecords = data.ToList().Count,
                     GroupList = data.ToList(),
                 };
-                return new NewApiResponse<GroupItemDto>(HttpStatusCode.OK, result);
+                return new ApiResponse<GroupItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
 
-                return new NewApiResponse<GroupItemDto>(
+                return new ApiResponse<GroupItemDto>(
                         HttpStatusCode.BadRequest,
                         "An error occurred while retrieving data.",
                         ex.Message
                     );
             }
         }
-        public async Task<NewApiResponse<GroupDto>> GetGroupByCriteria(GetGroupByCriteriaCommand request)
+        public async Task<ApiResponse<GroupDto>> GetGroupByCriteria(GetGroupByCriteriaCommand request)
         {
             try 
             {
@@ -197,12 +197,12 @@ namespace ThePatho.Features.Identity.UserManagement.Service
 
                 var data = await db.FirstOrDefaultAsync<GroupDto>(query);
                
-                return new NewApiResponse<GroupDto>(HttpStatusCode.OK, data);
+                return new ApiResponse<GroupDto>(HttpStatusCode.OK, data);
             }
             catch (Exception ex)
             {
 
-                return new NewApiResponse<GroupDto>(
+                return new ApiResponse<GroupDto>(
                         HttpStatusCode.BadRequest,
                         "An error occurred while retrieving data.",
                         ex.Message
@@ -212,7 +212,7 @@ namespace ThePatho.Features.Identity.UserManagement.Service
         #endregion
 
         #region [Role]
-        public async Task<NewApiResponse<RoleItemDto>> GetRoleList(GetRoleCommand request)
+        public async Task<ApiResponse<RoleItemDto>> GetRoleList(GetRoleCommand request)
         {
             try
             { 
@@ -252,19 +252,19 @@ namespace ThePatho.Features.Identity.UserManagement.Service
                     DataOfRecords = data.ToList().Count,
                     RoleList = data.ToList(),
                 };
-                return new NewApiResponse<RoleItemDto>(HttpStatusCode.OK, result);
+                return new ApiResponse<RoleItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
 
-                return new NewApiResponse<RoleItemDto>(
+                return new ApiResponse<RoleItemDto>(
                         HttpStatusCode.BadRequest,
                         "An error occurred while retrieving data.",
                         ex.Message
                     );
             }
         }
-        public async Task<NewApiResponse<RoleItemDto>> GetRoleByCriteria(GetRoleByCriteriaCommand request)
+        public async Task<ApiResponse<RoleItemDto>> GetRoleByCriteria(GetRoleByCriteriaCommand request)
         {
             try
             { 
@@ -295,12 +295,12 @@ namespace ThePatho.Features.Identity.UserManagement.Service
                     DataOfRecords = data.ToList().Count,
                     RoleList = data.ToList(),
                 };
-                return new NewApiResponse<RoleItemDto>(HttpStatusCode.OK, result);
+                return new ApiResponse<RoleItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
 
-                return new NewApiResponse<RoleItemDto>(
+                return new ApiResponse<RoleItemDto>(
                         HttpStatusCode.BadRequest,
                         "An error occurred while retrieving data.",
                         ex.Message
@@ -310,7 +310,7 @@ namespace ThePatho.Features.Identity.UserManagement.Service
         #endregion
 
         #region [Group Role]
-        public async Task<NewApiResponse<GroupRoleItemDto>> GetGroupRoleList(GetGroupRoleCommand request)
+        public async Task<ApiResponse<GroupRoleItemDto>> GetGroupRoleList(GetGroupRoleCommand request)
         {
             try 
             { 
@@ -346,19 +346,19 @@ namespace ThePatho.Features.Identity.UserManagement.Service
                     DataOfRecords = data.ToList().Count,
                     GroupRoleList = data.ToList(),
                 };
-                return new NewApiResponse<GroupRoleItemDto>(HttpStatusCode.OK, result);
+                return new ApiResponse<GroupRoleItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
 
-                return new NewApiResponse<GroupRoleItemDto>(
+                return new ApiResponse<GroupRoleItemDto>(
                         HttpStatusCode.BadRequest,
                         "An error occurred while retrieving data.",
                         ex.Message
                     );
             }
         }
-        public async Task<NewApiResponse<GroupRoleItemDto>> GetGroupRoleByCriteria(GetGroupRoleByCriteriaCommand request)
+        public async Task<ApiResponse<GroupRoleItemDto>> GetGroupRoleByCriteria(GetGroupRoleByCriteriaCommand request)
         {
             try
             { 
@@ -388,12 +388,12 @@ namespace ThePatho.Features.Identity.UserManagement.Service
                     DataOfRecords = data.ToList().Count,
                     GroupRoleList = data.ToList(),
                 };
-                return new NewApiResponse<GroupRoleItemDto>(HttpStatusCode.OK, result);
+                return new ApiResponse<GroupRoleItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
 
-                return new NewApiResponse<GroupRoleItemDto>(
+                return new ApiResponse<GroupRoleItemDto>(
                         HttpStatusCode.BadRequest,
                         "An error occurred while retrieving data.",
                         ex.Message
@@ -403,7 +403,7 @@ namespace ThePatho.Features.Identity.UserManagement.Service
         #endregion
 
         #region [User Group]
-        public async Task<NewApiResponse<UserGroupItemDto>> GetUserGroupList(GetUserGroupCommand request)
+        public async Task<ApiResponse<UserGroupItemDto>> GetUserGroupList(GetUserGroupCommand request)
         {
             try 
             { 
@@ -438,19 +438,19 @@ namespace ThePatho.Features.Identity.UserManagement.Service
                     DataOfRecords = data.ToList().Count,
                     UserGroupList = data.ToList(),
                 };
-                return new NewApiResponse<UserGroupItemDto>(HttpStatusCode.OK, result);
+                return new ApiResponse<UserGroupItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
 
-                return new NewApiResponse<UserGroupItemDto>(
+                return new ApiResponse<UserGroupItemDto>(
                         HttpStatusCode.BadRequest,
                         "An error occurred while retrieving data.",
                         ex.Message
                     );
             }
         }
-        public async Task<NewApiResponse<UserGroupItemDto>> GetUserGroupByCriteria(GetUserGroupByCriteriaCommand request)
+        public async Task<ApiResponse<UserGroupItemDto>> GetUserGroupByCriteria(GetUserGroupByCriteriaCommand request)
         {
             try 
             { 
@@ -479,12 +479,12 @@ namespace ThePatho.Features.Identity.UserManagement.Service
                         DataOfRecords = data.ToList().Count,
                     UserGroupList = data.ToList(),
                 };
-                return new NewApiResponse<UserGroupItemDto>(HttpStatusCode.OK, result);
+                return new ApiResponse<UserGroupItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
 
-                return new NewApiResponse<UserGroupItemDto>(
+                return new ApiResponse<UserGroupItemDto>(
                         HttpStatusCode.BadRequest,
                         "An error occurred while retrieving data.",
                         ex.Message

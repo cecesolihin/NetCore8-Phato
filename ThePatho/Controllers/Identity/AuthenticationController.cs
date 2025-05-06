@@ -1,8 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
-using ThePatho.Features.ConfigurationExtensions;
 using ThePatho.Features.Identity.Authentication.Commands;
+using ThePatho.Provider.ApiResponse;
 
 namespace ThePatho.Controllers.Identity
 {

@@ -1,12 +1,12 @@
 using ThePatho.Features.Recruitment.RecruitmentReqStep.DTO;
 using ThePatho.Features.Recruitment.RecruitmentReqStep.Commands;
-using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Provider.ApiResponse;
 
 namespace ThePatho.Features.Recruitment.RecruitmentReqStep.Service
 {
     public interface IRecruitmentReqStepService 
     {
-        Task<NewApiResponse<RecruitmentReqStepItemDto>> GetRecruitmentReqStep(GetRecruitmentReqStepCommand request);
-        Task<NewApiResponse<RecruitmentReqStepItemDto>> GetRecruitmentReqStepByCriteria(GetRecruitmentReqStepByCriteriaCommand request);
+        Task<ApiResponse<RecruitmentReqStepItemDto>> GetRecruitmentReqStep(GetRecruitmentReqStepCommand request);
+        Task<ApiResponse<RecruitmentReqStepItemDto>> GetRecruitmentReqStepByCriteria(GetRecruitmentReqStepByCriteriaCommand request);
     }
 }

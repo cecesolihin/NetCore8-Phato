@@ -2,7 +2,7 @@ using Dapper;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
 using System.Net;
-using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.MasterSetting.QuestionSetting.Commands;
 using ThePatho.Features.MasterSetting.QuestionSetting.DTO;
 using ThePatho.Features.MasterSetting.QuestionSettingDetail.Commands;
@@ -26,7 +26,7 @@ namespace ThePatho.Features.MasterSetting.QuestionSetting.Service
             dbConnection = _dbConnection;
         }
 
-        public async Task<NewApiResponse<QuestionSettingItemDto>> GetQuestionSetting(GetQuestionSettingCommand request)
+        public async Task<ApiResponse<QuestionSettingItemDto>> GetQuestionSetting(GetQuestionSettingCommand request)
         {
             try
             {
@@ -45,11 +45,11 @@ namespace ThePatho.Features.MasterSetting.QuestionSetting.Service
                     DataOfRecords = data.ToList().Count,
                     QuestionSettingList = data.ToList(),
                 };
-                return new NewApiResponse<QuestionSettingItemDto>(HttpStatusCode.OK, result);
+                return new ApiResponse<QuestionSettingItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
-                return new NewApiResponse<QuestionSettingItemDto>(
+                return new ApiResponse<QuestionSettingItemDto>(
                          HttpStatusCode.BadRequest,
                          "An error occurred while retrieving data.",
                          ex.Message
@@ -57,7 +57,7 @@ namespace ThePatho.Features.MasterSetting.QuestionSetting.Service
             }
         }
 
-        public async Task<NewApiResponse<QuestionSettingDto>> GetQuestionSettingByCriteria(GetQuestionSettingByCriteriaCommand request)
+        public async Task<ApiResponse<QuestionSettingDto>> GetQuestionSettingByCriteria(GetQuestionSettingByCriteriaCommand request)
         {
             try
             {
@@ -67,11 +67,11 @@ namespace ThePatho.Features.MasterSetting.QuestionSetting.Service
                 var query = await queryLoader.LoadQueryAsync("MasterSetting/QuestionSetting/Sql/search_question_setting_by_code");
 
                 var data = await dbConnection.QueryFirstAsync<QuestionSettingDto>(query, parameters);
-                return new NewApiResponse<QuestionSettingDto>(HttpStatusCode.OK, data);
+                return new ApiResponse<QuestionSettingDto>(HttpStatusCode.OK, data);
             }
             catch (Exception ex)
             {
-                return new NewApiResponse<QuestionSettingDto>(
+                return new ApiResponse<QuestionSettingDto>(
                                         HttpStatusCode.BadRequest,
                                         "An error occurred while retrieving data.",
                                         ex.Message
@@ -79,7 +79,7 @@ namespace ThePatho.Features.MasterSetting.QuestionSetting.Service
             }
         }
 
-        public async Task<NewApiResponse<QuestionSettingItemDto>> GetQuestionSettingDdl(GetQuestionSettingDdlCommand request)
+        public async Task<ApiResponse<QuestionSettingItemDto>> GetQuestionSettingDdl(GetQuestionSettingDdlCommand request)
         {
             try
             {
@@ -94,11 +94,11 @@ namespace ThePatho.Features.MasterSetting.QuestionSetting.Service
                     DataOfRecords = data.ToList().Count,
                     QuestionSettingList = data.ToList(),
                 };
-                return new NewApiResponse<QuestionSettingItemDto>(HttpStatusCode.OK, result);
+                return new ApiResponse<QuestionSettingItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
-                return new NewApiResponse<QuestionSettingItemDto>(
+                return new ApiResponse<QuestionSettingItemDto>(
                          HttpStatusCode.BadRequest,
                          "An error occurred while retrieving data.",
                          ex.Message

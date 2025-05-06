@@ -7,7 +7,7 @@ using ThePatho.Features.Applicant.ApplicantWorkExperience.DTO;
 using ThePatho.Features.Applicant.ApplicationApplicant.Commands;
 using ThePatho.Features.Applicant.ApplicationApplicant.DTO;
 using ThePatho.Features.Applicant.ApplicationApplicant.Service;
-using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Infrastructure.Persistance;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -22,7 +22,7 @@ namespace ThePatho.Features.Applicant.ApplicationApplicant.Service
             dapperContext = _dapperContext;
         }
 
-        public async Task<NewApiResponse<ApplicationApplicantItemDto>> GetApplicationApplicant(GetApplicationApplicantCommand request)
+        public async Task<ApiResponse<ApplicationApplicantItemDto>> GetApplicationApplicant(GetApplicationApplicantCommand request)
         {
             try
             {
@@ -69,12 +69,12 @@ namespace ThePatho.Features.Applicant.ApplicationApplicant.Service
                     DataOfRecords = data.ToList().Count,
                     ApplicationApplicantList = data.ToList(),
                 };
-                return new NewApiResponse<ApplicationApplicantItemDto>(HttpStatusCode.OK, result);
+                return new ApiResponse<ApplicationApplicantItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
 
-                return new NewApiResponse<ApplicationApplicantItemDto>(
+                return new ApiResponse<ApplicationApplicantItemDto>(
                         HttpStatusCode.BadRequest,
                         "An error occurred while retrieving data.",
                         ex.Message
@@ -82,7 +82,7 @@ namespace ThePatho.Features.Applicant.ApplicationApplicant.Service
             }
         }
 
-        public async Task<NewApiResponse<ApplicationApplicantDto>> GetApplicationApplicantByCriteria(GetApplicationApplicantByCriteriaCommand request)
+        public async Task<ApiResponse<ApplicationApplicantDto>> GetApplicationApplicantByCriteria(GetApplicationApplicantByCriteriaCommand request)
         {
             try
             {
@@ -112,12 +112,12 @@ namespace ThePatho.Features.Applicant.ApplicationApplicant.Service
                     );
                 var data = await db.FirstOrDefaultAsync<ApplicationApplicantDto>(query);
                
-                return new NewApiResponse<ApplicationApplicantDto>(HttpStatusCode.OK, data);
+                return new ApiResponse<ApplicationApplicantDto>(HttpStatusCode.OK, data);
             }
             catch (Exception ex)
             {
 
-                return new NewApiResponse<ApplicationApplicantDto>(
+                return new ApiResponse<ApplicationApplicantDto>(
                         HttpStatusCode.BadRequest,
                         "An error occurred while retrieving data.",
                         ex.Message

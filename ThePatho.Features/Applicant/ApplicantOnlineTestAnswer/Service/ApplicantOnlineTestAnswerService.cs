@@ -7,7 +7,7 @@ using ThePatho.Features.Applicant.ApplicantOnlineTestAnswer.Commands;
 using ThePatho.Features.Applicant.ApplicantOnlineTestAnswer.DTO;
 using ThePatho.Features.Applicant.ApplicantOnlineTestAnswer.Service;
 using ThePatho.Features.Applicant.ApplicantOnlineTestResult.DTO;
-using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Infrastructure.Persistance;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -22,7 +22,7 @@ namespace ThePatho.Features.Applicant.ApplicantOnlineTestAnswer.Service
             dapperContext = _dapperContext;
         }
 
-        public async Task<NewApiResponse<ApplicantOnlineTestAnswerItemDto>> GetApplicantOnlineTestAnswer(GetApplicantOnlineTestAnswerCommand request)
+        public async Task<ApiResponse<ApplicantOnlineTestAnswerItemDto>> GetApplicantOnlineTestAnswer(GetApplicantOnlineTestAnswerCommand request)
         {
             try
             {
@@ -59,12 +59,12 @@ namespace ThePatho.Features.Applicant.ApplicantOnlineTestAnswer.Service
                     DataOfRecords = data.ToList().Count,
                     ApplicantOnlineTestAnswerList = data.ToList(),
                 };
-                return new NewApiResponse<ApplicantOnlineTestAnswerItemDto>(HttpStatusCode.OK, result);
+                return new ApiResponse<ApplicantOnlineTestAnswerItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
 
-                return new NewApiResponse<ApplicantOnlineTestAnswerItemDto>(
+                return new ApiResponse<ApplicantOnlineTestAnswerItemDto>(
                         HttpStatusCode.BadRequest,
                         "An error occurred while retrieving data.",
                         ex.Message
@@ -72,7 +72,7 @@ namespace ThePatho.Features.Applicant.ApplicantOnlineTestAnswer.Service
             }
         }
 
-        public async Task<NewApiResponse<ApplicantOnlineTestAnswerDto>> GetApplicantOnlineTestAnswerByCriteria(GetApplicantOnlineTestAnswerByCriteriaCommand request)
+        public async Task<ApiResponse<ApplicantOnlineTestAnswerDto>> GetApplicantOnlineTestAnswerByCriteria(GetApplicantOnlineTestAnswerByCriteriaCommand request)
         {
             try
             {
@@ -95,12 +95,12 @@ namespace ThePatho.Features.Applicant.ApplicantOnlineTestAnswer.Service
                     );
                 var data = await db.FirstOrDefaultAsync<ApplicantOnlineTestAnswerDto>(query);
                 
-                return new NewApiResponse<ApplicantOnlineTestAnswerDto>(HttpStatusCode.OK, data);
+                return new ApiResponse<ApplicantOnlineTestAnswerDto>(HttpStatusCode.OK, data);
             }
             catch (Exception ex)
             {
 
-                return new NewApiResponse<ApplicantOnlineTestAnswerDto>(
+                return new ApiResponse<ApplicantOnlineTestAnswerDto>(
                         HttpStatusCode.BadRequest,
                         "An error occurred while retrieving data.",
                         ex.Message

@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using System.Text.Json.Serialization;
-using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Provider.ApiResponse;
 namespace ThePatho.Features.Applicant.Applicant.Commands
 {
     public class SubmitApplicantCommand : IRequest<ApiResponse>

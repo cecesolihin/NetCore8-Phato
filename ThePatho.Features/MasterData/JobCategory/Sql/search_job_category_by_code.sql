@@ -8,4 +8,4 @@
       ,modified_by AS ModifiedBy
       ,CONVERT(VARCHAR, modified_date, 120) AS ModifiedDate
   FROM dbo.TMJobCategory
-  where job_category_code = @FilterJobCategoryCode 
+  where job_category_code = @JobCategoryCode 

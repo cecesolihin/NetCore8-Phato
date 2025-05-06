@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using System;
-using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Organization.OrgStructure.Service;
 
 namespace ThePatho.Features.Organization.OrgStructure.Commands

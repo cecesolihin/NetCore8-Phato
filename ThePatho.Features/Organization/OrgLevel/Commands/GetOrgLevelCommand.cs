@@ -1,11 +1,11 @@
 ﻿using MediatR;
 using System.Text.Json.Serialization;
-using ThePatho.Features.ConfigurationExtensions;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Organization.OrgLevel.DTO;
 
 namespace ThePatho.Features.Organization.OrgLevel.Commands
 {
-    public class GetOrgLevelCommand :IRequest<NewApiResponse<OrgLevelItemDto>>
+    public class GetOrgLevelCommand :IRequest<ApiResponse<OrgLevelItemDto>>
     {
         [JsonPropertyName("filter_OrgLevelName")]
         public string? FilterOrgLevelName { get; set; }
