@@ -13,7 +13,8 @@ using ThePatho.Provider.Jwt;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
+//builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme);
+//builder.Services.AddAuthorization();
 builder.Services.AddControllers();
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(GetAdsCategoryCommand).Assembly));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -57,6 +58,32 @@ builder.Services.AddSwaggerGen(options =>
         var groupName = apiDesc.GroupName ?? string.Empty;
         return docName.Equals(groupName, StringComparison.OrdinalIgnoreCase);
     });
+
+    // Add JWT Bearer security definition to enable token input in Swagger
+    options.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Description = "Masukkan token JWT dengan format: Bearer {token}",
+        In = Microsoft.OpenApi.Models.ParameterLocation.Header,
+        Type = Microsoft.OpenApi.Models.SecuritySchemeType.Http,
+        Scheme = "bearer",
+        BearerFormat = "JWT"
+    });
+
+    options.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
+    {
+        {
+            new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+            {
+                Reference = new Microsoft.OpenApi.Models.OpenApiReference
+                {
+                    Type = Microsoft.OpenApi.Models.ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            Array.Empty<string>()
+        }
+    });
 });
 builder.Services.AddSingleton<SqlQueryLoader>();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -86,7 +113,22 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateIssuerSigningKey = true,
             ValidIssuer = builder.Configuration["Jwt:Issuer"],
             ValidAudience = builder.Configuration["Jwt:Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!))
+            IssuerSigningKey = new SymmetricSecurityKey(Convert.FromBase64String(builder.Configuration["Jwt:Key"]!)),
+            ClockSkew = TimeSpan.FromMinutes(2)
+        };
+        options.SaveToken = true;
+        options.Events = new JwtBearerEvents
+        {
+            OnAuthenticationFailed = context =>
+            {
+                Console.WriteLine($"JWT auth failed: {context.Exception.Message}");
+                return Task.CompletedTask;
+            },
+            OnTokenValidated = context =>
+            {
+                Console.WriteLine("JWT token validated");
+                return Task.CompletedTask;
+            }
         };
     });
 
@@ -110,7 +152,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
-//app.UseAuthorization();
+app.UseAuthorization();
 
 app.MapControllers();
 

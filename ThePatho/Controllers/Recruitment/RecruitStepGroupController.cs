@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using ThePatho.Provider.ApiResponse;
@@ -11,6 +12,7 @@ namespace ThePatho.Controllers
     [ApiController]
     [Route(ApiRoutes.RecruitmentMenu.RecruitStepGroup)]
     [ApiExplorerSettings(GroupName = "Recruitment")]
+    [Authorize]
     public class RecruitStepGroupController : ControllerBase
     {
         private readonly IMediator mediator;

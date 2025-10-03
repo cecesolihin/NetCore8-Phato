@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using ThePatho.Domain.Models;
 using ThePatho.Features.Applicant.ReasonStepFailed.DTO;
 using ThePatho.Features.Applicant.ReasonStepFailed.Service;
@@ -8,6 +9,7 @@ namespace ThePatho.Controllers
     [ApiController]
     [Route("api/[controller]")]
     [ApiExplorerSettings(GroupName = "Applicant")]
+    [Authorize]
     public class ReasonStepFailedController : ControllerBase
     {
         private readonly IReasonStepFailedService _ReasonStepFailedService; 

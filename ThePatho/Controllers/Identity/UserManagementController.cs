@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using ThePatho.Provider.ApiResponse;
@@ -14,6 +15,7 @@ namespace ThePatho.Controllers.Identity
     [ApiController]
     [Route(ApiRoutes.IdentityMenu.UserManagement)]
     [ApiExplorerSettings(GroupName = "Identity")]
+    [Authorize]
     public class UserManagementController : ControllerBase
     {
         private readonly IMediator mediator;

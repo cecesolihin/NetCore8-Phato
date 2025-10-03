@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using ThePatho.Domain.Models;
@@ -11,6 +12,7 @@ namespace ThePatho.Controllers
     [ApiController]
     [Route(ApiRoutes.ApplicantMenu.ApplicationApplicant)]
     [ApiExplorerSettings(GroupName = "Applicant")]
+    [Authorize]
     public class ApplicationApplicantController : ControllerBase
     {
         private readonly IMediator mediator;

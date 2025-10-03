@@ -6,12 +6,14 @@ using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.MasterSetting.OnlineTestSetting.Commands;
 using ThePatho.Features.MasterSetting.OnlineTestSetting.DTO;
 using ThePatho.Features.MasterSetting.OnlineTestSetting.Service;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ThePatho.Controllers
 {
     [ApiController]
     [Route(ApiRoutes.MasterSettingMenu.OnlineTestSetting)]
     [ApiExplorerSettings(GroupName = "MasterSetting")]
+    [Authorize]
     public class OnlineTestSettingController : ControllerBase
     {
         private readonly IMediator mediator;

@@ -2,6 +2,8 @@
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Text;
+using System;
 using ThePatho.Provider.DateTimeProvider;
 
 namespace ThePatho.Provider.Jwt.Token
@@ -9,10 +11,11 @@ namespace ThePatho.Provider.Jwt.Token
     public sealed class TokenGenerator(JwtConfiguration jwtConfiguration, IDateTimeService dateTimeService, ILogger<TokenGenerator> logger)
     : ITokenGenerator
     {
-        private string GenerateToken(byte[] key, string issuer, string audience, double expires,
+        private string GenerateToken(string key, string issuer, string audience, int expiresMinutes,
             IEnumerable<Claim>? claims = default)
         {
-            var secret = new SymmetricSecurityKey(key);
+            var secretKeyBytes = Convert.FromBase64String(key);
+            var secret = new SymmetricSecurityKey(secretKeyBytes);
             var credentials = new SigningCredentials(secret, SecurityAlgorithms.HmacSha256);
             var timestamp = dateTimeService.ServerDateTimeNow;
 
@@ -22,7 +25,7 @@ namespace ThePatho.Provider.Jwt.Token
                  audience,
                  claims,
                  timestamp,
-                 timestamp.AddMinutes(expires),
+                 timestamp.AddMinutes(expiresMinutes),
                  credentials
              )
          );
@@ -31,10 +34,10 @@ namespace ThePatho.Provider.Jwt.Token
         public string GenerateToken(IEnumerable<Claim>? claims = default)
         {
             return GenerateToken(
-                jwtConfiguration.AccessTokenSecret,
+                jwtConfiguration.Key,
                 jwtConfiguration.Issuer,
                 jwtConfiguration.Audience,
-                jwtConfiguration.AccessTokenExpiration,
+                jwtConfiguration.ExpiryMinutes,
                 claims
             );
         }
@@ -42,10 +45,10 @@ namespace ThePatho.Provider.Jwt.Token
         public string GenerateRefreshToken()
         {
             return GenerateToken(
-                jwtConfiguration.RefreshTokenSecret,
+                jwtConfiguration.Key,
                 jwtConfiguration.Issuer,
                 jwtConfiguration.Audience,
-                jwtConfiguration.RefreshTokenExpiration
+                jwtConfiguration.ExpiryMinutes * 24 // Refresh token berlaku 24 jam
             );
         }
 
@@ -56,7 +59,7 @@ namespace ThePatho.Provider.Jwt.Token
                 ValidateAudience = true,
                 ValidateIssuer = true,
                 ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(jwtConfiguration.RefreshTokenSecret),
+                IssuerSigningKey = new SymmetricSecurityKey(Convert.FromBase64String(jwtConfiguration.Key)),
                 ValidateLifetime = true,
                 ValidIssuer = jwtConfiguration.Issuer,
                 ValidAudience = jwtConfiguration.Audience,

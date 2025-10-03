@@ -113,16 +113,38 @@ namespace ThePatho.Features.Identity.Authentication.Service
                 );
             var user = await db.FirstOrDefaultAsync<User>(query);
 
-            if (user == null || !user.IsActive || user.IsLocked)
+            if (user == null)
             {
-                throw new UnauthorizedAccessException("Invalid credentials.");
+                return new ApiResponse<JwtResult>(
+                    HttpStatusCode.NotFound,
+                    "User not found."
+                );
             }
 
-            // 🔹 Validasi password menggunakan BCrypt
+            if (!user.IsActive)
+            {
+                return new ApiResponse<JwtResult>(
+                    HttpStatusCode.Forbidden,
+                    "User account is not active."
+                );
+            }
+
+            if (user.IsLocked)
+            {
+                return new ApiResponse<JwtResult>(
+                    HttpStatusCode.Forbidden,
+                    "User account is locked."
+                );
+            }
+
             if (!BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
             {
-                throw new UnauthorizedAccessException("Invalid credentials.");
+                return new ApiResponse<JwtResult>(
+                    HttpStatusCode.Unauthorized,
+                    "Wrong password."
+                );
             }
+
             //var jwtResult = jwtTokenGenerator.GenerateToken(user);
 
             var authenticationResult = await this.Authenticate(user, cancellationToken);
@@ -136,10 +158,6 @@ namespace ThePatho.Features.Identity.Authentication.Service
         public async Task<JwtResult> Authenticate(User user, CancellationToken token)
         {
             var refreshToken = tokenGenerator.GenerateRefreshToken();
-
-            //var sessionId = Ulid.NewUlid().ToString();
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]!));
-            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var claims = new[]
             {

@@ -6,6 +6,7 @@ using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.MasterData.JobCategory.Commands;
 using ThePatho.Features.MasterData.JobCategory.DTO;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace ThePatho.Controllers
@@ -13,6 +14,7 @@ namespace ThePatho.Controllers
     [ApiController]
     [Route(ApiRoutes.MasterDataMenu.JobCategory)]
     [ApiExplorerSettings(GroupName = "MasterData")]
+    [Authorize]
     public class JobCategoryController : ControllerBase
     {
         private readonly IMediator mediator;

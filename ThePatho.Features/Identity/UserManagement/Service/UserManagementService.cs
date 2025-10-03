@@ -48,7 +48,7 @@ namespace ThePatho.Features.Identity.UserManagement.Service
                             "modified_date AS ModifiedDate")
                     .When(
                         !string.IsNullOrWhiteSpace(request.FilterUserName),
-                        q => q.WhereIn("username", request.FilterUserName)
+                        q => q.WhereContains("username", request.FilterUserName)
                     ).When(
                         !string.IsNullOrWhiteSpace(request.FilterFullName),
                         q => q.WhereContains("full_name", request.FilterFullName)

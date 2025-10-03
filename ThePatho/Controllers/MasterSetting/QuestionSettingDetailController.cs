@@ -7,12 +7,14 @@ using ThePatho.Features.MasterSetting.QuestionSettingDetail.Commands;
 using ThePatho.Features.MasterSetting.QuestionSetting.Commands;
 using ThePatho.Features.MasterSetting.QuestionSettingDetail.DTO;
 using ThePatho.Features.MasterSetting.QuestionSettingDetail.Service;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ThePatho.Controllers
 {
     [ApiController]
     [Route(ApiRoutes.MasterSettingMenu.QuestionSettingDetail)]
     [ApiExplorerSettings(GroupName = "MasterSetting")]
+    [Authorize]
     public class QuestionSettingDetailController : ControllerBase
     {
         private readonly IMediator mediator;

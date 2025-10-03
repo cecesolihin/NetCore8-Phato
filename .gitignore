@@ -1,38 +1,27 @@
-﻿################################################################################
-# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
-################################################################################
-
-# Ignore Visual Studio temporary files and folders
-.vs/
-*.suo
-*.user
-*.userosscache
-*.rsuser
-
-# Build results
+﻿# Build artifacts
 bin/
 obj/
-Debug/
-Release/
 
-# Temporary files
+# Visual Studio & VS Code
+.vs/
+.vscode/
+
+# Logs
 *.log
-*.cache
-*.pdb
-*.tmp
-*.ldf
-*.mdf
 
-# Packages
+# DLLs & PDBs (hasil build)
+*.dll
+*.pdb
+*.exe
+
+# User-specific files
+*.user
+*.suo
+
+# NuGet
 *.nupkg
 *.snupkg
+packages/
 
-# Other files
-*.dll
-*.exe
-*.db
-*.json.schemastore.json
-
-# Rider or JetBrains files
-.idea/
-*.iml
+# Config (optional, kalau tidak mau commit config local)
+appsettings.Development.json

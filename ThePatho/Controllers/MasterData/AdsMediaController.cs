@@ -4,6 +4,7 @@ using System.Net;
 using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.MasterData.AdsMedia.Commands;
 using ThePatho.Features.MasterData.AdsMedia.DTO;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace ThePatho.Controllers
@@ -11,6 +12,7 @@ namespace ThePatho.Controllers
     [ApiController]
     [Route(ApiRoutes.MasterDataMenu.AdsMedia)]
     [ApiExplorerSettings(GroupName = "MasterData")]
+    [Authorize]
     public class AdsMediaController : ControllerBase
     {
         private readonly IMediator mediator;

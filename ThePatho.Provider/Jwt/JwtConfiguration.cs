@@ -3,11 +3,9 @@ namespace ThePatho.Provider.Jwt
 {
     public sealed class JwtConfiguration
     {
-        public byte[] AccessTokenSecret { get; init; }
-        public byte[] RefreshTokenSecret { get; init; }
-        public double AccessTokenExpiration { get; init; }
-        public double RefreshTokenExpiration { get; init; }
-        public string Issuer { get; init; }
-        public string Audience { get; init; }
+        public string Key { get; init; } = string.Empty;
+        public string Issuer { get; init; } = string.Empty;
+        public string Audience { get; init; } = string.Empty;
+        public int ExpiryMinutes { get; init; } = 60;
     }
 }

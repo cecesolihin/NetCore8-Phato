@@ -6,12 +6,14 @@ using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.MasterSetting.ScoringSettingDetail.Commands;
 using ThePatho.Features.MasterSetting.ScoringSettingDetail.DTO;
 using ThePatho.Features.MasterSetting.ScoringSettingDetail.Service;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ThePatho.Controllers
 {
     [ApiController]
     [Route(ApiRoutes.MasterSettingMenu.ScoringSettingDetail)]
     [ApiExplorerSettings(GroupName = "MasterSetting")]
+    [Authorize]
     public class ScoringSettingDetailController : ControllerBase
     {
         private readonly IMediator mediator;

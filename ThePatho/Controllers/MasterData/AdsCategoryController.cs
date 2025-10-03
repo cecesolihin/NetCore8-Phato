@@ -6,6 +6,7 @@ using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.MasterData.AdsCategory.Commands;
 using ThePatho.Features.MasterData.AdsCategory.DTO;
 using ThePatho.Features.MasterData.AdsCategory.Service;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace ThePatho.Controllers
@@ -13,6 +14,7 @@ namespace ThePatho.Controllers
     [ApiController]
     [Route(ApiRoutes.MasterDataMenu.AdsCategory)]
     [ApiExplorerSettings(GroupName = "MasterData")]
+    [Authorize]
     public class AdsCategoryController : ControllerBase
     {
         private readonly IMediator mediator;
