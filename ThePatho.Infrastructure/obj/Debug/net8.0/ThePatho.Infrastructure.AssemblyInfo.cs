@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ThePatho.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0ba7ccf1093262ffd0a398b3411b18574b3e837c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+13343e1bbe3fbf8b5570adea0a3a0f2b1befa1b6")]
 [assembly: System.Reflection.AssemblyProductAttribute("ThePatho.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ThePatho.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

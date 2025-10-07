@@ -15,7 +15,12 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 //builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme);
 //builder.Services.AddAuthorization();
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    // Use camelCase and ignore nulls for cleaner payloads to Next.js
+    options.JsonSerializerOptions.PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase;
+    options.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
+});
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(GetAdsCategoryCommand).Assembly));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -96,6 +101,20 @@ builder.Services.AddScoped<IDbConnection>(sp =>
 builder.Services.AddSingleton<DapperContext>();
 builder.Services.AddApplicationServices();
 
+// CORS: allow Next.js origins from configuration
+const string CorsPolicyName = "NextJsOrigins";
+var allowedOrigins = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>() ?? Array.Empty<string>();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(CorsPolicyName, policy =>
+    {
+        policy.WithOrigins(allowedOrigins)
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials();
+    });
+});
+
 var jwtConfig = builder.Configuration.GetSection("Jwt").Get<JwtConfiguration>();
 
 builder.Services.Configure<JwtConfiguration>(builder.Configuration.GetSection("Jwt"));
@@ -149,7 +168,64 @@ if (app.Environment.IsDevelopment())
     });
 }
 
+// Global exception handler with ProblemDetails
+app.UseExceptionHandler(errorApp =>
+{
+    errorApp.Run(async context =>
+    {
+        var problemDetails = new Microsoft.AspNetCore.Mvc.ProblemDetails
+        {
+            Status = StatusCodes.Status500InternalServerError,
+            Title = "Terjadi kesalahan pada server",
+            Detail = "Silakan coba lagi atau hubungi admin jika berlanjut."
+        };
+
+        context.Response.ContentType = "application/problem+json";
+        context.Response.StatusCode = problemDetails.Status.Value;
+        await context.Response.WriteAsJsonAsync(problemDetails);
+    });
+});
+
 app.UseHttpsRedirection();
+
+// Enable CORS before auth
+app.UseCors(CorsPolicyName);
+
+// Header-based API versioning (minimal): require x-api-version=v1
+app.Use(async (context, next) =>
+{
+    // Bypass for Swagger UI and CORS preflight
+    var path = context.Request.Path;
+    if (path.StartsWithSegments("/swagger") || string.Equals(context.Request.Method, "OPTIONS", StringComparison.OrdinalIgnoreCase))
+    {
+        await next();
+        return;
+    }
+
+    // Default to v1 if not provided to keep DX simple; validate if provided
+    if (!context.Request.Headers.TryGetValue("x-api-version", out var version))
+    {
+        context.Request.Headers.Add("x-api-version", "v1");
+        await next();
+        return;
+    }
+
+    if (version != "v1")
+    {
+        var problem = new Microsoft.AspNetCore.Mvc.ProblemDetails
+        {
+            Status = StatusCodes.Status400BadRequest,
+            Title = "Versi API tidak valid",
+            Detail = "Gunakan nilai v1 pada header x-api-version."
+        };
+        context.Response.StatusCode = problem.Status.Value;
+        context.Response.ContentType = "application/problem+json";
+        await context.Response.WriteAsJsonAsync(problem);
+        return;
+    }
+
+    await next();
+});
 
 app.UseAuthentication();
 app.UseAuthorization();
