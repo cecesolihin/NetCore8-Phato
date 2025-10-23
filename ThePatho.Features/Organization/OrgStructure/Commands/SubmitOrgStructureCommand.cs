@@ -6,23 +6,23 @@ namespace ThePatho.Features.Organization.OrgStructure.Commands
 {
     public class SubmitOrgStructureCommand : IRequest<ApiResponse>
     {
-        [JsonPropertyName("org_structure_code")]
-        public string OrgStructureCode { get; set; }
+        [JsonPropertyName("orgStructureId")]
+        public int OrgStructureId { get; set; }
 
-        [JsonPropertyName("org_structure_name")]
-        public string OrgStructureName { get; set; }
+        [JsonPropertyName("orgStructureCode")]
+        public string OrgStructureCode { get; set; } = null!;
 
-        [JsonPropertyName("parent_org_id")]
+        [JsonPropertyName("orgStructureName")]
+        public string OrgStructureName { get; set; } = null!;
+
+        [JsonPropertyName("parentOrgId")]
         public int? ParentOrgId { get; set; }
 
-        [JsonPropertyName("org_level_code")]
-        public string OrgLevelCode { get; set; }
+        [JsonPropertyName("orgLevelCode")]
+        public string OrgLevelCode { get; set; } = null!;
 
         [JsonPropertyName("status")]
-        public string Status { get; set; }
-
-        [JsonPropertyName("is_deleted")]
-        public bool IsDeleted { get; set; }
+        public char Status { get; set; }
 
         [JsonPropertyName("action")]
         public string Action { get; set; }

@@ -5,54 +5,43 @@ using SqlKata.Execution;
 using System.Net;
 using ThePatho.Domain.Constants;
 using ThePatho.Provider.ApiResponse;
-using ThePatho.Features.MasterData.AdsCategory.DTO;
 using ThePatho.Features.Organization.Position.Commands;
 using ThePatho.Features.Organization.Position.DTO;
 using ThePatho.Infrastructure.Persistance;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using ThePatho.Features.Organization.Grade.DTO;
 
 namespace ThePatho.Features.Organization.Position.Service
 {
     public class PositionService : IPositionService
     {
+        #region [FIELDS & CTOR]
         private readonly DapperContext dapperContext; 
 
         public PositionService(DapperContext _dapperContext)
         {
             dapperContext = _dapperContext;
         }
+        #endregion
 
+        #region [METHODS]
         public async Task<ApiResponse<PositionItemDto>> GetPosition(GetPositionCommand request)
         {
             try
             {
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
-                var query = new Query(TableName.Position)
-                    .Select(
-                           "position_code AS PositionCode",
-                            "position_name AS PositionName",
-                            "job_level_code AS JobLevelCode",
-                            "org_structure_id AS OrgStructureId",
-                            "act_as_head AS ActAsHead",
-                            "objective AS Objective",
-                            "job_description AS JobDescription",
-                            "is_deleted AS IsDeleted",
-                            "inserted_by AS InsertedBy",
-                            "inserted_date AS InsertedDate",
-                            "modified_by AS ModifiedBy",
-                            "modified_date AS ModifiedDate"
-                        )
+                var query = new Query(TableOrganization.Position)
+                    .Select("*")
                     .When(
                         !string.IsNullOrWhiteSpace(request.FilterPositionCode),
-                        q => q.WhereIn("position_code", request.FilterPositionCode)
+                        q => q.WhereIn("PositionCode", request.FilterPositionCode)
                     ).When(
                         !string.IsNullOrWhiteSpace(request.FilterPositionName),
-                            q => q.WhereContains("position_name", request.FilterPositionName)
+                            q => q.WhereContains("PositionName", request.FilterPositionName)
                     );
 
                 query = query.OrderByRaw(
-                    $"{(!string.IsNullOrWhiteSpace(request.SortBy) ? request.SortBy : "inserted_by")} {(!string.IsNullOrWhiteSpace(request.OrderBy) && (request.OrderBy.ToUpper() == "ASC" || request.OrderBy.ToUpper() == "DESC") ? request.OrderBy.ToUpper() : "DESC")}"
+                    $"{(!string.IsNullOrWhiteSpace(request.SortBy) ? request.SortBy : "InsertedBy")} {(!string.IsNullOrWhiteSpace(request.OrderBy) && (request.OrderBy.ToUpper() == "ASC" || request.OrderBy.ToUpper() == "DESC") ? request.OrderBy.ToUpper() : "DESC")}"
                 );
 
                 query = query.Skip(request.PageNumber * request.PageSize).Take(request.PageSize);
@@ -76,38 +65,31 @@ namespace ThePatho.Features.Organization.Position.Service
             }
         }
 
-        public async Task<ApiResponse<PositionDto>> GetPositionByCriteria(GetPositionByCriteriaCommand request)
+        public async Task<ApiResponse<PositionItemDto>> GetPositionByCriteria(GetPositionByCriteriaCommand request)
         {
             try
             {
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
-                var query = new Query(TableName.Position)
-                    .Select(
-                            "position_code AS PositionCode",
-                            "position_name AS PositionName",
-                            "job_level_code AS JobLevelCode",
-                            "org_structure_id AS OrgStructureId",
-                            "act_as_head AS ActAsHead",
-                            "objective AS Objective",
-                            "job_description AS JobDescription",
-                            "is_deleted AS IsDeleted",
-                            "inserted_by AS InsertedBy",
-                            "inserted_date AS InsertedDate",
-                            "modified_by AS ModifiedBy",
-                            "modified_date AS ModifiedDate"
-                        )
+                var query = new Query(TableOrganization.Position)
+                    .Select("*")
                     .When(
                         !string.IsNullOrWhiteSpace(request.FilterOrgStructureId),
-                        q => q.WhereIn("org_structure_id", request.FilterOrgStructureId)
+                        q => q.WhereIn("OrgStructureID", request.FilterOrgStructureId)
                     );
 
-                var data = await db.FirstOrDefaultAsync<PositionDto>(query);
-                return new ApiResponse<PositionDto>(HttpStatusCode.OK, data);
+                var data = await db.GetAsync<PositionDto>(query);
+
+                var result = new PositionItemDto
+                {
+                    DataOfRecords = data.ToList().Count,
+                    PositionList = data.ToList(),
+                };
+                return new ApiResponse<PositionItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
-                return new ApiResponse<PositionDto>(
+                return new ApiResponse<PositionItemDto>(
                          HttpStatusCode.BadRequest,
                          "An error occurred while retrieving data.",
                          ex.Message
@@ -126,8 +108,8 @@ namespace ThePatho.Features.Organization.Position.Service
                     throw new ArgumentException("Position Code is required.");
                 }
 
-                var existsQuery = new Query(TableName.Position)
-                    .Where("position_code", request.PositionCode)
+                var existsQuery = new Query(TableOrganization.Position)
+                    .Where("PositionCode", request.PositionCode)
                     .SelectRaw("COUNT(1)");
 
                 var exists = await db.ExecuteScalarAsync<int>(existsQuery);
@@ -135,18 +117,18 @@ namespace ThePatho.Features.Organization.Position.Service
                 if (exists == 0)
                 {
                     // Insert
-                    var insertQuery = new Query(TableName.Position).AsInsert(new
+                    var insertQuery = new Query(TableOrganization.Position).AsInsert(new
                     {
-                        position_code = request.PositionCode,
-                        position_name = request.PositionName,
-                        job_level_code = request.JobLevelCode,
-                        org_structure_id = request.OrgStructureId,
-                        act_as_head = request.ActAsHead,
-                        objective = request.Objective,
-                        job_description = request.JobDescription,
-                        is_deleted = false,
-                        inserted_by = "system",
-                        inserted_date = DateTime.UtcNow
+                        PositionCode = request.PositionCode,
+                        PositionName = request.PositionName,
+                        JobLevelCode = request.JobLevelCode,
+                        OrgStructureId = request.OrgStructureId,
+                        ActAsHead = request.ActAsHead,
+                        Objective = request.Objective,
+                        JobDescription = request.JobDescription,
+                        IsDeleted = false,
+                        InsertedBy = "system",
+                        InsertedDate = DateTime.UtcNow
                     });
 
                     var insertResult = await db.ExecuteAsync(insertQuery);
@@ -154,18 +136,18 @@ namespace ThePatho.Features.Organization.Position.Service
                 else
                 {
                     // Update
-                    var updateQuery = new Query(TableName.Position)
+                    var updateQuery = new Query(TableOrganization.Position)
                         .Where("position_code", request.PositionCode)
                         .AsUpdate(new
                         {
-                            position_name = request.PositionName,
-                            job_level_code = request.JobLevelCode,
-                            org_structure_id = request.OrgStructureId,
-                            act_as_head = request.ActAsHead,
-                            objective = request.Objective,
-                            job_description = request.JobDescription,
-                            modified_by = "system",
-                            modified_date = DateTime.UtcNow
+                            PositionName = request.PositionName,
+                            JobLevelCode = request.JobLevelCode,
+                            OrgStructureId = request.OrgStructureId,
+                            ActAsHead = request.ActAsHead,
+                            Objective = request.Objective,
+                            JobDescription = request.JobDescription,
+                            ModifiedBy = "system",
+                            ModifiedDate = DateTime.UtcNow
                         });
 
                     var updateResult = await db.ExecuteAsync(updateQuery);
@@ -182,13 +164,18 @@ namespace ThePatho.Features.Organization.Position.Service
             try
             {
                 if (string.IsNullOrWhiteSpace(request.PositionCode))
-                    throw new ArgumentException("Position is required.");
+                {
+                    return new ApiResponse<PositionDto>(
+                         HttpStatusCode.BadRequest,
+                         "Position is required"
+                     );
+                }
 
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
 
-                var deleteQuery = new Query(TableName.Position)
-                                .Where("position_code", request.PositionCode)
+                var deleteQuery = new Query(TableOrganization.Position)
+                                .Where("PositionCode", request.PositionCode)
                                 .AsDelete();
 
                 var deleteResult = await db.ExecuteAsync(deleteQuery);
@@ -201,5 +188,39 @@ namespace ThePatho.Features.Organization.Position.Service
             
         }
 
+        public async Task<ApiResponse<PositionDto>> GetSinglePosition(GetSinglePositionCommand request)
+        {
+            try
+            {
+                using var connection = dapperContext.CreateConnection();
+                var db = new QueryFactory(connection, dapperContext.Compiler);
+                var query = new Query(TableOrganization.Position)
+                    .Select("*")
+                    .When(
+                        !string.IsNullOrWhiteSpace(request.FilterPositionCode),
+                        q => q.WhereIn("PositionCode", request.FilterPositionCode)
+                    );
+
+                var data = await db.FirstOrDefaultAsync<PositionDto>(query);
+
+                if (data == null)
+                {
+                    return new ApiResponse<PositionDto>(
+                         HttpStatusCode.NotFound,
+                         "data not found"
+                     );
+                }
+                return new ApiResponse<PositionDto>(HttpStatusCode.OK, data);
+            }
+            catch (Exception ex)
+            {
+                return new ApiResponse<PositionDto>(
+                         HttpStatusCode.BadRequest,
+                         "An error occurred while retrieving data.",
+                         ex.Message
+                     );
+            }
+        }
+        #endregion
     }
 }

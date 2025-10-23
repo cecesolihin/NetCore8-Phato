@@ -1,0 +1,18 @@
+﻿using MediatR;
+using System.Text.Json.Serialization;
+using System.ComponentModel;
+using ThePatho.Provider.ApiResponse;
+using ThePatho.Features.Organization.ResignType.DTO;
+
+namespace ThePatho.Features.Organization.ResignType.Commands
+{
+    public class GetResignTypeByCriteriaCommand : IRequest<ApiResponse<ResignTypeItemDto>>
+    {
+        [JsonPropertyName("resign_type_code")]
+        public string ResignTypeCode { get; set; } = null!;
+
+        [JsonPropertyName("resign_type_name")]
+        public string ResignTypeName { get; set; } = null!;
+
+    }
+}

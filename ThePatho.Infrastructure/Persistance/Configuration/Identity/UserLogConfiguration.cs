@@ -9,7 +9,7 @@ namespace ThePatho.Infrastructure.Persistance.Configuration.Identity
     {
         public void Configure(EntityTypeBuilder<UserLog> builder)
         {
-            builder.ToTable(TableName.UserLogs);
+            builder.ToTable(TableIdentity.UserLogs);
             builder.HasKey(e => e.UserLogId);
 
             builder.Property(e => e.UserLogId).HasColumnName("user_log_id").HasMaxLength(50).IsRequired();

@@ -3,9 +3,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Data;
-using System.Text;
-using ThePatho.Features.MasterData.AdsCategory.Commands;
-
+using ThePatho.Features.Global.BloodType.Commands;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.DateTimeProvider;
 using ThePatho.Provider.Jwt;
@@ -21,7 +19,7 @@ builder.Services.AddControllers().AddJsonOptions(options =>
     options.JsonSerializerOptions.PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase;
     options.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
 });
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(GetAdsCategoryCommand).Assembly));
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(GetBloodTypeCommand).Assembly));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
@@ -31,31 +29,41 @@ builder.Services.AddSwaggerGen(options =>
         Title = "Identity API",
         Version = "v1"
     });
-    options.SwaggerDoc("MasterData", new Microsoft.OpenApi.Models.OpenApiInfo
-    {
-        Title = "Master Data API",
-        Version = "v1"
-    });
-    options.SwaggerDoc("MasterSetting", new Microsoft.OpenApi.Models.OpenApiInfo
-    {
-        Title = "Master Setting API",
-        Version = "v1"
-    });
+    //options.SwaggerDoc("MasterData", new Microsoft.OpenApi.Models.OpenApiInfo
+    //{
+    //    Title = "Master Data API",
+    //    Version = "v1"
+    //});
+    //options.SwaggerDoc("MasterSetting", new Microsoft.OpenApi.Models.OpenApiInfo
+    //{
+    //    Title = "Master Setting API",
+    //    Version = "v1"
+    //});
     options.SwaggerDoc("Organization", new Microsoft.OpenApi.Models.OpenApiInfo
     {
         Title = "Organization API",
         Version = "v1"
     });
-    options.SwaggerDoc("Applicant", new Microsoft.OpenApi.Models.OpenApiInfo
+    options.SwaggerDoc("Global", new Microsoft.OpenApi.Models.OpenApiInfo
     {
-        Title = "Applicant API",
+        Title = "Global API",
         Version = "v1"
     });
-    options.SwaggerDoc("Recruitment", new Microsoft.OpenApi.Models.OpenApiInfo
+    options.SwaggerDoc("PersonalInformation", new Microsoft.OpenApi.Models.OpenApiInfo
     {
-        Title = "Recruitment API",
+        Title = "Personal Information API",
         Version = "v1"
     });
+    //options.SwaggerDoc("Applicant", new Microsoft.OpenApi.Models.OpenApiInfo
+    //{
+    //    Title = "Applicant API",
+    //    Version = "v1"
+    //});
+    //options.SwaggerDoc("Recruitment", new Microsoft.OpenApi.Models.OpenApiInfo
+    //{
+    //    Title = "Recruitment API",
+    //    Version = "v1"
+    //});
 
     // Use Controller Group Names
     options.DocInclusionPredicate((docName, apiDesc) =>
@@ -68,7 +76,7 @@ builder.Services.AddSwaggerGen(options =>
     options.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
     {
         Name = "Authorization",
-        Description = "Masukkan token JWT dengan format: Bearer {token}",
+        Description = "Masukkan token JWT dengan format: {token}",
         In = Microsoft.OpenApi.Models.ParameterLocation.Header,
         Type = Microsoft.OpenApi.Models.SecuritySchemeType.Http,
         Scheme = "bearer",
@@ -160,11 +168,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(options =>
     {
         options.SwaggerEndpoint("/swagger/Identity/swagger.json", "Identity API");
-        options.SwaggerEndpoint("/swagger/MasterData/swagger.json", "Master Data API");
-        options.SwaggerEndpoint("/swagger/MasterSetting/swagger.json", "Master Setting API");
+        //options.SwaggerEndpoint("/swagger/MasterData/swagger.json", "Master Data API");
+        //options.SwaggerEndpoint("/swagger/MasterSetting/swagger.json", "Master Setting API");
         options.SwaggerEndpoint("/swagger/Organization/swagger.json", "Organization API");
-        options.SwaggerEndpoint("/swagger/Applicant/swagger.json", "Applicant API");
-        options.SwaggerEndpoint("/swagger/Recruitment/swagger.json", "Recruitment API");
+        options.SwaggerEndpoint("/swagger/Global/swagger.json", "Global API");
+        options.SwaggerEndpoint("/swagger/PersonalInformation/swagger.json", "Personal Information API");
+        //options.SwaggerEndpoint("/swagger/Applicant/swagger.json", "Applicant API");
+        //options.SwaggerEndpoint("/swagger/Recruitment/swagger.json", "Recruitment API");
     });
 }
 

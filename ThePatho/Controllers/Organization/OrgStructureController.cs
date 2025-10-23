@@ -1,19 +1,15 @@
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
-using ThePatho.Domain.Models;
 using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Organization.OrgStructure.Commands;
-using ThePatho.Features.Organization.OrgStructure.DTO;
-using ThePatho.Features.Organization.OrgStructure.Service;
 
 namespace ThePatho.Controllers
 {
     [ApiController]
     [Route(ApiRoutes.OrganizationMenu.OrgStructure)]
     [ApiExplorerSettings(GroupName = "Organization")]
-    [Authorize]
+    //[Authorize]
     public class OrgStructureController : ControllerBase
     {
         private readonly IMediator mediator;
@@ -38,6 +34,15 @@ namespace ThePatho.Controllers
 
         [HttpGet(ApiRoutes.Methods.GetByCriteria)]
         public async Task<IActionResult> GetOrgStructureByCriteria([FromQuery] GetOrgStructureByCriteriaCommand command,
+            CancellationToken cancellationToken)
+        {
+            var result = await mediator.Send(command, cancellationToken);
+
+            return ApiResult(result);
+        }
+
+        [HttpGet(ApiRoutes.Methods.GetSingle)]
+        public async Task<IActionResult> GetSingleOrgStructure([FromQuery] GetSingleOrgStructureCommand command,
             CancellationToken cancellationToken)
         {
             var result = await mediator.Send(command, cancellationToken);

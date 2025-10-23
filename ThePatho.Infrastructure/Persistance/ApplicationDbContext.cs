@@ -1,16 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ThePatho.Domain.Models.Applicant;
 using ThePatho.Domain.Models.Identity;
-using ThePatho.Domain.Models.MasterData;
-using ThePatho.Domain.Models.MasterSetting;
 using ThePatho.Domain.Models.Organization;
-using ThePatho.Domain.Models.Recruitment;
-using ThePatho.Infrastructure.Persistance.Configuration.Applicant;
+using ThePatho.Infrastructure.Persistance.Configuration.Global;
 using ThePatho.Infrastructure.Persistance.Configuration.Identity;
-using ThePatho.Infrastructure.Persistance.Configuration.MasterData;
-using ThePatho.Infrastructure.Persistance.Configuration.MasterSetting;
 using ThePatho.Infrastructure.Persistance.Configuration.Organization;
-using ThePatho.Infrastructure.Persistance.Configuration.Recruitment;
+using ThePatho.Infrastructure.Persistance.Configuration.PersonalInformation;
 
 
 namespace ThePatho.Infrastructure.Persistance
@@ -35,20 +29,6 @@ namespace ThePatho.Infrastructure.Persistance
         public DbSet<Role> Roles { get; set; }
         #endregion
 
-        #region [MASTER DATA]
-        public DbSet<AdsCategory> AdsCategories { get; set; }
-        public DbSet<AdsMedia> AdsMedias { get; set; }
-        public DbSet<JobCategory> JobCategories { get; set; }
-        #endregion
-
-        #region [MASTER SETTING]
-        public DbSet<OnlineTestSetting> OnlineTestSettings { get; set; }
-        public DbSet<QuestionSetting> QuestionSettings { get; set; }
-        public DbSet<QuestionSettingDetail> QuestionSettingDetails { get; set; }
-        public DbSet<ScoringSetting> ScoringSettings { get; set; }
-        public DbSet<ScoringSettingDetail> ScoringSettingDetails { get; set; }
-        #endregion
-
         #region [ORGANIZATION]
         public DbSet<JobLevel> JobLevels { get; set; }
         public DbSet<OrgLevel> OrganizationLevels { get; set; }
@@ -56,32 +36,6 @@ namespace ThePatho.Infrastructure.Persistance
         public DbSet<Position> Positions { get; set; }
         #endregion
 
-        #region [RECRUITMENT]
-        public DbSet<MPP> MPPs { get; set; }
-        public DbSet<RequirementMaster> RequirementMasters { get; set; }
-        public DbSet<RecruitStep> RecruitSteps { get; set; }
-        public DbSet<RecruitStepGroup> RecruitStepGroups { get; set; }
-        public DbSet<RecruitStepGroupDetail> RecruitStepGroupDetails { get; set; }
-        public DbSet<RecruitmentReqStep> RecruitmentReqSteps { get; set; }
-        public DbSet<RecruitmentRequest> RecruitmentRequests { get; set; }
-        public DbSet<RequirementRecRequest> RequirementRecRequests { get; set; }
-        #endregion
-
-        #region [APPLICANT]
-        public DbSet<ApplicantNew> Applicants { get; set; }
-        public DbSet<ApplicantAddress> ApplicantAddresses { get; set; }
-        public DbSet<ApplicantDocument> ApplicantDocuments { get; set; }
-        public DbSet<ApplicantEducation> ApplicantEducations { get; set; }
-        public DbSet<ApplicantIdentity> ApplicantIdentities { get; set; }
-        public DbSet<ApplicantOnlineTestAnswer> ApplicantOnlineTestAnswers { get; set; }
-        public DbSet<ApplicantOnlineTestResult> ApplicantOnlineTestResults { get; set; }
-        public DbSet<ApplicantPersonalData> ApplicantPersonalDatas { get; set; }
-        public DbSet<ApplicantRecruitStep> ApplicantRecruitSteps { get; set; }
-        public DbSet<ApplicantSkill> ApplicantSkills { get; set; }
-        public DbSet<ApplicantWorkExperience> ApplicantWorkExperiences { get; set; }
-        public DbSet<ApplicationApplicant> ApplicationApplicants { get; set; }
-        public DbSet<ReasonStepFailed> ReasonStepFaileds { get; set; }
-        #endregion
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -94,52 +48,93 @@ namespace ThePatho.Infrastructure.Persistance
             modelBuilder.ApplyConfiguration(new RoleConfiguration());
             #endregion
 
-            #region [MASTER DATA]
-            modelBuilder.ApplyConfiguration(new AdsCategoryConfiguration());
-            modelBuilder.ApplyConfiguration(new AdsMediaConfiguration());
-            modelBuilder.ApplyConfiguration(new JobCategoryConfiguration());
-            #endregion
-
-            #region [MASTER SETTING]
-            modelBuilder.ApplyConfiguration(new OnlineTestSettingConfiguration());
-            modelBuilder.ApplyConfiguration(new QuestionSettingConfiguration());
-            modelBuilder.ApplyConfiguration(new QuestionSettingDetailConfiguration());
-            modelBuilder.ApplyConfiguration(new ScoringSettingConfiguration());
-            modelBuilder.ApplyConfiguration(new ScoringSettingDetailConfiguration());
-            #endregion
-
             #region [ORGANIZATION]
+            modelBuilder.ApplyConfiguration(new CompanyBankConfiguration());
+            modelBuilder.ApplyConfiguration(new CompanyProfileConfiguration());
+            modelBuilder.ApplyConfiguration(new EmploymentTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new GradeConfiguration());
+            modelBuilder.ApplyConfiguration(new HistOrgStructureConfiguration());
+            modelBuilder.ApplyConfiguration(new JabatanConfiguration());
+            modelBuilder.ApplyConfiguration(new JobClassConfiguration());
             modelBuilder.ApplyConfiguration(new JobLevelConfiguration());
+            modelBuilder.ApplyConfiguration(new JobLevelJobClassConfiguration());
+            modelBuilder.ApplyConfiguration(new MutationTypeConfiguration());
             modelBuilder.ApplyConfiguration(new OrgLevelConfiguration());
             modelBuilder.ApplyConfiguration(new OrgStructureConfiguration());
+            modelBuilder.ApplyConfiguration(new PensionTypeConfiguration());
             modelBuilder.ApplyConfiguration(new PositionConfiguration());
+            modelBuilder.ApplyConfiguration(new RankConfiguration());
+            modelBuilder.ApplyConfiguration(new ResignTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new TerminationTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new WorkLocationGroupConfiguration());
+            modelBuilder.ApplyConfiguration(new WorkLocationsConfiguration());
+            modelBuilder.ApplyConfiguration(new CostCenterConfiguration());
             #endregion
 
-            #region [RECRUITMENT]
-            modelBuilder.ApplyConfiguration(new MPPConfiguration());
-            modelBuilder.ApplyConfiguration(new RequirementMasterConfiguration());
-            modelBuilder.ApplyConfiguration(new RecruitStepConfiguration());
-            modelBuilder.ApplyConfiguration(new RecruitStepGroupConfiguration());
-            modelBuilder.ApplyConfiguration(new RecruitStepGroupDetailConfiguration());
-            modelBuilder.ApplyConfiguration(new RecruitmentReqStepConfiguration());
-            modelBuilder.ApplyConfiguration(new RecruitmentRequestConfiguration());
-            modelBuilder.ApplyConfiguration(new RequirementRecRequestConfiguration());
+
+            #region [PERSONEL INFORMATION]
+            modelBuilder.ApplyConfiguration(new CourseConfiguration());
+            modelBuilder.ApplyConfiguration(new DiseaseCategoryConfiguration());
+            modelBuilder.ApplyConfiguration(new EduLevelConfiguration());
+            modelBuilder.ApplyConfiguration(new EduMajorConfiguration());
+            modelBuilder.ApplyConfiguration(new EmployeeAddressConfiguration());
+            modelBuilder.ApplyConfiguration(new EmployeeCapColorConfiguration());
+            modelBuilder.ApplyConfiguration(new EmployeeCareerHistoryConfiguration());
+            modelBuilder.ApplyConfiguration(new EmployeeConfiguration());
+            modelBuilder.ApplyConfiguration(new EmployeeCustomFieldConfiguration());
+            modelBuilder.ApplyConfiguration(new EmployeeDocumentsConfiguration());
+            modelBuilder.ApplyConfiguration(new EmployeeEducationsConfiguration());
+            modelBuilder.ApplyConfiguration(new EmployeeFamilyConfiguration());
+            modelBuilder.ApplyConfiguration(new EmployeeIdentityConfiguration());
+            modelBuilder.ApplyConfiguration(new EmployeeInventoryConfiguration());
+            modelBuilder.ApplyConfiguration(new EmployeeMedicalConfiguration());
+            modelBuilder.ApplyConfiguration(new EmployeePersonalDataConfiguration());
+            modelBuilder.ApplyConfiguration(new EmployeePickUpConfiguration());
+            modelBuilder.ApplyConfiguration(new EmployeePunishmentsConfiguration());
+            modelBuilder.ApplyConfiguration(new EmployeeRewardConfiguration());
+            modelBuilder.ApplyConfiguration(new EmployeeSetPickUpConfiguration());
+            modelBuilder.ApplyConfiguration(new EmployeeSetPickUpDetailsConfiguration());
+            modelBuilder.ApplyConfiguration(new EmployeeSkillsConfiguration());
+            modelBuilder.ApplyConfiguration(new EmployeeTrainingConfiguration());
+            modelBuilder.ApplyConfiguration(new EmployeeWorkingExperienceConfiguration());
+            modelBuilder.ApplyConfiguration(new FamilyRelationsConfiguration());
+            modelBuilder.ApplyConfiguration(new IdentityConfiguration());
+            modelBuilder.ApplyConfiguration(new InventoryGroupConfiguration());
+            modelBuilder.ApplyConfiguration(new InventoryGroupDetailsConfiguration());
+            modelBuilder.ApplyConfiguration(new InventoryGroupOrgConfiguration());
             #endregion
 
-            #region [APPLICANT]
-            modelBuilder.ApplyConfiguration(new ApplicantConfiguration());
-            modelBuilder.ApplyConfiguration(new ApplicantAddressConfiguration());
-            modelBuilder.ApplyConfiguration(new ApplicantDocumentConfiguration());
-            modelBuilder.ApplyConfiguration(new ApplicantEducationConfiguration());
-            modelBuilder.ApplyConfiguration(new ApplicantIdentityConfiguration());
-            modelBuilder.ApplyConfiguration(new ApplicantOnlineTestAnswerConfiguration());
-            modelBuilder.ApplyConfiguration(new ApplicantOnlineTestResultConfiguration());
-            modelBuilder.ApplyConfiguration(new ApplicantPersonalDataConfiguration());
-            modelBuilder.ApplyConfiguration(new ApplicantRecruitStepConfiguration());
-            modelBuilder.ApplyConfiguration(new ApplicantSkillConfiguration());
-            modelBuilder.ApplyConfiguration(new ApplicantWorkExperienceConfiguration());
-            modelBuilder.ApplyConfiguration(new ApplicationApplicantConfiguration());
-            modelBuilder.ApplyConfiguration(new ReasonStepFailedConfiguration());
+            #region [GLOBAL]
+            modelBuilder.ApplyConfiguration(new AnnouncementConfiguration());
+            modelBuilder.ApplyConfiguration(new BloodTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new BranchBankConfiguration());
+            modelBuilder.ApplyConfiguration(new BuildingConfiguration());
+            modelBuilder.ApplyConfiguration(new CityConfiguration());
+            modelBuilder.ApplyConfiguration(new ClothSizeConfiguration());
+            modelBuilder.ApplyConfiguration(new CountryConfiguration());
+            modelBuilder.ApplyConfiguration(new CurrencyConfiguration());
+            modelBuilder.ApplyConfiguration(new GraduationTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new InsuranceConfiguration());
+            modelBuilder.ApplyConfiguration(new InventoryConditionConfiguration());
+            modelBuilder.ApplyConfiguration(new InventoryTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new LetterCategoryConfiguration());
+            modelBuilder.ApplyConfiguration(new LetterTemplateConfiguration());
+            modelBuilder.ApplyConfiguration(new MaritalStatusConfiguration());
+            modelBuilder.ApplyConfiguration(new MedicalGroupConfiguration());
+            modelBuilder.ApplyConfiguration(new NationalityConfiguration());
+            modelBuilder.ApplyConfiguration(new NumericalSizeConfiguration());
+            modelBuilder.ApplyConfiguration(new ProvinceConfiguration());
+            modelBuilder.ApplyConfiguration(new PunishmentTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new ReligionConfiguration());
+            modelBuilder.ApplyConfiguration(new ResignReasonConfiguration());
+            modelBuilder.ApplyConfiguration(new RewardTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new RomanianSizeConfiguration());
+            modelBuilder.ApplyConfiguration(new RoomConfiguration());
+            modelBuilder.ApplyConfiguration(new ShoeSizeConfiguration());
+            modelBuilder.ApplyConfiguration(new SkillConfiguration());
+            modelBuilder.ApplyConfiguration(new TemplateKeywordConfiguration());
+            modelBuilder.ApplyConfiguration(new BankConfiguration());
+            modelBuilder.ApplyConfiguration(new TaxStatusConfiguration());
             #endregion
         }
 

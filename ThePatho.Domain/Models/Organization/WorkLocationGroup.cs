@@ -1,0 +1,19 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ThePatho.Domain.Models.Organization
+{
+    public class WorkLocationGroup
+    {
+        public int GroupDetailId { get; set; }
+        public int GroupId { get; set; }
+        public string? WorkLocationCode { get; set; }
+        public string? InsertedBy { get; set; }
+        public DateTime? InsertedDate { get; set; }
+        public string? ModifiedBy { get; set; }
+        public DateTime? ModifiedDate { get; set; }
+    }
+}

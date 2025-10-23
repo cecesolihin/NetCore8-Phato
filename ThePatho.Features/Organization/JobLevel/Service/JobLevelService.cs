@@ -10,6 +10,7 @@ using ThePatho.Features.Organization.OrgLevel.DTO;
 using ThePatho.Features.Organization.OrgStructure.DTO;
 using ThePatho.Infrastructure.Persistance;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using ThePatho.Features.Organization.Grade.DTO;
 
 namespace ThePatho.Features.Organization.JobLevel.Service
 {
@@ -28,29 +29,19 @@ namespace ThePatho.Features.Organization.JobLevel.Service
             {
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
-                var query = new Query(TableName.JobLevel)
-                    .Select(
-                            "job_level_code AS JobLevelCode",
-                            "job_level_name AS JobLevelName",
-                            "jort AS Jort",
-                            "remarks AS Remarks",
-                            "is_deleted AS IsDeleted",
-                            "inserted_by AS InsertedBy",
-                            "inserted_date AS InsertedDate",
-                            "modified_by AS ModifiedBy",
-                            "modified_date AS ModifiedDate",
-                            "is_active AS IsActive"
+                var query = new Query(TableOrganization.JobLevel)
+                    .Select("*"
                         )
                     .When(
                         !string.IsNullOrWhiteSpace(request.FilterJobLevelCode),
-                        q => q.WhereIn("job_level_code", request.FilterJobLevelCode)
+                        q => q.WhereIn("JobLevelCode", request.FilterJobLevelCode)
                     ).When(
                         !string.IsNullOrWhiteSpace(request.FilterJobLevelName),
-                            q => q.WhereContains("job_level_name", request.FilterJobLevelName)
+                            q => q.WhereContains("FilterJobLevelName", request.FilterJobLevelName)
                     );
 
                 query = query.OrderByRaw(
-                    $"{(!string.IsNullOrWhiteSpace(request.SortBy) ? request.SortBy : "inserted_by")} {(!string.IsNullOrWhiteSpace(request.OrderBy) && (request.OrderBy.ToUpper() == "ASC" || request.OrderBy.ToUpper() == "DESC") ? request.OrderBy.ToUpper() : "DESC")}"
+                    $"{(!string.IsNullOrWhiteSpace(request.SortBy) ? request.SortBy : "InsertedBy")} {(!string.IsNullOrWhiteSpace(request.OrderBy) && (request.OrderBy.ToUpper() == "ASC" || request.OrderBy.ToUpper() == "DESC") ? request.OrderBy.ToUpper() : "DESC")}"
                 );
 
                 query = query.Skip(request.PageNumber * request.PageSize).Take(request.PageSize);
@@ -74,13 +65,13 @@ namespace ThePatho.Features.Organization.JobLevel.Service
 
         }
 
-        public async Task<ApiResponse<JobLevelDto>> GetJobLevelByCriteria(GetJobLevelByCriteriaCommand request)
+        public async Task<ApiResponse<JobLevelDto>> GetSingleJobLevel(GetSingleJobLevelCommand request)
         {
             try
             {
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
-                var query = new Query(TableName.JobLevel)
+                var query = new Query(TableOrganization.JobLevel)
                     .Select(
                             "job_level_code AS JobLevelCode",
                             "job_level_name AS JobLevelName",
@@ -94,11 +85,18 @@ namespace ThePatho.Features.Organization.JobLevel.Service
                             "is_active AS IsActive"
                         )
                     .When(
-                        !string.IsNullOrWhiteSpace(request.JobLevelCode),
-                        q => q.WhereIn("job_level_code", request.JobLevelCode)
+                        !string.IsNullOrWhiteSpace(request.FilterJobLevelCode),
+                        q => q.WhereIn("job_level_code", request.FilterJobLevelCode)
                     );
 
                 var data = await db.FirstOrDefaultAsync<JobLevelDto>(query);
+                if (data == null)
+                {
+                    return new ApiResponse<JobLevelDto>(
+                         HttpStatusCode.NotFound,
+                         "data not found"
+                     );
+                }
                 return new ApiResponse<JobLevelDto>(HttpStatusCode.OK, data);
             }
             catch (Exception ex)
@@ -118,13 +116,23 @@ namespace ThePatho.Features.Organization.JobLevel.Service
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
 
+                var ArgumentException = new List<string>();
+
+                // Validasi field required
                 if (string.IsNullOrWhiteSpace(request.JobLevelCode))
+                    ArgumentException.Add("Job level code is required.");
+
+                if (string.IsNullOrWhiteSpace(request.JobLevelName))
+                    ArgumentException.Add("Job level name is required.");
+
+
+                if (ArgumentException.Any())
                 {
-                    throw new ArgumentException("job level code is required.");
+                    return new ApiResponse(HttpStatusCode.BadRequest, $"Failed to {request.Action} {request.JobLevelCode}", string.Join(", ", ArgumentException.ToArray()));
                 }
 
                 // Check if data exists
-                var existsQuery = new Query(TableName.JobLevel)
+                var existsQuery = new Query(TableOrganization.JobLevel)
                     .Where("job_level_code", request.JobLevelCode)
                     .SelectRaw("COUNT(1)");
 
@@ -132,35 +140,35 @@ namespace ThePatho.Features.Organization.JobLevel.Service
 
                 if (exists == 0)
                 {
-                    // Kondisi Add (Insert)
-                    var insertQuery = new Query(TableName.JobLevel).AsInsert(new
+                    // Insert
+                    var insertQuery = new Query(TableOrganization.JobLevel).AsInsert(new
                     {
-                        job_level_code = request.JobLevelCode,
-                        job_level_name = request.JobLevelName,
-                        jort = request.sort,
-                        remarks = request.Remarks,
-                        is_deleted = false,
-                        inserted_by = "system",
-                        inserted_date = DateTime.UtcNow,
-                        is_active = request.IsActive
+                        JobLevelCode = request.JobLevelCode,
+                        JobLevelName = request.JobLevelName,
+                        Sort = request.Sort,
+                        Remarks = request.Remarks,
+                        IsDeleted = false,
+                        InsertedBy = "system",
+                        InsertedDate = DateTime.UtcNow,
+                        IsActive = request.IsActive
                     });
 
                     var insertResult = await db.ExecuteAsync(insertQuery);
                 }
                 else
                 {
-                    // Kondisi Edit (Update)
-                    var updateQuery = new Query(TableName.JobLevel)
-                     .Where("job_level_code", request.JobLevelCode)
-                     .AsUpdate(new
-                     {
-                         job_level_name = request.JobLevelName,
-                         jort = request.sort,
-                         remarks = request.Remarks,
-                         modified_by = "system",
-                         modified_date = DateTime.UtcNow,
-                         is_active = request.IsActive
-                     });
+                    // Update
+                    var updateQuery = new Query(TableOrganization.JobLevel)
+                        .Where("JobLevelCode", request.JobLevelCode)
+                        .AsUpdate(new
+                        {
+                            JobLevelName = request.JobLevelName,
+                            Sort = request.Sort,
+                            Remarks = request.Remarks,
+                            ModifiedBy = "system",
+                            ModifiedDate = DateTime.UtcNow,
+                            IsActive = request.IsActive
+                        });
 
                     var updateResult = await db.ExecuteAsync(updateQuery);
                 }
@@ -168,7 +176,7 @@ namespace ThePatho.Features.Organization.JobLevel.Service
             }
             catch (Exception ex)
             {
-                return new ApiResponse(HttpStatusCode.BadRequest, $"Failed to {request.Action} {request.JobLevelCode}", ex.Message.ToString());
+                return new ApiResponse(HttpStatusCode.BadRequest, $"Failed to {request.Action} {request.JobLevelCode}", ex.Message);
             }
         }
         public async Task<ApiResponse> DeleteJobLevel(DeleteJobLevelCommand request)
@@ -176,12 +184,17 @@ namespace ThePatho.Features.Organization.JobLevel.Service
             try
             {
                 if (string.IsNullOrWhiteSpace(request.JobLevelCode))
-                    throw new ArgumentException("Job Level is required.");
+                {
+                    return new ApiResponse<GradeDto>(
+                         HttpStatusCode.BadRequest,
+                         "Job level is required"
+                     );
+                }
 
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
 
-                var deleteQuery = new Query(TableName.JobLevel)
+                var deleteQuery = new Query(TableOrganization.JobLevel)
                     .Where("job_level_code", request.JobLevelCode)
                     .AsDelete();
 
@@ -195,5 +208,39 @@ namespace ThePatho.Features.Organization.JobLevel.Service
 
         }
 
+        public async Task<ApiResponse<JobLevelItemDto>> GetJobLevelByCriteria(GetJobLevelByCriteriaCommand request)
+        {
+            try
+            {
+                using var connection = dapperContext.CreateConnection();
+                var db = new QueryFactory(connection, dapperContext.Compiler);
+                var query = new Query(TableOrganization.JobLevel)
+                    .Select("*"
+                        )
+                    .When(
+                        !string.IsNullOrWhiteSpace(request.FilterJobLevelCode),
+                        q => q.WhereIn("JobLevelCode", request.FilterJobLevelCode)
+                    ).When(
+                        !string.IsNullOrWhiteSpace(request.FilterJobLevelName),
+                            q => q.WhereContains("FilterJobLevelName", request.FilterJobLevelName)
+                    );
+
+                var data = await db.GetAsync<JobLevelDto>(query);
+                var result = new JobLevelItemDto
+                {
+                    DataOfRecords = data.ToList().Count,
+                    JobLevelList = data.ToList(),
+                };
+                return new ApiResponse<JobLevelItemDto>(HttpStatusCode.OK, result);
+            }
+            catch (Exception ex)
+            {
+                return new ApiResponse<JobLevelItemDto>(
+                         HttpStatusCode.BadRequest,
+                         "An error occurred while retrieving data.",
+                         ex.Message
+                     );
+            }
+        }
     }
 }

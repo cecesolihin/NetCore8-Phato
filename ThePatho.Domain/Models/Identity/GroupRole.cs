@@ -9,13 +9,10 @@ namespace ThePatho.Domain.Models.Identity
 {
     public class GroupRole
     {
-        public string GroupRoleId { get; set; }
-        public string GroupId { get; set; }
-        public string RoleId { get; set; }
-        public bool IsActive { get; set; } = true;
-        public int? ParentMenuId { get; set; }
+        public string RoleId { get; set; } = null!;
+        public string GroupId { get; set; } = null!;
         public string? InsertedBy { get; set; }
-        public DateTime? InsertedDate { get; set; }
+        public DateTime InsertedDate { get; set; }
         public string? ModifiedBy { get; set; }
         public DateTime? ModifiedDate { get; set; }
     }

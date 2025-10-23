@@ -5,9 +5,21 @@ using ThePatho.Features.Organization.OrgStructure.DTO;
 
 namespace ThePatho.Features.Organization.OrgStructure.Commands
 {
-    public class GetOrgStructureByCriteriaCommand :IRequest<ApiResponse<OrgStructureDto>>
+    public class GetOrgStructureByCriteriaCommand :IRequest<ApiResponse<OrgStructureItemDto>>
     {
-        [JsonPropertyName("filter_OrgLevelCode")]
-        public string OrgLevelCode { get; set; }
+        [JsonPropertyName("orgStructureId")]
+        public int? OrgStructureId { get; set; }
+
+        [JsonPropertyName("orgStructureCode")]
+        public string? OrgStructureCode { get; set; }
+
+        [JsonPropertyName("orgStructureName")]
+        public string? OrgStructureName { get; set; }
+
+        [JsonPropertyName("orgLevelCode")]
+        public string? OrgLevelCode { get; set; }
+
+        [JsonPropertyName("status")]
+        public string? Status { get; set; }
     }
 }

@@ -5,9 +5,12 @@ using ThePatho.Features.Organization.OrgLevel.DTO;
 
 namespace ThePatho.Features.Organization.OrgLevel.Commands
 {
-    public class GetOrgLevelByCriteriaCommand :IRequest<ApiResponse<OrgLevelDto>>
+    public class GetOrgLevelByCriteriaCommand :IRequest<ApiResponse<OrgLevelItemDto>>
     {
-        [JsonPropertyName("filter_OrgLevelCode")]
+        [JsonPropertyName("orgLevelCode")]
         public string? OrgLevelCode { get; set; }
+
+        [JsonPropertyName("orgLevelName")]
+        public string? OrgLevelName { get; set; }
     }
 }

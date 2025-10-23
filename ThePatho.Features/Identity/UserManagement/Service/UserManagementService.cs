@@ -2,7 +2,6 @@
 using SqlKata.Execution;
 using System.Net;
 using ThePatho.Domain.Constants;
-using ThePatho.Features.Applicant.Applicant.DTO;
 using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Identity.UserManagement.Commands.Group;
 using ThePatho.Features.Identity.UserManagement.Commands.GroupRole;
@@ -11,7 +10,6 @@ using ThePatho.Features.Identity.UserManagement.Commands.User;
 using ThePatho.Features.Identity.UserManagement.Commands.UserGroup;
 using ThePatho.Features.Identity.UserManagement.DTO;
 using ThePatho.Infrastructure.Persistance;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ThePatho.Features.Identity.UserManagement.Service
 {
@@ -31,37 +29,27 @@ namespace ThePatho.Features.Identity.UserManagement.Service
             { 
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
-                var query = new Query(TableName.Users)
-                    .Select("user_id AS UserId",
-                            "username AS Username",
-                            "full_name AS FullName",
-                            "email AS Email",
-                            "email_confirmed AS EmailConfirmed",
-                            "password_hash AS PasswordHash",
-                            "phone_number AS PhoneNumber",
-                            "phone_number_confirmed AS PhoneNumberConfirmed",
-                            "is_active AS IsActive",
-                            "is_locked AS IsLocked",
-                            "inserted_by AS InsertedBy",
-                            "inserted_date AS InsertedDate",
-                            "modified_by AS ModifiedBy",
-                            "modified_date AS ModifiedDate")
+                var query = new Query(TableIdentity.Users)
+                    .Select("*")
                     .When(
                         !string.IsNullOrWhiteSpace(request.FilterUserName),
-                        q => q.WhereContains("username", request.FilterUserName)
+                        q => q.WhereContains("UserName", request.FilterUserName)
                     ).When(
                         !string.IsNullOrWhiteSpace(request.FilterFullName),
-                        q => q.WhereContains("full_name", request.FilterFullName)
+                        q => q.WhereContains("FirstName", request.FilterFullName)
+                    ).When(
+                        !string.IsNullOrWhiteSpace(request.FilterFullName),
+                        q => q.WhereContains("LastName", request.FilterFullName)
                      ).When(
                         !string.IsNullOrWhiteSpace(request.FilterEmail),
-                        q => q.WhereContains("email", request.FilterEmail)
+                        q => q.WhereContains("Email", request.FilterEmail)
                     ).When(
                         !string.IsNullOrWhiteSpace(request.FilterPhone),
-                        q => q.WhereContains("phone_number", request.FilterPhone)
+                        q => q.WhereContains("PhoneNumber", request.FilterPhone)
                     );
 
                 query = query.OrderByRaw(
-                    $"{(!string.IsNullOrWhiteSpace(request.SortBy) ? request.SortBy : "inserted_by")} {(!string.IsNullOrWhiteSpace(request.OrderBy) && (request.OrderBy.ToUpper() == "ASC" || request.OrderBy.ToUpper() == "DESC") ? request.OrderBy.ToUpper() : "DESC")}"
+                    $"{(!string.IsNullOrWhiteSpace(request.SortBy) ? request.SortBy : "InsertedDate")} {(!string.IsNullOrWhiteSpace(request.OrderBy) && (request.OrderBy.ToUpper() == "ASC" || request.OrderBy.ToUpper() == "DESC") ? request.OrderBy.ToUpper() : "DESC")}"
                 );
 
                 query = query.Skip(request.PageNumber * request.PageSize).Take(request.PageSize);
@@ -90,27 +78,14 @@ namespace ThePatho.Features.Identity.UserManagement.Service
             { 
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
-                var query = new SqlKata.Query(TableName.Users)
-                    .Select("user_id AS UserId",
-                            "username AS Username",
-                            "full_name AS FullName",
-                            "email AS Email",
-                            "email_confirmed AS EmailConfirmed",
-                            "password_hash AS PasswordHash",
-                            "phone_number AS PhoneNumber",
-                            "phone_number_confirmed AS PhoneNumberConfirmed",
-                            "is_active AS IsActive",
-                            "is_locked AS IsLocked",
-                            "inserted_by AS InsertedBy",
-                            "inserted_date AS InsertedDate",
-                            "modified_by AS ModifiedBy",
-                            "modified_date AS ModifiedDate")
+                var query = new SqlKata.Query(TableIdentity.Users)
+                    .Select("*")
                     .When(
                         !string.IsNullOrWhiteSpace(request.FilterUserId),
-                        q => q.WhereIn("user_id", request.FilterUserId)
+                        q => q.WhereIn("Id", request.FilterUserId)
                     ).When(
                         !string.IsNullOrWhiteSpace(request.FilterUserName),
-                        q => q.WhereContains("username", request.FilterUserName)
+                        q => q.WhereContains("UserName", request.FilterUserName)
                     );
                 var data = await db.FirstOrDefaultAsync<UserDto>(query);
                 
@@ -135,24 +110,17 @@ namespace ThePatho.Features.Identity.UserManagement.Service
             { 
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
-                var query = new Query(TableName.Groups)
-                    .Select("group_id AS GroupId",
-                          "group_name AS GroupName",
-                          "description AS Description",
-                          "is_active AS IsActive",
-                          "inserted_by AS InsertedBy",
-                          "inserted_date AS InsertedDate",
-                          "modified_by AS ModifiedBy",
-                          "modified_date AS ModifiedDate")
+                var query = new Query(TableIdentity.Groups)
+                    .Select("*")
                     .When(
                         !string.IsNullOrWhiteSpace(request.FilterGroup),
-                        q => q.WhereContains("group_name", request.FilterGroup)
+                        q => q.WhereContains("Name", request.FilterGroup)
                     ).When(
                         !string.IsNullOrWhiteSpace(request.FilterDescription),
-                        q => q.WhereContains("description", request.FilterDescription)
+                        q => q.WhereContains("Description", request.FilterDescription)
                     );
                 query = query.OrderByRaw(
-                    $"{(!string.IsNullOrWhiteSpace(request.SortBy) ? request.SortBy : "inserted_by")} {(!string.IsNullOrWhiteSpace(request.OrderBy) && (request.OrderBy.ToUpper() == "ASC" || request.OrderBy.ToUpper() == "DESC") ? request.OrderBy.ToUpper() : "DESC")}"
+                    $"{(!string.IsNullOrWhiteSpace(request.SortBy) ? request.SortBy : "InsertedDate")} {(!string.IsNullOrWhiteSpace(request.OrderBy) && (request.OrderBy.ToUpper() == "ASC" || request.OrderBy.ToUpper() == "DESC") ? request.OrderBy.ToUpper() : "DESC")}"
                 );
 
                 query = query.Skip(request.PageNumber * request.PageSize).Take(request.PageSize);
@@ -181,18 +149,11 @@ namespace ThePatho.Features.Identity.UserManagement.Service
             {
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
-                var query = new Query(TableName.Groups)
-                    .Select("group_id AS GroupId",
-                          "group_name AS GroupName",
-                          "description AS Description",
-                          "is_active AS IsActive",
-                          "inserted_by AS InsertedBy",
-                          "inserted_date AS InsertedDate",
-                          "modified_by AS ModifiedBy",
-                          "modified_date AS ModifiedDate")
+                var query = new Query(TableIdentity.Groups)
+                    .Select("*")
                     .When(
                         !string.IsNullOrWhiteSpace(request.FilterGroup),
-                        q => q.WhereContains("group_name", request.FilterGroup)
+                        q => q.WhereContains("Name", request.FilterGroup)
                     );
 
                 var data = await db.FirstOrDefaultAsync<GroupDto>(query);
@@ -218,30 +179,18 @@ namespace ThePatho.Features.Identity.UserManagement.Service
             { 
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
-                var query = new Query(TableName.Roles)
-                    .Select("role_id AS RoleId",
-                          "role_name AS RoleName",
-                          "description AS Description",
-                          "parent_menu_id AS ParentMenuId",
-                          "role_label AS RoleLabel",
-                          "order_no AS OrderNo",
-                          "inserted_by AS InsertedBy",
-                          "inserted_date AS InsertedDate",
-                          "modified_by AS ModifiedBy",
-                          "modified_date AS ModifiedDate")
+                var query = new Query(TableIdentity.Roles)
+                    .Select("*")
                     .When(
                         !string.IsNullOrWhiteSpace(request.FilterRoleName),
-                        q => q.WhereIn("role_name", request.FilterRoleName)
+                        q => q.WhereIn("Name", request.FilterRoleName)
                     ).When(
                         !string.IsNullOrWhiteSpace(request.FilterDescription),
-                        q => q.WhereContains("description", request.FilterDescription)
-                    ).When(
-                        !string.IsNullOrWhiteSpace(request.FilterRoleLabel),
-                        q => q.WhereContains("role_label", request.FilterRoleLabel)
+                        q => q.WhereContains("Description", request.FilterDescription)
                     );
 
                 query = query.OrderByRaw(
-                    $"{(!string.IsNullOrWhiteSpace(request.SortBy) ? request.SortBy : "inserted_by")} {(!string.IsNullOrWhiteSpace(request.OrderBy) && (request.OrderBy.ToUpper() == "ASC" || request.OrderBy.ToUpper() == "DESC") ? request.OrderBy.ToUpper() : "DESC")}"
+                    $"{(!string.IsNullOrWhiteSpace(request.SortBy) ? request.SortBy : "InsertedDate")} {(!string.IsNullOrWhiteSpace(request.OrderBy) && (request.OrderBy.ToUpper() == "ASC" || request.OrderBy.ToUpper() == "DESC") ? request.OrderBy.ToUpper() : "DESC")}"
                 );
 
                 query = query.Skip(request.PageNumber * request.PageSize).Take(request.PageSize);
@@ -270,23 +219,14 @@ namespace ThePatho.Features.Identity.UserManagement.Service
             { 
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
-                var query = new Query(TableName.Roles)
-                    .Select("role_id AS RoleId",
-                          "role_name AS RoleName",
-                          "description AS Description",
-                          "parent_menu_id AS ParentMenuId",
-                          "role_label AS RoleLabel",
-                          "order_no AS OrderNo",
-                          "inserted_by AS InsertedBy",
-                          "inserted_date AS InsertedDate",
-                          "modified_by AS ModifiedBy",
-                          "modified_date AS ModifiedDate")
+                var query = new Query(TableIdentity.Roles)
+                    .Select("*")
                     .When(
                         !string.IsNullOrWhiteSpace(request.FilterRoleName),
-                        q => q.WhereIn("role_name", request.FilterRoleName)
+                        q => q.WhereIn("Name", request.FilterRoleName)
                     ).When(
                         !string.IsNullOrWhiteSpace(request.FilterRoleLabel),
-                        q => q.WhereContains("role_label", request.FilterRoleLabel)
+                        q => q.WhereContains("Description", request.FilterRoleLabel)
                     );
 
                 var data = await db.GetAsync<RoleDto>(query);
@@ -316,16 +256,8 @@ namespace ThePatho.Features.Identity.UserManagement.Service
             { 
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
-                var query = new Query(TableName.GroupRoles)
-                    .Select("group_role_id AS GroupRoleId",
-                          "group_id AS GroupId",
-                          "role_id AS RoleId",
-                          "is_active AS IsActive",
-                          "parent_menu_id AS ParentMenuId",
-                          "inserted_by AS InsertedBy",
-                          "inserted_date AS InsertedDate",
-                          "modified_by AS ModifiedBy",
-                          "modified_date AS ModifiedDate")
+                var query = new Query(TableIdentity.GroupRoles)
+                    .Select("*")
                      .When(
                         !string.IsNullOrWhiteSpace(request.FilterGroup),
                         q => q.WhereIn("group_id", request.FilterGroup)
@@ -364,7 +296,7 @@ namespace ThePatho.Features.Identity.UserManagement.Service
             { 
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
-                var query = new Query(TableName.GroupRoles)
+                var query = new Query(TableIdentity.GroupRoles)
                     .Select("group_role_id AS GroupRoleId",
                           "group_id AS GroupId",
                           "role_id AS RoleId",
@@ -409,7 +341,7 @@ namespace ThePatho.Features.Identity.UserManagement.Service
             { 
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
-                var query = new Query(TableName.UserGroups)
+                var query = new Query(TableIdentity.UserGroups)
                     .Select("user_group_id AS UserGroupId",
                           "user_id AS UserId",
                           "group_id AS GroupId",
@@ -456,7 +388,7 @@ namespace ThePatho.Features.Identity.UserManagement.Service
             { 
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
-                var query = new Query(TableName.UserGroups)
+                var query = new Query(TableIdentity.UserGroups)
                     .Select("user_group_id AS UserGroupId",
                           "user_id AS UserId",
                           "group_id AS GroupId",

@@ -1,19 +1,16 @@
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
-using ThePatho.Domain.Models;
 using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Organization.Position.Commands;
-using ThePatho.Features.Organization.Position.DTO;
-using ThePatho.Features.Organization.Position.Service;
+
 
 namespace ThePatho.Controllers
 {
     [ApiController]
     [Route(ApiRoutes.OrganizationMenu.Position)]
     [ApiExplorerSettings(GroupName = "Organization")]
-    [Authorize]
+    //[Authorize]
     public class PositionController : ControllerBase
     {
         private readonly IMediator mediator;
@@ -38,6 +35,14 @@ namespace ThePatho.Controllers
 
         [HttpGet(ApiRoutes.Methods.GetByCriteria)]
         public async Task<IActionResult> GetPositionByCriteria([FromQuery] GetPositionByCriteriaCommand command,
+            CancellationToken cancellationToken)
+        {
+            var result = await mediator.Send(command, cancellationToken);
+
+            return ApiResult(result);
+        }
+        [HttpGet(ApiRoutes.Methods.GetSingle)]
+        public async Task<IActionResult> GetSinglePosition([FromQuery] GetSinglePositionCommand command,
             CancellationToken cancellationToken)
         {
             var result = await mediator.Send(command, cancellationToken);

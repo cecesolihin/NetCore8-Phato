@@ -1,19 +1,15 @@
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
-using ThePatho.Domain.Models;
 using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Organization.OrgLevel.Commands;
-using ThePatho.Features.Organization.OrgLevel.DTO;
-using ThePatho.Features.Organization.OrgLevel.Service;
 
 namespace ThePatho.Controllers
 {
     [ApiController]
     [Route(ApiRoutes.OrganizationMenu.OrgLevel)]
     [ApiExplorerSettings(GroupName = "Organization")]
-    [Authorize]
+    //[Authorize]
     public class OrgLevelController : ControllerBase
     {
         private readonly IMediator mediator;

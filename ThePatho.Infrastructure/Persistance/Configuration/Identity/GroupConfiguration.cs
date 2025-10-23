@@ -9,17 +9,16 @@ namespace ThePatho.Infrastructure.Persistance.Configuration.Identity
     {
         public void Configure(EntityTypeBuilder<Group> builder)
         {
-            builder.ToTable(TableName.Groups);
-            builder.HasKey(e => e.GroupId);
+            builder.ToTable(TableIdentity.Groups);
+            builder.HasKey(g => g.Id);
 
-            builder.Property(e => e.GroupId).HasColumnName("group_id").HasMaxLength(50).IsRequired();
-            builder.Property(e => e.GroupName).HasColumnName("group_name").HasMaxLength(255);
-            builder.Property(e => e.Description).HasColumnName("description").HasMaxLength(255);
-            builder.Property(e => e.IsActive).HasColumnName("is_active").HasDefaultValue(true).IsRequired();
-            builder.Property(e => e.InsertedBy).HasColumnName("inserted_by").HasMaxLength(50);
-            builder.Property(e => e.InsertedDate).HasColumnName("inserted_date");
-            builder.Property(e => e.ModifiedBy).HasColumnName("modified_by").HasMaxLength(50);
-            builder.Property(e => e.ModifiedDate).HasColumnName("modified_date");
+            builder.Property(g => g.Id).HasMaxLength(128).IsRequired();
+            builder.Property(g => g.Name);
+            builder.Property(g => g.Description).HasMaxLength(512);
+            builder.Property(g => g.InsertedBy).HasMaxLength(256);
+            builder.Property(g => g.InsertedDate).IsRequired();
+            builder.Property(g => g.ModifiedBy).HasMaxLength(256);
+            builder.Property(g => g.ModifiedDate);
         }
     }
 }

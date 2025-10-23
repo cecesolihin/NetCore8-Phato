@@ -3,9 +3,9 @@ namespace ThePatho.Domain.Models.Organization
 {
     public class JobLevel
     {
-        public string JobLevelCode { get; set; }
-        public string JobLevelName { get; set; }
-        public byte? Jort { get; set; }
+        public string JobLevelCode { get; set; } = null!;
+        public string JobLevelName { get; set; } = null!;
+        public byte? Sort { get; set; }
         public string? Remarks { get; set; }
         public bool IsDeleted { get; set; }
         public string? InsertedBy { get; set; }

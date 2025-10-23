@@ -6,7 +6,7 @@ namespace ThePatho.Features.Organization.OrgLevel.Commands
 {
     public class DeleteOrgLevelCommand : IRequest<ApiResponse>
     {
-        [JsonPropertyName("org_level_code")]
-        public string OrgLevelCode { get; set; }
+        [JsonPropertyName("orgLevelCode")]
+        public string OrgLevelCode { get; set; } = null!;
     }
 }

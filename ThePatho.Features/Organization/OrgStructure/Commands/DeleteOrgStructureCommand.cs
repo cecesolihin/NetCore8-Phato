@@ -6,7 +6,7 @@ namespace ThePatho.Features.Organization.OrgStructure.Commands
 {
     public class DeleteOrgStructureCommand : IRequest<ApiResponse>
     {
-        [JsonPropertyName("org_structure_code")]
-        public string OrgStructureCode { get; set; }
+        [JsonPropertyName("orgStructureId")]
+        public int OrgStructureId { get; set; }
     }
 }

@@ -1,19 +1,15 @@
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
-using ThePatho.Domain.Models;
 using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Organization.JobLevel.Commands;
-using ThePatho.Features.Organization.JobLevel.DTO;
-using ThePatho.Features.Organization.JobLevel.Service;
 
 namespace ThePatho.Controllers
 {
     [ApiController]
     [Route(ApiRoutes.OrganizationMenu.JobLevel)]
     [ApiExplorerSettings(GroupName = "Organization")]
-    [Authorize]
+    //[Authorize]
     public class JobLevelController : ControllerBase
     {
         private readonly IMediator mediator;
@@ -44,7 +40,14 @@ namespace ThePatho.Controllers
 
             return ApiResult(result);
         }
+        [HttpGet(ApiRoutes.Methods.GetSingle)]
+        public async Task<IActionResult> GetSingleJobLevel([FromQuery] GetSingleJobLevelCommand command,
+            CancellationToken cancellationToken)
+        {
+            var result = await mediator.Send(command, cancellationToken);
 
+            return ApiResult(result);
+        }
         [HttpPost(ApiRoutes.Methods.Submit)]
         public async Task<IActionResult> SubmitJobLevel([FromBody] SubmitJobLevelCommand command, CancellationToken cancellationToken)
         {

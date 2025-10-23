@@ -1,0 +1,28 @@
+SELECT 
+    eed.EmployeeEducationID,
+    eed.EmployeeID,
+    eed.EduLevelCode,
+    eed.Faculty,
+    eed.MajorCode,
+    eed.OtherMajor,
+    eed.StartYear,
+    eed.EndYear,
+    eed.GPA,
+    eed.MaxGPA,
+    eed.Institution,
+    eed.Address,
+    eed.CityId,
+    eed.GradTypeCode,
+    eed.CertificateNo,
+    CONVERT(VARCHAR, CertificateDate, 106) AS CertificateDate,--eed.CertificateDate,
+    eed.Remarks,
+    eed.InsertedBy,
+    CONVERT(VARCHAR, InsertedDate, 106) AS InsertedDate,--eed.InsertedDate,
+    eed.ModifiedBy,
+    CONVERT(VARCHAR, ModifiedDate, 106) AS ModifiedDate,--eed.ModifiedDate,
+    eed.IsDeleted
+FROM TEPDEmployeeEducation eed
+WHERE eed.IsDeleted = 0
+  AND (@EmployeeId > 0 OR eed.EmployeeID = @EmployeeId)
+  AND (@EduLevelCode = '' OR eed.EduLevelCode = @EduLevelCode)
+  AND (@Institution = '' OR eed.Institution LIKE '%' + @Institution + '%')

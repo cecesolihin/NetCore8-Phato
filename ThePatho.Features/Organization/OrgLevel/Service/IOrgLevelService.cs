@@ -7,9 +7,10 @@ namespace ThePatho.Features.Organization.OrgLevel.Service
 {
     public interface IOrgLevelService
     {
-        Task<ApiResponse<OrgLevelItemDto>> GetOrganizationLevel(GetOrgLevelCommand request);
-        Task<ApiResponse<OrgLevelDto>> GetOrganizationLevelByCriteria(GetOrgLevelByCriteriaCommand request);
-        Task<ApiResponse> SubmitOrganizationLevel(SubmitOrgLevelCommand request);
-        Task<ApiResponse> DeleteOrganizationLevel(DeleteOrgLevelCommand request);
+        Task<ApiResponse<OrgLevelItemDto>> GetOrgLevel(GetOrgLevelCommand request);
+        Task<ApiResponse<OrgLevelDto>> GetSingleOrgLevel(GetSingleOrgLevelCommand request);
+        Task<ApiResponse<OrgLevelItemDto>> GetOrgLevelByCriteria(GetOrgLevelByCriteriaCommand request);
+        Task<ApiResponse> SubmitOrgLevel(SubmitOrgLevelCommand request);
+        Task<ApiResponse> DeleteOrgLevel(DeleteOrgLevelCommand request);
     }
 }

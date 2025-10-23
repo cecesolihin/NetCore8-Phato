@@ -4,65 +4,109 @@ namespace ThePatho.Provider.ApiResponse
     public static class ApiRoutes
     {
         public const string BaseApiPathIdentity = "api/identity/";
-        public const string BaseApiPathMasterData = "api/master-data/";
-        public const string BaseApiPathMasterSetting = "api/master-setting/";
         public const string BaseApiPathOrganization = "api/organization/";
-        public const string BaseApiPathApplicant = "api/applicant/";
-        public const string BaseApiPathRecruitment = "api/recruitment/";
+        public const string BaseApiPathGlobal = "api/global/";
+        public const string BaseApiPathPersonalInfo = "api/personal-info/";
 
         public static class IdentityMenu
         {
             public const string Authentication = BaseApiPathIdentity + "auth";
             public const string UserManagement = BaseApiPathIdentity + "user-management";
         }
-        public static class MasterDataMenu
-        {
-            public const string AdsCategory = BaseApiPathMasterData + "ads-category";
-            public const string AdsMedia = BaseApiPathMasterData + "ads-media";
-            public const string JobCategory = BaseApiPathMasterData + "job-category";
-
-        }
-        public static class MasterSettingMenu
-        {
-            public const string QuestionSetting = BaseApiPathMasterSetting + "question-setting";
-            public const string QuestionSettingDetail = BaseApiPathMasterSetting + "question-setting-detail";
-            public const string OnlineTestSetting = BaseApiPathMasterSetting + "online-test-setting";
-            public const string ScoringSetting = BaseApiPathMasterSetting + "scoring-setting";
-            public const string ScoringSettingDetail = BaseApiPathMasterSetting + "scoring-setting-detail";
-        }
+      
         public static class OrganizationMenu
         {
+            public const string CompanyBank = BaseApiPathOrganization + "company-bank";
+            public const string CompanyProfile = BaseApiPathOrganization + "company-profile";
+            public const string EmploymentType = BaseApiPathOrganization + "employment-type";
+            public const string Grade = BaseApiPathOrganization + "grade";
+            public const string HistOrgStructure = BaseApiPathOrganization + "hist-org-structure";
+            public const string Jabatan = BaseApiPathOrganization + "jabatan";
+            public const string JobClass = BaseApiPathOrganization + "job-class";
             public const string JobLevel = BaseApiPathOrganization + "job-level";
+            public const string JobLevelJobClass = BaseApiPathOrganization + "job-level-job-class";
+            public const string MutationType = BaseApiPathOrganization + "mutation-type";
             public const string OrgLevel = BaseApiPathOrganization + "org-level";
             public const string OrgStructure = BaseApiPathOrganization + "org-structure";
+            public const string PensionType = BaseApiPathOrganization + "pension-type";
             public const string Position = BaseApiPathOrganization + "position";
+            public const string Rank = BaseApiPathOrganization + "rank";
+            public const string ResignType = BaseApiPathOrganization + "resign-type";
+            public const string TerminationType = BaseApiPathOrganization + "termination-type";
+            public const string WorkLocation = BaseApiPathOrganization + "work-location";
+            public const string WorkLocationGroup = BaseApiPathOrganization + "work-location-group";
         }
-        public static class RecruitmentMenu
+       
+        public static class PersonalInfoMenu
         {
-            public const string MPP = BaseApiPathRecruitment + "mpp";
-            public const string RequirementMaster = BaseApiPathRecruitment + "requirement-master";
-            public const string RecruitmentRequest = BaseApiPathRecruitment + "recruitment-request";
-            public const string RecruitmentReqStep = BaseApiPathRecruitment + "recruitment-req-step";
-            public const string RecruitStep = BaseApiPathRecruitment + "recruit-step";
-            public const string RecruitStepGroup = BaseApiPathRecruitment + "recruit-step-group";
-            public const string RecruitStepGroupDetail = BaseApiPathRecruitment + "recruit-step-group-detail";
-            public const string RequirementRecRequest = BaseApiPathRecruitment + "recruitment-rec-request";
+            
+            public const string Employee = BaseApiPathPersonalInfo + "employee";
+            public const string EmployeeAddress = BaseApiPathPersonalInfo + "employee-address";
+            public const string EmployeeCapColor = BaseApiPathPersonalInfo + "employee-cap-color";
+            public const string EmployeeCareerHistory = BaseApiPathPersonalInfo + "employee-career-history";
+            public const string EmployeeCustomField = BaseApiPathPersonalInfo + "employee-custom-field";
+            public const string EmployeeDocument = BaseApiPathPersonalInfo + "employee-document";
+            public const string EmployeeEducation = BaseApiPathPersonalInfo + "employee-education";
+            public const string EmployeeExperience = BaseApiPathPersonalInfo + "employee-experience";
+            public const string EmployeeFamily = BaseApiPathPersonalInfo + "employee-family";
+            public const string EmployeeIdentity = BaseApiPathPersonalInfo + "employee-identity";
+            public const string EmployeeInventory = BaseApiPathPersonalInfo + "employee-inventory";
+            public const string EmployeeMedical = BaseApiPathPersonalInfo + "employee-medical";
+            public const string EmployeePersonalData = BaseApiPathPersonalInfo + "employee-personal-data";
+            public const string EmployeePickUp = BaseApiPathPersonalInfo + "employee-pick-up";
+            public const string EmployeePunishment = BaseApiPathPersonalInfo + "employee-punishment";
+            public const string EmployeeReward = BaseApiPathPersonalInfo + "employee-reward";
+            public const string EmployeeSetPickUp = BaseApiPathPersonalInfo + "employee-set-pick-up";
+            public const string EmployeeSetPickUpDetail = BaseApiPathPersonalInfo + "employee-set-pick-up-detail";
+            public const string EmployeeSkill = BaseApiPathPersonalInfo + "employee-skill";
+            public const string EmployeeTraining = BaseApiPathPersonalInfo + "employee-training";
+            public const string EmployeeWorkingExperience = BaseApiPathPersonalInfo + "employee-working-experience";
+            public const string SuperiorSubordinate = BaseApiPathPersonalInfo + "superior-subordinate";
+            
         }
-        public static class ApplicantMenu
+
+        public static class GlobalMenu
         {
-            public const string Applicant = BaseApiPathApplicant + "applicant";
-            public const string ApplicantAddress = BaseApiPathApplicant + "applicant-address";
-            public const string ApplicantDocument = BaseApiPathApplicant + "applicant-document";
-            public const string ApplicantEducation = BaseApiPathApplicant + "applicant-education";
-            public const string ApplicantIdentity = BaseApiPathApplicant + "applicant-identity";
-            public const string ApplicantSkill = BaseApiPathMasterData + "applicant-skill";
-            public const string ApplicantWorkExperience = BaseApiPathApplicant + "applicant-work-experience";
-            public const string ApplicantPersonalData = BaseApiPathApplicant + "applicant-personal-data";
-            public const string ApplicantRecruitStep = BaseApiPathMasterData + "applicant-recruit-step";
-            public const string ApplicantOnlineTestAnswer = BaseApiPathApplicant + "applicant-online-test-answer";
-            public const string ApplicantOnlineTestResult = BaseApiPathApplicant + "applicant-online-test-result";
-            public const string ApplicationApplicant = BaseApiPathApplicant + "application-applicant";
-            public const string ReasonStepFailed = BaseApiPathMasterData + "reason-step-failed";
+            public const string Announcement = BaseApiPathGlobal + "announcement";
+            public const string BloodType = BaseApiPathGlobal + "blood-type";
+            public const string BranchBank = BaseApiPathGlobal + "branch-bank";
+            public const string Bank = BaseApiPathGlobal + "bank";
+            public const string Building = BaseApiPathGlobal + "building";
+            public const string City = BaseApiPathGlobal + "city";
+            public const string ClothSize = BaseApiPathGlobal + "cloth-size";
+            public const string Country = BaseApiPathGlobal + "country";
+            public const string Currency = BaseApiPathGlobal + "currency";
+            public const string GraduationType = BaseApiPathGlobal + "graduation-type";
+            public const string Insurance = BaseApiPathGlobal + "insurance";
+            public const string InventoryCondition = BaseApiPathGlobal + "inventory-condition";
+            public const string InventoryType = BaseApiPathGlobal + "inventory-type";
+            public const string LetterCategory = BaseApiPathGlobal + "letter-category";
+            public const string LetterTemplate = BaseApiPathGlobal + "letter-template";
+            public const string MaritalStatus = BaseApiPathGlobal + "marital-status";
+            public const string MedicalGroup = BaseApiPathGlobal + "medical-group";
+            public const string Nationality = BaseApiPathGlobal + "nationality";
+            public const string NumericalSize = BaseApiPathGlobal + "numerical-size";
+            public const string Province = BaseApiPathGlobal + "province";
+            public const string PunishmentType = BaseApiPathGlobal + "punishment-type";
+            public const string Religion = BaseApiPathGlobal + "religion";
+            public const string ResignReason = BaseApiPathGlobal + "resign-reason";
+            public const string RewardType = BaseApiPathGlobal + "reward-type";
+            public const string RomanianSize = BaseApiPathGlobal + "romanian-size";
+            public const string Room = BaseApiPathGlobal + "room";
+            public const string ShoeSize = BaseApiPathGlobal + "shoe-size";
+            public const string Skill = BaseApiPathGlobal + "skill";
+            public const string SkillProficiency = BaseApiPathGlobal + "skill-proficiency";
+            public const string TemplateKeyword = BaseApiPathGlobal + "template-keyword";
+            public const string Course = BaseApiPathGlobal + "course";
+            public const string DiseaseCategory = BaseApiPathGlobal + "disease-category";
+            public const string EduLevel = BaseApiPathGlobal + "edu-level";
+            public const string EduMajor = BaseApiPathGlobal + "edu-major";
+            public const string FamilyRelation = BaseApiPathGlobal + "family-relation";
+            public const string Identity = BaseApiPathGlobal + "identity";
+            public const string InventoryGroup = BaseApiPathGlobal + "inventory-group";
+            public const string InventoryGroupDetail = BaseApiPathGlobal + "inventory-group-detail";
+            public const string InventoryGroupOrg = BaseApiPathGlobal + "inventory-group-org";
+            public const string TaxStatus = BaseApiPathGlobal + "tax-status";
         }
         public static class Methods
         {
@@ -93,9 +137,11 @@ namespace ThePatho.Provider.ApiResponse
             #endregion
             #region [ALL]
             public const string GetList = "get-list";
+            public const string GetSingle = "get-single";
             public const string GetByCriteria = "get-by-criteria";
             public const string GetDdl = "get-ddl";
             public const string Submit = "submit";
+            public const string generate = "generate";
             public const string Delete = "delete";
             #endregion
         }

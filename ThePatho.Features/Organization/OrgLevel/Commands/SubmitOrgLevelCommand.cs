@@ -6,20 +6,17 @@ namespace ThePatho.Features.Organization.OrgLevel.Commands
 {
     public class SubmitOrgLevelCommand : IRequest<ApiResponse>
     {
-        [JsonPropertyName("org_level_code")]
-        public string OrgLevelCode { get; set; }
+        [JsonPropertyName("orgLevelCode")]
+        public string OrgLevelCode { get; set; } = null!;
 
-        [JsonPropertyName("org_level_name")]
-        public string OrgLevelName { get; set; }
+        [JsonPropertyName("orgLevelName")]
+        public string OrgLevelName { get; set; } = null!;
 
         [JsonPropertyName("sort")]
-        public byte? Sort { get; set; }
+        public byte Sort { get; set; }
 
-        [JsonPropertyName("remarks")]
-        public string? Remarks { get; set; }
-
-        [JsonPropertyName("is_active")]
-        public bool IsActive { get; set; }
+        [JsonPropertyName("isDeleted")]
+        public bool IsDeleted { get; set; }
 
         [JsonPropertyName("action")]
         public string Action { get; set; }

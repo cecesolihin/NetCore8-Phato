@@ -5,14 +5,14 @@ using ThePatho.Features.Organization.Position.Service;
 
 namespace ThePatho.Features.Organization.Position.Commands
 {
-    public class GetPositionByCriteriaCommandHandler : IRequestHandler<GetPositionByCriteriaCommand, ApiResponse<PositionDto>>
+    public class GetPositionByCriteriaCommandHandler : IRequestHandler<GetPositionByCriteriaCommand, ApiResponse<PositionItemDto>>
     {
         private readonly IPositionService positionService;
         public GetPositionByCriteriaCommandHandler(IPositionService _positionService)
         {
             positionService = _positionService;
         }
-        public async Task<ApiResponse<PositionDto>> Handle(GetPositionByCriteriaCommand request, CancellationToken cancellationToken)
+        public async Task<ApiResponse<PositionItemDto>> Handle(GetPositionByCriteriaCommand request, CancellationToken cancellationToken)
         {
             return await positionService.GetPositionByCriteria(request); 
         }

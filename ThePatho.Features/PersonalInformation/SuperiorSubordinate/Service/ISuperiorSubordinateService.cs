@@ -1,0 +1,16 @@
+﻿using ThePatho.Provider.ApiResponse;
+using ThePatho.Features.PersonalInformation.SuperiorSubordinate.Commands;
+using ThePatho.Features.PersonalInformation.SuperiorSubordinate.DTO;
+
+namespace ThePatho.Features.PersonalInformation.SuperiorSubordinate.Service
+{
+    public interface ISuperiorSubordinateService
+    {
+        Task<ApiResponse<SuperiorSubordinateItemDto>> GetSuperiorSubordinate(GetSuperiorSubordinateCommand request);
+        Task<ApiResponse<SuperiorSubordinateItemDto>> GetSuperiorSubordinateByCriteria(GetSuperiorSubordinateByCriteriaCommand request);
+        Task<ApiResponse> SubmitSuperiorSubordinate(SubmitSuperiorSubordinateCommand request);
+        Task<ApiResponse> DeleteSuperiorSubordinate(DeleteSuperiorSubordinateCommand request);
+        Task<ApiResponse> GenerateSuperiorSubordinate(GenerateSuperiorSubordinateCommand request);
+        Task<ApiResponse<SuperiorSubordinateDto>> GetSingleSuperiorSubordinate(GetSingleSuperiorSubordinateCommand request);
+    }
+}

@@ -1,0 +1,13 @@
+SELECT 
+    IdentityCode,
+    IdentityName,
+    InsertedBy,
+    CONVERT(VARCHAR, InsertedDate, 106) AS InsertedDate,  -- dd MMM yyyy
+    ModifiedBy,
+    CONVERT(VARCHAR, ModifiedDate, 106) AS ModifiedDate  -- dd MMM yyyy
+
+FROM 
+    dbo.TGEMIdentity
+WHERE
+    (@IdentityCode IS NULL OR IdentityCode LIKE '%' + @IdentityCode + '%') AND
+    (@IdentityName IS NULL OR IdentityName LIKE '%' + @IdentityName + '%') 

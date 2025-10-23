@@ -9,12 +9,10 @@ namespace ThePatho.Domain.Models.Identity
 {
     public class UserGroup
     {
-        public string UserGroupId { get; set; }
-        public string UserId { get; set; }
-        public string GroupId { get; set; }
-        public bool IsActive { get; set; } = true;
+        public string UserId { get; set; } = null!;
+        public string GroupId { get; set; } = null!;
         public string? InsertedBy { get; set; }
-        public DateTime? InsertedDate { get; set; }
+        public DateTime InsertedDate { get; set; }
         public string? ModifiedBy { get; set; }
         public DateTime? ModifiedDate { get; set; }
     }

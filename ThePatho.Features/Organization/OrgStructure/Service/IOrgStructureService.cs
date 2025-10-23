@@ -8,7 +8,8 @@ namespace ThePatho.Features.Organization.OrgStructure.Service
     public interface IOrgStructureService
     {
         Task<ApiResponse<OrgStructureItemDto>> GetOrgStructure(GetOrgStructureCommand request);
-        Task<ApiResponse<OrgStructureDto>> GetOrgStructureByCriteria(GetOrgStructureByCriteriaCommand request);
+        Task<ApiResponse<OrgStructureDto>> GetSingleOrgStructure(GetSingleOrgStructureCommand request);
+        Task<ApiResponse<OrgStructureItemDto>> GetOrgStructureByCriteria(GetOrgStructureByCriteriaCommand request);
         Task<ApiResponse> SubmitOrgStructure(SubmitOrgStructureCommand request);
         Task<ApiResponse> DeleteOrgStructure(DeleteOrgStructureCommand request);
     }

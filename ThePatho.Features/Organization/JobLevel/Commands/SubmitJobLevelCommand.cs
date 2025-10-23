@@ -13,7 +13,7 @@ namespace ThePatho.Features.Organization.JobLevel.Commands
         public string JobLevelName { get; set; }
 
         [JsonPropertyName("sort")]
-        public byte? sort { get; set; }
+        public byte? Sort { get; set; }
 
         [JsonPropertyName("remarks")]
         public string? Remarks { get; set; }

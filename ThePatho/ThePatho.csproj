@@ -19,10 +19,4 @@
     <ProjectReference Include="..\ThePatho.Infrastructure\ThePatho.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\MasterData\" />
-    <Folder Include="Controllers\MasterSetting\" />
-    <Folder Include="Controllers\Applicant\" />
-  </ItemGroup>
-
 </Project>

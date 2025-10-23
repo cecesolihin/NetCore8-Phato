@@ -1,39 +1,82 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using ThePatho.Features.Applicant.Applicant.Service;
-using ThePatho.Features.Applicant.ApplicantAddress.Service;
-using ThePatho.Features.Applicant.ApplicantDocument.Service;
-using ThePatho.Features.Applicant.ApplicantEducation.Service;
-using ThePatho.Features.Applicant.ApplicantIdentity.Service;
-using ThePatho.Features.Applicant.ApplicantOnlineTestAnswer.Service;
-using ThePatho.Features.Applicant.ApplicantOnlineTestResult.Service;
-using ThePatho.Features.Applicant.ApplicantPersonalData.Service;
-using ThePatho.Features.Applicant.ApplicantRecruitStep.Service;
-using ThePatho.Features.Applicant.ApplicantSkill.Service;
-using ThePatho.Features.Applicant.ApplicantWorkExperience.Service;
-using ThePatho.Features.Applicant.ApplicationApplicant.Service;
-using ThePatho.Features.Applicant.ReasonStepFailed.Service;
+using ThePatho.Features.Global.Announcement.Service;
+using ThePatho.Features.Global.Bank.Service;
+using ThePatho.Features.Global.BloodType.Service;
+using ThePatho.Features.Global.BranchBank.Service;
+using ThePatho.Features.Global.Building.Service;
+using ThePatho.Features.Global.City.Service;
+using ThePatho.Features.Global.ClothSize.Service;
+using ThePatho.Features.Global.Country.Service;
+using ThePatho.Features.Global.Course.Service;
+using ThePatho.Features.Global.Currency.Service;
+using ThePatho.Features.Global.DiseaseCategory.Service;
+using ThePatho.Features.Global.EduLevel.Service;
+using ThePatho.Features.Global.EduMajor.Service;
+using ThePatho.Features.Global.FamilyRelation.Service;
+using ThePatho.Features.Global.GraduationType.Service;
+using ThePatho.Features.Global.Identity.Service;
+using ThePatho.Features.Global.Insurance.Service;
+using ThePatho.Features.Global.InventoryCondition.Service;
+using ThePatho.Features.Global.InventoryGroup.Service;
+using ThePatho.Features.Global.InventoryGroupDetail.Service;
+using ThePatho.Features.Global.InventoryGroupOrg.Service;
+using ThePatho.Features.Global.InventoryType.Service;
+using ThePatho.Features.Global.LetterCategory.Service;
+using ThePatho.Features.Global.LetterTemplate.Service;
+using ThePatho.Features.Global.MaritalStatus.Service;
+using ThePatho.Features.Global.MedicalGroup.Service;
+using ThePatho.Features.Global.Nationality.Service;
+using ThePatho.Features.Global.NumericalSize.Service;
+using ThePatho.Features.Global.Province.Service;
+using ThePatho.Features.Global.PunishmentType.Service;
+using ThePatho.Features.Global.Religion.Service;
+using ThePatho.Features.Global.ResignReason.Service;
+using ThePatho.Features.Global.RewardType.Service;
+using ThePatho.Features.Global.RomanianSize.Service;
+using ThePatho.Features.Global.Room.Service;
+using ThePatho.Features.Global.ShoeSize.Service;
+using ThePatho.Features.Global.Skill.Service;
+using ThePatho.Features.Global.SkillProficiency.Service;
+using ThePatho.Features.Global.TaxStatus.Service;
+using ThePatho.Features.Global.TemplateKeyword.Service;
 using ThePatho.Features.Identity.Authentication.Service;
 using ThePatho.Features.Identity.UserManagement.Service;
-using ThePatho.Features.MasterData.AdsCategory.Service;
-using ThePatho.Features.MasterData.AdsMedia.Service;
-using ThePatho.Features.MasterData.JobCategory.Service;
-using ThePatho.Features.MasterSetting.OnlineTestSetting.Service;
-using ThePatho.Features.MasterSetting.QuestionSetting.Service;
-using ThePatho.Features.MasterSetting.QuestionSettingDetail.Service;
-using ThePatho.Features.MasterSetting.ScoringSetting.Service;
-using ThePatho.Features.MasterSetting.ScoringSettingDetail.Service;
+using ThePatho.Features.Organization.CompanyBank.Service;
+using ThePatho.Features.Organization.CompanyProfile.Service;
+using ThePatho.Features.Organization.EmploymentType.Service;
+using ThePatho.Features.Organization.Grade.Service;
+using ThePatho.Features.Organization.HistOrgStructure.Service;
+using ThePatho.Features.Organization.Jabatan.Service;
+using ThePatho.Features.Organization.JobClass.Service;
 using ThePatho.Features.Organization.JobLevel.Service;
+using ThePatho.Features.Organization.JobLevelJobClass.Service;
+using ThePatho.Features.Organization.MutationType.Service;
 using ThePatho.Features.Organization.OrgLevel.Service;
 using ThePatho.Features.Organization.OrgStructure.Service;
+using ThePatho.Features.Organization.PensionType.Service;
 using ThePatho.Features.Organization.Position.Service;
-using ThePatho.Features.Recruitment.MPP.Service;
-using ThePatho.Features.Recruitment.RecruitmentReqStep.Service;
-using ThePatho.Features.Recruitment.RecruitmentRequest.Service;
-using ThePatho.Features.Recruitment.RecruitStep.Service;
-using ThePatho.Features.Recruitment.RecruitStepGroup.Service;
-using ThePatho.Features.Recruitment.RecruitStepGroupDetail.Service;
-using ThePatho.Features.Recruitment.RequirementMaster.Service;
-using ThePatho.Features.Recruitment.RequirementRecRequest.Service;
+using ThePatho.Features.Organization.Rank.Service;
+using ThePatho.Features.Organization.ResignType.Service;
+using ThePatho.Features.Organization.TerminationType.Service;
+using ThePatho.Features.Organization.WorkLocation.Service;
+using ThePatho.Features.Organization.WorkLocationGroup.Service;
+using ThePatho.Features.PersonalInformation.Employee.Service;
+using ThePatho.Features.PersonalInformation.EmployeeAddress.Service;
+using ThePatho.Features.PersonalInformation.EmployeeCapColor.Service;
+using ThePatho.Features.PersonalInformation.EmployeeCareerHistory.Service;
+using ThePatho.Features.PersonalInformation.EmployeeDocument.Service;
+using ThePatho.Features.PersonalInformation.EmployeeEducation.Service;
+using ThePatho.Features.PersonalInformation.EmployeeFamily.Service;
+using ThePatho.Features.PersonalInformation.EmployeeIdentity.Service;
+using ThePatho.Features.PersonalInformation.EmployeeInventory.Service;
+using ThePatho.Features.PersonalInformation.EmployeeMedical.Service;
+using ThePatho.Features.PersonalInformation.EmployeePickUp.Service;
+using ThePatho.Features.PersonalInformation.EmployeePunishment.Service;
+using ThePatho.Features.PersonalInformation.EmployeeReward.Service;
+using ThePatho.Features.PersonalInformation.EmployeeSkill.Service;
+using ThePatho.Features.PersonalInformation.EmployeeTraining.Service;
+using ThePatho.Features.PersonalInformation.EmployeeWorkingExperience.Service;
+using ThePatho.Features.PersonalInformation.SuperiorSubordinate.Service;
 using ThePatho.Provider.DateTimeProvider;
 using ThePatho.Provider.Jwt.Token;
 
@@ -50,52 +93,89 @@ public static class ServiceRegistrationExtensions
         services.AddScoped<IDateTimeService, DateTimeService>();
         #endregion
 
-        #region [Master Data]
-        services.AddScoped<IAdsCategoryService, AdsCategoryService>();
-        services.AddScoped<IAdsMediaService, AdsMediaService>();
-        services.AddScoped<IJobCategoryService, JobCategoryService>();
-        #endregion
-
-        #region [Master Setting]
-        services.AddScoped<IOnlineTestSettingService, OnlineTestSettingService>();
-        services.AddScoped<IQuestionSettingService, QuestionSettingService>();
-        services.AddScoped<IQuestionSettingDetailService, QuestionSettingDetailService>();
-        services.AddScoped<IScoringSettingService, ScoringSettingService>();
-        services.AddScoped<IScoringSettingDetailService, ScoringSettingDetailService>();
-        #endregion
-
         #region [Organization]
+        services.AddScoped<ICompanyBankService, CompanyBankService>();
+        services.AddScoped<ICompanyProfileService, CompanyProfileService>();
+        services.AddScoped<IEmploymentTypeService, EmploymentTypeService>();
+        services.AddScoped<IGradeService, GradeService>();
+        services.AddScoped<IHistOrgStructureService, HistOrgStructureService>();
+        services.AddScoped<IJabatanService, JabatanService>();
+        services.AddScoped<IJobClassService, JobClassService>();
         services.AddScoped<IJobLevelService, JobLevelService>();
+        services.AddScoped<IJobLevelJobClassService, JobLevelJobClassService>();
+        services.AddScoped<IMutationTypeService, MutationTypeService>();
         services.AddScoped<IOrgLevelService, OrgLevelService>();
         services.AddScoped<IOrgStructureService, OrgStructureService>();
+        services.AddScoped<IPensionTypeService, PensionTypeService>();
         services.AddScoped<IPositionService, PositionService>();
+        services.AddScoped<IRankService, RankService>();
+        services.AddScoped<IResignTypeService, ResignTypeService>();
+        services.AddScoped<ITerminationTypeService, TerminationTypeService>();
+        services.AddScoped<IWorkLocationService, WorkLocationService>();
+        services.AddScoped<IWorkLocationGroupService, WorkLocationGroupService>();
         #endregion
 
-        #region [Recruitment]
-        services.AddScoped<IMPPService, MPPService>();
-        services.AddScoped<IRequirementMasterService, RequirementMasterService>();
-        services.AddScoped<IRecruitStepService, RecruitStepService>();
-        services.AddScoped<IRecruitStepGroupService, RecruitStepGroupService>();
-        services.AddScoped<IRecruitStepGroupDetailService, RecruitStepGroupDetailService>();
-        services.AddScoped<IRecruitmentReqStepService, RecruitmentReqStepService>();
-        services.AddScoped<IRecruitmentRequestService, RecruitmentRequestService>();
-        services.AddScoped<IRequirementRecRequestService, RequirementRecRequestService>();
+        #region [Global]
+        services.AddScoped<IAnnouncementService, AnnouncementService>();
+        services.AddScoped<IBankService, BankService>();
+        services.AddScoped<IBloodTypeService, BloodTypeService>();
+        services.AddScoped<IBranchBankService, BranchBankService>();
+        services.AddScoped<IBuildingService, BuildingService>();
+        services.AddScoped<ICityService, CityService>();
+        services.AddScoped<IClothSizeService, ClothSizeService>();
+        services.AddScoped<ICountryService, CountryService>();
+        services.AddScoped<ICurrencyService, CurrencyService>();
+        services.AddScoped<IGraduationTypeService, GraduationTypeService>();
+        services.AddScoped<IInsuranceService, InsuranceService>();
+        services.AddScoped<IInventoryConditionService, InventoryConditionService>();
+        services.AddScoped<IInventoryTypeService, InventoryTypeService>();
+        services.AddScoped<ILetterCategoryService, LetterCategoryService>();
+        services.AddScoped<ILetterTemplateService, LetterTemplateService>();
+        services.AddScoped<IMaritalStatusService, MaritalStatusService>();
+        services.AddScoped<IMedicalGroupService, MedicalGroupService>();
+        services.AddScoped<INationalityService, NationalityService>();
+        services.AddScoped<INumericalSizeService, NumericalSizeService>();
+        services.AddScoped<IProvinceService, ProvinceService>();
+        services.AddScoped<IPunishmentTypeService, PunishmentTypeService>();
+        services.AddScoped<IReligionService, ReligionService>();
+        services.AddScoped<IResignReasonService, ResignReasonService>();
+        services.AddScoped<IRewardTypeService, RewardTypeService>();
+        services.AddScoped<IRomanianSizeService, RomanianSizeService>();
+        services.AddScoped<IRoomService, RoomService>();
+        services.AddScoped<IShoeSizeService, ShoeSizeService>();
+        services.AddScoped<ISkillService, SkillService>();
+        services.AddScoped<ISkillProficiencyService, SkillProficiencyService>();
+        services.AddScoped<ITemplateKeywordService, TemplateKeywordService>();
+        services.AddScoped<ITaxStatusService, TaxStatusService>();
         #endregion
 
-        #region [Applicant]
-        services.AddScoped<IApplicantService, ApplicantService>();
-        services.AddScoped<IApplicantAddressService, ApplicantAddressService>();
-        services.AddScoped<IApplicantDocumentService, ApplicantDocumentService>();
-        services.AddScoped<IApplicantEducationService, ApplicantEducationService>();
-        services.AddScoped<IApplicantIdentityService, ApplicantIdentityService>();
-        services.AddScoped<IApplicantOnlineTestAnswerService, ApplicantOnlineTestAnswerService>();
-        services.AddScoped<IApplicantOnlineTestResultService, ApplicantOnlineTestResultService>();
-        services.AddScoped<IApplicantPersonalDataService, ApplicantPersonalDataService>();
-        services.AddScoped<IApplicantRecruitStepService, ApplicantRecruitStepService>();
-        services.AddScoped<IApplicantSkillService, ApplicantSkillService>();
-        services.AddScoped<IApplicantWorkExperienceService, ApplicantWorkExperienceService>();
-        services.AddScoped<IApplicationApplicantService, ApplicationApplicantService>();
-        services.AddScoped<IReasonStepFailedService, ReasonStepFailedService>();
+        #region [Personal Information]
+        services.AddScoped<ICourseService, CourseService>();
+        services.AddScoped<IDiseaseCategoryService, DiseaseCategoryService>();
+        services.AddScoped<IEduLevelService, EduLevelService>();
+        services.AddScoped<IEduMajorService, EduMajorService>();
+        services.AddScoped<IEmployeeService, EmployeeService>();
+        services.AddScoped<IEmployeeAddressService, EmployeeAddressService>();
+        services.AddScoped<IEmployeeCapColorService, EmployeeCapColorService>();
+        services.AddScoped<IEmployeeCareerHistoryService, EmployeeCareerHistoryService>();
+        services.AddScoped<IEmployeeDocumentService, EmployeeDocumentService>();
+        services.AddScoped<IEmployeeEducationService, EmployeeEducationService>();
+        services.AddScoped<IEmployeeFamilyService, EmployeeFamilyService>();
+        services.AddScoped<IEmployeeIdentityService, EmployeeIdentityService>();
+        services.AddScoped<IEmployeeInventoryService, EmployeeInventoryService>();
+        services.AddScoped<IEmployeeMedicalService, EmployeeMedicalService>();
+        services.AddScoped<IEmployeePickUpService, EmployeePickUpService>();
+        services.AddScoped<IEmployeePunishmentService, EmployeePunishmentService>();
+        services.AddScoped<IEmployeeRewardService, EmployeeRewardService>();
+        services.AddScoped<IEmployeeSkillService, EmployeeSkillService>();
+        services.AddScoped<ISuperiorSubordinateService, SuperiorSubordinateService>();
+        services.AddScoped<IEmployeeTrainingService, EmployeeTrainingService>();
+        services.AddScoped<IEmployeeWorkingExperienceService, EmployeeWorkingExperienceService>();
+        services.AddScoped<IFamilyRelationService, FamilyRelationService>();
+        services.AddScoped<IIdentityService, IdentityService>();
+        services.AddScoped<IInventoryGroupService, InventoryGroupService>();
+        services.AddScoped<IInventoryGroupDetailService, InventoryGroupDetailService>();
+        services.AddScoped<IInventoryGroupOrgService, InventoryGroupOrgService>();
         #endregion
 
     }

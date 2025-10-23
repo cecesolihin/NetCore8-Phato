@@ -3,10 +3,10 @@ namespace ThePatho.Features.Organization.Position.DTO
 {
     public class PositionDto
     {
-        public string PositionCode { get; set; }
-        public string PositionName { get; set; }
-        public string JobLevelCode { get; set; }
-        public int OrgStructureId { get; set; }
+        public string PositionCode { get; set; } = null!;
+        public string PositionName { get; set; } = null!;
+        public string JobLevelCode { get; set; } = null!;
+        public int OrgStructureID { get; set; }
         public bool ActAsHead { get; set; }
         public string? Objective { get; set; }
         public string? JobDescription { get; set; }
@@ -15,6 +15,12 @@ namespace ThePatho.Features.Organization.Position.DTO
         public DateTime? InsertedDate { get; set; }
         public string? ModifiedBy { get; set; }
         public DateTime? ModifiedDate { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
+        public string? DocumentNo { get; set; }
+        public bool Status { get; set; }
+        public string? ParentPositionCode { get; set; }
+        public string? PositionPath { get; set; }
     }
     public class PositionItemDto
     {

@@ -15,6 +15,6 @@ namespace ThePatho.Features.Organization.OrgLevel.DTO
     public class OrgLevelItemDto
     {
         public int DataOfRecords { get; set; }
-        public List<OrgLevelDto> OrganizationLevelList { get; set; } = new();
+        public List<OrgLevelDto> OrgLevelList { get; set; } = new();
     }
 }

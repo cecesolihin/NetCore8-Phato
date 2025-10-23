@@ -23,11 +23,11 @@ namespace ThePatho.Features.Identity.Authentication.Service
 
             var claims = new[]
             {
-            new Claim(JwtRegisteredClaimNames.Sub, user.UserId),
+            new Claim(JwtRegisteredClaimNames.Sub, user.Id),
             new Claim(JwtRegisteredClaimNames.Email, user.Email),
-            new Claim(ClaimTypes.Name, user.Username),
-            new Claim("fullName", user.FullName ?? ""),
-            new Claim("isActive", user.IsActive.ToString()),
+            new Claim(ClaimTypes.Name, user.UserName),
+            new Claim("fullName", string.Format($"{user.FirstName} {user.LastName}")),
+            new Claim("activated", user.Activated.ToString()),
         };
 
             var token = new JwtSecurityToken(

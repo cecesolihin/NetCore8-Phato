@@ -6,57 +6,51 @@ using ThePatho.Domain.Constants;
 using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Organization.OrgLevel.Commands;
 using ThePatho.Features.Organization.OrgLevel.DTO;
-using ThePatho.Features.Organization.OrgStructure.DTO;
 using ThePatho.Infrastructure.Persistance;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ThePatho.Features.Organization.OrgLevel.Service
 {
     public class OrgLevelService : IOrgLevelService
     {
-        private readonly DapperContext dapperContext; 
+        #region [FIELDS & CTOR]
+        private readonly DapperContext dapperContext;
 
         public OrgLevelService(DapperContext _dapperContext)
         {
             dapperContext = _dapperContext;
         }
+        #endregion
 
-        public async Task<ApiResponse<OrgLevelItemDto>> GetOrganizationLevel(GetOrgLevelCommand request)
+        #region [METHODS]
+        public async Task<ApiResponse<OrgLevelItemDto>> GetOrgLevel(GetOrgLevelCommand request)
         {
             try
             {
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
-                var query = new Query(TableName.OrganizationLevel)
-                   .Select(
-                        "org_level_code AS OrganizationLevelCode",
-                        "org_level_name AS OrganizationLevelName",
-                        "sort AS Jort",
-                        "is_deleted AS IsDeleted",
-                        "inserted_by AS InsertedBy",
-                        "inserted_date AS InsertedDate",
-                        "modified_by AS ModifiedBy",
-                        "modified_date AS ModifiedDate"
+                var query = new Query(TableOrganization.OrgLevel)
+                    .Select("*")
+                    .When(
+                        !string.IsNullOrWhiteSpace(request.OrgLevelCode),
+                        q => q.WhereContains("OrgLevelCode", request.OrgLevelCode)
                     )
                     .When(
-                        !string.IsNullOrWhiteSpace(request.FilterOrgLevelCode),
-                        q => q.WhereIn("org_level_code", request.FilterOrgLevelCode)
-                    ).When(
-                        !string.IsNullOrWhiteSpace(request.FilterOrgLevelName),
-                            q => q.WhereContains("org_level_name", request.FilterOrgLevelName)
+                        !string.IsNullOrWhiteSpace(request.OrgLevelName),
+                        q => q.WhereContains("OrgLevelName", request.OrgLevelName)
                     );
 
                 query = query.OrderByRaw(
-                    $"{(!string.IsNullOrWhiteSpace(request.SortBy) ? request.SortBy : "inserted_by")} {(!string.IsNullOrWhiteSpace(request.OrderBy) && (request.OrderBy.ToUpper() == "ASC" || request.OrderBy.ToUpper() == "DESC") ? request.OrderBy.ToUpper() : "DESC")}"
+                    $"{(!string.IsNullOrWhiteSpace(request.SortBy) ? request.SortBy : "InsertedBy")} {(!string.IsNullOrWhiteSpace(request.OrderBy) && (request.OrderBy.ToUpper() == "ASC" || request.OrderBy.ToUpper() == "DESC") ? request.OrderBy.ToUpper() : "DESC")}"
                 );
 
                 query = query.Skip(request.PageNumber * request.PageSize).Take(request.PageSize);
 
                 var data = await db.GetAsync<OrgLevelDto>(query);
+
                 var result = new OrgLevelItemDto
                 {
                     DataOfRecords = data.ToList().Count,
-                    OrganizationLevelList = data.ToList(),
+                    OrgLevelList = data.ToList(),
                 };
                 return new ApiResponse<OrgLevelItemDto>(HttpStatusCode.OK, result);
             }
@@ -70,107 +64,124 @@ namespace ThePatho.Features.Organization.OrgLevel.Service
             }
         }
 
-        public async Task<ApiResponse<OrgLevelDto>> GetOrganizationLevelByCriteria(GetOrgLevelByCriteriaCommand request)
+        public async Task<ApiResponse<OrgLevelItemDto>> GetOrgLevelByCriteria(GetOrgLevelByCriteriaCommand request)
         {
             try
             {
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
-                var query = new Query(TableName.OrganizationLevel)
-                    .Select(
-                            "org_level_code AS OrganizationLevelCode",
-                            "org_level_name AS OrganizationLevelName",
-                            "sort AS Jort",
-                            "is_deleted AS IsDeleted",
-                            "inserted_by AS InsertedBy",
-                            "inserted_date AS InsertedDate",
-                            "modified_by AS ModifiedBy",
-                            "modified_date AS ModifiedDate"
-                        )
+                var query = new Query(TableOrganization.OrgLevel)
+                    .Select("*")
                     .When(
                         !string.IsNullOrWhiteSpace(request.OrgLevelCode),
-                        q => q.WhereIn("org_level_code", request.OrgLevelCode)
+                        q => q.WhereContains("OrgLevelCode", request.OrgLevelCode)
+                    )
+                    .When(
+                        !string.IsNullOrWhiteSpace(request.OrgLevelName),
+                        q => q.WhereContains("OrgLevelName", request.OrgLevelName)
                     );
 
-                var data = await db.FirstOrDefaultAsync<OrgLevelDto>(query);
-                return new ApiResponse<OrgLevelDto>(HttpStatusCode.OK, data);
+                var data = await db.GetAsync<OrgLevelDto>(query);
+
+                var result = new OrgLevelItemDto
+                {
+                    DataOfRecords = data.ToList().Count,
+                    OrgLevelList = data.ToList(),
+                };
+                return new ApiResponse<OrgLevelItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
-                return new ApiResponse<OrgLevelDto>(
-                                        HttpStatusCode.BadRequest,
-                                        "An error occurred while retrieving data.",
-                                        ex.Message
-                                    );
+                return new ApiResponse<OrgLevelItemDto>(
+                         HttpStatusCode.BadRequest,
+                         "An error occurred while retrieving data.",
+                         ex.Message
+                     );
             }
         }
-        public async Task<ApiResponse> SubmitOrganizationLevel(SubmitOrgLevelCommand request)
+        public async Task<ApiResponse> SubmitOrgLevel(SubmitOrgLevelCommand request)
         {
             try
             {
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
 
+                var ArgumentException = new List<string>();
+                // Validasi field NOT NULL berdasarkan struktur tabel
                 if (string.IsNullOrWhiteSpace(request.OrgLevelCode))
+                    ArgumentException.Add("OrgLevel Code is required.");
+
+                if (string.IsNullOrWhiteSpace(request.OrgLevelName))
+                    ArgumentException.Add("OrgLevel Name is required.");
+
+
+                if (ArgumentException.Any())
                 {
-                    throw new ArgumentException("Org level code is required.");
+                    return new ApiResponse(HttpStatusCode.BadRequest, $"Failed to {request.Action} {request.OrgLevelCode}", string.Join(", ", ArgumentException.ToArray()));
                 }
-
-
-                var existsQuery = new Query(TableName.OrganizationLevel)
-                .Where("org_level_code", request.OrgLevelCode)
-                .SelectRaw("COUNT(1)");
+                // Cek apakah OrgLevelCode sudah exists
+                var existsQuery = new Query(TableOrganization.OrgLevel)
+                    .Where("OrgLevelCode", request.OrgLevelCode)
+                    .SelectRaw("COUNT(1)");
 
                 var exists = await db.ExecuteScalarAsync<int>(existsQuery);
 
                 if (exists == 0)
                 {
-                    var insertQuery = new Query(TableName.OrganizationLevel).AsInsert(new
+                    // Insert
+                    var insertQuery = new Query(TableOrganization.OrgLevel).AsInsert(new
                     {
-                        org_level_code = request.OrgLevelCode,
-                        org_level_name = request.OrgLevelName,
-                        sort = request.Sort,
-                        is_deleted = false,
-                        inserted_by = "system",
-                        inserted_date = DateTime.UtcNow
+                        OrgLevelCode = request.OrgLevelCode,
+                        OrgLevelName = request.OrgLevelName,
+                        Sort = request.Sort,
+                        IsDeleted = false,
+                        InsertedBy = "system",
+                        InsertedDate = DateTime.UtcNow
                     });
 
-                    var result = await db.ExecuteAsync(insertQuery);
+                    var insertResult = await db.ExecuteAsync(insertQuery);
                 }
                 else
                 {
-                    var updateQuery = new Query(TableName.OrganizationLevel)
-                        .Where("org_level_code", request.OrgLevelCode)
+                    // Update
+                    var updateQuery = new Query(TableOrganization.OrgLevel)
+                        .Where("OrgLevelCode", request.OrgLevelCode)
                         .AsUpdate(new
                         {
-                            org_level_name = request.OrgLevelName,
-                            sort = request.Sort,
-                            modified_by = "system",
-                            modified_date = DateTime.UtcNow
+                            OrgLevelName = request.OrgLevelName,
+                            Sort = request.Sort,
+                            IsDeleted = false,
+                            ModifiedBy = "system",
+                            ModifiedDate = DateTime.UtcNow
                         });
 
-                    var result = await db.ExecuteAsync(updateQuery);
+                    var updateResult = await db.ExecuteAsync(updateQuery);
                 }
                 return new ApiResponse(HttpStatusCode.OK, $"{request.Action} {request.OrgLevelCode} successfully");
             }
             catch (Exception ex)
             {
-                return new ApiResponse(HttpStatusCode.BadRequest, $"Failed to {request.Action} {request.OrgLevelCode}", ex.Message.ToString());
+                return new ApiResponse(HttpStatusCode.BadRequest, $"Failed to {request.Action} {request.OrgLevelCode}", ex.Message);
             }
         }
-        public async Task<ApiResponse> DeleteOrganizationLevel(DeleteOrgLevelCommand request)
+        public async Task<ApiResponse> DeleteOrgLevel(DeleteOrgLevelCommand request)
         {
             try
             {
                 if (string.IsNullOrWhiteSpace(request.OrgLevelCode))
-                    throw new ArgumentException("Org Level is required.");
+                {
+                    return new ApiResponse<OrgLevelDto>(
+                         HttpStatusCode.BadRequest,
+                         "OrgLevel is required"
+                     );
+                }
 
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
 
-                var deleteQuery = new Query(TableName.OrganizationLevel)
-                            .Where("org_level_code", request.OrgLevelCode)
-                            .AsDelete();
+                var deleteQuery = new Query(TableOrganization.OrgLevel)
+                                .Where("OrgLevelCode", request.OrgLevelCode)
+                                .AsDelete();
 
                 var deleteResult = await db.ExecuteAsync(deleteQuery);
                 return new ApiResponse(HttpStatusCode.OK, $"Delete {request.OrgLevelCode} successfully");
@@ -179,7 +190,39 @@ namespace ThePatho.Features.Organization.OrgLevel.Service
             {
                 return new ApiResponse(HttpStatusCode.BadRequest, $"Failed to delete {request.OrgLevelCode}", ex.Message.ToString());
             }
+
         }
 
+        public async Task<ApiResponse<OrgLevelDto>> GetSingleOrgLevel(GetSingleOrgLevelCommand request)
+        {
+            try
+            {
+                using var connection = dapperContext.CreateConnection();
+                var db = new QueryFactory(connection, dapperContext.Compiler);
+                var query = new Query(TableOrganization.OrgLevel)
+                    .Select("*")
+                    .Where("OrgLevelCode", request.OrgLevelCode);
+
+                var data = await db.FirstOrDefaultAsync<OrgLevelDto>(query);
+
+                if (data == null)
+                {
+                    return new ApiResponse<OrgLevelDto>(
+                         HttpStatusCode.NotFound,
+                         "data not found"
+                     );
+                }
+                return new ApiResponse<OrgLevelDto>(HttpStatusCode.OK, data);
+            }
+            catch (Exception ex)
+            {
+                return new ApiResponse<OrgLevelDto>(
+                         HttpStatusCode.BadRequest,
+                         "An error occurred while retrieving data.",
+                         ex.Message
+                     );
+            }
+        }
+        #endregion
     }
 }

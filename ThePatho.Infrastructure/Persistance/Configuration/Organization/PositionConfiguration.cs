@@ -14,22 +14,27 @@ namespace ThePatho.Infrastructure.Persistance.Configuration.Organization
     {
         public void Configure(EntityTypeBuilder<Position> builder)
         {
-            builder.ToTable(TableName.Position);
+            builder.ToTable(TableOrganization.Position);
 
             builder.HasKey(e => e.PositionCode);
-
-            builder.Property(e => e.PositionCode).HasColumnName("position_code").HasMaxLength(255).IsRequired();
-            builder.Property(e => e.PositionName).HasColumnName("position_name").HasMaxLength(255).IsRequired();
-            builder.Property(e => e.JobLevelCode).HasColumnName("job_level_code").HasMaxLength(50).IsRequired();
-            builder.Property(e => e.OrgStructureId).HasColumnName("org_structure_id").IsRequired();
-            builder.Property(e => e.ActAsHead).HasColumnName("act_as_head").IsRequired();
-            builder.Property(e => e.Objective).HasColumnName("objective");
-            builder.Property(e => e.JobDescription).HasColumnName("job_description");
-            builder.Property(e => e.IsDeleted).HasColumnName("is_deleted").IsRequired();
-            builder.Property(e => e.InsertedBy).HasColumnName("inserted_by").HasMaxLength(255);
-            builder.Property(e => e.InsertedDate).HasColumnName("inserted_date");
-            builder.Property(e => e.ModifiedBy).HasColumnName("modified_by").HasMaxLength(255);
-            builder.Property(e => e.ModifiedDate).HasColumnName("modified_date");
+            builder.Property(e => e.PositionCode).HasMaxLength(255).IsRequired();
+            builder.Property(e => e.PositionName).HasMaxLength(255).IsRequired();
+            builder.Property(e => e.JobLevelCode).HasMaxLength(50).IsRequired();
+            builder.Property(e => e.OrgStructureID).IsRequired();
+            builder.Property(e => e.ActAsHead).IsRequired();
+            builder.Property(e => e.Objective);
+            builder.Property(e => e.JobDescription);
+            builder.Property(e => e.IsDeleted).IsRequired();
+            builder.Property(e => e.InsertedBy).HasMaxLength(255);
+            builder.Property(e => e.InsertedDate);
+            builder.Property(e => e.ModifiedBy).HasMaxLength(255);
+            builder.Property(e => e.ModifiedDate);
+            builder.Property(e => e.StartDate);
+            builder.Property(e => e.EndDate);
+            builder.Property(e => e.DocumentNo);
+            builder.Property(e => e.Status).IsRequired();
+            builder.Property(e => e.ParentPositionCode).HasMaxLength(255);
+            builder.Property(e => e.PositionPath);
         }
     }
 

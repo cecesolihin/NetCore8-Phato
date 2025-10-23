@@ -46,70 +46,15 @@ namespace ThePatho.Features.Identity.Authentication.Service
             configuration = _configuration;
         }
 
-
-        //public async Task<string> RegisterAsync(RegisterCommand request)
-        //{
-        //    var user = new User
-        //    {
-        //        Username = request.Username,
-        //        Email = request.Email,
-        //        EmailConfirmed = false,
-        //        PhoneNumber = request.PhoneNumber,
-        //        PasswordHash = request.Password,
-        //    };
-
-        //    var result = await _userManager.CreateAsync(user, request.Password);
-        //    if (!result.Succeeded)
-        //    {
-        //        throw new Exception(string.Join(", ", result.Errors.Select(e => e.Description)));
-        //    }
-
-        //    var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-        //    return token; // Send this via email
-        //}
-
-        //public async Task<string> LoginAsync(LoginCommand request)
-        //{
-        //    var user = await _userManager.FindByNameAsync(request.Username) ??
-        //               await _userManager.FindByEmailAsync(request.Username);
-
-        //    if (user == null || !await _userManager.CheckPasswordAsync(user, request.Password))
-        //    {
-        //        throw new UnauthorizedAccessException("Invalid credentials");
-        //    }
-
-        //    if (!user.EmailConfirmed)
-        //    {
-        //        throw new UnauthorizedAccessException("Email not confirmed");
-        //    }
-
-        //    var token = _jwtTokenGenerator.GenerateToken(user);
-        //    return token;
-        //}
         public async Task<ApiResponse<JwtResult>> LoginAsync(LoginCommand request, CancellationToken cancellationToken)
         {
             using var connection = dapperContext.CreateConnection();
             var db = new QueryFactory(connection, dapperContext.Compiler);
-            var query = new Query(TableName.Users)
-                .Select(
-                    "user_id as UserId",
-                    "username as Username",
-                    "full_name as FullName",
-                    "email as Email",
-                    "email_confirmed as EmailConfirmed",
-                    "password_hash as PasswordHash",
-                    "phone_number as PhoneNumber",
-                    "phone_number_confirmed as PhoneNumberConfirmed",
-                    "is_active as IsActive",
-                    "is_locked as IsLocked",
-                    "inserted_by as InsertedBy",
-                    "inserted_date as InsertedDate",
-                    "modified_by as ModifiedBy",
-                    "modified_date as ModifiedDate"
-                )
+            var query = new Query(TableIdentity.Users)
+                .Select( "*")
                 .When(
                     !string.IsNullOrWhiteSpace(request.Username),
-                    q => q.WhereIn("username", request.Username)
+                    q => q.WhereIn("UserName", request.Username)
                 );
             var user = await db.FirstOrDefaultAsync<User>(query);
 
@@ -121,7 +66,7 @@ namespace ThePatho.Features.Identity.Authentication.Service
                 );
             }
 
-            if (!user.IsActive)
+            if (!user.Activated)
             {
                 return new ApiResponse<JwtResult>(
                     HttpStatusCode.Forbidden,
@@ -129,7 +74,7 @@ namespace ThePatho.Features.Identity.Authentication.Service
                 );
             }
 
-            if (user.IsLocked)
+            if (user.LockoutEnabled)
             {
                 return new ApiResponse<JwtResult>(
                     HttpStatusCode.Forbidden,
@@ -161,11 +106,11 @@ namespace ThePatho.Features.Identity.Authentication.Service
 
             var claims = new[]
             {
-                new Claim(JwtRegisteredClaimNames.Sub, user.UserId),
+                new Claim(JwtRegisteredClaimNames.Sub, user.Id),
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                new Claim(ClaimTypes.Name, user.Username),
-                new Claim("fullName", user.FullName ?? ""),
-                new Claim("isActive", user.IsActive.ToString()),
+                new Claim(ClaimTypes.Name, user.UserName),
+                new Claim("fullName", string.Format($"{user.FirstName} {user.LastName}")),
+                new Claim("activated", user.Activated.ToString()),
             };
             var userJwt = tokenGenerator.GenerateToken(claims);
 

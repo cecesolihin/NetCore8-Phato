@@ -8,8 +8,8 @@ namespace ThePatho.Domain.Models.Organization
 {
     public class OrgLevel
     {
-        public string OrgLevelCode { get; set; }
-        public string OrgLevelName { get; set; }
+        public string OrgLevelCode { get; set; } = null!;
+        public string OrgLevelName { get; set; } = null!;
         public byte Sort { get; set; }
         public bool IsDeleted { get; set; }
         public string? InsertedBy { get; set; }

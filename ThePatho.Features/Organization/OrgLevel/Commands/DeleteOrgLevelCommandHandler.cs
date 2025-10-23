@@ -15,7 +15,7 @@ namespace ThePatho.Features.Organization.OrgLevel.Commands
 
         public async Task<ApiResponse> Handle(DeleteOrgLevelCommand request, CancellationToken cancellationToken)
         {
-              return await orgLevelService.DeleteOrganizationLevel(request);
+              return await orgLevelService.DeleteOrgLevel(request);
               
         }
     }

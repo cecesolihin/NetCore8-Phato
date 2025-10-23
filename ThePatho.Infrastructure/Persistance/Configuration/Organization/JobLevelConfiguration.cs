@@ -9,20 +9,19 @@ namespace ThePatho.Infrastructure.Persistance.Configuration.Organization
     {
         public void Configure(EntityTypeBuilder<JobLevel> builder)
         {
-            builder.ToTable(TableName.JobLevel);
+            builder.ToTable(TableOrganization.JobLevel);
 
             builder.HasKey(e => e.JobLevelCode);
-
-            builder.Property(e => e.JobLevelCode).HasColumnName("job_level_code").HasMaxLength(50).IsRequired();
-            builder.Property(e => e.JobLevelName).HasColumnName("job_level_name").HasMaxLength(255).IsRequired();
-            builder.Property(e => e.Jort).HasColumnName("jort");
-            builder.Property(e => e.Remarks).HasColumnName("remarks").HasMaxLength(500);
-            builder.Property(e => e.IsDeleted).HasColumnName("is_deleted").IsRequired();
-            builder.Property(e => e.InsertedBy).HasColumnName("inserted_by").HasMaxLength(255);
-            builder.Property(e => e.InsertedDate).HasColumnName("inserted_date");
-            builder.Property(e => e.ModifiedBy).HasColumnName("modified_by").HasMaxLength(255);
-            builder.Property(e => e.ModifiedDate).HasColumnName("modified_date");
-            builder.Property(e => e.IsActive).HasColumnName("is_active");
+            builder.Property(e => e.JobLevelCode).HasMaxLength(50).IsRequired();
+            builder.Property(e => e.JobLevelName).HasMaxLength(255).IsRequired();
+            builder.Property(e => e.Sort);
+            builder.Property(e => e.Remarks).HasMaxLength(500);
+            builder.Property(e => e.IsDeleted).IsRequired();
+            builder.Property(e => e.InsertedBy).HasMaxLength(255);
+            builder.Property(e => e.InsertedDate);
+            builder.Property(e => e.ModifiedBy).HasMaxLength(255);
+            builder.Property(e => e.ModifiedDate);
+            builder.Property(e => e.IsActive);
         }
     }
 
