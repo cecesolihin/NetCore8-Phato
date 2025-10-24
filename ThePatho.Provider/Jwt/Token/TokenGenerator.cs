@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -31,15 +31,17 @@ namespace ThePatho.Provider.Jwt.Token
          );
         }
 
-        public string GenerateToken(IEnumerable<Claim>? claims = default)
+        public (string token, DateTime expiresAt) GenerateToken(IEnumerable<Claim>? claims = default)
         {
-            return GenerateToken(
+            var expiresAt = dateTimeService.ServerDateTimeNow.AddMinutes(jwtConfiguration.ExpiryMinutes);
+            var token = GenerateToken(
                 jwtConfiguration.Key,
                 jwtConfiguration.Issuer,
                 jwtConfiguration.Audience,
                 jwtConfiguration.ExpiryMinutes,
                 claims
             );
+            return (token, expiresAt);
         }
 
         public string GenerateRefreshToken()

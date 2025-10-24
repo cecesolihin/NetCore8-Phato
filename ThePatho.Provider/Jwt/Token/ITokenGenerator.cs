@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -9,7 +9,7 @@ namespace ThePatho.Provider.Jwt.Token
 {
     public interface ITokenGenerator
     {
-        string GenerateToken(IEnumerable<Claim>? claims = default);
+        (string token, DateTime expiresAt) GenerateToken(IEnumerable<Claim>? claims = default);
         string GenerateRefreshToken();
         bool ValidateRefreshToken(string? refreshToken);
     }

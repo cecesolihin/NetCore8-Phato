@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using ThePatho.Features.Identity.Authentication.Commands;
@@ -32,6 +32,14 @@ namespace ThePatho.Controllers.Identity
        
         [HttpPost(ApiRoutes.Methods.Login)]
         public async Task<IActionResult> Login([FromBody] LoginCommand command, CancellationToken cancellationToken)
+        {
+            var result = await mediator.Send(command, cancellationToken);
+
+            return ApiResult(result);
+        }
+        
+        [HttpPost(ApiRoutes.Methods.RefreshToken)]
+        public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenCommand command, CancellationToken cancellationToken)
         {
             var result = await mediator.Send(command, cancellationToken);
 

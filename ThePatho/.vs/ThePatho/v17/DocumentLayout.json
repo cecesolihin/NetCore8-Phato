@@ -3,7 +3,16 @@
   "WorkspaceRootPath": "D:\\COURSES\\ThePatho\\ThePatho\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\personalinformation\\superiorsubordinate\\service\\superiorsubordinateservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A433EA72-5C14-45EB-81E4-92B1A579C312}|..\\ThePatho.Domain\\ThePatho.Domain.csproj|d:\\courses\\thepatho\\thepatho.domain\\constants\\tableglobal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A433EA72-5C14-45EB-81E4-92B1A579C312}|..\\ThePatho.Domain\\ThePatho.Domain.csproj|d:\\courses\\thepatho\\thepatho.domain\\constants\\tableidentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{24E77D7F-F996-4577-9AB2-1709D85B129E}|..\\ThePatho.Infrastructure\\ThePatho.Infrastructure.csproj|d:\\courses\\thepatho\\thepatho.infrastructure\\persistance\\identity\\customuserstore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\identity\\authentication\\service\\authenticationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,14 +39,53 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "SuperiorSubordinateService.cs",
-              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\PersonalInformation\\SuperiorSubordinate\\Service\\SuperiorSubordinateService.cs",
-              "RelativeDocumentMoniker": "..\\ThePatho.Features\\PersonalInformation\\SuperiorSubordinate\\Service\\SuperiorSubordinateService.cs",
-              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\PersonalInformation\\SuperiorSubordinate\\Service\\SuperiorSubordinateService.cs",
-              "RelativeToolTip": "..\\ThePatho.Features\\PersonalInformation\\SuperiorSubordinate\\Service\\SuperiorSubordinateService.cs",
-              "ViewState": "AQIAAB4AAAAAAAAAAAAQwNQAAACHAAAA",
+              "Title": "TableGlobal.cs",
+              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Domain\\Constants\\TableGlobal.cs",
+              "RelativeDocumentMoniker": "..\\ThePatho.Domain\\Constants\\TableGlobal.cs",
+              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Domain\\Constants\\TableGlobal.cs",
+              "RelativeToolTip": "..\\ThePatho.Domain\\Constants\\TableGlobal.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-23T03:07:35.536Z",
+              "WhenOpened": "2025-10-24T10:24:03.301Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "TableIdentity.cs",
+              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Domain\\Constants\\TableIdentity.cs",
+              "RelativeDocumentMoniker": "..\\ThePatho.Domain\\Constants\\TableIdentity.cs",
+              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Domain\\Constants\\TableIdentity.cs",
+              "RelativeToolTip": "..\\ThePatho.Domain\\Constants\\TableIdentity.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-24T10:23:54.884Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AuthenticationService.cs",
+              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Identity\\Authentication\\Service\\AuthenticationService.cs",
+              "RelativeDocumentMoniker": "..\\ThePatho.Features\\Identity\\Authentication\\Service\\AuthenticationService.cs",
+              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Identity\\Authentication\\Service\\AuthenticationService.cs",
+              "RelativeToolTip": "..\\ThePatho.Features\\Identity\\Authentication\\Service\\AuthenticationService.cs",
+              "ViewState": "AQIAAHcAAAAAAAAAAAAgwN8AAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-24T09:58:44.695Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "CustomUserStore.cs",
+              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Infrastructure\\Persistance\\Identity\\CustomUserStore.cs",
+              "RelativeDocumentMoniker": "..\\ThePatho.Infrastructure\\Persistance\\Identity\\CustomUserStore.cs",
+              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Infrastructure\\Persistance\\Identity\\CustomUserStore.cs",
+              "RelativeToolTip": "..\\ThePatho.Infrastructure\\Persistance\\Identity\\CustomUserStore.cs",
+              "ViewState": "AQIAAFwBAAAAAAAAAAAUwA8AAAAcAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-24T09:52:56.126Z",
               "EditorCaption": ""
             }
           ]

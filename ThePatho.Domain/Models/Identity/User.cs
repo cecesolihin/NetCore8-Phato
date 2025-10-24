@@ -1,7 +1,9 @@
-﻿
+
+using Microsoft.AspNetCore.Identity;
+
 namespace ThePatho.Domain.Models.Identity
 {
-    public class User
+    public class User //: IdentityUser
     {
         public string Id { get; set; } = null!;
         public string? FirstName { get; set; }

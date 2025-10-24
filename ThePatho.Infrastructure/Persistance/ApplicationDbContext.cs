@@ -26,7 +26,8 @@ namespace ThePatho.Infrastructure.Persistance
         public DbSet<UserGroup> UserGroups { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<GroupRole> GroupRoles { get; set; }
-        public DbSet<Role> Roles { get; set; }
+        public DbSet<Roles> Roles { get; set; }
+        public DbSet<UserRoles> UserRoles { get; set; }
         #endregion
 
         #region [ORGANIZATION]
@@ -46,6 +47,7 @@ namespace ThePatho.Infrastructure.Persistance
             modelBuilder.ApplyConfiguration(new GroupConfiguration());
             modelBuilder.ApplyConfiguration(new GroupRoleConfiguration());
             modelBuilder.ApplyConfiguration(new RoleConfiguration());
+            modelBuilder.ApplyConfiguration(new UserRolesConfiguration());
             #endregion
 
             #region [ORGANIZATION]
@@ -70,7 +72,6 @@ namespace ThePatho.Infrastructure.Persistance
             modelBuilder.ApplyConfiguration(new WorkLocationsConfiguration());
             modelBuilder.ApplyConfiguration(new CostCenterConfiguration());
             #endregion
-
 
             #region [PERSONEL INFORMATION]
             modelBuilder.ApplyConfiguration(new CourseConfiguration());

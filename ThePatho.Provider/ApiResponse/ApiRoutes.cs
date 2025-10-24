@@ -1,4 +1,4 @@
-﻿
+
 namespace ThePatho.Provider.ApiResponse
 {
     public static class ApiRoutes
@@ -113,6 +113,7 @@ namespace ThePatho.Provider.ApiResponse
             #region [Authentication]
             public const string Login = "login";
             public const string Register = "register";
+            public const string RefreshToken = "refresh-token";
             public const string ForgetPassword = "forget-password";
             public const string ResetPassword = "reset-password";
             public const string AssignUserGroup = "assign-user-group";

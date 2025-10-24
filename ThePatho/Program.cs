@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Data;
+using ThePatho.Domain.Models.Identity;
 using ThePatho.Features.Global.BloodType.Commands;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.DateTimeProvider;
@@ -11,8 +13,6 @@ using ThePatho.Provider.Jwt;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-//builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme);
-//builder.Services.AddAuthorization();
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
     // Use camelCase and ignore nulls for cleaner payloads to Next.js
@@ -108,6 +108,24 @@ builder.Services.AddScoped<IDbConnection>(sp =>
 });
 builder.Services.AddSingleton<DapperContext>();
 builder.Services.AddApplicationServices();
+
+// Konfigurasi Identity dengan UserManager
+builder.Services.AddIdentityCore<User>(options =>
+{
+    options.Password.RequireDigit = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireUppercase = true;
+    options.Password.RequireNonAlphanumeric = true;
+    options.Password.RequiredLength = 8;
+    
+    options.User.RequireUniqueEmail = true;
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
+    options.Lockout.MaxFailedAccessAttempts = 5;
+})
+.AddDefaultTokenProviders();
+
+// Mendaftarkan CustomUserStore untuk User
+builder.Services.AddScoped<IUserStore<User>, ThePatho.Infrastructure.Persistance.Identity.CustomUserStore>();
 
 // CORS: allow Next.js origins from configuration
 const string CorsPolicyName = "NextJsOrigins";

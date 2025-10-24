@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ThePatho.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3a69b521c82cf83a7f8e0be8febe3b562294cf0f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dab260ea6c5b6b795e33adcce3f799ff815c0c8f")]
 [assembly: System.Reflection.AssemblyProductAttribute("ThePatho.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ThePatho.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

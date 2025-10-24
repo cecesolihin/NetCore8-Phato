@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ThePatho.Domain.Models.Identity
 {
-    public class Role
+    public class Roles
     {
         public string Id { get; set; } = null!;
         public string? Description { get; set; }

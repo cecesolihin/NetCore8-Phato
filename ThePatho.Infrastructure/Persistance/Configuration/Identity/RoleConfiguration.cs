@@ -5,9 +5,9 @@ using ThePatho.Domain.Constants;
 
 namespace ThePatho.Infrastructure.Persistance.Configuration.Identity
 {
-    public class RoleConfiguration : IEntityTypeConfiguration<Role>
+    public class RoleConfiguration : IEntityTypeConfiguration<Roles>
     {
-        public void Configure(EntityTypeBuilder<Role> builder)
+        public void Configure(EntityTypeBuilder<Roles> builder)
         {
             builder.ToTable(TableIdentity.Roles);
             builder.HasKey(r => r.Id);

@@ -23,7 +23,7 @@ namespace ThePatho.Controllers
         {
             return new ApiResult<TResponse>(response);
         }
-
+        //[Authorize(Roles = "Admin,HR")]
         [HttpPost(ApiRoutes.Methods.GetList)]
         public async Task<IActionResult> GetBloodTypeList([FromBody] GetBloodTypeCommand command,
             CancellationToken cancellationToken)

@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNet.Identity;
+using Microsoft.Extensions.DependencyInjection;
+using ThePatho.Domain.Models.Identity;
 using ThePatho.Features.Global.Announcement.Service;
 using ThePatho.Features.Global.Bank.Service;
 using ThePatho.Features.Global.BloodType.Service;
@@ -86,6 +88,7 @@ public static class ServiceRegistrationExtensions
     {
 
         #region [Identity]
+        //services.AddScoped<IUserStore<User>, ThePatho.Infrastructure.Persistance.Identity.CustomUserStore>();
         services.AddScoped<IUserManagementService, UserManagementService>();
         services.AddScoped<IAuthenticationService, AuthenticationService>();
         services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
