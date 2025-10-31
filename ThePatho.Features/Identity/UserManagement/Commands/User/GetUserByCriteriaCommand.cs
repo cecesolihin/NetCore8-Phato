@@ -5,11 +5,18 @@ using ThePatho.Features.Identity.UserManagement.DTO;
 
 namespace ThePatho.Features.Identity.UserManagement.Commands.User
 {
-    public class GetUserByCriteriaCommand : IRequest<ApiResponse<UserDto>>
+    public class GetUserByCriteriaCommand : IRequest<ApiResponse<UserItemDto>>
     {
-        [JsonPropertyName("filter_UserId")]
-        public string? FilterUserId { get; set; }
         [JsonPropertyName("filter_UserName")]
         public string? FilterUserName { get; set; }
+
+        [JsonPropertyName("filter_FullName")]
+        public string? FilterFullName { get; set; }
+
+        [JsonPropertyName("filter_Email")]
+        public string? FilterEmail { get; set; }
+
+        [JsonPropertyName("filter_Phone")]
+        public string? FilterPhone { get; set; }
     }
 }

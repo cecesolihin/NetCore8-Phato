@@ -31,9 +31,10 @@ namespace ThePatho.Provider.Jwt.Token
          );
         }
 
-        public (string token, DateTime expiresAt) GenerateToken(IEnumerable<Claim>? claims = default)
+        public (string token, string expiresAt) GenerateToken(IEnumerable<Claim>? claims = default)
         {
             var expiresAt = dateTimeService.ServerDateTimeNow.AddMinutes(jwtConfiguration.ExpiryMinutes);
+
             var token = GenerateToken(
                 jwtConfiguration.Key,
                 jwtConfiguration.Issuer,
@@ -41,7 +42,7 @@ namespace ThePatho.Provider.Jwt.Token
                 jwtConfiguration.ExpiryMinutes,
                 claims
             );
-            return (token, expiresAt);
+            return (token, expiresAt.ToString("dd MMM yyyy HH:mm"));
         }
 
         public string GenerateRefreshToken()

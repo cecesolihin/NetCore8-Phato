@@ -45,6 +45,7 @@ using ThePatho.Features.Identity.Authentication.Service;
 using ThePatho.Features.Identity.UserManagement.Service;
 using ThePatho.Features.Organization.CompanyBank.Service;
 using ThePatho.Features.Organization.CompanyProfile.Service;
+using ThePatho.Features.Organization.CostCenter.Service;
 using ThePatho.Features.Organization.EmploymentType.Service;
 using ThePatho.Features.Organization.Grade.Service;
 using ThePatho.Features.Organization.HistOrgStructure.Service;
@@ -100,6 +101,7 @@ public static class ServiceRegistrationExtensions
         services.AddScoped<ICompanyBankService, CompanyBankService>();
         services.AddScoped<ICompanyProfileService, CompanyProfileService>();
         services.AddScoped<IEmploymentTypeService, EmploymentTypeService>();
+        services.AddScoped<ICostCenterService, CostCenterService>();
         services.AddScoped<IGradeService, GradeService>();
         services.AddScoped<IHistOrgStructureService, HistOrgStructureService>();
         services.AddScoped<IJabatanService, JabatanService>();

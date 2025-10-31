@@ -19,6 +19,7 @@ namespace ThePatho.Provider.ApiResponse
             public const string CompanyBank = BaseApiPathOrganization + "company-bank";
             public const string CompanyProfile = BaseApiPathOrganization + "company-profile";
             public const string EmploymentType = BaseApiPathOrganization + "employment-type";
+            public const string CostCenter = BaseApiPathOrganization + "cost-center";
             public const string Grade = BaseApiPathOrganization + "grade";
             public const string HistOrgStructure = BaseApiPathOrganization + "hist-org-structure";
             public const string Jabatan = BaseApiPathOrganization + "jabatan";
@@ -122,13 +123,16 @@ namespace ThePatho.Provider.ApiResponse
 
             #region [UserManagement]
             public const string GetUserList = "get-user-list";
+            public const string GetSingleUser = "get-single-user";
             public const string GetUserByCriteria = "get-user-by-criteria";
 
             public const string GetRoleList = "get-role-list";
             public const string GetRoleByCriteria = "get-role-by-criteria";
+            public const string GetSingleRole = "get-single-rol";
 
             public const string GetGroupList = "get-group-list";
             public const string GetGroupByCriteria = "get-group-by-criteria";
+            public const string GetSingleGroup = "get-single-group";
 
             public const string GetGroupRoleList = "get-group-role-list";
             public const string GetGroupRoleByCriteria = "get-group-role-by-criteria";

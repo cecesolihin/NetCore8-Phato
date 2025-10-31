@@ -12,17 +12,20 @@ namespace ThePatho.Features.Identity.UserManagement.Service
     {
         #region [User]
         Task<ApiResponse<UserItemDto>> GetUserList(GetUserCommand request);
-        Task<ApiResponse<UserDto>> GetUserByCriteria(GetUserByCriteriaCommand request);
+        Task<ApiResponse<UserItemDto>> GetUserByCriteria(GetUserByCriteriaCommand request);
+        Task<ApiResponse<UserDto>> GetSingleUser(GetSingleUserCommand request);
         #endregion
 
         #region [Group]
         Task<ApiResponse<GroupItemDto>> GetGroupList(GetGroupCommand request);
-        Task<ApiResponse<GroupDto>> GetGroupByCriteria(GetGroupByCriteriaCommand request);
+        Task<ApiResponse<GroupItemDto>> GetGroupByCriteria(GetGroupByCriteriaCommand request);
+        Task<ApiResponse<GroupDto>> GetSingleGroup(GetSingleGroupCommand request);
         #endregion
 
         #region [Role]
         Task<ApiResponse<RoleItemDto>> GetRoleList(GetRoleCommand request);
         Task<ApiResponse<RoleItemDto>> GetRoleByCriteria(GetRoleByCriteriaCommand request);
+        Task<ApiResponse<RoleDto>> GetSingleRole(GetSingleRoleCommand request);
         #endregion
 
         #region [Group Role]

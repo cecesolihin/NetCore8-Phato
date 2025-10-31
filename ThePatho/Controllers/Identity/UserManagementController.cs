@@ -40,6 +40,15 @@ namespace ThePatho.Controllers.Identity
             return ApiResult(result);
         }
 
+        [HttpPost(ApiRoutes.Methods.GetSingleUser)]
+        public async Task<IActionResult> GetSingleUser([FromBody] GetSingleUserCommand command,
+           CancellationToken cancellationToken)
+        {
+            var result = await mediator.Send(command, cancellationToken);
+
+            return ApiResult(result);
+        }
+
         [HttpPost(ApiRoutes.Methods.GetUserByCriteria)]
         public async Task<IActionResult> GetUserByCriteria([FromBody] GetUserByCriteriaCommand command,
             CancellationToken cancellationToken)
@@ -68,6 +77,14 @@ namespace ThePatho.Controllers.Identity
 
             return ApiResult(result);
         }
+        [HttpPost(ApiRoutes.Methods.GetSingleRole)]
+        public async Task<IActionResult> GetSingleRole([FromBody] GetSingleRoleCommand command,
+            CancellationToken cancellationToken)
+        {
+            var result = await mediator.Send(command, cancellationToken);
+
+            return ApiResult(result);
+        }
         #endregion
 
         #region [GROUP]
@@ -83,6 +100,14 @@ namespace ThePatho.Controllers.Identity
         [HttpPost(ApiRoutes.Methods.GetGroupByCriteria)]
         public async Task<IActionResult> GetGroupByCriteria([FromBody] GetGroupByCriteriaCommand command,
             CancellationToken cancellationToken)
+        {
+            var result = await mediator.Send(command, cancellationToken);
+
+            return ApiResult(result);
+        }
+        [HttpPost(ApiRoutes.Methods.GetSingleGroup)]
+        public async Task<IActionResult> GetSingleGroup([FromBody] GetSingleRoleCommand command,
+           CancellationToken cancellationToken)
         {
             var result = await mediator.Send(command, cancellationToken);
 

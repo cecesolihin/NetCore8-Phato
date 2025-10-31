@@ -126,9 +126,6 @@
     <Folder Include="Organization\CompanyProfile\DTO\" />
     <Folder Include="Organization\CompanyProfile\Service\" />
     <Folder Include="Organization\CompanyProfile\Sql\" />
-    <Folder Include="Organization\CostCenter\Commands\" />
-    <Folder Include="Organization\CostCenter\DTO\" />
-    <Folder Include="Organization\CostCenter\Service\" />
     <Folder Include="Organization\EmploymentType\Commands\" />
     <Folder Include="Organization\EmploymentType\DTO\" />
     <Folder Include="Organization\EmploymentType\Service\" />

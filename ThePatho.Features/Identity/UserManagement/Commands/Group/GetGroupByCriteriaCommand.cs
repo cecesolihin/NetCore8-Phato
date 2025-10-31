@@ -5,7 +5,7 @@ using ThePatho.Features.Identity.UserManagement.DTO;
 
 namespace ThePatho.Features.Identity.UserManagement.Commands.Group
 {
-    public class GetGroupByCriteriaCommand : IRequest<ApiResponse<GroupDto>>
+    public class GetGroupByCriteriaCommand : IRequest<ApiResponse<GroupItemDto>>
     {
         [JsonPropertyName("filter_Group")]
         public string? FilterGroup { get; set; }

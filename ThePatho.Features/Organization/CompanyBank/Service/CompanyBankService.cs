@@ -56,7 +56,7 @@ namespace ThePatho.Features.Organization.CompanyBank.Service
 
                 var result = new CompanyBankItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     CompanyBankList = data.ToList(),
                 };
                 return new ApiResponse<CompanyBankItemDto>(HttpStatusCode.OK, result);
@@ -175,7 +175,7 @@ namespace ThePatho.Features.Organization.CompanyBank.Service
                 }
                 else
                 {
-                    // Update - Cek apakah data exists
+                    
                     var existsQuery = new Query(TableOrganization.CompanyBank)
                         .Where("CompanyBankId", request.CompanyBankId)
                         .SelectRaw("COUNT(1)");
@@ -184,7 +184,6 @@ namespace ThePatho.Features.Organization.CompanyBank.Service
                     if (exists == 0)
                         throw new ArgumentException($"Company Bank with ID {request.CompanyBankId} not found.");
 
-                    // Cek duplikat untuk update (kecuali untuk record yang sama)
                     if (!string.IsNullOrWhiteSpace(request.AccountNo))
                     {
                         var duplicateQuery = new Query(TableOrganization.CompanyBank)
@@ -216,7 +215,7 @@ namespace ThePatho.Features.Organization.CompanyBank.Service
                         });
 
                     var updateResult = await db.ExecuteAsync(updateQuery);
-                    return new ApiResponse(HttpStatusCode.OK, $"Update Company Bank ID {request.CompanyBankId} successfully");
+                    return new ApiResponse(HttpStatusCode.OK, $"Update Company Bank ID {request.BankCode} successfully");
                 }
             }
             catch (Exception ex)
@@ -230,6 +229,7 @@ namespace ThePatho.Features.Organization.CompanyBank.Service
         }
         public async Task<ApiResponse> DeleteCompanyBank(DeleteCompanyBankCommand request)
         {
+            var existingRecord = new CompanyBankDto();
             try
             {
                 if (request.CompanyBankId <= 0)
@@ -238,22 +238,36 @@ namespace ThePatho.Features.Organization.CompanyBank.Service
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
 
-                var deleteQuery = new Query(TableOrganization.CompanyBank)
-                                .Where("CompanyBankId", request.CompanyBankId)
-                                .AsDelete();
+                // Cek dulu data-nya
+                existingRecord = await db.Query(TableOrganization.CompanyBank)
+                    .Select("CompanyCode", "BankCode", "Branch")
+                    .Where("CompanyBankId", request.CompanyBankId)
+                    .FirstOrDefaultAsync<CompanyBankDto>();
 
-                var deleteResult = await db.ExecuteAsync(deleteQuery);
-
-                if (deleteResult == 0)
+                if (existingRecord == null)
                 {
-                    return new ApiResponse(HttpStatusCode.NotFound, $"CompanyBank with ID {request.CompanyBankId} not found.");
+                    return new ApiResponse(HttpStatusCode.NotFound,
+                        $"CompanyBank record not found for the specified criteria.");
                 }
 
-                return new ApiResponse(HttpStatusCode.OK, $"Delete CompanyBank ID {request.CompanyBankId} successfully");
+                // Ubah dari delete menjadi update
+                var updateQuery = new Query(TableOrganization.CompanyBank)
+                    .Where("CompanyBankId", request.CompanyBankId)
+                    .AsUpdate(new
+                    {
+                        IsDeleted = true,
+                        ModifiedBy = "system",
+                        ModifiedDate = DateTime.UtcNow
+                    });
+
+                var updateResult = await db.ExecuteAsync(updateQuery);
+
+
+                return new ApiResponse(HttpStatusCode.OK, $"Delete CompanyBank ID {existingRecord.BankCode} successfully");
             }
             catch (Exception ex)
             {
-                return new ApiResponse(HttpStatusCode.BadRequest, $"Failed to delete CompanyBank ID {request.CompanyBankId}", ex.Message);
+                return new ApiResponse(HttpStatusCode.BadRequest, $"Failed to delete CompanyBank ID {existingRecord.BankCode}", ex.Message);
             }
 
         }

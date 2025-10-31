@@ -9,7 +9,7 @@ namespace ThePatho.Provider.Jwt.Token
 {
     public interface ITokenGenerator
     {
-        (string token, DateTime expiresAt) GenerateToken(IEnumerable<Claim>? claims = default);
+        (string token, string expiresAt) GenerateToken(IEnumerable<Claim>? claims = default);
         string GenerateRefreshToken();
         bool ValidateRefreshToken(string? refreshToken);
     }

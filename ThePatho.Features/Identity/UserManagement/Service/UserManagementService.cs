@@ -36,10 +36,10 @@ namespace ThePatho.Features.Identity.UserManagement.Service
                         q => q.WhereContains("UserName", request.FilterUserName)
                     ).When(
                         !string.IsNullOrWhiteSpace(request.FilterFullName),
-                        q => q.WhereContains("FirstName", request.FilterFullName)
-                    ).When(
-                        !string.IsNullOrWhiteSpace(request.FilterFullName),
-                        q => q.WhereContains("LastName", request.FilterFullName)
+                        q => q.Where(x =>
+                            x.WhereContains("FirstName", request.FilterFullName)
+                             .OrWhereContains("LastName", request.FilterFullName)
+                        )
                      ).When(
                         !string.IsNullOrWhiteSpace(request.FilterEmail),
                         q => q.WhereContains("Email", request.FilterEmail)
@@ -72,7 +72,7 @@ namespace ThePatho.Features.Identity.UserManagement.Service
                     );
             }
         }
-        public async Task<ApiResponse<UserDto>> GetUserByCriteria(GetUserByCriteriaCommand request)
+        public async Task<ApiResponse<UserItemDto>> GetUserByCriteria(GetUserByCriteriaCommand request)
         {
             try
             { 
@@ -81,14 +81,55 @@ namespace ThePatho.Features.Identity.UserManagement.Service
                 var query = new SqlKata.Query(TableIdentity.Users)
                     .Select("*")
                     .When(
-                        !string.IsNullOrWhiteSpace(request.FilterUserId),
-                        q => q.WhereIn("Id", request.FilterUserId)
-                    ).When(
                         !string.IsNullOrWhiteSpace(request.FilterUserName),
                         q => q.WhereContains("UserName", request.FilterUserName)
+                    ).When(
+                        !string.IsNullOrWhiteSpace(request.FilterFullName),
+                        q => q.Where(x =>
+                            x.WhereContains("FirstName", request.FilterFullName)
+                             .OrWhereContains("LastName", request.FilterFullName)
+                        )
+                     ).When(
+                        !string.IsNullOrWhiteSpace(request.FilterEmail),
+                        q => q.WhereContains("Email", request.FilterEmail)
+                    ).When(
+                        !string.IsNullOrWhiteSpace(request.FilterPhone),
+                        q => q.WhereContains("PhoneNumber", request.FilterPhone)
+                    );
+                var data = await db.GetAsync<UserDto>(query);
+                var result = new UserItemDto
+                {
+                    DataOfRecords = data.ToList().Count,
+                    UserList = data.ToList(),
+                };
+                return new ApiResponse<UserItemDto>(HttpStatusCode.OK, result);
+
+            }
+            catch (Exception ex)
+            {
+
+                return new ApiResponse<UserItemDto>(
+                        HttpStatusCode.BadRequest,
+                        "An error occurred while retrieving data.",
+                        ex.Message
+                    );
+            }
+        }
+
+        public async Task<ApiResponse<UserDto>> GetSingleUser(GetSingleUserCommand request)
+        {
+            try
+            {
+                using var connection = dapperContext.CreateConnection();
+                var db = new QueryFactory(connection, dapperContext.Compiler);
+                var query = new SqlKata.Query(TableIdentity.Users)
+                    .Select("*")
+                    .When(
+                        !string.IsNullOrWhiteSpace(request.UserId),
+                        q => q.WhereContains("Id", request.UserId)
                     );
                 var data = await db.FirstOrDefaultAsync<UserDto>(query);
-                
+
                 return new ApiResponse<UserDto>(HttpStatusCode.OK, data);
             }
             catch (Exception ex)
@@ -143,7 +184,7 @@ namespace ThePatho.Features.Identity.UserManagement.Service
                     );
             }
         }
-        public async Task<ApiResponse<GroupDto>> GetGroupByCriteria(GetGroupByCriteriaCommand request)
+        public async Task<ApiResponse<GroupItemDto>> GetGroupByCriteria(GetGroupByCriteriaCommand request)
         {
             try 
             {
@@ -156,8 +197,41 @@ namespace ThePatho.Features.Identity.UserManagement.Service
                         q => q.WhereContains("Name", request.FilterGroup)
                     );
 
+                //var data = await db.FirstOrDefaultAsync<GroupDto>(query);
+
+                var data = await db.GetAsync<GroupDto>(query);
+                var result = new GroupItemDto
+                {
+                    DataOfRecords = data.ToList().Count,
+                    GroupList = data.ToList(),
+                };
+                return new ApiResponse<GroupItemDto>(HttpStatusCode.OK, result);
+            }
+            catch (Exception ex)
+            {
+
+                return new ApiResponse<GroupItemDto>(
+                        HttpStatusCode.BadRequest,
+                        "An error occurred while retrieving data.",
+                        ex.Message
+                    );
+            }
+        }
+
+        public async Task<ApiResponse<GroupDto>> GetSingleGroup(GetSingleGroupCommand request)
+        {
+            try
+            {
+                using var connection = dapperContext.CreateConnection();
+                var db = new QueryFactory(connection, dapperContext.Compiler);
+                var query = new Query(TableIdentity.Groups)
+                    .Select("*")
+                    .When(
+                        !string.IsNullOrWhiteSpace(request.GroupId),
+                        q => q.WhereContains("Id", request.GroupId)
+                    );
+
                 var data = await db.FirstOrDefaultAsync<GroupDto>(query);
-               
                 return new ApiResponse<GroupDto>(HttpStatusCode.OK, data);
             }
             catch (Exception ex)
@@ -241,6 +315,34 @@ namespace ThePatho.Features.Identity.UserManagement.Service
             {
 
                 return new ApiResponse<RoleItemDto>(
+                        HttpStatusCode.BadRequest,
+                        "An error occurred while retrieving data.",
+                        ex.Message
+                    );
+            }
+        }
+
+        public async Task<ApiResponse<RoleDto>> GetSingleRole(GetSingleRoleCommand request)
+        {
+            try
+            {
+                using var connection = dapperContext.CreateConnection();
+                var db = new QueryFactory(connection, dapperContext.Compiler);
+                var query = new Query(TableIdentity.Roles)
+                    .Select("*")
+                    .When(
+                        !string.IsNullOrWhiteSpace(request.RoleId),
+                        q => q.WhereIn("Id", request.RoleId)
+                    );
+
+                var data = await db.FirstOrDefaultAsync<RoleDto>(query);
+                
+                return new ApiResponse<RoleDto>(HttpStatusCode.OK, data);
+            }
+            catch (Exception ex)
+            {
+
+                return new ApiResponse<RoleDto>(
                         HttpStatusCode.BadRequest,
                         "An error occurred while retrieving data.",
                         ex.Message
