@@ -38,8 +38,8 @@ SELECT
     CONVERT(VARCHAR, ModifiedDate, 106) AS ModifiedDate--ech.ModifiedDate
 FROM TEPDEmployeeCareerHistory ech
 WHERE 1=1
-  AND (@EmployeeId IS NULL OR ech.EmployeeID = @EmployeeId)
-  AND (@CareerHistoryNo IS NULL OR ech.CareerHistoryNo = @CareerHistoryNo)
-  AND (@PositionCode IS NULL OR ech.PositionCode = @PositionCode)
-  AND (@CompanyCode IS NULL OR ech.CompanyCode = @CompanyCode)
+  AND (@EmployeeId = 0  OR ech.EmployeeID = @EmployeeId)
+  AND ((@CareerHistoryNo IS NULL OR @CareerHistoryNo ='') OR ech.CareerHistoryNo like'%' +@CareerHistoryNo +'%')
+  AND ((@PositionCode IS NULL OR @PositionCode ='') OR ech.PositionCode LIKE '%'+@PositionCode +'%')
+  AND ((@CompanyCode IS NULL OR @CompanyCode = '') OR ech.CompanyCode LIKE '%' + @CompanyCode +'%')
   AND ech.IsDeleted = 0

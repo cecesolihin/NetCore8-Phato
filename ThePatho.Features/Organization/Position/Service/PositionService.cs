@@ -50,7 +50,7 @@ namespace ThePatho.Features.Organization.Position.Service
 
                 var result = new PositionItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     PositionList = data.ToList(),
                 };
                 return new ApiResponse<PositionItemDto>(HttpStatusCode.OK, result);
@@ -82,7 +82,7 @@ namespace ThePatho.Features.Organization.Position.Service
 
                 var result = new PositionItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     PositionList = data.ToList(),
                 };
                 return new ApiResponse<PositionItemDto>(HttpStatusCode.OK, result);
@@ -137,7 +137,7 @@ namespace ThePatho.Features.Organization.Position.Service
                 {
                     // Update
                     var updateQuery = new Query(TableOrganization.Position)
-                        .Where("position_code", request.PositionCode)
+                        .Where("PositionCode", request.PositionCode)
                         .AsUpdate(new
                         {
                             PositionName = request.PositionName,

@@ -57,7 +57,7 @@ namespace ThePatho.Features.Organization.CompanyProfile.Service
 
                 var result = new CompanyProfileItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     CompanyProfileList = data.ToList(),
                 };
                 return new ApiResponse<CompanyProfileItemDto>(HttpStatusCode.OK, result);
@@ -101,7 +101,7 @@ namespace ThePatho.Features.Organization.CompanyProfile.Service
 
                 var result = new CompanyProfileItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     CompanyProfileList = data.ToList(),
                 };
                 return new ApiResponse<CompanyProfileItemDto>(HttpStatusCode.OK, result);
@@ -122,59 +122,6 @@ namespace ThePatho.Features.Organization.CompanyProfile.Service
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
 
-                var argumentException = new List<string>();
-                // Validasi field NOT NULL berdasarkan struktur tabel
-                if (string.IsNullOrWhiteSpace(request.CompanyCode))
-                    argumentException.Add("Company Code is required.");
-
-                if (string.IsNullOrWhiteSpace(request.CompanyName))
-                    argumentException.Add("Company Name is required.");
-
-                if (string.IsNullOrWhiteSpace(request.Abbreviation))
-                    argumentException.Add("Abbreviation is required.");
-
-                if (string.IsNullOrWhiteSpace(request.AbbreviationUpin))
-                    argumentException.Add("Abbreviation UPIN is required.");
-
-                // Validasi panjang field sesuai constraint di database
-                if (request.CompanyName.Length > 100)
-                    argumentException.Add("Company Name cannot exceed 100 characters.");
-
-                if (request.Abbreviation.Length > 10)
-                    argumentException.Add("Abbreviation cannot exceed 10 characters.");
-
-                if (request.AbbreviationUpin.Length > 10)
-                    argumentException.Add("Abbreviation UPIN cannot exceed 10 characters.");
-
-                // Validasi field lainnya yang memiliki length constraint
-                if (!string.IsNullOrWhiteSpace(request.Phone) && request.Phone.Length > 15)
-                    argumentException.Add("Phone cannot exceed 15 characters.");
-
-                if (!string.IsNullOrWhiteSpace(request.Fax) && request.Fax.Length > 15)
-                    argumentException.Add("Fax cannot exceed 15 characters.");
-
-                if (!string.IsNullOrWhiteSpace(request.ZipCode) && request.ZipCode.Length > 10)
-                    argumentException.Add("ZipCode cannot exceed 10 characters.");
-
-                if (!string.IsNullOrWhiteSpace(request.City) && request.City.Length > 30)
-                    argumentException.Add("City cannot exceed 30 characters.");
-
-                if (!string.IsNullOrWhiteSpace(request.PhoneUpin) && request.PhoneUpin.Length > 15)
-                    argumentException.Add("Phone UPIN cannot exceed 15 characters.");
-
-                if (!string.IsNullOrWhiteSpace(request.FaxUpin) && request.FaxUpin.Length > 15)
-                    argumentException.Add("Fax UPIN cannot exceed 15 characters.");
-
-                if (!string.IsNullOrWhiteSpace(request.ZipCodeUpin) && request.ZipCodeUpin.Length > 10)
-                    argumentException.Add("ZipCode UPIN cannot exceed 10 characters.");
-
-                if (!string.IsNullOrWhiteSpace(request.CityUpin) && request.CityUpin.Length > 30)
-                    argumentException.Add("City UPIN cannot exceed 30 characters.");
-
-                if (argumentException.Any())
-                {
-                    return new ApiResponse(HttpStatusCode.BadRequest, $"Failed to {request.Action} {request.CompanyCode}", string.Join(", ", argumentException.ToArray()));
-                }
                 // Cek apakah CompanyCode sudah exists
                 var existsQuery = new Query(TableOrganization.CompanyProfile)
                     .Where("CompanyCode", request.CompanyCode)
@@ -290,9 +237,6 @@ namespace ThePatho.Features.Organization.CompanyProfile.Service
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(request.CompanyCode))
-                    throw new ArgumentException("Company Code is required.");
-
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
 

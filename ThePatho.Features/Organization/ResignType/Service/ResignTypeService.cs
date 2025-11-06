@@ -48,7 +48,7 @@ namespace ThePatho.Features.Organization.ResignType.Service
 
                 var result = new ResignTypeItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     ResignTypeList = data.ToList(),
                 };
                 return new ApiResponse<ResignTypeItemDto>(HttpStatusCode.OK, result);
@@ -84,7 +84,7 @@ namespace ThePatho.Features.Organization.ResignType.Service
 
                 var result = new ResignTypeItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     ResignTypeList = data.ToList(),
                 };
                 return new ApiResponse<ResignTypeItemDto>(HttpStatusCode.OK, result);
@@ -105,20 +105,6 @@ namespace ThePatho.Features.Organization.ResignType.Service
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
 
-                var ArgumentException = new List<string>();
-                // Validasi field NOT NULL berdasarkan struktur tabel
-                if (string.IsNullOrWhiteSpace(request.ResignTypeCode))
-                    ArgumentException.Add("ResignType Code is required.");
-
-                if (string.IsNullOrWhiteSpace(request.ResignTypeName))
-                    ArgumentException.Add("ResignType Name is required.");
-
-
-                if (ArgumentException.Any())
-                {
-                    return new ApiResponse(HttpStatusCode.BadRequest, $"Failed to {request.Action} {request.ResignTypeCode}", string.Join(", ", ArgumentException.ToArray()));
-                }
-                // Cek apakah ResignTypeCode sudah exists
                 var existsQuery = new Query(TableOrganization.ResignType)
                     .Where("ResignTypeCode", request.ResignTypeCode)
                     .SelectRaw("COUNT(1)");

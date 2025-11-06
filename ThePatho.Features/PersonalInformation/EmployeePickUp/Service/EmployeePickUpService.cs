@@ -52,7 +52,7 @@ namespace ThePatho.Features.PersonalInformation.EmployeePickUp.Service
             }
             catch (Exception ex)
             {
-                return new ApiResponse<EmployeePickUpItemDto>(HttpStatusCode.BadRequest, "Error retrieving Blood Type list.", ex.Message);
+                return new ApiResponse<EmployeePickUpItemDto>(HttpStatusCode.BadRequest, "Error retrieving Employee Pick Up list.", ex.Message);
             }
         }
 
@@ -64,14 +64,14 @@ namespace ThePatho.Features.PersonalInformation.EmployeePickUp.Service
                 var parameters = new DynamicParameters();
                 parameters.Add("@PickUpId", request.FilterPickUpId);
 
-                var query = await queryLoader.LoadQueryAsync("PersonalInformation/EmployeePickUp/Sql/get_singel_employeepickup");
+                var query = await queryLoader.LoadQueryAsync("PersonalInformation/EmployeePickUp/Sql/get_single_employeepickup");
                 var data = await db.QueryFirstOrDefaultAsync<EmployeePickUpDto>(query, parameters);
 
                 return new ApiResponse<EmployeePickUpDto>(HttpStatusCode.OK, data);
             }
             catch (Exception ex)
             {
-                return new ApiResponse<EmployeePickUpDto>(HttpStatusCode.BadRequest, "Error retrieving Blood Type detail.", ex.Message);
+                return new ApiResponse<EmployeePickUpDto>(HttpStatusCode.BadRequest, "Error retrieving Employee Pick Up detail.", ex.Message);
             }
         }
 
@@ -97,7 +97,7 @@ namespace ThePatho.Features.PersonalInformation.EmployeePickUp.Service
             }
             catch (Exception ex)
             {
-                return new ApiResponse<EmployeePickUpItemDto>(HttpStatusCode.BadRequest, "Error filtering Blood Type data.", ex.Message);
+                return new ApiResponse<EmployeePickUpItemDto>(HttpStatusCode.BadRequest, "Error filtering Employee Pick Up data.", ex.Message);
             }
         }
 

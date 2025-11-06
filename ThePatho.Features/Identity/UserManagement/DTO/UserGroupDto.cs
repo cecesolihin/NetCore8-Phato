@@ -2,14 +2,13 @@
 {
     public class UserGroupDto
     {
-        public string UserGroupId { get; set; }
         public string UserId { get; set; }
+        public string UserName { get; set; }
+        public string Email { get; set; }
         public string GroupId { get; set; }
-        public bool IsActive { get; set; } = true;
-        public string? InsertedBy { get; set; }
-        public DateTime? InsertedDate { get; set; }
-        public string? ModifiedBy { get; set; }
-        public DateTime? ModifiedDate { get; set; }
+        public string GroupName { get; set; }
+        public int EmpId { get; set; }
+        public string Description { get; set; }
     }
     public class UserGroupItemDto
     {

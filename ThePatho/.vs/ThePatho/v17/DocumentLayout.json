@@ -3,41 +3,62 @@
   "WorkspaceRootPath": "D:\\COURSES\\ThePatho\\ThePatho\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\organization\\costcenter\\commands\\getcostcentercommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\identity\\usermanagement\\service\\usermanagementservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\organization\\costcenter\\commands\\getcostcenterbycriteriacommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\identity\\usermanagement\\commands\\usergroup\\getusergroupcommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\organization\\costcenter\\commands\\submitcostcentercommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\identity\\usermanagement\\dto\\usergroupdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\configurationextensions\\serviceregistrationextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\identity\\usermanagement\\dto\\userroledto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1D5A67AE-AFE0-4F7C-AEEE-D4C843B8D035}|ThePatho.csproj|d:\\courses\\thepatho\\thepatho\\controllers\\organization\\costcentercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1D5A67AE-AFE0-4F7C-AEEE-D4C843B8D035}|ThePatho.csproj|solutionrelative:controllers\\organization\\costcentercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\identity\\usermanagement\\commands\\userrole\\getuserrolecommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\identity\\usermanagement\\commands\\userrole\\getuserrolebycriteriacommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1D5A67AE-AFE0-4F7C-AEEE-D4C843B8D035}|ThePatho.csproj|d:\\courses\\thepatho\\thepatho\\controllers\\identity\\usermanagementcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1D5A67AE-AFE0-4F7C-AEEE-D4C843B8D035}|ThePatho.csproj|solutionrelative:controllers\\identity\\usermanagementcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\identity\\usermanagement\\service\\iusermanagementservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\identity\\usermanagement\\commands\\userrole\\getuserrolerolecommandhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\identity\\usermanagement\\commands\\userrole\\getuserrolebycriteriacommandhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{BE4AE39E-3959-4274-9996-F3A64E389E04}|..\\ThePatho.Provider\\ThePatho.Provider.csproj|d:\\courses\\thepatho\\thepatho.provider\\apiresponse\\apiroutes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\organization\\costcenter\\service\\costcenterservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\identity\\usermanagement\\commands\\group\\getgroupcommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A433EA72-5C14-45EB-81E4-92B1A579C312}|..\\ThePatho.Domain\\ThePatho.Domain.csproj|d:\\courses\\thepatho\\thepatho.domain\\models\\organization\\costcenter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\identity\\usermanagement\\commands\\user\\getusercommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\organization\\costcenter\\commands\\getsinglecostcentercommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\identity\\authentication\\service\\authenticationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\organization\\costcenter\\commands\\deletecostcentercommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\global\\graduationtype\\service\\graduationtypeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\organization\\costcenter\\dto\\costcenterdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\global\\course\\service\\courseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\organization\\costcenter\\service\\icostcenterservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\organization\\orgstructure\\service\\orgstructureservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\organization\\orgstructure\\commands\\submitorgstructurecommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\organization\\orgstructure\\dto\\orgstructuredto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -47,185 +68,250 @@
       "DocumentGroups": [
         {
           "DockedWidth": 297,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 2,
           "Children": [
             {
-              "$type": "Bookmark",
-              "Name": "ST:129:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:130:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
-            },
-            {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "ApiRoutes.cs",
-              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Provider\\ApiResponse\\ApiRoutes.cs",
-              "RelativeDocumentMoniker": "..\\ThePatho.Provider\\ApiResponse\\ApiRoutes.cs",
-              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Provider\\ApiResponse\\ApiRoutes.cs",
-              "RelativeToolTip": "..\\ThePatho.Provider\\ApiResponse\\ApiRoutes.cs",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAxwBsAAAA5AAAA",
+              "DocumentIndex": 1,
+              "Title": "GetUserGroupCommand.cs",
+              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Identity\\UserManagement\\Commands\\UserGroup\\GetUserGroupCommand.cs",
+              "RelativeDocumentMoniker": "..\\ThePatho.Features\\Identity\\UserManagement\\Commands\\UserGroup\\GetUserGroupCommand.cs",
+              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Identity\\UserManagement\\Commands\\UserGroup\\GetUserGroupCommand.cs",
+              "RelativeToolTip": "..\\ThePatho.Features\\Identity\\UserManagement\\Commands\\UserGroup\\GetUserGroupCommand.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAApAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-30T09:57:00.611Z",
+              "WhenOpened": "2025-11-06T02:23:54.998Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "CostCenterController.cs",
-              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho\\Controllers\\Organization\\CostCenterController.cs",
-              "RelativeDocumentMoniker": "Controllers\\Organization\\CostCenterController.cs",
-              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho\\Controllers\\Organization\\CostCenterController.cs",
-              "RelativeToolTip": "Controllers\\Organization\\CostCenterController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAARAAAA",
+              "Title": "GetUserRoleCommand.cs",
+              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Identity\\UserManagement\\Commands\\UserRole\\GetUserRoleCommand.cs",
+              "RelativeDocumentMoniker": "..\\ThePatho.Features\\Identity\\UserManagement\\Commands\\UserRole\\GetUserRoleCommand.cs",
+              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Identity\\UserManagement\\Commands\\UserRole\\GetUserRoleCommand.cs",
+              "RelativeToolTip": "..\\ThePatho.Features\\Identity\\UserManagement\\Commands\\UserRole\\GetUserRoleCommand.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAuwBMAAAAfAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-30T09:56:12.367Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "CostCenter.cs",
-              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Domain\\Models\\Organization\\CostCenter.cs",
-              "RelativeDocumentMoniker": "..\\ThePatho.Domain\\Models\\Organization\\CostCenter.cs",
-              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Domain\\Models\\Organization\\CostCenter.cs",
-              "RelativeToolTip": "..\\ThePatho.Domain\\Models\\Organization\\CostCenter.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAAlAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-30T09:51:01.988Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "SubmitCostCenterCommand.cs",
-              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Organization\\CostCenter\\Commands\\SubmitCostCenterCommand.cs",
-              "RelativeDocumentMoniker": "..\\ThePatho.Features\\Organization\\CostCenter\\Commands\\SubmitCostCenterCommand.cs",
-              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Organization\\CostCenter\\Commands\\SubmitCostCenterCommand.cs",
-              "RelativeToolTip": "..\\ThePatho.Features\\Organization\\CostCenter\\Commands\\SubmitCostCenterCommand.cs",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAiwA8AAAAYAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-30T09:50:51.446Z",
+              "WhenOpened": "2025-11-06T00:35:06.042Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "GetCostCenterCommand.cs",
-              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Organization\\CostCenter\\Commands\\GetCostCenterCommand.cs",
-              "RelativeDocumentMoniker": "..\\ThePatho.Features\\Organization\\CostCenter\\Commands\\GetCostCenterCommand.cs",
-              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Organization\\CostCenter\\Commands\\GetCostCenterCommand.cs",
-              "RelativeToolTip": "..\\ThePatho.Features\\Organization\\CostCenter\\Commands\\GetCostCenterCommand.cs",
-              "ViewState": "AQIAABYAAAAAAAAAAAAkwAsAAAAWAAAA",
+              "Title": "UserManagementService.cs",
+              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Identity\\UserManagement\\Service\\UserManagementService.cs",
+              "RelativeDocumentMoniker": "..\\ThePatho.Features\\Identity\\UserManagement\\Service\\UserManagementService.cs",
+              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Identity\\UserManagement\\Service\\UserManagementService.cs",
+              "RelativeToolTip": "..\\ThePatho.Features\\Identity\\UserManagement\\Service\\UserManagementService.cs",
+              "ViewState": "AQIAAA4AAAAAAAAAAAASwEoAAAANAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-30T09:48:34.122Z",
+              "WhenOpened": "2025-11-05T00:17:02.063Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "UserGroupDto.cs",
+              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Identity\\UserManagement\\DTO\\UserGroupDto.cs",
+              "RelativeDocumentMoniker": "..\\ThePatho.Features\\Identity\\UserManagement\\DTO\\UserGroupDto.cs",
+              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Identity\\UserManagement\\DTO\\UserGroupDto.cs",
+              "RelativeToolTip": "..\\ThePatho.Features\\Identity\\UserManagement\\DTO\\UserGroupDto.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAbAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-06T00:36:19.957Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "ServiceRegistrationExtensions.cs",
-              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\ConfigurationExtensions\\ServiceRegistrationExtensions.cs",
-              "RelativeDocumentMoniker": "..\\ThePatho.Features\\ConfigurationExtensions\\ServiceRegistrationExtensions.cs",
-              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\ConfigurationExtensions\\ServiceRegistrationExtensions.cs",
-              "RelativeToolTip": "..\\ThePatho.Features\\ConfigurationExtensions\\ServiceRegistrationExtensions.cs",
-              "ViewState": "AQIAAFcAAAAAAAAAAAAAwGcAAABEAAAA",
+              "Title": "UserRoleDto.cs",
+              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Identity\\UserManagement\\DTO\\UserRoleDto.cs",
+              "RelativeDocumentMoniker": "..\\ThePatho.Features\\Identity\\UserManagement\\DTO\\UserRoleDto.cs",
+              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Identity\\UserManagement\\DTO\\UserRoleDto.cs",
+              "RelativeToolTip": "..\\ThePatho.Features\\Identity\\UserManagement\\DTO\\UserRoleDto.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAvAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-30T09:57:54.24Z",
+              "WhenOpened": "2025-11-06T02:28:19.295Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "GetCostCenterByCriteriaCommand.cs",
-              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Organization\\CostCenter\\Commands\\GetCostCenterByCriteriaCommand.cs",
-              "RelativeDocumentMoniker": "..\\ThePatho.Features\\Organization\\CostCenter\\Commands\\GetCostCenterByCriteriaCommand.cs",
-              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Organization\\CostCenter\\Commands\\GetCostCenterByCriteriaCommand.cs",
-              "RelativeToolTip": "..\\ThePatho.Features\\Organization\\CostCenter\\Commands\\GetCostCenterByCriteriaCommand.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAAWAAAA",
+              "DocumentIndex": 5,
+              "Title": "GetUserRoleByCriteriaCommand.cs",
+              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Identity\\UserManagement\\Commands\\UserRole\\GetUserRoleByCriteriaCommand.cs",
+              "RelativeDocumentMoniker": "..\\ThePatho.Features\\Identity\\UserManagement\\Commands\\UserRole\\GetUserRoleByCriteriaCommand.cs",
+              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Identity\\UserManagement\\Commands\\UserRole\\GetUserRoleByCriteriaCommand.cs",
+              "RelativeToolTip": "..\\ThePatho.Features\\Identity\\UserManagement\\Commands\\UserRole\\GetUserRoleByCriteriaCommand.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAuwA8AAAAyAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-30T09:48:27.199Z",
+              "WhenOpened": "2025-11-06T00:34:25.437Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "IUserManagementService.cs",
+              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Identity\\UserManagement\\Service\\IUserManagementService.cs",
+              "RelativeDocumentMoniker": "..\\ThePatho.Features\\Identity\\UserManagement\\Service\\IUserManagementService.cs",
+              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Identity\\UserManagement\\Service\\IUserManagementService.cs",
+              "RelativeToolTip": "..\\ThePatho.Features\\Identity\\UserManagement\\Service\\IUserManagementService.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAIAAAA9AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-06T00:35:37.329Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
-              "Title": "CostCenterService.cs",
-              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Organization\\CostCenter\\Service\\CostCenterService.cs",
-              "RelativeDocumentMoniker": "..\\ThePatho.Features\\Organization\\CostCenter\\Service\\CostCenterService.cs",
-              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Organization\\CostCenter\\Service\\CostCenterService.cs",
-              "RelativeToolTip": "..\\ThePatho.Features\\Organization\\CostCenter\\Service\\CostCenterService.cs",
-              "ViewState": "AQIAAJ8AAAAAAAAAAAAAAJsAAABJAAAA",
+              "Title": "UserManagementController.cs",
+              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho\\Controllers\\Identity\\UserManagementController.cs",
+              "RelativeDocumentMoniker": "Controllers\\Identity\\UserManagementController.cs",
+              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho\\Controllers\\Identity\\UserManagementController.cs",
+              "RelativeToolTip": "Controllers\\Identity\\UserManagementController.cs",
+              "ViewState": "AQIAACEAAAAAAAAAAAAYwAYAAAA9AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-29T01:59:31.876Z",
+              "WhenOpened": "2025-11-05T23:25:28.796Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 8,
-              "Title": "GetSingleCostCenterCommand.cs",
-              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Organization\\CostCenter\\Commands\\GetSingleCostCenterCommand.cs",
-              "RelativeDocumentMoniker": "..\\ThePatho.Features\\Organization\\CostCenter\\Commands\\GetSingleCostCenterCommand.cs",
-              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Organization\\CostCenter\\Commands\\GetSingleCostCenterCommand.cs",
-              "RelativeToolTip": "..\\ThePatho.Features\\Organization\\CostCenter\\Commands\\GetSingleCostCenterCommand.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAoAAAA",
+              "Title": "GetUserRoleRoleCommandHandler.cs",
+              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Identity\\UserManagement\\Commands\\UserRole\\GetUserRoleRoleCommandHandler.cs",
+              "RelativeDocumentMoniker": "..\\ThePatho.Features\\Identity\\UserManagement\\Commands\\UserRole\\GetUserRoleRoleCommandHandler.cs",
+              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Identity\\UserManagement\\Commands\\UserRole\\GetUserRoleRoleCommandHandler.cs",
+              "RelativeToolTip": "..\\ThePatho.Features\\Identity\\UserManagement\\Commands\\UserRole\\GetUserRoleRoleCommandHandler.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-30T09:48:13.074Z",
+              "WhenOpened": "2025-11-06T00:34:51.013Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 9,
-              "Title": "DeleteCostCenterCommand.cs",
-              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Organization\\CostCenter\\Commands\\DeleteCostCenterCommand.cs",
-              "RelativeDocumentMoniker": "..\\ThePatho.Features\\Organization\\CostCenter\\Commands\\DeleteCostCenterCommand.cs",
-              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Organization\\CostCenter\\Commands\\DeleteCostCenterCommand.cs",
-              "RelativeToolTip": "..\\ThePatho.Features\\Organization\\CostCenter\\Commands\\DeleteCostCenterCommand.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAkAAAA",
+              "Title": "GetUserRoleByCriteriaCommandHandler.cs",
+              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Identity\\UserManagement\\Commands\\UserRole\\GetUserRoleByCriteriaCommandHandler.cs",
+              "RelativeDocumentMoniker": "..\\ThePatho.Features\\Identity\\UserManagement\\Commands\\UserRole\\GetUserRoleByCriteriaCommandHandler.cs",
+              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Identity\\UserManagement\\Commands\\UserRole\\GetUserRoleByCriteriaCommandHandler.cs",
+              "RelativeToolTip": "..\\ThePatho.Features\\Identity\\UserManagement\\Commands\\UserRole\\GetUserRoleByCriteriaCommandHandler.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAABBAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-30T09:47:56.567Z",
+              "WhenOpened": "2025-11-06T00:34:41.76Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 11,
-              "Title": "ICostCenterService.cs",
-              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Organization\\CostCenter\\Service\\ICostCenterService.cs",
-              "RelativeDocumentMoniker": "..\\ThePatho.Features\\Organization\\CostCenter\\Service\\ICostCenterService.cs",
-              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Organization\\CostCenter\\Service\\ICostCenterService.cs",
-              "RelativeToolTip": "..\\ThePatho.Features\\Organization\\CostCenter\\Service\\ICostCenterService.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAnAAAA",
+              "Title": "GetGroupCommand.cs",
+              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Identity\\UserManagement\\Commands\\Group\\GetGroupCommand.cs",
+              "RelativeDocumentMoniker": "..\\ThePatho.Features\\Identity\\UserManagement\\Commands\\Group\\GetGroupCommand.cs",
+              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Identity\\UserManagement\\Commands\\Group\\GetGroupCommand.cs",
+              "RelativeToolTip": "..\\ThePatho.Features\\Identity\\UserManagement\\Commands\\Group\\GetGroupCommand.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAA9AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-29T01:59:14.421Z",
+              "WhenOpened": "2025-11-05T23:27:15.086Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 10,
-              "Title": "CostCenterDto.cs",
-              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Organization\\CostCenter\\DTO\\CostCenterDto.cs",
-              "RelativeDocumentMoniker": "..\\ThePatho.Features\\Organization\\CostCenter\\DTO\\CostCenterDto.cs",
-              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Organization\\CostCenter\\DTO\\CostCenterDto.cs",
-              "RelativeToolTip": "..\\ThePatho.Features\\Organization\\CostCenter\\DTO\\CostCenterDto.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAkAAAA",
+              "Title": "ApiRoutes.cs",
+              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Provider\\ApiResponse\\ApiRoutes.cs",
+              "RelativeDocumentMoniker": "..\\ThePatho.Provider\\ApiResponse\\ApiRoutes.cs",
+              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Provider\\ApiResponse\\ApiRoutes.cs",
+              "RelativeToolTip": "..\\ThePatho.Provider\\ApiResponse\\ApiRoutes.cs",
+              "ViewState": "AQIAAGgAAAAAAAAAAAAtwIkAAAA5AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-29T01:59:31.016Z",
+              "WhenOpened": "2025-11-05T23:25:35.018Z",
               "EditorCaption": ""
-            }
-          ]
-        },
-        {
-          "DockedWidth": 55,
-          "SelectedChildIndex": -1,
-          "Children": [
+            },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "GetUserCommand.cs",
+              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Identity\\UserManagement\\Commands\\User\\GetUserCommand.cs",
+              "RelativeDocumentMoniker": "..\\ThePatho.Features\\Identity\\UserManagement\\Commands\\User\\GetUserCommand.cs",
+              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Identity\\UserManagement\\Commands\\User\\GetUserCommand.cs",
+              "RelativeToolTip": "..\\ThePatho.Features\\Identity\\UserManagement\\Commands\\User\\GetUserCommand.cs",
+              "ViewState": "AQIAAAgAAAAAAAAAAIA2wBYAAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-05T22:51:54.618Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "AuthenticationService.cs",
+              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Identity\\Authentication\\Service\\AuthenticationService.cs",
+              "RelativeDocumentMoniker": "..\\ThePatho.Features\\Identity\\Authentication\\Service\\AuthenticationService.cs",
+              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Identity\\Authentication\\Service\\AuthenticationService.cs",
+              "RelativeToolTip": "..\\ThePatho.Features\\Identity\\Authentication\\Service\\AuthenticationService.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAM0AAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-04T15:43:29.188Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "GraduationTypeService.cs",
+              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Global\\GraduationType\\Service\\GraduationTypeService.cs",
+              "RelativeDocumentMoniker": "..\\ThePatho.Features\\Global\\GraduationType\\Service\\GraduationTypeService.cs",
+              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Global\\GraduationType\\Service\\GraduationTypeService.cs",
+              "RelativeToolTip": "..\\ThePatho.Features\\Global\\GraduationType\\Service\\GraduationTypeService.cs",
+              "ViewState": "AQIAAF4AAAAAAAAAAAAkwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-04T23:48:20.488Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "CourseService.cs",
+              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Global\\Course\\Service\\CourseService.cs",
+              "RelativeDocumentMoniker": "..\\ThePatho.Features\\Global\\Course\\Service\\CourseService.cs",
+              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Global\\Course\\Service\\CourseService.cs",
+              "RelativeToolTip": "..\\ThePatho.Features\\Global\\Course\\Service\\CourseService.cs",
+              "ViewState": "AQIAAIQAAAAAAAAAAAAowJAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-04T23:47:30.484Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "OrgStructureDto.cs",
+              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Organization\\OrgStructure\\DTO\\OrgStructureDto.cs",
+              "RelativeDocumentMoniker": "..\\ThePatho.Features\\Organization\\OrgStructure\\DTO\\OrgStructureDto.cs",
+              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Organization\\OrgStructure\\DTO\\OrgStructureDto.cs",
+              "RelativeToolTip": "..\\ThePatho.Features\\Organization\\OrgStructure\\DTO\\OrgStructureDto.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAaAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-04T14:51:30.771Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "SubmitOrgStructureCommand.cs",
+              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Organization\\OrgStructure\\Commands\\SubmitOrgStructureCommand.cs",
+              "RelativeDocumentMoniker": "..\\ThePatho.Features\\Organization\\OrgStructure\\Commands\\SubmitOrgStructureCommand.cs",
+              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Organization\\OrgStructure\\Commands\\SubmitOrgStructureCommand.cs",
+              "RelativeToolTip": "..\\ThePatho.Features\\Organization\\OrgStructure\\Commands\\SubmitOrgStructureCommand.cs",
+              "ViewState": "AQIAAAUAAAAAAAAAAAApwBIAAAASAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-04T14:42:04.836Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "OrgStructureService.cs",
+              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Organization\\OrgStructure\\Service\\OrgStructureService.cs",
+              "RelativeDocumentMoniker": "..\\ThePatho.Features\\Organization\\OrgStructure\\Service\\OrgStructureService.cs",
+              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Organization\\OrgStructure\\Service\\OrgStructureService.cs",
+              "RelativeToolTip": "..\\ThePatho.Features\\Organization\\OrgStructure\\Service\\OrgStructureService.cs",
+              "ViewState": "AQIAAP8AAAAAAAAAAAAwwMwAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-04T14:41:44.265Z",
+              "EditorCaption": ""
             }
           ]
         }

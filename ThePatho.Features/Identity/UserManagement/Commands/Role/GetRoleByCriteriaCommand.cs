@@ -9,7 +9,7 @@ namespace ThePatho.Features.Identity.UserManagement.Commands.Role
     {
         [JsonPropertyName("filter_RoleName")]
         public string? FilterRoleName { get; set; }
-        [JsonPropertyName("filter_RoleLabel")]
-        public string? FilterRoleLabel { get; set; }
+        [JsonPropertyName("Filter_Description")]
+        public string? FilterDescription { get; set; }
     }
 }

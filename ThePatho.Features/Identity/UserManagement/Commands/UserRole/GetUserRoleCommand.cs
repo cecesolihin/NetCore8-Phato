@@ -4,26 +4,28 @@ using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Identity.UserManagement.DTO;
 using System.ComponentModel;
 
-namespace ThePatho.Features.Identity.UserManagement.Commands.GroupRole
+namespace ThePatho.Features.Identity.UserManagement.Commands.UserRole
 {
-    public class GetGroupRoleCommand : IRequest<ApiResponse<GroupRoleItemDto>>
+    public class GetUserRoleCommand : IRequest<ApiResponse<UserRoleItemDto>>
     {
-        [JsonPropertyName("filter_Group")]
-        public string? FilterGroup { get; set; }
+        [JsonPropertyName("filter_User")]
+        public string? FilterUser { get; set; }
 
         [JsonPropertyName("filter_Role")]
         public string? FilterRole { get; set; }
+        [JsonPropertyName("filter_DesRole")]
+        public string? FilterDesRole { get; set; }
 
         [JsonPropertyName("sortBy")]
-        [DefaultValue("InsertedDate")]
-        public string? SortBy { get; set; } = "InsertedDate";
+        [DefaultValue("UserName")]
+        public string? SortBy { get; set; } = "UserName";
 
         [JsonPropertyName("orderBy")]
         [DefaultValue("DESC")]
         public string? OrderBy { get; set; } = "DESC";
 
         [JsonPropertyName("pageNumber")]
-        [DefaultValue(1)]
+        [DefaultValue(0)]
         public int PageNumber { get; set; } = 0;
 
         [JsonPropertyName("pageSize")]

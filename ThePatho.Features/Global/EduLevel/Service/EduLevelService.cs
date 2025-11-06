@@ -40,7 +40,7 @@ namespace ThePatho.Features.Global.EduLevel.Service
                 var data = await dbConnection.QueryAsync<EduLevelDto>(query, parameters);
                 var result = new EduLevelItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     EduLevelList = data.ToList(),
                 };
                 return new ApiResponse<EduLevelItemDto>(HttpStatusCode.OK, result);
@@ -93,7 +93,7 @@ namespace ThePatho.Features.Global.EduLevel.Service
                 var data = await dbConnection.QueryAsync<EduLevelDto>(query, parameters);
                 var result = new EduLevelItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     EduLevelList = data.ToList(),
                 };
                 return new ApiResponse<EduLevelItemDto>(HttpStatusCode.OK, result);

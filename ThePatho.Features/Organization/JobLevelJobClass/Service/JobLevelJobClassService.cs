@@ -48,7 +48,7 @@ namespace ThePatho.Features.Organization.JobLevelJobClass.Service
 
                 var result = new JobLevelJobClassItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     JobLevelJobClassList = data.ToList(),
                 };
                 return new ApiResponse<JobLevelJobClassItemDto>(HttpStatusCode.OK, result);
@@ -84,7 +84,7 @@ namespace ThePatho.Features.Organization.JobLevelJobClass.Service
 
                 var result = new JobLevelJobClassItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     JobLevelJobClassList = data.ToList(),
                 };
                 return new ApiResponse<JobLevelJobClassItemDto>(HttpStatusCode.OK, result);
@@ -105,21 +105,6 @@ namespace ThePatho.Features.Organization.JobLevelJobClass.Service
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
 
-                var ArgumentException = new List<string>();
-
-                if (string.IsNullOrWhiteSpace(request.JobLevelCode))
-                    ArgumentException.Add("JobLevel Code is required.");
-
-                if (string.IsNullOrWhiteSpace(request.JobClassCode))
-                    ArgumentException.Add("JobClass Code is required.");
-
-
-                if (ArgumentException.Any())
-                {
-                    return new ApiResponse(HttpStatusCode.BadRequest, $"Failed to {request.Action}", string.Join(", ", ArgumentException.ToArray()));
-                }
-
-                // Cek apakah relasi JobLevel-JobClass sudah exists
                 var existsQuery = new Query(TableOrganization.JobLevelJobClass)
                     .Where("JobLevelCode", request.JobLevelCode)
                     .Where("JobClassCode", request.JobClassCode)

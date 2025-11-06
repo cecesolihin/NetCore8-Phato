@@ -38,7 +38,7 @@ namespace ThePatho.Features.Global.InventoryCondition.Service
                 var data = await dbConnection.QueryAsync<InventoryConditionDto>(query, parameters);
                 var result = new InventoryConditionItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     InventoryConditionList = data.ToList(),
                 };
                 return new ApiResponse<InventoryConditionItemDto>(HttpStatusCode.OK, result);
@@ -91,7 +91,7 @@ namespace ThePatho.Features.Global.InventoryCondition.Service
                 var data = await dbConnection.QueryAsync<InventoryConditionDto>(query, parameters);
                 var result = new InventoryConditionItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     InventoryConditionList = data.ToList(),
                 };
                 return new ApiResponse<InventoryConditionItemDto>(HttpStatusCode.OK, result);

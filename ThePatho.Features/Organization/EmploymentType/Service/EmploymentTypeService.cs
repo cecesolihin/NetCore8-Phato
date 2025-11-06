@@ -52,7 +52,7 @@ namespace ThePatho.Features.Organization.EmploymentType.Service
 
                 var result = new EmploymentTypeItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     EmploymentTypeList = data.ToList(),
                 };
                 return new ApiResponse<EmploymentTypeItemDto>(HttpStatusCode.OK, result);
@@ -92,7 +92,7 @@ namespace ThePatho.Features.Organization.EmploymentType.Service
 
                 var result = new EmploymentTypeItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     EmploymentTypeList = data.ToList(),
                 };
                 return new ApiResponse<EmploymentTypeItemDto>(HttpStatusCode.OK, result);
@@ -113,35 +113,8 @@ namespace ThePatho.Features.Organization.EmploymentType.Service
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
 
-                // Validasi field NOT NULL berdasarkan struktur tabel
                 var argumentException = new List<string>();
-                if (string.IsNullOrWhiteSpace(request.EmploymentTypeCode))
-                    argumentException.Add("EmploymentType Code is required.");
-
-                if (string.IsNullOrWhiteSpace(request.EmployementTypeName))
-                    argumentException.Add("EmploymentType Name is required.");
-
-                if (string.IsNullOrWhiteSpace(request.Status))
-                    argumentException.Add("Status is required.");
-
-                // Validasi panjang field sesuai constraint di database
-                if (request.EmploymentTypeCode.Length > 128)
-                    argumentException.Add("EmploymentType Code cannot exceed 128 characters.");
-
-                if (request.EmployementTypeName.Length > 255)
-                    argumentException.Add("EmploymentType Name cannot exceed 255 characters.");
-
-                if (request.Remarks != null && request.Remarks.Length > 500)
-                    argumentException.Add("Remarks cannot exceed 500 characters.");
-
-                // Validasi Order (tinyint range: 0-255)
-                if (request.Order < 0 || request.Order > 255)
-                    argumentException.Add("Order must be between 0 and 255.");
-
-                // Validasi EmploymentPeriodMonth (jika ada)
-                if (request.EmploymentPeriodMonth.HasValue && request.EmploymentPeriodMonth < 0)
-                    argumentException.Add("Employment Period Month cannot be negative.");
-
+               
                 if (argumentException.Any())
                 {
                     return new ApiResponse(HttpStatusCode.BadRequest, $"Failed to {request.Action} {request.EmploymentTypeCode}", string.Join(", ", argumentException.ToArray()));

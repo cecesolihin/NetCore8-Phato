@@ -52,7 +52,7 @@ namespace ThePatho.Features.Organization.CostCenter.Service
 
                 var result = new CostCenterItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     CostCenterList = data.ToList(),
                 };
                 return new ApiResponse<CostCenterItemDto>(HttpStatusCode.OK, result);
@@ -92,7 +92,7 @@ namespace ThePatho.Features.Organization.CostCenter.Service
 
                 var result = new CostCenterItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     CostCenterList = data.ToList(),
                 };
                 return new ApiResponse<CostCenterItemDto>(HttpStatusCode.OK, result);
@@ -113,19 +113,8 @@ namespace ThePatho.Features.Organization.CostCenter.Service
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
 
-                // Validasi field NOT NULL berdasarkan struktur tabel
                 var argumentException = new List<string>();
-                if (string.IsNullOrWhiteSpace(request.CostCenterCode))
-                    argumentException.Add("Cost Center Code is required.");
-
-                if (string.IsNullOrWhiteSpace(request.CostCenterName))
-                    argumentException.Add("Cost Center Name is required.");
-
                 
-                if (argumentException.Any())
-                {
-                    return new ApiResponse(HttpStatusCode.BadRequest, $"Failed to {request.Action} {request.CostCenterCode}", string.Join(", ", argumentException.ToArray()));
-                }
                 // Cek apakah CostCenterCode sudah exists
                 var existsQuery = new Query(TableOrganization.CostCenter)
                     .Where("CostCenterCode", request.CostCenterCode)

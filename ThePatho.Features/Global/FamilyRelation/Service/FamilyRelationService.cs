@@ -38,7 +38,7 @@ namespace ThePatho.Features.Global.FamilyRelation.Service
                 var data = await dbConnection.QueryAsync<FamilyRelationDto>(query, parameters);
                 var result = new FamilyRelationItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     FamilyRelationList = data.ToList(),
                 };
                 return new ApiResponse<FamilyRelationItemDto>(HttpStatusCode.OK, result);
@@ -91,7 +91,7 @@ namespace ThePatho.Features.Global.FamilyRelation.Service
                 var data = await dbConnection.QueryAsync<FamilyRelationDto>(query, parameters);
                 var result = new FamilyRelationItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     FamilyRelationList = data.ToList(),
                 };
                 return new ApiResponse<FamilyRelationItemDto>(HttpStatusCode.OK, result);

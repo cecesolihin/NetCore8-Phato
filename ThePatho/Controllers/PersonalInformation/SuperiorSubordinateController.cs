@@ -55,6 +55,13 @@ namespace ThePatho.Controllers
             var result = await mediator.Send(command, cancellationToken);
             return ApiResult(result);
         }
+        [HttpPost(ApiRoutes.Methods.SubmitMulti)]
+        public async Task<IActionResult> SubmitMultiSuperiorSubordinate([FromBody] SubmitMultiSuperiorSubordinateCommand command,
+            CancellationToken cancellationToken)
+        {
+            var result = await mediator.Send(command, cancellationToken);
+            return ApiResult(result);
+        }
         [HttpPost(ApiRoutes.Methods.generate)]
         public async Task<IActionResult> GenerateSuperiorSubordinate([FromBody] GenerateSuperiorSubordinateCommand command,
             CancellationToken cancellationToken)

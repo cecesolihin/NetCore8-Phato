@@ -48,7 +48,7 @@ namespace ThePatho.Features.Organization.WorkLocationGroup.Service
 
                 var result = new WorkLocationGroupItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     WorkLocationGroupList = data.ToList(),
                 };
                 return new ApiResponse<WorkLocationGroupItemDto>(HttpStatusCode.OK, result);
@@ -84,7 +84,7 @@ namespace ThePatho.Features.Organization.WorkLocationGroup.Service
 
                 var result = new WorkLocationGroupItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     WorkLocationGroupList = data.ToList(),
                 };
                 return new ApiResponse<WorkLocationGroupItemDto>(HttpStatusCode.OK, result);
@@ -105,22 +105,6 @@ namespace ThePatho.Features.Organization.WorkLocationGroup.Service
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
 
-                var ArgumentException = new List<string>();
-
-                // Validasi field NOT NULL berdasarkan struktur tabel TOGDWorkLocationGroup
-                if (request.GroupId <= 0)
-                    ArgumentException.Add("Group ID is required and must be greater than 0.");
-
-                // Validasi panjang field sesuai constraint di database
-                if (!string.IsNullOrWhiteSpace(request.WorkLocationCode) && request.WorkLocationCode.Length > 128)
-                    ArgumentException.Add("WorkLocation Code cannot exceed 128 characters.");
-
-                if (ArgumentException.Any())
-                {
-                    return new ApiResponse(HttpStatusCode.BadRequest, $"Failed to {request.Action}", string.Join(", ", ArgumentException.ToArray()));
-                }
-
-                // Untuk insert/update WorkLocationGroupDetail, kita gunakan GroupDetailId
                 if (request.GroupDetailId == 0)
                 {
                     // Insert

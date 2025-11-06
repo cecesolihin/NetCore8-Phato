@@ -44,7 +44,7 @@ namespace ThePatho.Features.Identity.Authentication.Service
                 {
                     return new ApiResponse<JwtResult>(
                         HttpStatusCode.NotFound,
-                        "User tidak ditemukan."
+                        "User not found."
                     );
                 }
 
@@ -52,7 +52,7 @@ namespace ThePatho.Features.Identity.Authentication.Service
                 {
                     return new ApiResponse<JwtResult>(
                         HttpStatusCode.Forbidden,
-                        "Akun pengguna tidak aktif."
+                        "User Account is not active."
                     );
                 }
 
@@ -60,7 +60,7 @@ namespace ThePatho.Features.Identity.Authentication.Service
                 {
                     return new ApiResponse<JwtResult>(
                         HttpStatusCode.Forbidden,
-                        "Akun pengguna terkunci."
+                        "User account locked."
                     );
                 }
 
@@ -75,7 +75,7 @@ namespace ThePatho.Features.Identity.Authentication.Service
 
                     return new ApiResponse<JwtResult>(
                         HttpStatusCode.Unauthorized,
-                        "Password salah."
+                        "Wrong Password."
                     );
                 }
                 //// Verifikasi password menggunakan UserManager

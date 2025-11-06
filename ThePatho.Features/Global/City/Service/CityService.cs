@@ -39,7 +39,7 @@ namespace ThePatho.Features.Global.City.Service
                 var data = await dbConnection.QueryAsync<CityDto>(query, parameters);
                 var result = new CityItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     CityList = data.ToList(),
                 };
                 return new ApiResponse<CityItemDto>(HttpStatusCode.OK, result);
@@ -94,7 +94,7 @@ namespace ThePatho.Features.Global.City.Service
                 var data = await dbConnection.QueryAsync<CityDto>(query, parameters);
                 var result = new CityItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     CityList = data.ToList(),
                 };
                 return new ApiResponse<CityItemDto>(HttpStatusCode.OK, result);

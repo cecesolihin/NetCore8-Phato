@@ -40,7 +40,7 @@ namespace ThePatho.Features.Global.LetterCategory.Service
                 var data = await dbConnection.QueryAsync<LetterCategoryDto>(query, parameters);
                 var result = new LetterCategoryItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     LetterCategoryList = data.ToList(),
                 };
                 return new ApiResponse<LetterCategoryItemDto>(HttpStatusCode.OK, result);
@@ -97,7 +97,7 @@ namespace ThePatho.Features.Global.LetterCategory.Service
                 var data = await dbConnection.QueryAsync<LetterCategoryDto>(query, parameters);
                 var result = new LetterCategoryItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     LetterCategoryList = data.ToList(),
                 };
                 return new ApiResponse<LetterCategoryItemDto>(HttpStatusCode.OK, result);

@@ -1,0 +1,825 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Global\Announcement\Sql\delete_announcement.sql" />
+    <None Remove="Global\Announcement\Sql\get_announcement.sql" />
+    <None Remove="Global\Announcement\Sql\get_criteria_announcement.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Global\Announcement\Sql\delete_announcement.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Global\Announcement\Sql\get_announcement.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+	<Content Include="Global\Announcement\Sql\get_criteria_announcement.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ThePatho.Infrastructure\ThePatho.Infrastructure.csproj" />
+    <ProjectReference Include="..\ThePatho.Provider\ThePatho.Provider.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Global\Announcement\DTO\" />
+    <Folder Include="Global\Announcement\Service\" />
+    <Folder Include="Global\BloodType\DTO\" />
+    <Folder Include="Global\BloodType\Service\" />
+    <Folder Include="Global\BranchBank\DTO\" />
+    <Folder Include="Global\BranchBank\Service\" />
+    <Folder Include="Global\Building\DTO\" />
+    <Folder Include="Global\Building\Service\" />
+    <Folder Include="Global\Building\Sql\" />
+    <Folder Include="Global\City\DTO\" />
+    <Folder Include="Global\City\Service\" />
+    <Folder Include="Global\City\Sql\" />
+    <Folder Include="Global\ClothSize\DTO\" />
+    <Folder Include="Global\ClothSize\Service\" />
+    <Folder Include="Global\ClothSize\Sql\" />
+    <Folder Include="Global\Country\DTO\" />
+    <Folder Include="Global\Country\Service\" />
+    <Folder Include="Global\Country\Sql\" />
+    <Folder Include="Global\Currency\Commands\" />
+    <Folder Include="Global\Currency\DTO\" />
+    <Folder Include="Global\Currency\Service\" />
+    <Folder Include="Global\Currency\Sql\" />
+    <Folder Include="Global\GraduationType\Commands\" />
+    <Folder Include="Global\GraduationType\DTO\" />
+    <Folder Include="Global\GraduationType\Service\" />
+    <Folder Include="Global\GraduationType\Sql\" />
+    <Folder Include="Global\Insurance\Commands\" />
+    <Folder Include="Global\Insurance\DTO\" />
+    <Folder Include="Global\Insurance\Service\" />
+    <Folder Include="Global\Insurance\Sql\" />
+    <Folder Include="Global\InventoryCondition\Commands\" />
+    <Folder Include="Global\InventoryCondition\DTO\" />
+    <Folder Include="Global\InventoryCondition\Service\" />
+    <Folder Include="Global\InventoryCondition\Sql\" />
+    <Folder Include="Global\InventoryType\Commands\" />
+    <Folder Include="Global\InventoryType\DTO\" />
+    <Folder Include="Global\InventoryType\Service\" />
+    <Folder Include="Global\InventoryType\Sql\" />
+    <Folder Include="Global\LetterCategory\Commands\" />
+    <Folder Include="Global\LetterCategory\DTO\" />
+    <Folder Include="Global\LetterCategory\Service\" />
+    <Folder Include="Global\LetterCategory\Sql\" />
+    <Folder Include="Global\LetterTemplate\Commands\" />
+    <Folder Include="Global\LetterTemplate\DTO\" />
+    <Folder Include="Global\LetterTemplate\Service\" />
+    <Folder Include="Global\LetterTemplate\Sql\" />
+    <Folder Include="Global\MaritalStatus\Commands\" />
+    <Folder Include="Global\MaritalStatus\DTO\" />
+    <Folder Include="Global\MaritalStatus\Service\" />
+    <Folder Include="Global\MaritalStatus\Sql\" />
+    <Folder Include="Global\MedicalGroup\Commands\" />
+    <Folder Include="Global\MedicalGroup\DTO\" />
+    <Folder Include="Global\MedicalGroup\Service\" />
+    <Folder Include="Global\MedicalGroup\Sql\" />
+    <Folder Include="Global\Nationality\Commands\" />
+    <Folder Include="Global\Nationality\DTO\" />
+    <Folder Include="Global\Nationality\Service\" />
+    <Folder Include="Global\Nationality\Sql\" />
+    <Folder Include="Global\NumericalSize\Commands\" />
+    <Folder Include="Global\NumericalSize\DTO\" />
+    <Folder Include="Global\NumericalSize\Service\" />
+    <Folder Include="Global\NumericalSize\Sql\" />
+    <Folder Include="Global\Province\Commands\" />
+    <Folder Include="Global\Province\DTO\" />
+    <Folder Include="Global\Province\Service\" />
+    <Folder Include="Global\Province\Sql\" />
+    <Folder Include="Global\PunishmentType\Commands\" />
+    <Folder Include="Global\PunishmentType\DTO\" />
+    <Folder Include="Global\PunishmentType\Service\" />
+    <Folder Include="Global\PunishmentType\Sql\" />
+    <Folder Include="Global\Religion\Commands\" />
+    <Folder Include="Global\Religion\DTO\" />
+    <Folder Include="Global\Religion\Service\" />
+    <Folder Include="Global\Religion\Sql\" />
+    <Folder Include="Global\ResignReason\Commands\" />
+    <Folder Include="Global\ResignReason\DTO\" />
+    <Folder Include="Global\ResignReason\Service\" />
+    <Folder Include="Global\ResignReason\Sql\" />
+    <Folder Include="Global\RewardType\Commands\" />
+    <Folder Include="Global\RewardType\DTO\" />
+    <Folder Include="Global\RewardType\Service\" />
+    <Folder Include="Global\RewardType\Sql\" />
+    <Folder Include="Global\RomanianSize\Commands\" />
+    <Folder Include="Global\RomanianSize\DTO\" />
+    <Folder Include="Global\RomanianSize\Service\" />
+    <Folder Include="Global\RomanianSize\Sql\" />
+    <Folder Include="Global\Room\Commands\" />
+    <Folder Include="Global\Room\DTO\" />
+    <Folder Include="Global\Room\Service\" />
+    <Folder Include="Global\Room\Sql\" />
+    <Folder Include="Global\ShoeSize\Commands\" />
+    <Folder Include="Global\ShoeSize\DTO\" />
+    <Folder Include="Global\ShoeSize\Service\" />
+    <Folder Include="Global\ShoeSize\Sql\" />
+    <Folder Include="Global\SkillProficiency\Commands\" />
+    <Folder Include="Global\SkillProficiency\DTO\" />
+    <Folder Include="Global\SkillProficiency\Service\" />
+    <Folder Include="Global\SkillProficiency\Sql\" />
+    <Folder Include="Global\Skill\Commands\" />
+    <Folder Include="Global\Skill\DTO\" />
+    <Folder Include="Global\Skill\Service\" />
+    <Folder Include="Global\Skill\Sql\" />
+    <Folder Include="Global\TemplateKeyword\Commands\" />
+    <Folder Include="Global\TemplateKeyword\DTO\" />
+    <Folder Include="Global\TemplateKeyword\Service\" />
+    <Folder Include="Global\TemplateKeyword\Sql\" />
+    <Folder Include="Organization\CompanyBank\DTO\" />
+    <Folder Include="Organization\CompanyBank\Service\" />
+    <Folder Include="Organization\CompanyBank\Sql\" />
+    <Folder Include="Organization\CompanyProfile\Commands\" />
+    <Folder Include="Organization\CompanyProfile\DTO\" />
+    <Folder Include="Organization\CompanyProfile\Service\" />
+    <Folder Include="Organization\CompanyProfile\Sql\" />
+    <Folder Include="Organization\EmploymentType\Commands\" />
+    <Folder Include="Organization\EmploymentType\DTO\" />
+    <Folder Include="Organization\EmploymentType\Service\" />
+    <Folder Include="Organization\EmploymentType\Sql\" />
+    <Folder Include="Organization\Grade\Commands\" />
+    <Folder Include="Organization\Grade\DTO\" />
+    <Folder Include="Organization\Grade\Service\" />
+    <Folder Include="Organization\Grade\Sql\" />
+    <Folder Include="Organization\HistOrgStructure\Commands\" />
+    <Folder Include="Organization\HistOrgStructure\DTO\" />
+    <Folder Include="Organization\HistOrgStructure\Service\" />
+    <Folder Include="Organization\HistOrgStructure\Sql\" />
+    <Folder Include="Organization\Jabatan\Commands\" />
+    <Folder Include="Organization\Jabatan\DTO\" />
+    <Folder Include="Organization\Jabatan\Service\" />
+    <Folder Include="Organization\Jabatan\Sql\" />
+    <Folder Include="Organization\JobClass\Commands\" />
+    <Folder Include="Organization\JobClass\DTO\" />
+    <Folder Include="Organization\JobClass\Service\" />
+    <Folder Include="Organization\JobClass\Sql\" />
+    <Folder Include="Organization\JobLevelJobClass\Commands\" />
+    <Folder Include="Organization\JobLevelJobClass\DTO\" />
+    <Folder Include="Organization\JobLevelJobClass\Service\" />
+    <Folder Include="Organization\JobLevelJobClass\Sql\" />
+    <Folder Include="Organization\MutationType\Commands\" />
+    <Folder Include="Organization\MutationType\DTO\" />
+    <Folder Include="Organization\MutationType\Service\" />
+    <Folder Include="Organization\MutationType\Sql\" />
+    <Folder Include="Organization\PensionType\Commands\" />
+    <Folder Include="Organization\PensionType\DTO\" />
+    <Folder Include="Organization\PensionType\Service\" />
+    <Folder Include="Organization\PensionType\Sql\" />
+    <Folder Include="Organization\Rank\Commands\" />
+    <Folder Include="Organization\Rank\DTO\" />
+    <Folder Include="Organization\Rank\Service\" />
+    <Folder Include="Organization\Rank\Sql\" />
+    <Folder Include="Organization\ResignType\Commands\" />
+    <Folder Include="Organization\ResignType\DTO\" />
+    <Folder Include="Organization\ResignType\Service\" />
+    <Folder Include="Organization\ResignType\Sql\" />
+    <Folder Include="Organization\TerminationType\Commands\" />
+    <Folder Include="Organization\TerminationType\DTO\" />
+    <Folder Include="Organization\TerminationType\Service\" />
+    <Folder Include="Organization\TerminationType\Sql\" />
+    <Folder Include="Organization\WorkLocationGroup\Commands\" />
+    <Folder Include="Organization\WorkLocationGroup\DTO\" />
+    <Folder Include="Organization\WorkLocationGroup\Service\" />
+    <Folder Include="Organization\WorkLocationGroup\Sql\" />
+    <Folder Include="Organization\WorkLocation\Commands\" />
+    <Folder Include="Organization\WorkLocation\DTO\" />
+    <Folder Include="Organization\WorkLocation\Service\" />
+    <Folder Include="Organization\WorkLocation\Sql\" />
+    <Folder Include="PersonalInformation\EmployeePickUp\Sql\" />
+    <Folder Include="PersonalInformation\Employee\Sql\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+    <PackageReference Include="MediatR" Version="12.4.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="SqlKata" Version="2.4.0" />
+    <PackageReference Include="SqlKata.Execution" Version="2.4.0" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <None Remove="Global/Announcement/Sql/delete_announcement.sql" />
+    <None Remove="Global/Announcement/Sql/get_announcement.sql" />
+    <None Remove="Global/Announcement/Sql/get_criteria_announcement.sql" />
+    <None Remove="Global/Announcement/Sql/get_single_announcement.sql" />
+    <None Remove="Global/Announcement/Sql/submit_announcement.sql" />
+    <None Remove="Global/Bank/Sql/delete_bank.sql" />
+    <None Remove="Global/Bank/Sql/get_bank.sql" />
+    <None Remove="Global/Bank/Sql/get_criteria_bank.sql" />
+    <None Remove="Global/Bank/Sql/get_single_bank.sql" />
+    <None Remove="Global/Bank/Sql/submit_bank.sql" />
+    <None Remove="Global/BloodType/Sql/delete_blood_type.sql" />
+    <None Remove="Global/BloodType/Sql/get_blood_type.sql" />
+    <None Remove="Global/BloodType/Sql/get_criteria_blood_type.sql" />
+    <None Remove="Global/BloodType/Sql/get_single_blood_type.sql" />
+    <None Remove="Global/BloodType/Sql/submit_blood_type.sql" />
+    <None Remove="Global/BranchBank/Sql/delete_branch_bank.sql" />
+    <None Remove="Global/BranchBank/Sql/get_branch_bank.sql" />
+    <None Remove="Global/BranchBank/Sql/get_criteria_branch_bank.sql" />
+    <None Remove="Global/BranchBank/Sql/get_single_branch_bank.sql" />
+    <None Remove="Global/BranchBank/Sql/submit_branch_bank.sql" />
+    <None Remove="Global/Building/Sql/delete_building.sql" />
+    <None Remove="Global/Building/Sql/get_building.sql" />
+    <None Remove="Global/Building/Sql/get_criteria_building.sql" />
+    <None Remove="Global/Building/Sql/get_single_building.sql" />
+    <None Remove="Global/Building/Sql/submit_building.sql" />
+    <None Remove="Global/City/Sql/delete_city.sql" />
+    <None Remove="Global/City/Sql/get_city.sql" />
+    <None Remove="Global/City/Sql/get_criteria_city.sql" />
+    <None Remove="Global/City/Sql/get_single_city.sql" />
+    <None Remove="Global/City/Sql/submit_city.sql" />
+    <None Remove="Global/ClothSize/Sql/delete_clothsize.sql" />
+    <None Remove="Global/ClothSize/Sql/get_clothsize.sql" />
+    <None Remove="Global/ClothSize/Sql/get_criteria_clothsize.sql" />
+    <None Remove="Global/ClothSize/Sql/get_single_clothsize.sql" />
+    <None Remove="Global/ClothSize/Sql/submit_clothsize.sql" />
+    <None Remove="Global/Country/Sql/delete_country.sql" />
+    <None Remove="Global/Country/Sql/get_country.sql" />
+    <None Remove="Global/Country/Sql/get_criteria_country.sql" />
+    <None Remove="Global/Country/Sql/get_single_country.sql" />
+    <None Remove="Global/Country/Sql/submit_country.sql" />
+    <None Remove="Global/Course/Sql/delete_course.sql" />
+    <None Remove="Global/Course/Sql/get_course.sql" />
+    <None Remove="Global/Course/Sql/get_criteria_course.sql" />
+    <None Remove="Global/Course/Sql/get_single_course.sql" />
+    <None Remove="Global/Course/Sql/submit_course.sql" />
+    <None Remove="Global/Currency/Sql/delete_currency.sql" />
+    <None Remove="Global/Currency/Sql/get_criteria_currency.sql" />
+    <None Remove="Global/Currency/Sql/get_currency.sql" />
+    <None Remove="Global/Currency/Sql/get_single_currency.sql" />
+    <None Remove="Global/Currency/Sql/submit_currency.sql" />
+    <None Remove="Global/DiseaseCategory/Sql/delete_diseasecategory.sql" />
+    <None Remove="Global/DiseaseCategory/Sql/get_criteria_diseasecategory.sql" />
+    <None Remove="Global/DiseaseCategory/Sql/get_diseasecategory.sql" />
+    <None Remove="Global/DiseaseCategory/Sql/get_single_diseasecategory.sql" />
+    <None Remove="Global/DiseaseCategory/Sql/submit_diseasecategory.sql" />
+    <None Remove="Global/EduLevel/Sql/delete_edulevel.sql" />
+    <None Remove="Global/EduLevel/Sql/get_criteria_edulevel.sql" />
+    <None Remove="Global/EduLevel/Sql/get_edulevel.sql" />
+    <None Remove="Global/EduLevel/Sql/get_single_edulevel.sql" />
+    <None Remove="Global/EduLevel/Sql/submit_edulevel.sql" />
+    <None Remove="Global/EduMajor/Sql/delete_edumajor.sql" />
+    <None Remove="Global/EduMajor/Sql/get_criteria_edumajor.sql" />
+    <None Remove="Global/EduMajor/Sql/get_edumajor.sql" />
+    <None Remove="Global/EduMajor/Sql/get_single_edumajor.sql" />
+    <None Remove="Global/EduMajor/Sql/submit_edumajor.sql" />
+    <None Remove="Global/FamilyRelation/Sql/delete_familyrelation.sql" />
+    <None Remove="Global/FamilyRelation/Sql/get_criteria_familyrelation.sql" />
+    <None Remove="Global/FamilyRelation/Sql/get_familyrelation.sql" />
+    <None Remove="Global/FamilyRelation/Sql/get_single_familyrelation.sql" />
+    <None Remove="Global/FamilyRelation/Sql/submit_familyrelation.sql" />
+    <None Remove="Global/GraduationType/Sql/delete_graduationtype.sql" />
+    <None Remove="Global/GraduationType/Sql/get_criteria_graduationtype.sql" />
+    <None Remove="Global/GraduationType/Sql/get_graduationtype.sql" />
+    <None Remove="Global/GraduationType/Sql/get_single_graduationtype.sql" />
+    <None Remove="Global/GraduationType/Sql/submit_graduationtype.sql" />
+    <None Remove="Global/Identity/Sql/delete_identity.sql" />
+    <None Remove="Global/Identity/Sql/get_criteria_identity.sql" />
+    <None Remove="Global/Identity/Sql/get_identity.sql" />
+    <None Remove="Global/Identity/Sql/get_single_identity.sql" />
+    <None Remove="Global/Identity/Sql/submit_identity.sql" />
+    <None Remove="Global/Insurance/Sql/delete_insurance.sql" />
+    <None Remove="Global/Insurance/Sql/get_criteria_insurance.sql" />
+    <None Remove="Global/Insurance/Sql/get_insurance.sql" />
+    <None Remove="Global/Insurance/Sql/get_single_insurance.sql" />
+    <None Remove="Global/Insurance/Sql/submit_insurance.sql" />
+    <None Remove="Global/InventoryCondition/Sql/delete_inventorycondition.sql" />
+    <None Remove="Global/InventoryCondition/Sql/get_criteria_inventorycondition.sql" />
+    <None Remove="Global/InventoryCondition/Sql/get_inventorycondition.sql" />
+    <None Remove="Global/InventoryCondition/Sql/get_single_inventorycondition.sql" />
+    <None Remove="Global/InventoryCondition/Sql/submit_inventorycondition.sql" />
+    <None Remove="Global/InventoryGroup/Sql/delete_inventorygroup.sql" />
+    <None Remove="Global/InventoryGroup/Sql/get_criteria_inventorygroup.sql" />
+    <None Remove="Global/InventoryGroup/Sql/get_inventorygroup.sql" />
+    <None Remove="Global/InventoryGroup/Sql/get_single_inventorygroup.sql" />
+    <None Remove="Global/InventoryGroup/Sql/submit_inventorygroup.sql" />
+    <None Remove="Global/InventoryGroupDetail/Sql/delete_inventorygroupdetail.sql" />
+    <None Remove="Global/InventoryGroupDetail/Sql/get_criteria_inventorygroupdetail.sql" />
+    <None Remove="Global/InventoryGroupDetail/Sql/get_inventorygroupdetail.sql" />
+    <None Remove="Global/InventoryGroupDetail/Sql/get_single_inventorygroupdetail.sql" />
+    <None Remove="Global/InventoryGroupDetail/Sql/submit_inventorygroupdetail.sql" />
+    <None Remove="Global/InventoryGroupOrg/Sql/delete_inventorygrouporg.sql" />
+    <None Remove="Global/InventoryGroupOrg/Sql/get_criteria_inventorygrouporg.sql" />
+    <None Remove="Global/InventoryGroupOrg/Sql/get_inventorygrouporg.sql" />
+    <None Remove="Global/InventoryGroupOrg/Sql/get_single_inventorygrouporg.sql" />
+    <None Remove="Global/InventoryGroupOrg/Sql/submit_inventorygrouporg.sql" />
+    <None Remove="Global/InventoryType/Sql/delete_inventorytype.sql" />
+    <None Remove="Global/InventoryType/Sql/get_criteria_inventorytype.sql" />
+    <None Remove="Global/InventoryType/Sql/get_inventorytype.sql" />
+    <None Remove="Global/InventoryType/Sql/get_single_inventorytype.sql" />
+    <None Remove="Global/InventoryType/Sql/submit_inventorytype.sql" />
+    <None Remove="Global/LetterCategory/Sql/delete_lettercategory.sql" />
+    <None Remove="Global/LetterCategory/Sql/get_criteria_lettercategory.sql" />
+    <None Remove="Global/LetterCategory/Sql/get_lettercategory.sql" />
+    <None Remove="Global/LetterCategory/Sql/get_single_lettercategory.sql" />
+    <None Remove="Global/LetterCategory/Sql/submit_lettercategory.sql" />
+    <None Remove="Global/LetterTemplate/Sql/delete_lettertemplate.sql" />
+    <None Remove="Global/LetterTemplate/Sql/get_criteria_lettertemplate.sql" />
+    <None Remove="Global/LetterTemplate/Sql/get_lettertemplate.sql" />
+    <None Remove="Global/LetterTemplate/Sql/get_single_lettertemplate.sql" />
+    <None Remove="Global/LetterTemplate/Sql/submit_lettertemplate.sql" />
+    <None Remove="Global/MaritalStatus/Sql/delete_maritalstatus.sql" />
+    <None Remove="Global/MaritalStatus/Sql/get_criteria_maritalstatus.sql" />
+    <None Remove="Global/MaritalStatus/Sql/get_maritalstatus.sql" />
+    <None Remove="Global/MaritalStatus/Sql/get_single_maritalstatus.sql" />
+    <None Remove="Global/MaritalStatus/Sql/submit_maritalstatus.sql" />
+    <None Remove="Global/MedicalGroup/Sql/delete_medicalgroup.sql" />
+    <None Remove="Global/MedicalGroup/Sql/get_criteria_medicalgroup.sql" />
+    <None Remove="Global/MedicalGroup/Sql/get_medicalgroup.sql" />
+    <None Remove="Global/MedicalGroup/Sql/get_single_medicalgroup.sql" />
+    <None Remove="Global/MedicalGroup/Sql/submit_medicalgroup.sql" />
+    <None Remove="Global/Nationality/Sql/delete_nationality.sql" />
+    <None Remove="Global/Nationality/Sql/get_criteria_nationality.sql" />
+    <None Remove="Global/Nationality/Sql/get_nationality.sql" />
+    <None Remove="Global/Nationality/Sql/get_single_nationality.sql" />
+    <None Remove="Global/Nationality/Sql/submit_nationality.sql" />
+    <None Remove="Global/NumericalSize/Sql/delete_numericalsize.sql" />
+    <None Remove="Global/NumericalSize/Sql/get_criteria_numericalsize.sql" />
+    <None Remove="Global/NumericalSize/Sql/get_numericalsize.sql" />
+    <None Remove="Global/NumericalSize/Sql/get_single_numericalsize.sql" />
+    <None Remove="Global/NumericalSize/Sql/submit_numericalsize.sql" />
+    <None Remove="Global/Province/Sql/delete_province.sql" />
+    <None Remove="Global/Province/Sql/get_criteria_province.sql" />
+    <None Remove="Global/Province/Sql/get_province.sql" />
+    <None Remove="Global/Province/Sql/get_single_province.sql" />
+    <None Remove="Global/Province/Sql/submit_province.sql" />
+    <None Remove="Global/PunishmentType/Sql/delete_punishmenttype.sql" />
+    <None Remove="Global/PunishmentType/Sql/get_criteria_punishmenttype.sql" />
+    <None Remove="Global/PunishmentType/Sql/get_punishmenttype.sql" />
+    <None Remove="Global/PunishmentType/Sql/get_single_punishmenttype.sql" />
+    <None Remove="Global/PunishmentType/Sql/submit_punishmenttype.sql" />
+    <None Remove="Global/Religion/Sql/delete_religion.sql" />
+    <None Remove="Global/Religion/Sql/get_criteria_religion.sql" />
+    <None Remove="Global/Religion/Sql/get_religion.sql" />
+    <None Remove="Global/Religion/Sql/get_single_religion.sql" />
+    <None Remove="Global/Religion/Sql/submit_religion.sql" />
+    <None Remove="Global/ResignReason/Sql/delete_resignreason.sql" />
+    <None Remove="Global/ResignReason/Sql/get_criteria_resignreason.sql" />
+    <None Remove="Global/ResignReason/Sql/get_resignreason.sql" />
+    <None Remove="Global/ResignReason/Sql/get_single_resignreason.sql" />
+    <None Remove="Global/ResignReason/Sql/submit_resignreason.sql" />
+    <None Remove="Global/RewardType/Sql/delete_rewardtype.sql" />
+    <None Remove="Global/RewardType/Sql/get_criteria_rewardtype.sql" />
+    <None Remove="Global/RewardType/Sql/get_rewardtype.sql" />
+    <None Remove="Global/RewardType/Sql/get_single_rewardtype.sql" />
+    <None Remove="Global/RewardType/Sql/submit_rewardtype.sql" />
+    <None Remove="Global/RomanianSize/Sql/delete_romaniansize.sql" />
+    <None Remove="Global/RomanianSize/Sql/get_criteria_romaniansize.sql" />
+    <None Remove="Global/RomanianSize/Sql/get_romaniansize.sql" />
+    <None Remove="Global/RomanianSize/Sql/get_single_romaniansize.sql" />
+    <None Remove="Global/RomanianSize/Sql/submit_romaniansize.sql" />
+    <None Remove="Global/Room/Sql/delete_room.sql" />
+    <None Remove="Global/Room/Sql/get_criteria_room.sql" />
+    <None Remove="Global/Room/Sql/get_room.sql" />
+    <None Remove="Global/Room/Sql/get_single_room.sql" />
+    <None Remove="Global/Room/Sql/submit_room.sql" />
+    <None Remove="Global/ShoeSize/Sql/delete_shoesize.sql" />
+    <None Remove="Global/ShoeSize/Sql/get_criteria_shoesize.sql" />
+    <None Remove="Global/ShoeSize/Sql/get_shoesize.sql" />
+    <None Remove="Global/ShoeSize/Sql/get_single_shoesize.sql" />
+    <None Remove="Global/ShoeSize/Sql/submit_shoesize.sql" />
+    <None Remove="Global/Skill/Sql/delete_skill.sql" />
+    <None Remove="Global/Skill/Sql/get_criteria_skill.sql" />
+    <None Remove="Global/Skill/Sql/get_single_skill.sql" />
+    <None Remove="Global/Skill/Sql/get_skill.sql" />
+    <None Remove="Global/Skill/Sql/submit_skill.sql" />
+    <None Remove="Global/SkillProficiency/Sql/delete_skillproficiency.sql" />
+    <None Remove="Global/SkillProficiency/Sql/get_criteria_skillproficiency.sql" />
+    <None Remove="Global/SkillProficiency/Sql/get_single_skillproficiency.sql" />
+    <None Remove="Global/SkillProficiency/Sql/get_skillproficiency.sql" />
+    <None Remove="Global/SkillProficiency/Sql/submit_skillproficiency.sql" />
+    <None Remove="Global/TaxStatus/Sql/delete_tax_status.sql" />
+    <None Remove="Global/TaxStatus/Sql/get_criteria_tax_status.sql" />
+    <None Remove="Global/TaxStatus/Sql/get_single_tax_status.sql" />
+    <None Remove="Global/TaxStatus/Sql/get_tax_status.sql" />
+    <None Remove="Global/TaxStatus/Sql/submit_blood_type.sql" />
+    <None Remove="Global/TemplateKeyword/Sql/delete_templatekeyword.sql" />
+    <None Remove="Global/TemplateKeyword/Sql/get_criteria_templatekeyword.sql" />
+    <None Remove="Global/TemplateKeyword/Sql/get_single_templatekeyword.sql" />
+    <None Remove="Global/TemplateKeyword/Sql/get_templatekeyword.sql" />
+    <None Remove="Global/TemplateKeyword/Sql/submit_templatekeyword.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Global/Announcement/Sql/delete_announcement.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Announcement/Sql/get_announcement.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Announcement/Sql/get_criteria_announcement.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Announcement/Sql/get_single_announcement.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Announcement/Sql/submit_announcement.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Bank/Sql/delete_bank.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Bank/Sql/get_bank.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Bank/Sql/get_criteria_bank.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Bank/Sql/get_single_bank.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Bank/Sql/submit_bank.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/BloodType/Sql/delete_blood_type.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/BloodType/Sql/get_blood_type.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/BloodType/Sql/get_criteria_blood_type.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/BloodType/Sql/get_single_blood_type.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/BloodType/Sql/submit_blood_type.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/BranchBank/Sql/delete_branch_bank.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/BranchBank/Sql/get_branch_bank.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/BranchBank/Sql/get_criteria_branch_bank.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/BranchBank/Sql/get_single_branch_bank.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/BranchBank/Sql/submit_branch_bank.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Building/Sql/delete_building.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Building/Sql/get_building.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Building/Sql/get_criteria_building.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Building/Sql/get_single_building.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Building/Sql/submit_building.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/City/Sql/delete_city.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/City/Sql/get_city.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/City/Sql/get_criteria_city.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/City/Sql/get_single_city.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/City/Sql/submit_city.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/ClothSize/Sql/delete_clothsize.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/ClothSize/Sql/get_clothsize.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/ClothSize/Sql/get_criteria_clothsize.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/ClothSize/Sql/get_single_clothsize.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/ClothSize/Sql/submit_clothsize.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Country/Sql/delete_country.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Country/Sql/get_country.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Country/Sql/get_criteria_country.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Country/Sql/get_single_country.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Country/Sql/submit_country.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Course/Sql/delete_course.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Course/Sql/get_course.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Course/Sql/get_criteria_course.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Course/Sql/get_single_course.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Course/Sql/submit_course.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Currency/Sql/delete_currency.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Currency/Sql/get_criteria_currency.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Currency/Sql/get_currency.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Currency/Sql/get_single_currency.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Currency/Sql/submit_currency.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/DiseaseCategory/Sql/delete_diseasecategory.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/DiseaseCategory/Sql/get_criteria_diseasecategory.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/DiseaseCategory/Sql/get_diseasecategory.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/DiseaseCategory/Sql/get_single_diseasecategory.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/DiseaseCategory/Sql/submit_diseasecategory.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/EduLevel/Sql/delete_edulevel.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/EduLevel/Sql/get_criteria_edulevel.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/EduLevel/Sql/get_edulevel.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/EduLevel/Sql/get_single_edulevel.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/EduLevel/Sql/submit_edulevel.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/EduMajor/Sql/delete_edumajor.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/EduMajor/Sql/get_criteria_edumajor.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/EduMajor/Sql/get_edumajor.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/EduMajor/Sql/get_single_edumajor.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/EduMajor/Sql/submit_edumajor.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/FamilyRelation/Sql/delete_familyrelation.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/FamilyRelation/Sql/get_criteria_familyrelation.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/FamilyRelation/Sql/get_familyrelation.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/FamilyRelation/Sql/get_single_familyrelation.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/FamilyRelation/Sql/submit_familyrelation.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/GraduationType/Sql/delete_graduationtype.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/GraduationType/Sql/get_criteria_graduationtype.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/GraduationType/Sql/get_graduationtype.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/GraduationType/Sql/get_single_graduationtype.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/GraduationType/Sql/submit_graduationtype.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Identity/Sql/delete_identity.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Identity/Sql/get_criteria_identity.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Identity/Sql/get_identity.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Identity/Sql/get_single_identity.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Identity/Sql/submit_identity.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Insurance/Sql/delete_insurance.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Insurance/Sql/get_criteria_insurance.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Insurance/Sql/get_insurance.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Insurance/Sql/get_single_insurance.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Insurance/Sql/submit_insurance.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/InventoryCondition/Sql/delete_inventorycondition.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/InventoryCondition/Sql/get_criteria_inventorycondition.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/InventoryCondition/Sql/get_inventorycondition.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/InventoryCondition/Sql/get_single_inventorycondition.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/InventoryCondition/Sql/submit_inventorycondition.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/InventoryGroup/Sql/delete_inventorygroup.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/InventoryGroup/Sql/get_criteria_inventorygroup.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/InventoryGroup/Sql/get_inventorygroup.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/InventoryGroup/Sql/get_single_inventorygroup.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/InventoryGroup/Sql/submit_inventorygroup.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/InventoryGroupDetail/Sql/delete_inventorygroupdetail.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/InventoryGroupDetail/Sql/get_criteria_inventorygroupdetail.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/InventoryGroupDetail/Sql/get_inventorygroupdetail.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/InventoryGroupDetail/Sql/get_single_inventorygroupdetail.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/InventoryGroupDetail/Sql/submit_inventorygroupdetail.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/InventoryGroupOrg/Sql/delete_inventorygrouporg.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/InventoryGroupOrg/Sql/get_criteria_inventorygrouporg.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/InventoryGroupOrg/Sql/get_inventorygrouporg.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/InventoryGroupOrg/Sql/get_single_inventorygrouporg.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/InventoryGroupOrg/Sql/submit_inventorygrouporg.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/InventoryType/Sql/delete_inventorytype.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/InventoryType/Sql/get_criteria_inventorytype.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/InventoryType/Sql/get_inventorytype.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/InventoryType/Sql/get_single_inventorytype.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/InventoryType/Sql/submit_inventorytype.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/LetterCategory/Sql/delete_lettercategory.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/LetterCategory/Sql/get_criteria_lettercategory.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/LetterCategory/Sql/get_lettercategory.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/LetterCategory/Sql/get_single_lettercategory.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/LetterCategory/Sql/submit_lettercategory.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/LetterTemplate/Sql/delete_lettertemplate.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/LetterTemplate/Sql/get_criteria_lettertemplate.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/LetterTemplate/Sql/get_lettertemplate.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/LetterTemplate/Sql/get_single_lettertemplate.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/LetterTemplate/Sql/submit_lettertemplate.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/MaritalStatus/Sql/delete_maritalstatus.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/MaritalStatus/Sql/get_criteria_maritalstatus.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/MaritalStatus/Sql/get_maritalstatus.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/MaritalStatus/Sql/get_single_maritalstatus.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/MaritalStatus/Sql/submit_maritalstatus.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/MedicalGroup/Sql/delete_medicalgroup.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/MedicalGroup/Sql/get_criteria_medicalgroup.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/MedicalGroup/Sql/get_medicalgroup.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/MedicalGroup/Sql/get_single_medicalgroup.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/MedicalGroup/Sql/submit_medicalgroup.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Nationality/Sql/delete_nationality.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Nationality/Sql/get_criteria_nationality.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Nationality/Sql/get_nationality.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Nationality/Sql/get_single_nationality.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Nationality/Sql/submit_nationality.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/NumericalSize/Sql/delete_numericalsize.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/NumericalSize/Sql/get_criteria_numericalsize.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/NumericalSize/Sql/get_numericalsize.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/NumericalSize/Sql/get_single_numericalsize.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/NumericalSize/Sql/submit_numericalsize.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Province/Sql/delete_province.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Province/Sql/get_criteria_province.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Province/Sql/get_province.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Province/Sql/get_single_province.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Province/Sql/submit_province.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/PunishmentType/Sql/delete_punishmenttype.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/PunishmentType/Sql/get_criteria_punishmenttype.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/PunishmentType/Sql/get_punishmenttype.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/PunishmentType/Sql/get_single_punishmenttype.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/PunishmentType/Sql/submit_punishmenttype.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Religion/Sql/delete_religion.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Religion/Sql/get_criteria_religion.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Religion/Sql/get_religion.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Religion/Sql/get_single_religion.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Religion/Sql/submit_religion.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/ResignReason/Sql/delete_resignreason.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/ResignReason/Sql/get_criteria_resignreason.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/ResignReason/Sql/get_resignreason.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/ResignReason/Sql/get_single_resignreason.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/ResignReason/Sql/submit_resignreason.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/RewardType/Sql/delete_rewardtype.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/RewardType/Sql/get_criteria_rewardtype.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/RewardType/Sql/get_rewardtype.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/RewardType/Sql/get_single_rewardtype.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/RewardType/Sql/submit_rewardtype.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/RomanianSize/Sql/delete_romaniansize.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/RomanianSize/Sql/get_criteria_romaniansize.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/RomanianSize/Sql/get_romaniansize.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/RomanianSize/Sql/get_single_romaniansize.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/RomanianSize/Sql/submit_romaniansize.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Room/Sql/delete_room.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Room/Sql/get_criteria_room.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Room/Sql/get_room.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Room/Sql/get_single_room.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Room/Sql/submit_room.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/ShoeSize/Sql/delete_shoesize.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/ShoeSize/Sql/get_criteria_shoesize.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/ShoeSize/Sql/get_shoesize.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/ShoeSize/Sql/get_single_shoesize.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/ShoeSize/Sql/submit_shoesize.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Skill/Sql/delete_skill.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Skill/Sql/get_criteria_skill.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Skill/Sql/get_single_skill.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Skill/Sql/get_skill.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/Skill/Sql/submit_skill.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/SkillProficiency/Sql/delete_skillproficiency.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/SkillProficiency/Sql/get_criteria_skillproficiency.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/SkillProficiency/Sql/get_single_skillproficiency.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/SkillProficiency/Sql/get_skillproficiency.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/SkillProficiency/Sql/submit_skillproficiency.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/TaxStatus/Sql/delete_tax_status.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/TaxStatus/Sql/get_criteria_tax_status.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/TaxStatus/Sql/get_single_tax_status.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/TaxStatus/Sql/get_tax_status.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/TaxStatus/Sql/submit_blood_type.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/TemplateKeyword/Sql/delete_templatekeyword.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/TemplateKeyword/Sql/get_criteria_templatekeyword.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/TemplateKeyword/Sql/get_single_templatekeyword.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/TemplateKeyword/Sql/get_templatekeyword.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    <Content Include="Global/TemplateKeyword/Sql/submit_templatekeyword.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>  </ItemGroup>
+
+</Project>
+

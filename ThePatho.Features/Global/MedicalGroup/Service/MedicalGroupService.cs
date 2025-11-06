@@ -38,7 +38,7 @@ namespace ThePatho.Features.Global.MedicalGroup.Service
                 var data = await dbConnection.QueryAsync<MedicalGroupDto>(query, parameters);
                 var result = new MedicalGroupItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     MedicalGroupList = data.ToList(),
                 };
                 return new ApiResponse<MedicalGroupItemDto>(HttpStatusCode.OK, result);
@@ -92,7 +92,7 @@ namespace ThePatho.Features.Global.MedicalGroup.Service
                 var data = await dbConnection.QueryAsync<MedicalGroupDto>(query, parameters);
                 var result = new MedicalGroupItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     MedicalGroupList = data.ToList(),
                 };
                 return new ApiResponse<MedicalGroupItemDto>(HttpStatusCode.OK, result);

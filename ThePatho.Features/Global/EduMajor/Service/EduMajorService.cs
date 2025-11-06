@@ -40,7 +40,7 @@ namespace ThePatho.Features.Global.EduMajor.Service
                 var data = await dbConnection.QueryAsync<EduMajorDto>(query, parameters);
                 var result = new EduMajorItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     EduMajorList = data.ToList(),
                 };
                 return new ApiResponse<EduMajorItemDto>(HttpStatusCode.OK, result);
@@ -93,7 +93,7 @@ namespace ThePatho.Features.Global.EduMajor.Service
                 var data = await dbConnection.QueryAsync<EduMajorDto>(query, parameters);
                 var result = new EduMajorItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     EduMajorList = data.ToList(),
                 };
                 return new ApiResponse<EduMajorItemDto>(HttpStatusCode.OK, result);

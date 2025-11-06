@@ -66,7 +66,7 @@ namespace ThePatho.Features.PersonalInformation.EmployeeTraining.Service
                 var parameters = new DynamicParameters();
                 parameters.Add("@EmpTrainingId", request.EmpTrainingId);
 
-                var query = await queryLoader.LoadQueryAsync("PersonalInformation/EmployeeTraining/Sql/get_singel_emp_training");
+                var query = await queryLoader.LoadQueryAsync("PersonalInformation/EmployeeTraining/Sql/get_single_emp_training");
                 var data = await db.QueryFirstOrDefaultAsync<EmployeeTrainingDto>(query, parameters);
 
                 if (data == null)
@@ -155,7 +155,7 @@ namespace ThePatho.Features.PersonalInformation.EmployeeTraining.Service
                 parameters.Add("@EmpTrainingId", request.EmpTrainingId);
                 parameters.Add("@User", "admin");
 
-                var query = await queryLoader.LoadQueryAsync("PersonalInformation/EmployeeTraining/Sql/get_singel_emp_training");
+                var query = await queryLoader.LoadQueryAsync("PersonalInformation/EmployeeTraining/Sql/get_single_emp_training");
                 var data = await db.QueryFirstOrDefaultAsync<EmployeeTrainingDto>(query, parameters);
 
                 if (data == null)

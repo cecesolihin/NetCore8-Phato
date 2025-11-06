@@ -37,7 +37,7 @@ namespace ThePatho.Features.Global.RomanianSize.Service
                 var data = await dbConnection.QueryAsync<RomanianSizeDto>(query, parameters);
                 var result = new RomanianSizeItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     RomanianSizeList = data.ToList(),
                 };
                 return new ApiResponse<RomanianSizeItemDto>(HttpStatusCode.OK, result);
@@ -89,7 +89,7 @@ namespace ThePatho.Features.Global.RomanianSize.Service
                 var data = await dbConnection.QueryAsync<RomanianSizeDto>(query, parameters);
                 var result = new RomanianSizeItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     RomanianSizeList = data.ToList(),
                 };
                 return new ApiResponse<RomanianSizeItemDto>(HttpStatusCode.OK, result);

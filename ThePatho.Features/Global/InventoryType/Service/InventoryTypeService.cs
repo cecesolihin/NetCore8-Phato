@@ -38,7 +38,7 @@ namespace ThePatho.Features.Global.InventoryType.Service
                 var data = await dbConnection.QueryAsync<InventoryTypeDto>(query, parameters);
                 var result = new InventoryTypeItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     InventoryTypeList = data.ToList(),
                 };
                 return new ApiResponse<InventoryTypeItemDto>(HttpStatusCode.OK, result);
@@ -92,7 +92,7 @@ namespace ThePatho.Features.Global.InventoryType.Service
                 var data = await dbConnection.QueryAsync<InventoryTypeDto>(query, parameters);
                 var result = new InventoryTypeItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     InventoryTypeList = data.ToList(),
                 };
                 return new ApiResponse<InventoryTypeItemDto>(HttpStatusCode.OK, result);

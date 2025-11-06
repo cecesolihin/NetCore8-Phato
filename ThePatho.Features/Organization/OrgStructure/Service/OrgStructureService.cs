@@ -8,6 +8,7 @@ using ThePatho.Features.Organization.OrgStructure.Commands;
 using ThePatho.Features.Organization.OrgStructure.DTO;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Domain.Models.Organization;
+using System.IO;
 
 namespace ThePatho.Features.Organization.OrgStructure.Service
 {
@@ -58,7 +59,7 @@ namespace ThePatho.Features.Organization.OrgStructure.Service
 
                 var result = new OrgStructureItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     OrgStructureList = data.ToList(),
                 };
                 return new ApiResponse<OrgStructureItemDto>(HttpStatusCode.OK, result);
@@ -106,7 +107,7 @@ namespace ThePatho.Features.Organization.OrgStructure.Service
 
                 var result = new OrgStructureItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     OrgStructureList = data.ToList(),
                 };
                 return new ApiResponse<OrgStructureItemDto>(HttpStatusCode.OK, result);
@@ -126,34 +127,29 @@ namespace ThePatho.Features.Organization.OrgStructure.Service
             {
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
+                string path = string.Empty;
+                List<string> pathList = new List<string>();
 
-                var validationErrors = new List<string>();
-
-                if (string.IsNullOrWhiteSpace(request.OrgStructureCode))
-                    validationErrors.Add("OrgStructure Code is required.");
-
-                if (string.IsNullOrWhiteSpace(request.OrgStructureName))
-                    validationErrors.Add("OrgStructure Name is required.");
-
-                if (string.IsNullOrWhiteSpace(request.OrgLevelCode))
-                    validationErrors.Add("OrgLevel Code is required.");
-
-
-                if (string.IsNullOrWhiteSpace(request.Action) ||
-                    (request.Action.ToUpper() != "INSERT" && request.Action.ToUpper() != "UPDATE"))
-                    validationErrors.Add("Action must be either 'INSERT' or 'UPDATE'.");
-
-                if (validationErrors.Any())
+                
+                if (request.Action.ToUpper() == "ADD")
                 {
-                    return new ApiResponse(
-                        HttpStatusCode.BadRequest,
-                        $"Validation failed for {request.OrgStructureCode}",
-                        string.Join("; ", validationErrors)
-                    );
-                }
+                    var query = new Query(TableOrganization.OrgStructure).Select("*").OrderByDesc("OrgStructureID");
 
-                if (request.Action.ToUpper() == "INSERT")
-                {
+                    var org_last = await db.FirstOrDefaultAsync<OrgStructureDto>(query);
+
+                    var query_parent_org = new Query(TableOrganization.OrgStructure)
+                                    .Select("*").Where("OrgStructureId", request.ParentOrgId);
+
+                    var data_parent_org = await db.FirstOrDefaultAsync<OrgStructureDto>(query_parent_org);
+
+                    if (data_parent_org != null)
+                    {
+                        pathList = data_parent_org.Path.ToString().Split(',').ToList();
+                    }
+
+                    pathList.Add((org_last.OrgStructureId + 1).ToString());
+                    path = string.Join(",", pathList.ToArray());
+
                     var existsQuery = new Query(TableOrganization.OrgStructure)
                         .Where("OrgStructureCode", request.OrgStructureCode)
                         .SelectRaw("COUNT(1)");
@@ -168,14 +164,20 @@ namespace ThePatho.Features.Organization.OrgStructure.Service
                         );
                     }
 
+
                     // Insert new record
                     var insertQuery = new Query(TableOrganization.OrgStructure).AsInsert(new
                     {
                         OrgStructureCode = request.OrgStructureCode,
                         OrgStructureName = request.OrgStructureName,
-                        ParentOrgId = request.ParentOrgId ?? (object)DBNull.Value,
+                        ParentOrgId = request.ParentOrgId,
                         OrgLevelCode = request.OrgLevelCode,
-                        Status = request.Status.ToString(), 
+                        Status = request.Status ? 1 : 0,
+                        Location = request.Location,
+                        Path = path,
+                        CostCenter = request.CostCenter,
+                        Phone = request.Phone,
+                        Sort = request.Sort,
                         IsDeleted = false,
                         InsertedBy = "system",
                         InsertedDate = DateTime.UtcNow
@@ -191,7 +193,7 @@ namespace ThePatho.Features.Organization.OrgStructure.Service
                         );
                     }
                 }
-                else if (request.Action.ToUpper() == "UPDATE")
+                else if (request.Action.ToUpper() == "EDIT")
                 {
                     if (request.OrgStructureId == 0)
                     {
@@ -201,7 +203,6 @@ namespace ThePatho.Features.Organization.OrgStructure.Service
                         );
                     }
 
-                    // Cek apakah record exists untuk update
                     var existsQuery = new Query(TableOrganization.OrgStructure)
                         .Where("OrgStructureId", request.OrgStructureId)
                         .SelectRaw("COUNT(1)");
@@ -216,16 +217,35 @@ namespace ThePatho.Features.Organization.OrgStructure.Service
                         );
                     }
 
+                   
+                    var query_parent_org = new Query(TableOrganization.OrgStructure)
+                                    .Select("*").Where("OrgStructureId", request.ParentOrgId);
+
+                    var data_parent_org = await db.FirstOrDefaultAsync<OrgStructureDto>(query_parent_org);
+
+                    if (data_parent_org != null)
+                    {
+                        pathList = data_parent_org.Path.ToString().Split(',').ToList();
+                    }
+
+                    pathList.Add(request.OrgStructureId.ToString());
+                    path = string.Join(",", pathList.ToArray());
+
                     // Update existing record
                     var updateQuery = new Query(TableOrganization.OrgStructure)
                         .Where("OrgStructureId", request.OrgStructureId)
                         .AsUpdate(new
                         {
-                            OrgStructureCode = request.OrgStructureCode,
+                            //OrgStructureCode = request.OrgStructureCode,
                             OrgStructureName = request.OrgStructureName,
-                            ParentOrgId = request.ParentOrgId ?? (object)DBNull.Value,
+                            ParentOrgId = request.ParentOrgId,
                             OrgLevelCode = request.OrgLevelCode,
-                            Status = request.Status.ToString(),
+                            Status = request.Status ? 1 : 0,
+                            Location = request.Location,
+                            Path = path,
+                            CostCenter = request.CostCenter,
+                            Phone = request.Phone,
+                            Sort = request.Sort,
                             ModifiedBy = "system",
                             ModifiedDate = DateTime.UtcNow
                         });

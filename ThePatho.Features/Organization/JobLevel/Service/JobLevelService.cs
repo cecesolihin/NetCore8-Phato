@@ -49,7 +49,7 @@ namespace ThePatho.Features.Organization.JobLevel.Service
                 var data = await db.GetAsync<JobLevelDto>(query);
                 var result = new JobLevelItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     JobLevelList = data.ToList(),
                 };
                 return new ApiResponse<JobLevelItemDto>(HttpStatusCode.OK, result);
@@ -72,21 +72,11 @@ namespace ThePatho.Features.Organization.JobLevel.Service
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
                 var query = new Query(TableOrganization.JobLevel)
-                    .Select(
-                            "job_level_code AS JobLevelCode",
-                            "job_level_name AS JobLevelName",
-                            "jort AS Jort",
-                            "remarks AS Remarks",
-                            "is_deleted AS IsDeleted",
-                            "inserted_by AS InsertedBy",
-                            "inserted_date AS InsertedDate",
-                            "modified_by AS ModifiedBy",
-                            "modified_date AS ModifiedDate",
-                            "is_active AS IsActive"
+                    .Select("*"
                         )
                     .When(
                         !string.IsNullOrWhiteSpace(request.FilterJobLevelCode),
-                        q => q.WhereIn("job_level_code", request.FilterJobLevelCode)
+                        q => q.WhereIn("JobLevelCode", request.FilterJobLevelCode)
                     );
 
                 var data = await db.FirstOrDefaultAsync<JobLevelDto>(query);
@@ -115,25 +105,9 @@ namespace ThePatho.Features.Organization.JobLevel.Service
             {
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
-
-                var ArgumentException = new List<string>();
-
-                // Validasi field required
-                if (string.IsNullOrWhiteSpace(request.JobLevelCode))
-                    ArgumentException.Add("Job level code is required.");
-
-                if (string.IsNullOrWhiteSpace(request.JobLevelName))
-                    ArgumentException.Add("Job level name is required.");
-
-
-                if (ArgumentException.Any())
-                {
-                    return new ApiResponse(HttpStatusCode.BadRequest, $"Failed to {request.Action} {request.JobLevelCode}", string.Join(", ", ArgumentException.ToArray()));
-                }
-
-                // Check if data exists
+               
                 var existsQuery = new Query(TableOrganization.JobLevel)
-                    .Where("job_level_code", request.JobLevelCode)
+                    .Where("JobLevelCode", request.JobLevelCode)
                     .SelectRaw("COUNT(1)");
 
                 var exists = await db.ExecuteScalarAsync<int>(existsQuery);
@@ -222,13 +196,13 @@ namespace ThePatho.Features.Organization.JobLevel.Service
                         q => q.WhereIn("JobLevelCode", request.FilterJobLevelCode)
                     ).When(
                         !string.IsNullOrWhiteSpace(request.FilterJobLevelName),
-                            q => q.WhereContains("FilterJobLevelName", request.FilterJobLevelName)
+                            q => q.WhereContains("JobLevelName", request.FilterJobLevelName)
                     );
 
                 var data = await db.GetAsync<JobLevelDto>(query);
                 var result = new JobLevelItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     JobLevelList = data.ToList(),
                 };
                 return new ApiResponse<JobLevelItemDto>(HttpStatusCode.OK, result);

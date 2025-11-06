@@ -35,14 +35,14 @@ namespace ThePatho.Features.PersonalInformation.EmployeeAddress.Service
                 var parameters = new DynamicParameters();
                 parameters.Add("@EmployeeId", request.EmployeeId);
 
-                var query = await queryLoader.LoadQueryAsync("PersonalInformation/EmployeeAddress/Sql/get_singel_emp_address");
+                var query = await queryLoader.LoadQueryAsync("PersonalInformation/EmployeeAddress/Sql/get_single_emp_address");
                 var data = await db.QueryFirstOrDefaultAsync<EmployeeAddressDto>(query, parameters);
 
                 return new ApiResponse<EmployeeAddressDto>(HttpStatusCode.OK, data);
             }
             catch (Exception ex)
             {
-                return new ApiResponse<EmployeeAddressDto>(HttpStatusCode.BadRequest, "Error retrieving Blood Type detail.", ex.Message);
+                return new ApiResponse<EmployeeAddressDto>(HttpStatusCode.BadRequest, "Error retrieving Employee Address detail.", ex.Message);
             }
         }
 

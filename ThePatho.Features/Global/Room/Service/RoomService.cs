@@ -39,7 +39,7 @@ namespace ThePatho.Features.Global.Room.Service
                 var data = await dbConnection.QueryAsync<RoomDto>(query, parameters);
                 var result = new RoomItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     RoomList = data.ToList(),
                 };
                 return new ApiResponse<RoomItemDto>(HttpStatusCode.OK, result);
@@ -95,7 +95,7 @@ namespace ThePatho.Features.Global.Room.Service
                 var data = await dbConnection.QueryAsync<RoomDto>(query, parameters);
                 var result = new RoomItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     RoomList = data.ToList(),
                 };
                 return new ApiResponse<RoomItemDto>(HttpStatusCode.OK, result);

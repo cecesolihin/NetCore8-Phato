@@ -1,3 +1,5 @@
+DECLARE @Offset INT = (@PageNumber - 1) * @PageSize;
+
 SELECT 
     ech.CareerHistoryNo,
     ech.EmployeeID,
@@ -38,15 +40,14 @@ SELECT
     CONVERT(VARCHAR, ModifiedDate, 106) AS ModifiedDate--ech.ModifiedDate
 FROM TEPDEmployeeCareerHistory ech
 WHERE 1=1
-  AND (@EmployeeId IS NULL OR ech.EmployeeID = @EmployeeId)
-  AND (@CareerHistoryNo IS NULL OR ech.CareerHistoryNo = @CareerHistoryNo)
-  AND (@PositionCode IS NULL OR ech.PositionCode = @PositionCode)
-  AND (@CompanyCode IS NULL OR ech.CompanyCode = @CompanyCode)
+  AND (@EmployeeId = 0  OR ech.EmployeeID = @EmployeeId)
+  AND ((@CareerHistoryNo IS NULL OR @CareerHistoryNo ='') OR ech.CareerHistoryNo like'%' +@CareerHistoryNo +'%')
+  AND ((@PositionCode IS NULL OR @PositionCode ='') OR ech.PositionCode LIKE '%'+@PositionCode +'%')
+  AND ((@CompanyCode IS NULL OR @CompanyCode = '') OR ech.CompanyCode LIKE '%' + @CompanyCode +'%')
   AND ech.IsDeleted = 0
 ORDER BY
     CASE WHEN @SortBy = 'StartDate' AND @OrderBy = 'ASC' THEN ech.StartDate END ASC,
     CASE WHEN @SortBy = 'StartDate' AND @OrderBy = 'DESC' THEN ech.StartDate END DESC,
     CASE WHEN @SortBy = 'CareerHistoryNo' AND @OrderBy = 'ASC' THEN ech.CareerHistoryNo END ASC,
     CASE WHEN @SortBy = 'CareerHistoryNo' AND @OrderBy = 'DESC' THEN ech.CareerHistoryNo END DESC
-OFFSET (@PageNumber - 1) * @PageSize ROWS
-FETCH NEXT @PageSize ROWS ONLY;
+OFFSET @Offset ROWS FETCH NEXT @PageSize ROWS ONLY;

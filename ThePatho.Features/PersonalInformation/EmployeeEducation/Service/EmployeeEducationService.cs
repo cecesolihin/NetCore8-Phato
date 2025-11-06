@@ -65,7 +65,7 @@ namespace ThePatho.Features.PersonalInformation.EmployeeEducation.Service
                 var parameters = new DynamicParameters();
                 parameters.Add("@EmployeeEducationId", request.EmployeeEducationId);
 
-                var query = await queryLoader.LoadQueryAsync("PersonalInformation/EmployeeEducation/Sql/get_singel_emp_education");
+                var query = await queryLoader.LoadQueryAsync("PersonalInformation/EmployeeEducation/Sql/get_single_emp_education");
                 var data = await db.QueryFirstOrDefaultAsync<EmployeeEducationDto>(query, parameters);
                 if (data == null)
                 {

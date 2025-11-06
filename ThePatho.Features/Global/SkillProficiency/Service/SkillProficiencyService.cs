@@ -38,7 +38,7 @@ namespace ThePatho.Features.Global.SkillProficiency.Service
                 var data = await dbConnection.QueryAsync<SkillProficiencyDto>(query, parameters);
                 var result = new SkillProficiencyItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     SkillProficiencyList = data.ToList(),
                 };
                 return new ApiResponse<SkillProficiencyItemDto>(HttpStatusCode.OK, result);
@@ -91,7 +91,7 @@ namespace ThePatho.Features.Global.SkillProficiency.Service
                 var data = await dbConnection.QueryAsync<SkillProficiencyDto>(query, parameters);
                 var result = new SkillProficiencyItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     SkillProficiencyList = data.ToList(),
                 };
                 return new ApiResponse<SkillProficiencyItemDto>(HttpStatusCode.OK, result);

@@ -49,7 +49,7 @@ namespace ThePatho.Features.Organization.OrgLevel.Service
 
                 var result = new OrgLevelItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     OrgLevelList = data.ToList(),
                 };
                 return new ApiResponse<OrgLevelItemDto>(HttpStatusCode.OK, result);
@@ -85,7 +85,7 @@ namespace ThePatho.Features.Organization.OrgLevel.Service
 
                 var result = new OrgLevelItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     OrgLevelList = data.ToList(),
                 };
                 return new ApiResponse<OrgLevelItemDto>(HttpStatusCode.OK, result);
@@ -107,19 +107,7 @@ namespace ThePatho.Features.Organization.OrgLevel.Service
                 var db = new QueryFactory(connection, dapperContext.Compiler);
 
                 var ArgumentException = new List<string>();
-                // Validasi field NOT NULL berdasarkan struktur tabel
-                if (string.IsNullOrWhiteSpace(request.OrgLevelCode))
-                    ArgumentException.Add("OrgLevel Code is required.");
-
-                if (string.IsNullOrWhiteSpace(request.OrgLevelName))
-                    ArgumentException.Add("OrgLevel Name is required.");
-
-
-                if (ArgumentException.Any())
-                {
-                    return new ApiResponse(HttpStatusCode.BadRequest, $"Failed to {request.Action} {request.OrgLevelCode}", string.Join(", ", ArgumentException.ToArray()));
-                }
-                // Cek apakah OrgLevelCode sudah exists
+               
                 var existsQuery = new Query(TableOrganization.OrgLevel)
                     .Where("OrgLevelCode", request.OrgLevelCode)
                     .SelectRaw("COUNT(1)");

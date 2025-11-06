@@ -39,7 +39,7 @@ namespace ThePatho.Features.Global.Province.Service
                 var data = await dbConnection.QueryAsync<ProvinceDto>(query, parameters);
                 var result = new ProvinceItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     ProvinceList = data.ToList(),
                 };
                 return new ApiResponse<ProvinceItemDto>(HttpStatusCode.OK, result);
@@ -94,7 +94,7 @@ namespace ThePatho.Features.Global.Province.Service
                 var data = await dbConnection.QueryAsync<ProvinceDto>(query, parameters);
                 var result = new ProvinceItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     ProvinceList = data.ToList(),
                 };
                 return new ApiResponse<ProvinceItemDto>(HttpStatusCode.OK, result);

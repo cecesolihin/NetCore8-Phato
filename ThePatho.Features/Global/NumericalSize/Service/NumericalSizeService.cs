@@ -37,7 +37,7 @@ namespace ThePatho.Features.Global.NumericalSize.Service
                 var data = await dbConnection.QueryAsync<NumericalSizeDto>(query, parameters);
                 var result = new NumericalSizeItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     NumericalSizeList = data.ToList(),
                 };
                 return new ApiResponse<NumericalSizeItemDto>(HttpStatusCode.OK, result);
@@ -90,7 +90,7 @@ namespace ThePatho.Features.Global.NumericalSize.Service
                 var data = await dbConnection.QueryAsync<NumericalSizeDto>(query, parameters);
                 var result = new NumericalSizeItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     NumericalSizeList = data.ToList(),
                 };
                 return new ApiResponse<NumericalSizeItemDto>(HttpStatusCode.OK, result);

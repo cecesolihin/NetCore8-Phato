@@ -20,6 +20,13 @@ namespace ThePatho.Features.Identity.UserManagement.Commands.User
         [JsonPropertyName("filter_Phone")]
         public string? FilterPhone { get; set; }
 
+        [JsonPropertyName("filter_EmpId")]
+        public int? FilterEmpId { get; set; }
+        [JsonPropertyName("filter_Activated")]
+        public bool? FilterActivated { get; set; }
+        [JsonPropertyName("filter_LockoutEnabled")]
+        public bool? FilterLockoutEnabled { get; set; }
+
         [JsonPropertyName("sortBy")]
         [DefaultValue("InsertedDate")]
         public string? SortBy { get; set; } = "InsertedDate";

@@ -40,7 +40,7 @@ namespace ThePatho.Features.Global.Announcement.Service
                 var data = await dbConnection.QueryAsync<AnnouncementDto>(query, parameters);
                 var result = new AnnouncementItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     AnnouncementList = data.ToList(),
                 };
                 return new ApiResponse<AnnouncementItemDto>(HttpStatusCode.OK, result);
@@ -94,7 +94,7 @@ namespace ThePatho.Features.Global.Announcement.Service
                 var data = await dbConnection.QueryAsync<AnnouncementDto>(query, parameters);
                 var result = new AnnouncementItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     AnnouncementList = data.ToList(),
                 };
                 return new ApiResponse<AnnouncementItemDto>(HttpStatusCode.OK, result);

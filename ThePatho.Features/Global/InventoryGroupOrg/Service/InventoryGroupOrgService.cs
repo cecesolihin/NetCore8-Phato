@@ -38,7 +38,7 @@ namespace ThePatho.Features.Global.InventoryGroupOrg.Service
                 var data = await dbConnection.QueryAsync<InventoryGroupOrgDto>(query, parameters);
                 var result = new InventoryGroupOrgItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     InventoryGroupOrgList = data.ToList(),
                 };
                 return new ApiResponse<InventoryGroupOrgItemDto>(HttpStatusCode.OK, result);
@@ -92,7 +92,7 @@ namespace ThePatho.Features.Global.InventoryGroupOrg.Service
                 var data = await dbConnection.QueryAsync<InventoryGroupOrgDto>(query, parameters);
                 var result = new InventoryGroupOrgItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     InventoryGroupOrgList = data.ToList(),
                 };
                 return new ApiResponse<InventoryGroupOrgItemDto>(HttpStatusCode.OK, result);

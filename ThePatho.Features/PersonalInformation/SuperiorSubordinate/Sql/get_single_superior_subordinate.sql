@@ -1,20 +1,31 @@
 SELECT 
     t.EmployeeSuperiorID,
     t.EmployeeID,
-    e.EmployeeName,
-   -- t.EffectiveDate,
+    (SELECT TOP 1 CONCAT(e.EmployeeNo, '', e.Fullname) FROM TEPMEmployee e WHERE e.EmployeeID = t.EmployeeID) AS Employee,
+    t.Superior1ID,
+    (SELECT TOP 1 CONCAT(e.EmployeeNo, '', e.Fullname) FROM TEPMEmployee e WHERE e.EmployeeID = t.Superior1ID) AS Superior1,
+    t.Superior2ID,
+    (SELECT TOP 1 CONCAT(e.EmployeeNo, '', e.Fullname) FROM TEPMEmployee e WHERE e.EmployeeID = t.Superior2ID) AS Superior2,
+    t.Superior3ID,
+    (SELECT TOP 1 CONCAT(e.EmployeeNo, '', e.Fullname) FROM TEPMEmployee e WHERE e.EmployeeID = t.Superior3ID) AS Superior3,
+    t.Superior4ID,
+    (SELECT TOP 1 CONCAT(e.EmployeeNo, '', e.Fullname) FROM TEPMEmployee e WHERE e.EmployeeID = t.Superior4ID) AS Superior4,
+    t.Superior5ID,
+    (SELECT TOP 1 CONCAT(e.EmployeeNo, '', e.Fullname) FROM TEPMEmployee e WHERE e.EmployeeID = t.Superior5ID) AS Superior5,
+    t.Superior6ID,
+    (SELECT TOP 1 CONCAT(e.EmployeeNo, '', e.Fullname) FROM TEPMEmployee e WHERE e.EmployeeID = t.Superior6ID) AS Superior6,
+    t.Superior7ID,
+    (SELECT TOP 1 CONCAT(e.EmployeeNo, '', e.Fullname) FROM TEPMEmployee e WHERE e.EmployeeID = t.Superior7ID) AS Superior7,
+    t.Superior8ID,
+    (SELECT TOP 1 CONCAT(e.EmployeeNo, '', e.Fullname) FROM TEPMEmployee e WHERE e.EmployeeID = t.Superior8ID) AS Superior8,
+    t.Superior9ID,
+    (SELECT TOP 1 CONCAT(e.EmployeeNo, '', e.Fullname) FROM TEPMEmployee e WHERE e.EmployeeID = t.Superior9ID) AS Superior9,
+    t.Superior10ID,
+    (SELECT TOP 1 CONCAT(e.EmployeeNo, '', e.Fullname) FROM TEPMEmployee e WHERE e.EmployeeID = t.Superior10ID) AS Superior10,
     CONVERT(VARCHAR, t.EffectiveDate, 106) AS EffectiveDate,
-   -- t.EndDate,
     CONVERT(VARCHAR, t.EndDate, 106) AS EndDate,
     t.Remarks,
-    t.Superior1ID,
-    s1.EmployeeName AS Superior1Name,
-    CASE 
-        WHEN t.EndDate IS NULL THEN 'ACTIVE'
-        ELSE 'ALL'
-    END AS Status
+    CASE WHEN t.EndDate IS NULL THEN 'ACTIVE' ELSE 'ALL' END AS [Status]
 FROM TEPMSuperiorSubordinate t
-LEFT JOIN TEPMEmployee e ON t.EmployeeID = e.EmployeeID
-LEFT JOIN TEPMEmployee s1 ON t.Superior1ID = s1.EmployeeID
-WHERE
+WHERE 1=1 AND
     t.EmployeeSuperiorID = @EmployeeSuperiorID;

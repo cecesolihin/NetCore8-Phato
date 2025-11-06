@@ -28,7 +28,7 @@ namespace ThePatho.Features.Organization.WorkLocation.Commands
         public string? OrderBy { get; set; } = "DESC";
 
         [JsonPropertyName("pageNumber")]
-        [DefaultValue(1)]
+        [DefaultValue(0)]
         public int PageNumber { get; set; } = 1;
 
         [JsonPropertyName("pageSize")]

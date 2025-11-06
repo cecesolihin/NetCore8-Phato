@@ -41,7 +41,7 @@ namespace ThePatho.Features.Global.Course.Service
                 var data = await dbConnection.QueryAsync<CourseDto>(query, parameters);
                 var result = new CourseItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     CourseList = data.ToList(),
                 };
                 return new ApiResponse<CourseItemDto>(HttpStatusCode.OK, result);
@@ -95,7 +95,7 @@ namespace ThePatho.Features.Global.Course.Service
                 var data = await dbConnection.QueryAsync<CourseDto>(query, parameters);
                 var result = new CourseItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     CourseList = data.ToList(),
                 };
                 return new ApiResponse<CourseItemDto>(HttpStatusCode.OK, result);
@@ -141,9 +141,8 @@ namespace ThePatho.Features.Global.Course.Service
 
                 var data = await dbConnection.QueryFirstOrDefaultAsync<CourseDto>(query, parameters);
                 if (data == null)
-                {
                     return new ApiResponse<CourseDto>(HttpStatusCode.NotFound, "data not found");
-                }
+
                 var query_delete = await queryLoader.LoadQueryAsync("Global/Course/Sql/delete_course");
                 await dbConnection.ExecuteAsync(query_delete, parameters);
                 return new ApiResponse(HttpStatusCode.OK, $"Delete successfully");

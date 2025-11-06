@@ -53,7 +53,7 @@ namespace ThePatho.Features.Global.Bank.Service
             }
             catch (Exception ex)
             {
-                return new ApiResponse<BankItemDto>(HttpStatusCode.BadRequest, "Error retrieving Blood Type list.", ex.Message);
+                return new ApiResponse<BankItemDto>(HttpStatusCode.BadRequest, "Error retrieving Bank list.", ex.Message);
             }
         }
 
@@ -76,7 +76,7 @@ namespace ThePatho.Features.Global.Bank.Service
             }
             catch (Exception ex)
             {
-                return new ApiResponse<BankDto>(HttpStatusCode.BadRequest, "Error retrieving Blood Type detail.", ex.Message);
+                return new ApiResponse<BankDto>(HttpStatusCode.BadRequest, "Error retrieving Bank detail.", ex.Message);
             }
         }
 
@@ -107,7 +107,7 @@ namespace ThePatho.Features.Global.Bank.Service
             }
             catch (Exception ex)
             {
-                return new ApiResponse<BankItemDto>(HttpStatusCode.BadRequest, "Error filtering Blood Type data.", ex.Message);
+                return new ApiResponse<BankItemDto>(HttpStatusCode.BadRequest, "Error filtering Bank data.", ex.Message);
             }
         }
 

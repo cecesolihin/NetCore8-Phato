@@ -48,7 +48,7 @@ namespace ThePatho.Features.Organization.MutationType.Service
 
                 var result = new MutationTypeItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     MutationTypeList = data.ToList(),
                 };
                 return new ApiResponse<MutationTypeItemDto>(HttpStatusCode.OK, result);
@@ -84,7 +84,7 @@ namespace ThePatho.Features.Organization.MutationType.Service
 
                 var result = new MutationTypeItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     MutationTypeList = data.ToList(),
                 };
                 return new ApiResponse<MutationTypeItemDto>(HttpStatusCode.OK, result);
@@ -106,19 +106,7 @@ namespace ThePatho.Features.Organization.MutationType.Service
                 var db = new QueryFactory(connection, dapperContext.Compiler);
 
                 var ArgumentException = new List<string>();
-                // Validasi field NOT NULL berdasarkan struktur tabel
-                if (string.IsNullOrWhiteSpace(request.MutationTypeCode))
-                    ArgumentException.Add("MutationType Code is required.");
-
-                if (string.IsNullOrWhiteSpace(request.MutationTypeName))
-                    ArgumentException.Add("MutationType Name is required.");
-
-
-                if (ArgumentException.Any())
-                {
-                    return new ApiResponse(HttpStatusCode.BadRequest, $"Failed to {request.Action} {request.MutationTypeCode}", string.Join(", ", ArgumentException.ToArray()));
-                }
-                // Cek apakah MutationTypeCode sudah exists
+                
                 var existsQuery = new Query(TableOrganization.MutationType)
                     .Where("MutationTypeCode", request.MutationTypeCode)
                     .SelectRaw("COUNT(1)");

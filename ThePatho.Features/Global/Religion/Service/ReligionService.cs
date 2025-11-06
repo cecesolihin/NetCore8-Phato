@@ -37,7 +37,7 @@ namespace ThePatho.Features.Global.Religion.Service
                 var data = await dbConnection.QueryAsync<ReligionDto>(query, parameters);
                 var result = new ReligionItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     ReligionList = data.ToList(),
                 };
                 return new ApiResponse<ReligionItemDto>(HttpStatusCode.OK, result);
@@ -90,7 +90,7 @@ namespace ThePatho.Features.Global.Religion.Service
                 var data = await dbConnection.QueryAsync<ReligionDto>(query, parameters);
                 var result = new ReligionItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     ReligionList = data.ToList(),
                 };
                 return new ApiResponse<ReligionItemDto>(HttpStatusCode.OK, result);

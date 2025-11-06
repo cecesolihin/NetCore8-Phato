@@ -38,7 +38,7 @@ namespace ThePatho.Features.Global.ResignReason.Service
                 var data = await dbConnection.QueryAsync<ResignReasonDto>(query, parameters);
                 var result = new ResignReasonItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     ResignReasonList = data.ToList(),
                 };
                 return new ApiResponse<ResignReasonItemDto>(HttpStatusCode.OK, result);
@@ -91,7 +91,7 @@ namespace ThePatho.Features.Global.ResignReason.Service
                 var data = await dbConnection.QueryAsync<ResignReasonDto>(query, parameters);
                 var result = new ResignReasonItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     ResignReasonList = data.ToList(),
                 };
                 return new ApiResponse<ResignReasonItemDto>(HttpStatusCode.OK, result);

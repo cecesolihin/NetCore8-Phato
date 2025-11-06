@@ -6,11 +6,13 @@ namespace ThePatho.Features.PersonalInformation.SuperiorSubordinate.Commands
 {
     public class GenerateSuperiorSubordinateCommand : IRequest<ApiResponse>
     {
-        [JsonPropertyName("efective_date")]
-        public string? EfectiveDate { get; set; }
+        [JsonPropertyName("effective_date")]
+        public DateTime EffectiveDate { get; set; }
 
         [JsonPropertyName("override")]
-        public bool? Override { get; set; }
+        public bool? OverWrite { get; set; }
+        [JsonPropertyName("remarks")]
+        public string? Remarks { get; set; }
 
         [JsonPropertyName("employee_list")]
         public List<int> EmployeeList { get; set; } = new();

@@ -56,7 +56,7 @@ namespace ThePatho.Features.Organization.WorkLocation.Service
 
                 var result = new WorkLocationItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     WorkLocationList = data.ToList(),
                 };
                 return new ApiResponse<WorkLocationItemDto>(HttpStatusCode.OK, result);
@@ -96,7 +96,7 @@ namespace ThePatho.Features.Organization.WorkLocation.Service
 
                 var result = new WorkLocationItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     WorkLocationList = data.ToList(),
                 };
                 return new ApiResponse<WorkLocationItemDto>(HttpStatusCode.OK, result);
@@ -117,42 +117,6 @@ namespace ThePatho.Features.Organization.WorkLocation.Service
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
 
-                var ArgumentException = new List<string>();
-
-                // Validasi field NOT NULL berdasarkan struktur tabel
-                if (string.IsNullOrWhiteSpace(request.WorkLocationCode))
-                    ArgumentException.Add("WorkLocation Code is required.");
-
-                if (string.IsNullOrWhiteSpace(request.WorkLocationName))
-                    ArgumentException.Add("WorkLocation Name is required.");
-
-                // Validasi panjang field sesuai constraint di database
-                if (request.WorkLocationCode.Length > 128)
-                    ArgumentException.Add("WorkLocation Code cannot exceed 128 characters.");
-
-                if (request.WorkLocationName.Length > 128) // Di tabel max 128, bukan 255
-                    ArgumentException.Add("WorkLocation Name cannot exceed 128 characters.");
-
-                if (!string.IsNullOrWhiteSpace(request.TimeZone) && request.TimeZone.Length > 10)
-                    ArgumentException.Add("TimeZone cannot exceed 10 characters.");
-
-                // Validasi Latitude dan Longitude (decimal(18,9))
-                if (request.Latitude.HasValue && (request.Latitude < -90 || request.Latitude > 90))
-                    ArgumentException.Add("Latitude must be between -90 and 90.");
-
-                if (request.Longitude.HasValue && (request.Longitude < -180 || request.Longitude > 180))
-                    ArgumentException.Add("Longitude must be between -180 and 180.");
-
-                // Validasi Radius (tidak boleh negatif)
-                if (request.Radius.HasValue && request.Radius < 0)
-                    ArgumentException.Add("Radius cannot be negative.");
-
-                if (ArgumentException.Any())
-                {
-                    return new ApiResponse(HttpStatusCode.BadRequest, $"Failed to {request.Action} {request.WorkLocationCode}", string.Join(", ", ArgumentException.ToArray()));
-                }
-
-                // Cek apakah WorkLocationCode sudah exists
                 var existsQuery = new Query(TableOrganization.WorkLocation)
                     .Where("WorkLocationCode", request.WorkLocationCode)
                     .SelectRaw("COUNT(1)");

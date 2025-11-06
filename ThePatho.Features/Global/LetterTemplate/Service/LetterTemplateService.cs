@@ -41,7 +41,7 @@ namespace ThePatho.Features.Global.LetterTemplate.Service
                 var data = await dbConnection.QueryAsync<LetterTemplateDto>(query, parameters);
                 var result = new LetterTemplateItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     LetterTemplateList = data.ToList(),
                 };
                 return new ApiResponse<LetterTemplateItemDto>(HttpStatusCode.OK, result);
@@ -98,7 +98,7 @@ namespace ThePatho.Features.Global.LetterTemplate.Service
                 var data = await dbConnection.QueryAsync<LetterTemplateDto>(query, parameters);
                 var result = new LetterTemplateItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     LetterTemplateList = data.ToList(),
                 };
                 return new ApiResponse<LetterTemplateItemDto>(HttpStatusCode.OK, result);

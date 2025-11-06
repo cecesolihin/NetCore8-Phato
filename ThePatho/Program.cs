@@ -180,21 +180,17 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddAuthorization();
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
+//if (app.Environment.IsDevelopment())
+//{
     app.UseSwagger();
     app.UseSwaggerUI(options =>
     {
         options.SwaggerEndpoint("/swagger/Identity/swagger.json", "Identity API");
-        //options.SwaggerEndpoint("/swagger/MasterData/swagger.json", "Master Data API");
-        //options.SwaggerEndpoint("/swagger/MasterSetting/swagger.json", "Master Setting API");
         options.SwaggerEndpoint("/swagger/Organization/swagger.json", "Organization API");
         options.SwaggerEndpoint("/swagger/Global/swagger.json", "Global API");
         options.SwaggerEndpoint("/swagger/PersonalInformation/swagger.json", "Personal Information API");
-        //options.SwaggerEndpoint("/swagger/Applicant/swagger.json", "Applicant API");
-        //options.SwaggerEndpoint("/swagger/Recruitment/swagger.json", "Recruitment API");
     });
-}
+//}
 
 // Global exception handler with ProblemDetails
 app.UseExceptionHandler(errorApp =>
@@ -259,5 +255,9 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+// Root and health endpoints to avoid 404 on base URL
+app.MapGet("/", () => Results.Json(new { status = "ok", service = "ThePatho API" }));
+app.MapGet("/health", () => Results.Ok("Healthy"));
 
 app.Run();

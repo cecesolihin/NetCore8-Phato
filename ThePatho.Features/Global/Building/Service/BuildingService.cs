@@ -38,7 +38,7 @@ namespace ThePatho.Features.Global.Building.Service
                 var data = await dbConnection.QueryAsync<BuildingDto>(query, parameters);
                 var result = new BuildingItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     BuildingList = data.ToList(),
                 };
                 return new ApiResponse<BuildingItemDto>(HttpStatusCode.OK, result);
@@ -96,7 +96,7 @@ namespace ThePatho.Features.Global.Building.Service
                 var data = await dbConnection.QueryAsync<BuildingDto>(query, parameters);
                 var result = new BuildingItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     BuildingList = data.ToList(),
                 };
                 return new ApiResponse<BuildingItemDto>(HttpStatusCode.OK, result);

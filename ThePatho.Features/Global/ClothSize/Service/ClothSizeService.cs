@@ -38,7 +38,7 @@ namespace ThePatho.Features.Global.ClothSize.Service
                 var data = await dbConnection.QueryAsync<ClothSizeDto>(query, parameters);
                 var result = new ClothSizeItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     ClothSizeList = data.ToList(),
                 };
                 return new ApiResponse<ClothSizeItemDto>(HttpStatusCode.OK, result);
@@ -96,7 +96,7 @@ namespace ThePatho.Features.Global.ClothSize.Service
                 var data = await dbConnection.QueryAsync<ClothSizeDto>(query, parameters);
                 var result = new ClothSizeItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     ClothSizeList = data.ToList(),
                 };
                 return new ApiResponse<ClothSizeItemDto>(HttpStatusCode.OK, result);

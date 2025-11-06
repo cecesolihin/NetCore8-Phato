@@ -63,7 +63,7 @@ namespace ThePatho.Features.PersonalInformation.EmployeeCapColor.Service
                 var parameters = new DynamicParameters();
                 parameters.Add("@CapColorId", request.CapColorId);
 
-                var query = await queryLoader.LoadQueryAsync("PersonalInformation/EmployeeCapColor/Sql/get_singel_emp_capcolor");
+                var query = await queryLoader.LoadQueryAsync("PersonalInformation/EmployeeCapColor/Sql/get_single_emp_capcolor");
                 var data = await db.QueryFirstOrDefaultAsync<EmployeeCapColorDto>(query, parameters);
 
                 return new ApiResponse<EmployeeCapColorDto>(HttpStatusCode.OK, data);

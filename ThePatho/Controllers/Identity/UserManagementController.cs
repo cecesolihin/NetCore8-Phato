@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Identity.UserManagement.Commands.Group;
-using ThePatho.Features.Identity.UserManagement.Commands.GroupRole;
+using ThePatho.Features.Identity.UserManagement.Commands.UserRole;
 using ThePatho.Features.Identity.UserManagement.Commands.Role;
 using ThePatho.Features.Identity.UserManagement.Commands.User;
 using ThePatho.Features.Identity.UserManagement.Commands.UserGroup;
@@ -116,8 +116,8 @@ namespace ThePatho.Controllers.Identity
         #endregion
 
         #region [GROUP ROLE]
-        [HttpPost(ApiRoutes.Methods.GetGroupRoleList)]
-        public async Task<IActionResult> GetGroupRoleList([FromBody] GetGroupRoleCommand command,
+        [HttpPost(ApiRoutes.Methods.GetUserRoleList)]
+        public async Task<IActionResult> GetUserRoleList([FromBody] GetUserRoleCommand command,
           CancellationToken cancellationToken)
         {
             var result = await mediator.Send(command, cancellationToken);
@@ -125,8 +125,8 @@ namespace ThePatho.Controllers.Identity
             return ApiResult(result);
         }
 
-        [HttpPost(ApiRoutes.Methods.GetGroupRoleByCriteria)]
-        public async Task<IActionResult> GetGroupRoleByCriteria([FromBody] GetGroupRoleByCriteriaCommand command,
+        [HttpPost(ApiRoutes.Methods.GetUserRoleByCriteria)]
+        public async Task<IActionResult> GetUserRoleByCriteria([FromBody] GetUserRoleByCriteriaCommand command,
             CancellationToken cancellationToken)
         {
             var result = await mediator.Send(command, cancellationToken);

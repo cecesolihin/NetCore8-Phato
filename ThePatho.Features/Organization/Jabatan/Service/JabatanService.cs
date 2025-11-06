@@ -52,7 +52,7 @@ namespace ThePatho.Features.Organization.Jabatan.Service
 
                 var result = new JabatanItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     JabatanList = data.ToList(),
                 };
                 return new ApiResponse<JabatanItemDto>(HttpStatusCode.OK, result);
@@ -92,7 +92,7 @@ namespace ThePatho.Features.Organization.Jabatan.Service
 
                 var result = new JabatanItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     JabatanList = data.ToList(),
                 };
                 return new ApiResponse<JabatanItemDto>(HttpStatusCode.OK, result);
@@ -114,19 +114,7 @@ namespace ThePatho.Features.Organization.Jabatan.Service
                 var db = new QueryFactory(connection, dapperContext.Compiler);
 
                 var ArgumentException = new List<string>();
-                // Validasi field NOT NULL berdasarkan struktur tabel
-                if (string.IsNullOrWhiteSpace(request.JabatanCode))
-                    ArgumentException.Add("Jabatan Code is required.");
-
-                if (string.IsNullOrWhiteSpace(request.JabatanName))
-                    ArgumentException.Add("Jabatan Name is required.");
-
-
-                if (ArgumentException.Any())
-                {
-                    return new ApiResponse(HttpStatusCode.BadRequest, $"Failed to {request.Action} {request.JabatanCode}", string.Join(", ", ArgumentException.ToArray()));
-                }
-                // Cek apakah JabatanCode sudah exists
+               
                 var existsQuery = new Query(TableOrganization.Jabatan)
                     .Where("JabatanCode", request.JabatanCode)
                     .SelectRaw("COUNT(1)");

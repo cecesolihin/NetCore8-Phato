@@ -40,7 +40,7 @@ namespace ThePatho.Features.Global.DiseaseCategory.Service
                 var data = await dbConnection.QueryAsync<DiseaseCategoryDto>(query, parameters);
                 var result = new DiseaseCategoryItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     DiseaseCategoryList = data.ToList(),
                 };
                 return new ApiResponse<DiseaseCategoryItemDto>(HttpStatusCode.OK, result);
@@ -93,7 +93,7 @@ namespace ThePatho.Features.Global.DiseaseCategory.Service
                 var data = await dbConnection.QueryAsync<DiseaseCategoryDto>(query, parameters);
                 var result = new DiseaseCategoryItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     DiseaseCategoryList = data.ToList(),
                 };
                 return new ApiResponse<DiseaseCategoryItemDto>(HttpStatusCode.OK, result);

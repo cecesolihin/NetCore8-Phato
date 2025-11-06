@@ -68,7 +68,7 @@ namespace ThePatho.Features.Organization.HistOrgStructure.Service
 
                 var result = new HistOrgStructureItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     HistOrgStructureList = data.ToList(),
                 };
                 return new ApiResponse<HistOrgStructureItemDto>(HttpStatusCode.OK, result);
@@ -124,7 +124,7 @@ namespace ThePatho.Features.Organization.HistOrgStructure.Service
 
                 var result = new HistOrgStructureItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     HistOrgStructureList = data.ToList(),
                 };
                 return new ApiResponse<HistOrgStructureItemDto>(HttpStatusCode.OK, result);
@@ -147,73 +147,6 @@ namespace ThePatho.Features.Organization.HistOrgStructure.Service
 
                 var ArgumentException = new List<string>();
 
-                // Validasi field NOT NULL berdasarkan struktur tabel
-                if (request.OrgStructureId <= 0)
-                    ArgumentException.Add("OrgStructure ID is required and must be greater than 0.");
-
-                if (string.IsNullOrWhiteSpace(request.OrgStructureCode))
-                    ArgumentException.Add("OrgStructure Code is required.");
-
-                if (string.IsNullOrWhiteSpace(request.OrgStructureName))
-                    ArgumentException.Add("OrgStructure Name is required.");
-
-                if (string.IsNullOrWhiteSpace(request.OrgLevelCode))
-                    ArgumentException.Add("OrgLevel Code is required.");
-
-                if (string.IsNullOrWhiteSpace(request.Status))
-                    ArgumentException.Add("Status is required.");
-
-                if (string.IsNullOrWhiteSpace(request.CompanyCode))
-                    ArgumentException.Add("Company Code is required.");
-
-                // Validasi panjang field sesuai constraint di database
-                if (request.OrgStructureCode.Length > 50)
-                    ArgumentException.Add("OrgStructure Code cannot exceed 50 characters.");
-
-                if (request.OrgStructureName.Length > 255)
-                    ArgumentException.Add("OrgStructure Name cannot exceed 255 characters.");
-
-                if (request.OrgLevelCode.Length > 50)
-                    ArgumentException.Add("OrgLevel Code cannot exceed 50 characters.");
-
-                if (request.Status.Length > 1)
-                    ArgumentException.Add("Status must be 1 character.");
-
-                if (!string.IsNullOrWhiteSpace(request.CostCenterCode) && request.CostCenterCode.Length > 50)
-                    ArgumentException.Add("CostCenter Code cannot exceed 50 characters.");
-
-                if (!string.IsNullOrWhiteSpace(request.Phone) && request.Phone.Length > 50)
-                    ArgumentException.Add("Phone cannot exceed 50 characters.");
-
-                if (!string.IsNullOrWhiteSpace(request.PhoneExt) && request.PhoneExt.Length > 10)
-                    ArgumentException.Add("Phone Extension cannot exceed 10 characters.");
-
-                if (request.CompanyCode.Length > 128)
-                    ArgumentException.Add("Company Code cannot exceed 128 characters.");
-
-                if (!string.IsNullOrWhiteSpace(request.Path) && request.Path.Length > 200)
-                    ArgumentException.Add("Path cannot exceed 200 characters.");
-
-                if (!string.IsNullOrWhiteSpace(request.Function) && request.Function.Length > 255)
-                    ArgumentException.Add("Function cannot exceed 255 characters.");
-
-                // Validasi Sort (tinyint range: 0-255)
-                if (request.Sort < 0 || request.Sort > 255)
-                    ArgumentException.Add("Sort must be between 0 and 255.");
-
-                // Validasi tanggal
-                if (!string.IsNullOrWhiteSpace(request.StartDate) && !DateTime.TryParse(request.StartDate, out _))
-                    ArgumentException.Add("Start Date must be a valid date.");
-
-                if (!string.IsNullOrWhiteSpace(request.EndDate) && !DateTime.TryParse(request.EndDate, out _))
-                    ArgumentException.Add("End Date must be a valid date.");
-
-                if (ArgumentException.Any())
-                {
-                    return new ApiResponse(HttpStatusCode.BadRequest, $"Failed to {request.Action}", string.Join(", ", ArgumentException.ToArray()));
-                }
-
-                // Untuk insert/update, kita gunakan HistOrgStructureId
                 if (request.HistOrgStructureId == 0)
                 {
                     // Insert

@@ -56,7 +56,7 @@ namespace ThePatho.Features.Organization.JobClass.Service
 
                 var result = new JobClassItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     JobClassList = data.ToList(),
                 };
                 return new ApiResponse<JobClassItemDto>(HttpStatusCode.OK, result);
@@ -100,7 +100,7 @@ namespace ThePatho.Features.Organization.JobClass.Service
 
                 var result = new JobClassItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     JobClassList = data.ToList(),
                 };
                 return new ApiResponse<JobClassItemDto>(HttpStatusCode.OK, result);
@@ -121,43 +121,6 @@ namespace ThePatho.Features.Organization.JobClass.Service
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
 
-                var ArgumentException = new List<string>();
-
-                // Validasi field NOT NULL berdasarkan struktur tabel
-                if (string.IsNullOrWhiteSpace(request.JobClassCode))
-                    ArgumentException.Add("JobClass Code is required.");
-
-                if (string.IsNullOrWhiteSpace(request.JobClassName))
-                    ArgumentException.Add("JobClass Name is required.");
-
-                if (string.IsNullOrWhiteSpace(request.GradeCode))
-                    ArgumentException.Add("Grade Code is required.");
-
-                if (string.IsNullOrWhiteSpace(request.RankCode))
-                    ArgumentException.Add("Rank Code is required.");
-
-                // Validasi panjang field sesuai constraint di database
-                if (request.JobClassCode.Length > 128)
-                    ArgumentException.Add("JobClass Code cannot exceed 128 characters.");
-
-                if (request.JobClassName.Length > 255)
-                    ArgumentException.Add("JobClass Name cannot exceed 255 characters.");
-
-                if (request.GradeCode.Length > 128)
-                    ArgumentException.Add("Grade Code cannot exceed 128 characters.");
-
-                if (request.RankCode.Length > 50)
-                    ArgumentException.Add("Rank Code cannot exceed 50 characters.");
-
-                if (request.Remarks != null && request.Remarks.Length > 255)
-                    ArgumentException.Add("Remarks cannot exceed 255 characters.");
-
-                if (ArgumentException.Any())
-                {
-                    return new ApiResponse(HttpStatusCode.BadRequest, $"Failed to {request.Action} {request.JobClassCode}", string.Join(", ", ArgumentException.ToArray()));
-                }
-
-                // Cek apakah JobClassCode sudah exists
                 var existsQuery = new Query(TableOrganization.JobClass)
                     .Where("JobClassCode", request.JobClassCode)
                     .SelectRaw("COUNT(1)");

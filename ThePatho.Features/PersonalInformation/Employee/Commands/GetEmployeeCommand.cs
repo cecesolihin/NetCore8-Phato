@@ -12,17 +12,17 @@ namespace ThePatho.Features.PersonalInformation.Employee.Commands
         public string? FilterEmployeeNo { get; set; }
 
         [JsonPropertyName("filter_Fullname")]
-        public string FilterFullname { get; set; } = null!;
-        [JsonPropertyName("filter_job_class_code")]
-        public string? FilterJobClassCode { get; set; }
+        public string? FilterFullname { get; set; } = null!;
+        [JsonPropertyName("filter_JobClass")]
+        public string? FilterJobClass { get; set; }
 
-        [JsonPropertyName("filter_employment_type_code")]
-        public string? FilterEmploymentTypeCode { get; set; }
+        [JsonPropertyName("filter_EmploymentType")]
+        public string? FilterEmploymentType { get; set; }
 
-        [JsonPropertyName("filter_PositionCode")]
-        public string FilterPositionCode { get; set; } = null!;
-        [JsonPropertyName("filter_WorkLocationCode")]
-        public string? FilterWorkLocationCode { get; set; }
+        [JsonPropertyName("filter_Position")]
+        public string? FilterPosition { get; set; } = null!;
+        [JsonPropertyName("filter_WorkLocation")]
+        public string? FilterWorkLocation { get; set; }
 
         [JsonPropertyName("sortBy")]
         [DefaultValue("InsertedDate")]

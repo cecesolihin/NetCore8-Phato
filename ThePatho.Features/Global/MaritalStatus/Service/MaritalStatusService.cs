@@ -38,7 +38,7 @@ namespace ThePatho.Features.Global.MaritalStatus.Service
                 var data = await dbConnection.QueryAsync<MaritalStatusDto>(query, parameters);
                 var result = new MaritalStatusItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     MaritalStatusList = data.ToList(),
                 };
                 return new ApiResponse<MaritalStatusItemDto>(HttpStatusCode.OK, result);
@@ -91,7 +91,7 @@ namespace ThePatho.Features.Global.MaritalStatus.Service
                 var data = await dbConnection.QueryAsync<MaritalStatusDto>(query, parameters);
                 var result = new MaritalStatusItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     MaritalStatusList = data.ToList(),
                 };
                 return new ApiResponse<MaritalStatusItemDto>(HttpStatusCode.OK, result);

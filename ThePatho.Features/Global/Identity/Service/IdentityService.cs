@@ -38,7 +38,7 @@ namespace ThePatho.Features.Global.Identity.Service
                 var data = await dbConnection.QueryAsync<IdentityDto>(query, parameters);
                 var result = new IdentityItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     IdentityList = data.ToList(),
                 };
                 return new ApiResponse<IdentityItemDto>(HttpStatusCode.OK, result);
@@ -91,7 +91,7 @@ namespace ThePatho.Features.Global.Identity.Service
                 var data = await dbConnection.QueryAsync<IdentityDto>(query, parameters);
                 var result = new IdentityItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     IdentityList = data.ToList(),
                 };
                 return new ApiResponse<IdentityItemDto>(HttpStatusCode.OK, result);

@@ -38,7 +38,7 @@ namespace ThePatho.Features.Global.PunishmentType.Service
                 var data = await dbConnection.QueryAsync<PunishmentTypeDto>(query, parameters);
                 var result = new PunishmentTypeItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     PunishmentTypeList = data.ToList(),
                 };
                 return new ApiResponse<PunishmentTypeItemDto>(HttpStatusCode.OK, result);
@@ -91,7 +91,7 @@ namespace ThePatho.Features.Global.PunishmentType.Service
                 var data = await dbConnection.QueryAsync<PunishmentTypeDto>(query, parameters);
                 var result = new PunishmentTypeItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     PunishmentTypeList = data.ToList(),
                 };
                 return new ApiResponse<PunishmentTypeItemDto>(HttpStatusCode.OK, result);

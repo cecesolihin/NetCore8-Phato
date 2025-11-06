@@ -38,7 +38,7 @@ namespace ThePatho.Features.Global.GraduationType.Service
                 var data = await dbConnection.QueryAsync<GraduationTypeDto>(query, parameters);
                 var result = new GraduationTypeItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     GraduationTypeList = data.ToList(),
                 };
                 return new ApiResponse<GraduationTypeItemDto>(HttpStatusCode.OK, result);
@@ -92,7 +92,7 @@ namespace ThePatho.Features.Global.GraduationType.Service
                 var data = await dbConnection.QueryAsync<GraduationTypeDto>(query, parameters);
                 var result = new GraduationTypeItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     GraduationTypeList = data.ToList(),
                 };
                 return new ApiResponse<GraduationTypeItemDto>(HttpStatusCode.OK, result);

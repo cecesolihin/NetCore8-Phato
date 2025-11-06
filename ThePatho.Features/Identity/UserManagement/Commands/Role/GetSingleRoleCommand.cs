@@ -12,7 +12,7 @@ namespace ThePatho.Features.Identity.UserManagement.Commands.Role
 {
     public class GetSingleRoleCommand : IRequest<ApiResponse<RoleDto>>
     {
-        [JsonPropertyName("Role_id")]
+        [JsonPropertyName("role_id")]
         public string RoleId { get; set; }
     }
 }

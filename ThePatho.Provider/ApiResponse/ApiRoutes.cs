@@ -128,14 +128,14 @@ namespace ThePatho.Provider.ApiResponse
 
             public const string GetRoleList = "get-role-list";
             public const string GetRoleByCriteria = "get-role-by-criteria";
-            public const string GetSingleRole = "get-single-rol";
+            public const string GetSingleRole = "get-single-role";
 
             public const string GetGroupList = "get-group-list";
             public const string GetGroupByCriteria = "get-group-by-criteria";
             public const string GetSingleGroup = "get-single-group";
 
-            public const string GetGroupRoleList = "get-group-role-list";
-            public const string GetGroupRoleByCriteria = "get-group-role-by-criteria";
+            public const string GetUserRoleList = "get-user-role-list";
+            public const string GetUserRoleByCriteria = "get-user-role-by-criteria";
 
             public const string GetUserGroupList = "get-user-group-list";
             public const string GetUserGroupByCriteria = "get-user-group-by-criteria";
@@ -146,6 +146,7 @@ namespace ThePatho.Provider.ApiResponse
             public const string GetByCriteria = "get-by-criteria";
             public const string GetDdl = "get-ddl";
             public const string Submit = "submit";
+            public const string SubmitMulti = "submit-multi";
             public const string generate = "generate";
             public const string Delete = "delete";
             #endregion

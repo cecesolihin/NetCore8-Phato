@@ -53,7 +53,7 @@ namespace ThePatho.Features.PersonalInformation.EmployeeSkill.Service
             }
             catch (Exception ex)
             {
-                return new ApiResponse<EmployeeSkillItemDto>(HttpStatusCode.BadRequest, "Error retrieving Blood Type list.", ex.Message);
+                return new ApiResponse<EmployeeSkillItemDto>(HttpStatusCode.BadRequest, "Error retrieving Employee Skill list.", ex.Message);
             }
         }
 
@@ -66,7 +66,7 @@ namespace ThePatho.Features.PersonalInformation.EmployeeSkill.Service
                 parameters.Add("@EmployeeId", request.EmployeeId);
                 parameters.Add("@SkillCode", request.SkillCode);
 
-                var query = await queryLoader.LoadQueryAsync("PersonalInformation/EmployeeSkill/Sql/get_singel_emp_skill");
+                var query = await queryLoader.LoadQueryAsync("PersonalInformation/EmployeeSkill/Sql/get_single_emp_skill");
                 var data = await db.QueryFirstOrDefaultAsync<EmployeeSkillDto>(query, parameters);
 
                 if (data == null)
@@ -77,7 +77,7 @@ namespace ThePatho.Features.PersonalInformation.EmployeeSkill.Service
             }
             catch (Exception ex)
             {
-                return new ApiResponse<EmployeeSkillDto>(HttpStatusCode.BadRequest, "Error retrieving Blood Type detail.", ex.Message);
+                return new ApiResponse<EmployeeSkillDto>(HttpStatusCode.BadRequest, "Error retrieving Employee Skill detail.", ex.Message);
             }
         }
 
@@ -103,7 +103,7 @@ namespace ThePatho.Features.PersonalInformation.EmployeeSkill.Service
             }
             catch (Exception ex)
             {
-                return new ApiResponse<EmployeeSkillItemDto>(HttpStatusCode.BadRequest, "Error filtering Blood Type data.", ex.Message);
+                return new ApiResponse<EmployeeSkillItemDto>(HttpStatusCode.BadRequest, "Error filtering Employee Skill data.", ex.Message);
             }
         }
 
@@ -145,7 +145,7 @@ namespace ThePatho.Features.PersonalInformation.EmployeeSkill.Service
                 parameters.Add("@SkillCode", request.SkillCode);
                 parameters.Add("@User", "admin");
 
-                var query = await queryLoader.LoadQueryAsync("PersonalInformation/EmployeeSkill/Sql/get_singel_emp_skill");
+                var query = await queryLoader.LoadQueryAsync("PersonalInformation/EmployeeSkill/Sql/get_single_emp_skill");
                 var data = await db.QueryFirstOrDefaultAsync<EmployeeSkillDto>(query, parameters);
 
                 if (data == null)

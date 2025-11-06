@@ -1,10 +1,12 @@
 ﻿using Dapper;
+using Microsoft.AspNetCore.Mvc;
 using System.Data;
 using System.Net;
 using ThePatho.Features.PersonalInformation.SuperiorSubordinate.Commands;
 using ThePatho.Features.PersonalInformation.SuperiorSubordinate.DTO;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.ApiResponse;
+using ThePatho.Provider.QueryExecute;
 
 namespace ThePatho.Features.PersonalInformation.SuperiorSubordinate.Service
 {
@@ -34,8 +36,7 @@ namespace ThePatho.Features.PersonalInformation.SuperiorSubordinate.Service
                 var parameters = new DynamicParameters();
                 parameters.Add("@PageNumber", request.PageNumber);
                 parameters.Add("@PageSize", request.PageSize);
-                parameters.Add("@EmployeeId", request.FilterEmployeeId ?? 0);
-                parameters.Add("@EffectiveDate", request.FilterEffectiveDate ?? string.Empty);
+                parameters.Add("@Employee", request.FilterEmployee ?? string.Empty);
                 parameters.Add("@Superior", request.FilterSuperior ?? string.Empty);
                 parameters.Add("@Status", request.FilterStatus ?? string.Empty);
                 parameters.Add("@SortBy", request.SortBy);
@@ -54,7 +55,7 @@ namespace ThePatho.Features.PersonalInformation.SuperiorSubordinate.Service
             }
             catch (Exception ex)
             {
-                return new ApiResponse<SuperiorSubordinateItemDto>(HttpStatusCode.BadRequest, "Error retrieving Blood Type list.", ex.Message);
+                return new ApiResponse<SuperiorSubordinateItemDto>(HttpStatusCode.BadRequest, "Error retrieving Superior Subordinate list.", ex.Message);
             }
         }
 
@@ -66,7 +67,7 @@ namespace ThePatho.Features.PersonalInformation.SuperiorSubordinate.Service
                 var parameters = new DynamicParameters();
                 parameters.Add("@EmployeeSuperiorID", request.EmployeeSuperiorID);
 
-                var query = await queryLoader.LoadQueryAsync("PersonalInformation/SuperiorSubordinate/Sql/get_singel_superior_subordinate");
+                var query = await queryLoader.LoadQueryAsync("PersonalInformation/SuperiorSubordinate/Sql/get_single_superior_subordinate");
                 var data = await db.QueryFirstOrDefaultAsync<SuperiorSubordinateDto>(query, parameters);
 
                 if (data == null)
@@ -77,7 +78,7 @@ namespace ThePatho.Features.PersonalInformation.SuperiorSubordinate.Service
             }
             catch (Exception ex)
             {
-                return new ApiResponse<SuperiorSubordinateDto>(HttpStatusCode.BadRequest, "Error retrieving Blood Type detail.", ex.Message);
+                return new ApiResponse<SuperiorSubordinateDto>(HttpStatusCode.BadRequest, "Error retrieving Superior Subordinate detail.", ex.Message);
             }
         }
 
@@ -87,9 +88,9 @@ namespace ThePatho.Features.PersonalInformation.SuperiorSubordinate.Service
             {
                 using var db = dapperContext.CreateConnection();
                 var parameters = new DynamicParameters();
-                parameters.Add("@EmployeeId", request.FilterEmployeeId ?? 0);
-                parameters.Add("@EffectiveDate", request.FilterEffectiveDate ?? string.Empty);
+                parameters.Add("@Employee", request.FilterEmployee ?? string.Empty);
                 parameters.Add("@Superior", request.FilterSuperior ?? string.Empty);
+                parameters.Add("@Status", request.FilterStatus ?? string.Empty);
 
                 var query = await queryLoader.LoadQueryAsync("PersonalInformation/SuperiorSubordinate/Sql/get_criteria_superior_subordinate");
                 var data = await db.QueryAsync<SuperiorSubordinateDto>(query, parameters);
@@ -104,7 +105,7 @@ namespace ThePatho.Features.PersonalInformation.SuperiorSubordinate.Service
             }
             catch (Exception ex)
             {
-                return new ApiResponse<SuperiorSubordinateItemDto>(HttpStatusCode.BadRequest, "Error filtering Blood Type data.", ex.Message);
+                return new ApiResponse<SuperiorSubordinateItemDto>(HttpStatusCode.BadRequest, "Error filtering Superior Subordinate data.", ex.Message);
             }
         }
 
@@ -117,7 +118,6 @@ namespace ThePatho.Features.PersonalInformation.SuperiorSubordinate.Service
                 parameters.Add("@EmployeeSuperiorID", request.EmployeeSuperiorID);
                 parameters.Add("@EmployeeID", request.EmployeeID);
                 parameters.Add("@EffectiveDate", request.EffectiveDate);
-                parameters.Add("@EndDate", request.EndDate);
                 parameters.Add("@Remarks", request.Remarks);
 
                 parameters.Add("@Superior1ID", request.Superior1ID);
@@ -130,31 +130,6 @@ namespace ThePatho.Features.PersonalInformation.SuperiorSubordinate.Service
                 parameters.Add("@Superior8ID", request.Superior8ID);
                 parameters.Add("@Superior9ID", request.Superior9ID);
                 parameters.Add("@Superior10ID", request.Superior10ID);
-                parameters.Add("@Superior11ID", request.Superior11ID);
-                parameters.Add("@Superior12ID", request.Superior12ID);
-                parameters.Add("@Superior13ID", request.Superior13ID);
-                parameters.Add("@Superior14ID", request.Superior14ID);
-                parameters.Add("@Superior15ID", request.Superior15ID);
-                parameters.Add("@Superior16ID", request.Superior16ID);
-                parameters.Add("@Superior17ID", request.Superior17ID);
-                parameters.Add("@Superior18ID", request.Superior18ID);
-                parameters.Add("@Superior19ID", request.Superior19ID);
-                parameters.Add("@Superior20ID", request.Superior20ID);
-                parameters.Add("@Superior21ID", request.Superior21ID);
-                parameters.Add("@Superior22ID", request.Superior22ID);
-                parameters.Add("@Superior23ID", request.Superior23ID);
-                parameters.Add("@Superior24ID", request.Superior24ID);
-                parameters.Add("@Superior25ID", request.Superior25ID);
-                parameters.Add("@Superior26ID", request.Superior26ID);
-                parameters.Add("@Superior27ID", request.Superior27ID);
-                parameters.Add("@Superior28ID", request.Superior28ID);
-                parameters.Add("@Superior29ID", request.Superior29ID);
-                parameters.Add("@Superior30ID", request.Superior30ID);
-
-                parameters.Add("@InsertedBy", request.InsertedBy);
-                parameters.Add("@InsertedDate", request.InsertedDate);
-                parameters.Add("@ModifiedBy", request.ModifiedBy);
-                parameters.Add("@ModifiedDate", request.ModifiedDate);
 
                 parameters.Add("@Action", request.Action);
                 parameters.Add("@User", "admin");
@@ -169,7 +144,43 @@ namespace ThePatho.Features.PersonalInformation.SuperiorSubordinate.Service
                 return new ApiResponse(HttpStatusCode.BadRequest, $"Failed to {request.Action}", ex.Message);
             }
         }
+        public async Task<ApiResponse> SubmitMultiSuperiorSubordinate(SubmitMultiSuperiorSubordinateCommand request)
+        {
+            try
+            {
+                using var db = dapperContext.CreateConnection();
+                var parameters = new DynamicParameters();
+                parameters.Add("@EmployeeList", string.Join(",", request.EmployeeList));
+                parameters.Add("@EffectiveDate", request.EffectiveDate);
+                parameters.Add("@Remarks", request.Remarks);
 
+                parameters.Add("@Superior1ID", request.Superior1ID);
+                parameters.Add("@Superior2ID", request.Superior2ID);
+                parameters.Add("@Superior3ID", request.Superior3ID);
+                parameters.Add("@Superior4ID", request.Superior4ID);
+                parameters.Add("@Superior5ID", request.Superior5ID);
+                parameters.Add("@Superior6ID", request.Superior6ID);
+                parameters.Add("@Superior7ID", request.Superior7ID);
+                parameters.Add("@Superior8ID", request.Superior8ID);
+                parameters.Add("@Superior9ID", request.Superior9ID);
+                parameters.Add("@Superior10ID", request.Superior10ID);
+
+                parameters.Add("@Action", request.Action);
+                parameters.Add("@User", "admin");
+
+                var query = await queryLoader.LoadQueryAsync("PersonalInformation/SuperiorSubordinate/Sql/submit_multi_superior_subordinate");
+                var result = await db.QueryFirstOrDefaultAsync<ExecuteResult>(query, parameters);
+
+                if (result != null && result.Success)
+                    return new ApiResponse(HttpStatusCode.OK, result.Message);
+                else
+                    return new ApiResponse(HttpStatusCode.BadRequest, result?.Message ?? "Unknown error", result?.ErrorNote);
+            }
+            catch (Exception ex)
+            {
+                return new ApiResponse(HttpStatusCode.BadRequest, $"Failed to {request.Action}", ex.Message);
+            }
+        }
         public async Task<ApiResponse> DeleteSuperiorSubordinate(DeleteSuperiorSubordinateCommand request)
         {
             try
@@ -179,7 +190,7 @@ namespace ThePatho.Features.PersonalInformation.SuperiorSubordinate.Service
                 parameters.Add("@EmployeeSuperiorID", request.EmployeeSuperiorID);
                 parameters.Add("@User", "admin");
 
-                var query = await queryLoader.LoadQueryAsync("PersonalInformation/SuperiorSubordinate/Sql/get_singel_superior_subordinate");
+                var query = await queryLoader.LoadQueryAsync("PersonalInformation/SuperiorSubordinate/Sql/get_single_superior_subordinate");
                 var data = await db.QueryFirstOrDefaultAsync<SuperiorSubordinateDto>(query, parameters);
 
                 if (data == null)
@@ -204,16 +215,20 @@ namespace ThePatho.Features.PersonalInformation.SuperiorSubordinate.Service
             {
                 using var db = dapperContext.CreateConnection();
                 var parameters = new DynamicParameters();
-                parameters.Add("@EfectiveDate", request.EfectiveDate);
-                parameters.Add("@EmployeeID", request.Override ?? false);
+                parameters.Add("@EffectiveDate", request.EffectiveDate);
+                parameters.Add("@IsOverWrite", request.OverWrite ?? false);
                 parameters.Add("@EmployeeList", string.Join(",",request.EmployeeList));
+                parameters.Add("@Remarks", request.Remarks);
                 parameters.Add("@Action", "Generate");
                 parameters.Add("@User", "admin");
 
                 var query = await queryLoader.LoadQueryAsync("PersonalInformation/SuperiorSubordinate/Sql/generate_superior_subordinate");
-                await db.ExecuteAsync(query, parameters);
+                var result = await db.QueryFirstOrDefaultAsync<ExecuteResult>(query, parameters);
 
-                return new ApiResponse(HttpStatusCode.OK, $"generate successful");
+                if (result != null && result.Success)
+                    return new ApiResponse(HttpStatusCode.OK, result.Message);
+                else
+                    return new ApiResponse(HttpStatusCode.BadRequest, result?.Message ?? "Unknown error", result?.ErrorNote);
             }
             catch (Exception ex)
             {

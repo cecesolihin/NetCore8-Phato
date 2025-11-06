@@ -52,7 +52,7 @@ namespace ThePatho.Features.Organization.Grade.Service
 
                 var result = new GradeItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     GradeList = data.ToList(),
                 };
                 return new ApiResponse<GradeItemDto>(HttpStatusCode.OK, result);
@@ -92,7 +92,7 @@ namespace ThePatho.Features.Organization.Grade.Service
 
                 var result = new GradeItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     GradeList = data.ToList(),
                 };
                 return new ApiResponse<GradeItemDto>(HttpStatusCode.OK, result);
@@ -114,31 +114,7 @@ namespace ThePatho.Features.Organization.Grade.Service
                 var db = new QueryFactory(connection, dapperContext.Compiler);
 
                 var ArgumentException = new List<string>();
-                // Validasi field NOT NULL berdasarkan struktur tabel
-                if (string.IsNullOrWhiteSpace(request.GradeCode))
-                    ArgumentException.Add("Grade Code is required.");
-
-                if (string.IsNullOrWhiteSpace(request.GradeName))
-                    ArgumentException.Add("Grade Name is required.");
-
-                // Validasi panjang field sesuai constraint di database
-                if (request.GradeCode.Length > 128)
-                    ArgumentException.Add("Grade Code cannot exceed 128 characters.");
-
-                if (request.GradeName.Length > 255)
-                    ArgumentException.Add("Grade Name cannot exceed 255 characters.");
-
-                if (request.Remarks != null && request.Remarks.Length > 500)
-                    ArgumentException.Add("Remarks cannot exceed 500 characters.");
-
-                // Validasi Order (tinyint range: 0-255)
-                if (request.Order < 0 || request.Order > 255)
-                    ArgumentException.Add("Order must be between 0 and 255.");
-
-                if (ArgumentException.Any())
-                {
-                    return new ApiResponse(HttpStatusCode.BadRequest, $"Failed to {request.Action} {request.GradeCode}", string.Join(", ", ArgumentException.ToArray()));
-                }
+                
                 // Cek apakah GradeCode sudah exists
                 var existsQuery = new Query(TableOrganization.Grade)
                     .Where("GradeCode", request.GradeCode)

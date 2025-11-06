@@ -4,7 +4,7 @@ using System.Net;
 using ThePatho.Domain.Constants;
 using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Identity.UserManagement.Commands.Group;
-using ThePatho.Features.Identity.UserManagement.Commands.GroupRole;
+using ThePatho.Features.Identity.UserManagement.Commands.UserRole;
 using ThePatho.Features.Identity.UserManagement.Commands.Role;
 using ThePatho.Features.Identity.UserManagement.Commands.User;
 using ThePatho.Features.Identity.UserManagement.Commands.UserGroup;
@@ -46,6 +46,15 @@ namespace ThePatho.Features.Identity.UserManagement.Service
                     ).When(
                         !string.IsNullOrWhiteSpace(request.FilterPhone),
                         q => q.WhereContains("PhoneNumber", request.FilterPhone)
+                    ).When(
+                        request.FilterEmpId.Value > 0,
+                        q => q.Where("EmpId", request.FilterEmpId.Value)
+                    ).When(
+                        request.FilterActivated.HasValue,
+                        q => q.Where("Activated", request.FilterActivated.Value)
+                    ).When(
+                        request.FilterLockoutEnabled.HasValue,
+                        q => q.Where("LockoutEnabled", request.FilterLockoutEnabled.Value)
                     );
 
                 query = query.OrderByRaw(
@@ -57,19 +66,14 @@ namespace ThePatho.Features.Identity.UserManagement.Service
                 var data = await db.GetAsync<UserDto>(query);
                 var result = new UserItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     UserList = data.ToList(),
                 };
                 return new ApiResponse<UserItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
-
-                return new ApiResponse<UserItemDto>(
-                        HttpStatusCode.BadRequest,
-                        "An error occurred while retrieving data.",
-                        ex.Message
-                    );
+                return new ApiResponse<UserItemDto>(HttpStatusCode.BadRequest,"An error occurred while retrieving data.",ex.Message);
             }
         }
         public async Task<ApiResponse<UserItemDto>> GetUserByCriteria(GetUserByCriteriaCommand request)
@@ -95,11 +99,20 @@ namespace ThePatho.Features.Identity.UserManagement.Service
                     ).When(
                         !string.IsNullOrWhiteSpace(request.FilterPhone),
                         q => q.WhereContains("PhoneNumber", request.FilterPhone)
+                    ).When(
+                        request.FilterEmpId.Value > 0,
+                        q => q.Where("EmpId", request.FilterEmpId.Value)
+                    ).When(
+                        request.FilterActivated.HasValue,
+                        q => q.Where("Activated", request.FilterActivated.Value)
+                    ).When(
+                        request.FilterLockoutEnabled.HasValue,
+                        q => q.Where("LockoutEnabled", request.FilterLockoutEnabled.Value)
                     );
                 var data = await db.GetAsync<UserDto>(query);
                 var result = new UserItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     UserList = data.ToList(),
                 };
                 return new ApiResponse<UserItemDto>(HttpStatusCode.OK, result);
@@ -107,12 +120,7 @@ namespace ThePatho.Features.Identity.UserManagement.Service
             }
             catch (Exception ex)
             {
-
-                return new ApiResponse<UserItemDto>(
-                        HttpStatusCode.BadRequest,
-                        "An error occurred while retrieving data.",
-                        ex.Message
-                    );
+                return new ApiResponse<UserItemDto>( HttpStatusCode.BadRequest,"An error occurred while retrieving data.",ex.Message);
             }
         }
 
@@ -135,11 +143,7 @@ namespace ThePatho.Features.Identity.UserManagement.Service
             catch (Exception ex)
             {
 
-                return new ApiResponse<UserDto>(
-                        HttpStatusCode.BadRequest,
-                        "An error occurred while retrieving data.",
-                        ex.Message
-                    );
+                return new ApiResponse<UserDto>(HttpStatusCode.BadRequest,"An error occurred while retrieving data.", ex.Message);
             }
         }
         #endregion
@@ -169,19 +173,14 @@ namespace ThePatho.Features.Identity.UserManagement.Service
                 var data = await db.GetAsync<GroupDto>(query);
                 var result = new GroupItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     GroupList = data.ToList(),
                 };
                 return new ApiResponse<GroupItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
-
-                return new ApiResponse<GroupItemDto>(
-                        HttpStatusCode.BadRequest,
-                        "An error occurred while retrieving data.",
-                        ex.Message
-                    );
+                return new ApiResponse<GroupItemDto>(HttpStatusCode.BadRequest,"An error occurred while retrieving data.",ex.Message);
             }
         }
         public async Task<ApiResponse<GroupItemDto>> GetGroupByCriteria(GetGroupByCriteriaCommand request)
@@ -197,24 +196,17 @@ namespace ThePatho.Features.Identity.UserManagement.Service
                         q => q.WhereContains("Name", request.FilterGroup)
                     );
 
-                //var data = await db.FirstOrDefaultAsync<GroupDto>(query);
-
                 var data = await db.GetAsync<GroupDto>(query);
                 var result = new GroupItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     GroupList = data.ToList(),
                 };
                 return new ApiResponse<GroupItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
-
-                return new ApiResponse<GroupItemDto>(
-                        HttpStatusCode.BadRequest,
-                        "An error occurred while retrieving data.",
-                        ex.Message
-                    );
+                return new ApiResponse<GroupItemDto>(HttpStatusCode.BadRequest, "An error occurred while retrieving data.",ex.Message );
             }
         }
 
@@ -272,7 +264,7 @@ namespace ThePatho.Features.Identity.UserManagement.Service
                 var data = await db.GetAsync<RoleDto>(query);
                 var result = new RoleItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     RoleList = data.ToList(),
                 };
                 return new ApiResponse<RoleItemDto>(HttpStatusCode.OK, result);
@@ -299,14 +291,14 @@ namespace ThePatho.Features.Identity.UserManagement.Service
                         !string.IsNullOrWhiteSpace(request.FilterRoleName),
                         q => q.WhereIn("Name", request.FilterRoleName)
                     ).When(
-                        !string.IsNullOrWhiteSpace(request.FilterRoleLabel),
-                        q => q.WhereContains("Description", request.FilterRoleLabel)
+                        !string.IsNullOrWhiteSpace(request.FilterDescription),
+                        q => q.WhereContains("Description", request.FilterDescription)
                     );
 
                 var data = await db.GetAsync<RoleDto>(query);
                 var result = new RoleItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     RoleList = data.ToList(),
                 };
                 return new ApiResponse<RoleItemDto>(HttpStatusCode.OK, result);
@@ -351,87 +343,96 @@ namespace ThePatho.Features.Identity.UserManagement.Service
         }
         #endregion
 
-        #region [Group Role]
-        public async Task<ApiResponse<GroupRoleItemDto>> GetGroupRoleList(GetGroupRoleCommand request)
+        #region [User Role]
+        public async Task<ApiResponse<UserRoleItemDto>> GetUserRoleList(GetUserRoleCommand request)
         {
             try 
             { 
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
-                var query = new Query(TableIdentity.GroupRoles)
-                    .Select("*")
-                     .When(
-                        !string.IsNullOrWhiteSpace(request.FilterGroup),
-                        q => q.WhereIn("group_id", request.FilterGroup)
-                    ).When(
-                        !string.IsNullOrWhiteSpace(request.FilterRole),
-                        q => q.WhereContains("role_id", request.FilterRole)
-                    );
+              
+                var query = new Query($"{TableIdentity.UserRoles} as us")
+                            .Select(
+                                "us.UserId",
+                                "u.UserName",
+                                "u.Email",
+                                "u.EmpId",
+                                "us.RoleId",
+                                "r.Name as RoleName",
+                                "r.Description"
+                            )
+                            .LeftJoin($"{TableIdentity.Roles} as r", "us.RoleId", "r.Id")
+                            .LeftJoin($"{TableIdentity.Users} as u", "us.UserId", "u.Id")
+                            .When(
+                                !string.IsNullOrWhiteSpace(request.FilterUser),
+                                q => q.WhereContains("u.UserName", request.FilterUser)
+                            ).When(
+                                !string.IsNullOrWhiteSpace(request.FilterRole),
+                                q => q.WhereContains("r.Name", request.FilterRole)
+                            ).When(
+                                !string.IsNullOrWhiteSpace(request.FilterDesRole),
+                                q => q.WhereContains("r.Description", request.FilterDesRole)
+                            );
 
                 query = query.OrderByRaw(
-                    $"{(!string.IsNullOrWhiteSpace(request.SortBy) ? request.SortBy : "inserted_by")} {(!string.IsNullOrWhiteSpace(request.OrderBy) && (request.OrderBy.ToUpper() == "ASC" || request.OrderBy.ToUpper() == "DESC") ? request.OrderBy.ToUpper() : "DESC")}"
+                    $"{(!string.IsNullOrWhiteSpace(request.SortBy) ? request.SortBy : "UserName")} {(!string.IsNullOrWhiteSpace(request.OrderBy) && (request.OrderBy.ToUpper() == "ASC" || request.OrderBy.ToUpper() == "DESC") ? request.OrderBy.ToUpper() : "DESC")}"
                 );
 
                 query = query.Skip(request.PageNumber * request.PageSize).Take(request.PageSize);
 
-                var data = await db.GetAsync<GroupRoleDto>(query);
-                var result = new GroupRoleItemDto
+                var data = await db.GetAsync<UserRoleDto>(query);
+                var result = new UserRoleItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
-                    GroupRoleList = data.ToList(),
+                    DataOfRecords = data.Count(),
+                    UserRoleList = data.ToList(),
                 };
-                return new ApiResponse<GroupRoleItemDto>(HttpStatusCode.OK, result);
+                return new ApiResponse<UserRoleItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
-
-                return new ApiResponse<GroupRoleItemDto>(
-                        HttpStatusCode.BadRequest,
-                        "An error occurred while retrieving data.",
-                        ex.Message
-                    );
+                return new ApiResponse<UserRoleItemDto>(HttpStatusCode.BadRequest, "An error occurred while retrieving data.",ex.Message);
             }
         }
-        public async Task<ApiResponse<GroupRoleItemDto>> GetGroupRoleByCriteria(GetGroupRoleByCriteriaCommand request)
+        public async Task<ApiResponse<UserRoleItemDto>> GetUserRoleByCriteria(GetUserRoleByCriteriaCommand request)
         {
             try
             { 
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
-                var query = new Query(TableIdentity.GroupRoles)
-                    .Select("group_role_id AS GroupRoleId",
-                          "group_id AS GroupId",
-                          "role_id AS RoleId",
-                          "is_active AS IsActive",
-                          "parent_menu_id AS ParentMenuId",
-                          "inserted_by AS InsertedBy",
-                          "inserted_date AS InsertedDate",
-                          "modified_by AS ModifiedBy",
-                          "modified_date AS ModifiedDate")
-                     .When(
-                        !string.IsNullOrWhiteSpace(request.FilterGroup),
-                        q => q.WhereIn("group_id", request.FilterGroup)
-                    ).When(
-                        !string.IsNullOrWhiteSpace(request.FilterRole),
-                        q => q.WhereContains("role_id", request.FilterRole)
-                    );
+                var query = new Query($"{TableIdentity.UserRoles} as us")
+                            .Select(
+                                "us.UserId",
+                                "u.UserName",
+                                "u.Email",
+                                "u.EmpId",
+                                "us.RoleId",
+                                "r.Name as RoleName",
+                                "r.Description"
+                            )
+                            .LeftJoin($"{TableIdentity.Roles} as r", "us.RoleId", "r.Id")
+                            .LeftJoin($"{TableIdentity.Users} as u", "us.UserId", "u.Id")
+                            .When(
+                                !string.IsNullOrWhiteSpace(request.FilterUser),
+                                q => q.WhereContains("u.UserName", request.FilterUser)
+                            ).When(
+                                !string.IsNullOrWhiteSpace(request.FilterRole),
+                                q => q.WhereContains("r.Name", request.FilterRole)
+                            ).When(
+                                !string.IsNullOrWhiteSpace(request.FilterDesRole),
+                                q => q.WhereContains("r.Description", request.FilterDesRole)
+                            );
 
-                var data = await db.GetAsync<GroupRoleDto>(query);
-                var result = new GroupRoleItemDto
+                var data = await db.GetAsync<UserRoleDto>(query);
+                var result = new UserRoleItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
-                    GroupRoleList = data.ToList(),
+                    DataOfRecords = data.Count(),
+                    UserRoleList = data.ToList(),
                 };
-                return new ApiResponse<GroupRoleItemDto>(HttpStatusCode.OK, result);
+                return new ApiResponse<UserRoleItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
-
-                return new ApiResponse<GroupRoleItemDto>(
-                        HttpStatusCode.BadRequest,
-                        "An error occurred while retrieving data.",
-                        ex.Message
-                    );
+                return new ApiResponse<UserRoleItemDto>(HttpStatusCode.BadRequest,"An error occurred while retrieving data.", ex.Message);
             }
         }
         #endregion
@@ -443,25 +444,32 @@ namespace ThePatho.Features.Identity.UserManagement.Service
             { 
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
-                var query = new Query(TableIdentity.UserGroups)
-                    .Select("user_group_id AS UserGroupId",
-                          "user_id AS UserId",
-                          "group_id AS GroupId",
-                          "is_active AS IsActive",
-                          "inserted_by AS InsertedBy",
-                          "inserted_date AS InsertedDate",
-                          "modified_by AS ModifiedBy",
-                          "modified_date AS ModifiedDate")
-                    .When(
-                        !string.IsNullOrWhiteSpace(request.FilterUser),
-                        q => q.WhereIn("user_id", request.FilterUser)
-                    ).When(
-                        !string.IsNullOrWhiteSpace(request.FilterGroup),
-                        q => q.WhereContains("group_id", request.FilterGroup)
-                    );
+                var query = new Query($"{TableIdentity.UserGroups} as us")
+                            .Select(
+                                "us.UserId",
+                                "u.UserName",
+                                "u.Email",
+                                "u.EmpId",
+                                "us.GroupId",
+                                "r.Name as GroupName",
+                                "r.Description"
+                            )
+                            .LeftJoin($"{TableIdentity.Groups} as r", "us.GroupId", "r.Id")
+                            .LeftJoin($"{TableIdentity.Users} as u", "us.UserId", "u.Id")
+                            .When(
+                                !string.IsNullOrWhiteSpace(request.FilterUser),
+                                q => q.WhereContains("u.UserName", request.FilterUser)
+                            ).When(
+                                !string.IsNullOrWhiteSpace(request.FilterGroup),
+                                q => q.WhereContains("r.Name", request.FilterGroup)
+                            ).When(
+                                !string.IsNullOrWhiteSpace(request.FilterDesGroup),
+                                q => q.WhereContains("r.Description", request.FilterDesGroup)
+                            );
+
 
                 query = query.OrderByRaw(
-                    $"{(!string.IsNullOrWhiteSpace(request.SortBy) ? request.SortBy : "inserted_by")} {(!string.IsNullOrWhiteSpace(request.OrderBy) && (request.OrderBy.ToUpper() == "ASC" || request.OrderBy.ToUpper() == "DESC") ? request.OrderBy.ToUpper() : "DESC")}"
+                    $"{(!string.IsNullOrWhiteSpace(request.SortBy) ? request.SortBy : "UserName")} {(!string.IsNullOrWhiteSpace(request.OrderBy) && (request.OrderBy.ToUpper() == "ASC" || request.OrderBy.ToUpper() == "DESC") ? request.OrderBy.ToUpper() : "DESC")}"
                 );
 
                 query = query.Skip(request.PageNumber * request.PageSize).Take(request.PageSize);
@@ -469,19 +477,14 @@ namespace ThePatho.Features.Identity.UserManagement.Service
                 var data = await db.GetAsync<UserGroupDto>(query);
                 var result = new UserGroupItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     UserGroupList = data.ToList(),
                 };
                 return new ApiResponse<UserGroupItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
-
-                return new ApiResponse<UserGroupItemDto>(
-                        HttpStatusCode.BadRequest,
-                        "An error occurred while retrieving data.",
-                        ex.Message
-                    );
+                return new ApiResponse<UserGroupItemDto>(HttpStatusCode.BadRequest, "An error occurred while retrieving data.",ex.Message);
             }
         }
         public async Task<ApiResponse<UserGroupItemDto>> GetUserGroupByCriteria(GetUserGroupByCriteriaCommand request)
@@ -490,39 +493,40 @@ namespace ThePatho.Features.Identity.UserManagement.Service
             { 
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
-                var query = new Query(TableIdentity.UserGroups)
-                    .Select("user_group_id AS UserGroupId",
-                          "user_id AS UserId",
-                          "group_id AS GroupId",
-                          "is_active AS IsActive",
-                          "inserted_by AS InsertedBy",
-                          "inserted_date AS InsertedDate",
-                          "modified_by AS ModifiedBy",
-                          "modified_date AS ModifiedDate")
-                    .When(
-                        !string.IsNullOrWhiteSpace(request.FilterUser),
-                        q => q.WhereIn("user_id", request.FilterUser)
-                    ).When(
-                        !string.IsNullOrWhiteSpace(request.FilterGroup),
-                        q => q.WhereContains("group_id", request.FilterGroup)
-                    );
+                var query = new Query($"{TableIdentity.UserGroups} as us")
+                            .Select(
+                                "us.UserId",
+                                "u.UserName",
+                                "u.Email",
+                                "u.EmpId",
+                                "us.GroupId",
+                                "r.Name as GroupName",
+                                "r.Description"
+                            )
+                            .LeftJoin($"{TableIdentity.Groups} as r", "us.GroupId", "r.Id")
+                            .LeftJoin($"{TableIdentity.Users} as u", "us.UserId", "u.Id")
+                            .When(
+                                !string.IsNullOrWhiteSpace(request.FilterUser),
+                                q => q.WhereContains("u.UserName", request.FilterUser)
+                            ).When(
+                                !string.IsNullOrWhiteSpace(request.FilterGroup),
+                                q => q.WhereContains("r.Name", request.FilterGroup)
+                            ).When(
+                                !string.IsNullOrWhiteSpace(request.FilterDesGroup),
+                                q => q.WhereContains("r.Description", request.FilterDesGroup)
+                            );
 
                 var data = await db.GetAsync<UserGroupDto>(query);
-                    var result = new UserGroupItemDto
-                    {
-                        DataOfRecords = data.ToList().Count,
+                var result = new UserGroupItemDto
+                {
+                    DataOfRecords = data.Count(),
                     UserGroupList = data.ToList(),
                 };
                 return new ApiResponse<UserGroupItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
-
-                return new ApiResponse<UserGroupItemDto>(
-                        HttpStatusCode.BadRequest,
-                        "An error occurred while retrieving data.",
-                        ex.Message
-                    );
+                return new ApiResponse<UserGroupItemDto>(HttpStatusCode.BadRequest,"An error occurred while retrieving data.",ex.Message);
             }
         }
         #endregion

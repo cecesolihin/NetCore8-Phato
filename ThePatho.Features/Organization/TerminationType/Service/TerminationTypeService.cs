@@ -48,7 +48,7 @@ namespace ThePatho.Features.Organization.TerminationType.Service
 
                 var result = new TerminationTypeItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     TerminationTypeList = data.ToList(),
                 };
                 return new ApiResponse<TerminationTypeItemDto>(HttpStatusCode.OK, result);
@@ -84,7 +84,7 @@ namespace ThePatho.Features.Organization.TerminationType.Service
 
                 var result = new TerminationTypeItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     TerminationTypeList = data.ToList(),
                 };
                 return new ApiResponse<TerminationTypeItemDto>(HttpStatusCode.OK, result);
@@ -105,20 +105,6 @@ namespace ThePatho.Features.Organization.TerminationType.Service
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
 
-                var ArgumentException = new List<string>();
-                // Validasi field NOT NULL berdasarkan struktur tabel
-                if (string.IsNullOrWhiteSpace(request.TerminationTypeCode))
-                    ArgumentException.Add("TerminationType Code is required.");
-
-                if (string.IsNullOrWhiteSpace(request.TerminationTypeName))
-                    ArgumentException.Add("TerminationType Name is required.");
-
-
-                if (ArgumentException.Any())
-                {
-                    return new ApiResponse(HttpStatusCode.BadRequest, $"Failed to {request.Action} {request.TerminationTypeCode}", string.Join(", ", ArgumentException.ToArray()));
-                }
-                // Cek apakah TerminationTypeCode sudah exists
                 var existsQuery = new Query(TableOrganization.TerminationType)
                     .Where("TerminationTypeCode", request.TerminationTypeCode)
                     .SelectRaw("COUNT(1)");

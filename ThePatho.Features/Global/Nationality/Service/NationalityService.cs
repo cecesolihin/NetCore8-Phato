@@ -37,7 +37,7 @@ namespace ThePatho.Features.Global.Nationality.Service
                 var data = await dbConnection.QueryAsync<NationalityDto>(query, parameters);
                 var result = new NationalityItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     NationalityList = data.ToList(),
                 };
                 return new ApiResponse<NationalityItemDto>(HttpStatusCode.OK, result);
@@ -90,7 +90,7 @@ namespace ThePatho.Features.Global.Nationality.Service
                 var data = await dbConnection.QueryAsync<NationalityDto>(query, parameters);
                 var result = new NationalityItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     NationalityList = data.ToList(),
                 };
                 return new ApiResponse<NationalityItemDto>(HttpStatusCode.OK, result);

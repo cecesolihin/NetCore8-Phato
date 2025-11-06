@@ -38,7 +38,7 @@ namespace ThePatho.Features.Global.Currency.Service
                 var data = await dbConnection.QueryAsync<CurrencyDto>(query, parameters);
                 var result = new CurrencyItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     CurrencyList = data.ToList(),
                 };
                 return new ApiResponse<CurrencyItemDto>(HttpStatusCode.OK, result);
@@ -92,7 +92,7 @@ namespace ThePatho.Features.Global.Currency.Service
                 var data = await dbConnection.QueryAsync<CurrencyDto>(query, parameters);
                 var result = new CurrencyItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     CurrencyList = data.ToList(),
                 };
                 return new ApiResponse<CurrencyItemDto>(HttpStatusCode.OK, result);

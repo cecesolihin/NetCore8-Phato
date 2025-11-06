@@ -48,7 +48,7 @@ namespace ThePatho.Features.Organization.PensionType.Service
 
                 var result = new PensionTypeItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     PensionTypeList = data.ToList(),
                 };
                 return new ApiResponse<PensionTypeItemDto>(HttpStatusCode.OK, result);
@@ -84,7 +84,7 @@ namespace ThePatho.Features.Organization.PensionType.Service
 
                 var result = new PensionTypeItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     PensionTypeList = data.ToList(),
                 };
                 return new ApiResponse<PensionTypeItemDto>(HttpStatusCode.OK, result);
@@ -106,19 +106,7 @@ namespace ThePatho.Features.Organization.PensionType.Service
                 var db = new QueryFactory(connection, dapperContext.Compiler);
 
                 var ArgumentException = new List<string>();
-                // Validasi field NOT NULL berdasarkan struktur tabel
-                if (string.IsNullOrWhiteSpace(request.PensionTypeCode))
-                    ArgumentException.Add("PensionType Code is required.");
-
-                if (string.IsNullOrWhiteSpace(request.PensionTypeName))
-                    ArgumentException.Add("PensionType Name is required.");
-
-
-                if (ArgumentException.Any())
-                {
-                    return new ApiResponse(HttpStatusCode.BadRequest, $"Failed to {request.Action} {request.PensionTypeCode}", string.Join(", ", ArgumentException.ToArray()));
-                }
-                // Cek apakah PensionTypeCode sudah exists
+                
                 var existsQuery = new Query(TableOrganization.PensionType)
                     .Where("PensionTypeCode", request.PensionTypeCode)
                     .SelectRaw("COUNT(1)");

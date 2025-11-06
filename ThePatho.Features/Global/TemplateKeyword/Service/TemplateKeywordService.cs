@@ -42,7 +42,7 @@ namespace ThePatho.Features.Global.TemplateKeyword.Service
                 var data = await dbConnection.QueryAsync<TemplateKeywordDto>(query, parameters);
                 var result = new TemplateKeywordItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     TemplateKeywordList = data.ToList(),
                 };
                 return new ApiResponse<TemplateKeywordItemDto>(HttpStatusCode.OK, result);
@@ -98,7 +98,7 @@ namespace ThePatho.Features.Global.TemplateKeyword.Service
                 var data = await dbConnection.QueryAsync<TemplateKeywordDto>(query, parameters);
                 var result = new TemplateKeywordItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     TemplateKeywordList = data.ToList(),
                 };
                 return new ApiResponse<TemplateKeywordItemDto>(HttpStatusCode.OK, result);

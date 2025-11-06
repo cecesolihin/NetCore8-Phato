@@ -48,7 +48,7 @@ namespace ThePatho.Features.Organization.Rank.Service
 
                 var result = new RankItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     RankList = data.ToList(),
                 };
                 return new ApiResponse<RankItemDto>(HttpStatusCode.OK, result);
@@ -84,7 +84,7 @@ namespace ThePatho.Features.Organization.Rank.Service
 
                 var result = new RankItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     RankList = data.ToList(),
                 };
                 return new ApiResponse<RankItemDto>(HttpStatusCode.OK, result);
@@ -105,33 +105,6 @@ namespace ThePatho.Features.Organization.Rank.Service
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
 
-                var ArgumentException = new List<string>();
-                // Validasi field NOT NULL berdasarkan struktur tabel
-                if (string.IsNullOrWhiteSpace(request.RankCode))
-                    ArgumentException.Add("Rank Code is required.");
-
-                if (string.IsNullOrWhiteSpace(request.RankName))
-                    ArgumentException.Add("Rank Name is required.");
-
-                // Validasi panjang field sesuai constraint di database
-                if (request.RankCode.Length > 128)
-                    ArgumentException.Add("Rank Code cannot exceed 128 characters.");
-
-                if (request.RankName.Length > 255)
-                    ArgumentException.Add("Rank Name cannot exceed 255 characters.");
-
-                if (request.Remarks != null && request.Remarks.Length > 500)
-                    ArgumentException.Add("Remarks cannot exceed 500 characters.");
-
-                // Validasi Order (tinyint range: 0-255)
-                if (request.Order < 0 || request.Order > 255)
-                    ArgumentException.Add("Order must be between 0 and 255.");
-
-                if (ArgumentException.Any())
-                {
-                    return new ApiResponse(HttpStatusCode.BadRequest, $"Failed to {request.Action} {request.RankCode}", string.Join(", ", ArgumentException.ToArray()));
-                }
-                // Cek apakah RankCode sudah exists
                 var existsQuery = new Query(TableOrganization.Rank)
                     .Where("RankCode", request.RankCode)
                     .SelectRaw("COUNT(1)");

@@ -38,7 +38,7 @@ namespace ThePatho.Features.Global.Insurance.Service
                 var data = await dbConnection.QueryAsync<InsuranceDto>(query, parameters);
                 var result = new InsuranceItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     InsuranceList = data.ToList(),
                 };
                 return new ApiResponse<InsuranceItemDto>(HttpStatusCode.OK, result);
@@ -93,7 +93,7 @@ namespace ThePatho.Features.Global.Insurance.Service
                 var data = await dbConnection.QueryAsync<InsuranceDto>(query, parameters);
                 var result = new InsuranceItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     InsuranceList = data.ToList(),
                 };
                 return new ApiResponse<InsuranceItemDto>(HttpStatusCode.OK, result);

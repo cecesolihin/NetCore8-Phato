@@ -5,6 +5,7 @@ using ThePatho.Features.PersonalInformation.EmployeeCareerHistory.Commands;
 using ThePatho.Features.PersonalInformation.EmployeeCareerHistory.DTO;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.ApiResponse;
+using ThePatho.Provider.QueryExecute;
 
 namespace ThePatho.Features.PersonalInformation.EmployeeCareerHistory.Service
 {
@@ -34,10 +35,10 @@ namespace ThePatho.Features.PersonalInformation.EmployeeCareerHistory.Service
                 var parameters = new DynamicParameters();
                 parameters.Add("@PageNumber", request.PageNumber);
                 parameters.Add("@PageSize", request.PageSize);
-                parameters.Add("@EmployeeId", request.FilterEmployeeId ?? (object)DBNull.Value);
-                parameters.Add("@CareerHistoryNo", request.FilterCareerHistoryNo ?? (object)DBNull.Value);
-                parameters.Add("@PositionCode", request.FilterPositionCode ?? (object)DBNull.Value);
-                parameters.Add("@CompanyCode", request.FilterCompanyCode ?? (object)DBNull.Value);
+                parameters.Add("@EmployeeId", request.FilterEmployeeId ?? 0);
+                parameters.Add("@CareerHistoryNo", request.FilterCareerHistoryNo ?? string.Empty);
+                parameters.Add("@PositionCode", request.FilterPositionCode ?? string.Empty);
+                parameters.Add("@CompanyCode", request.FilterCompanyCode ?? string.Empty);
                 parameters.Add("@SortBy", request.SortBy);
                 parameters.Add("@OrderBy", request.OrderBy);
 
@@ -88,9 +89,10 @@ namespace ThePatho.Features.PersonalInformation.EmployeeCareerHistory.Service
             {
                 using var db = dapperContext.CreateConnection();
                 var parameters = new DynamicParameters();
-                parameters.Add("@CareerHistoryNo", request.FilterCareerHistoryNo ?? (object)DBNull.Value);
-                parameters.Add("@PositionCode", request.FilterPositionCode ?? (object)DBNull.Value);
-                parameters.Add("@CompanyCode", request.FilterCompanyCode ?? (object)DBNull.Value);
+                parameters.Add("@EmployeeId", request.FilterEmployeeId ?? 0);
+                parameters.Add("@CareerHistoryNo", request.FilterCareerHistoryNo ?? string.Empty);
+                parameters.Add("@PositionCode", request.FilterPositionCode ?? string.Empty);
+                parameters.Add("@CompanyCode", request.FilterCompanyCode ?? string.Empty);
 
                 var query = await queryLoader.LoadQueryAsync("PersonalInformation/EmployeeCareerHistory/Sql/get_criteria_emp_career");
                 var data = await db.QueryAsync<EmployeeCareerHistoryDto>(query, parameters);
@@ -149,17 +151,18 @@ namespace ThePatho.Features.PersonalInformation.EmployeeCareerHistory.Service
                 parameters.Add("@Path", request.Path);
                 parameters.Add("@JabatanId", request.JabatanId);
                 parameters.Add("@IsEligibleRehire", request.IsEligibleRehire);
-                parameters.Add("@InsertedBy", request.InsertedBy);
-                parameters.Add("@InsertedDate", request.InsertedDate);
-                parameters.Add("@ModifiedBy", request.ModifiedBy);
-                parameters.Add("@ModifiedDate", request.ModifiedDate);
                 parameters.Add("@Action", request.Action);
                 parameters.Add("@User", "admin");
 
                 var query = await queryLoader.LoadQueryAsync("PersonalInformation/EmployeeCareerHistory/Sql/submit_emp_career");
                 await db.ExecuteAsync(query, parameters);
 
-                return new ApiResponse(HttpStatusCode.OK, $"{request.Action}  successful");
+                var result = await db.QueryFirstOrDefaultAsync<ExecuteResult>(query, parameters);
+
+                if (result != null && result.Success)
+                    return new ApiResponse(HttpStatusCode.OK, result.Message);
+                else
+                    return new ApiResponse(HttpStatusCode.BadRequest, result?.Message ?? "Unknown error", result?.ErrorNote);
             }
             catch (Exception ex)
             {

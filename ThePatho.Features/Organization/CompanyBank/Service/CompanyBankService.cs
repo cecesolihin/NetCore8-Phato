@@ -1,5 +1,6 @@
 ﻿using SqlKata;
 using SqlKata.Execution;
+using System;
 using System.Net;
 using ThePatho.Domain.Constants;
 using ThePatho.Features.Organization.CompanyBank.Commands;
@@ -100,7 +101,7 @@ namespace ThePatho.Features.Organization.CompanyBank.Service
 
                 var result = new CompanyBankItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     CompanyBankList = data.ToList(),
                 };
                 return new ApiResponse<CompanyBankItemDto>(HttpStatusCode.OK, result);
@@ -121,22 +122,18 @@ namespace ThePatho.Features.Organization.CompanyBank.Service
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
 
-                // Validasi field yang required
-                if (string.IsNullOrWhiteSpace(request.Branch))
-                    throw new ArgumentException("Branch is required.");
+                var argument = new List<string>();
 
-                if (string.IsNullOrWhiteSpace(request.CompanyCode))
-                    throw new ArgumentException("Company Code is required.");
-
-                // Validasi CompanyCode exists di TOGMCompanyProfile
+        
                 var companyExistsQuery = new Query(TableOrganization.CompanyProfile)
                     .Where("CompanyCode", request.CompanyCode)
                     .SelectRaw("COUNT(1)");
 
                 var companyExists = await db.ExecuteScalarAsync<int>(companyExistsQuery);
                 if (companyExists == 0)
-                    throw new ArgumentException($"Company Code '{request.CompanyCode}' does not exist.");
+                    argument.Add($"Company Code '{request.CompanyCode}' does not exist.");
 
+                
                 // Cek duplikat untuk insert (AccountNo harus unique per CompanyCode)
                 if (request.CompanyBankId == null || request.CompanyBankId == 0)
                 {
@@ -150,8 +147,13 @@ namespace ThePatho.Features.Organization.CompanyBank.Service
 
                         var duplicateExists = await db.ExecuteScalarAsync<int>(duplicateQuery);
                         if (duplicateExists > 0)
-                            throw new ArgumentException($"Account No '{request.AccountNo}' already exists for this company.");
+                            argument.Add($"Account No '{request.AccountNo}' already exists for this company.");
                     }
+                }
+
+                if (argument.Any())
+                {
+                    return new ApiResponse(HttpStatusCode.BadRequest, $"Failed to {request.Action} {request.CompanyCode}", string.Join(", ", argument.ToArray()));
                 }
 
                 if (request.CompanyBankId == null || request.CompanyBankId == 0)
@@ -182,7 +184,7 @@ namespace ThePatho.Features.Organization.CompanyBank.Service
 
                     var exists = await db.ExecuteScalarAsync<int>(existsQuery);
                     if (exists == 0)
-                        throw new ArgumentException($"Company Bank with ID {request.CompanyBankId} not found.");
+                        argument.Add($"Company Bank with ID {request.CompanyBankId} not found.");
 
                     if (!string.IsNullOrWhiteSpace(request.AccountNo))
                     {
@@ -195,7 +197,12 @@ namespace ThePatho.Features.Organization.CompanyBank.Service
 
                         var duplicateExists = await db.ExecuteScalarAsync<int>(duplicateQuery);
                         if (duplicateExists > 0)
-                            throw new ArgumentException($"Account No '{request.AccountNo}' already exists for this company.");
+                            argument.Add($"Account No '{request.AccountNo}' already exists for this company.");
+                    }
+
+                    if (argument.Any())
+                    {
+                        return new ApiResponse(HttpStatusCode.BadRequest, $"Failed to {request.Action} {request.CompanyCode}", string.Join(", ", argument.ToArray()));
                     }
 
                     // Update
@@ -233,7 +240,7 @@ namespace ThePatho.Features.Organization.CompanyBank.Service
             try
             {
                 if (request.CompanyBankId <= 0)
-                    throw new ArgumentException("CompanyBankId is required and must be greater than 0.");
+                    return new ApiResponse(HttpStatusCode.NotFound, "CompanyBank is not found");
 
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);

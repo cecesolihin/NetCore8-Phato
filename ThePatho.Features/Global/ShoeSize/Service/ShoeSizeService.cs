@@ -38,7 +38,7 @@ namespace ThePatho.Features.Global.ShoeSize.Service
                 var data = await dbConnection.QueryAsync<ShoeSizeDto>(query, parameters);
                 var result = new ShoeSizeItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     ShoeSizeList = data.ToList(),
                 };
                 return new ApiResponse<ShoeSizeItemDto>(HttpStatusCode.OK, result);
@@ -92,7 +92,7 @@ namespace ThePatho.Features.Global.ShoeSize.Service
                 var data = await dbConnection.QueryAsync<ShoeSizeDto>(query, parameters);
                 var result = new ShoeSizeItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     ShoeSizeList = data.ToList(),
                 };
                 return new ApiResponse<ShoeSizeItemDto>(HttpStatusCode.OK, result);

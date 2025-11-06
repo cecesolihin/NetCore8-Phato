@@ -38,7 +38,7 @@ namespace ThePatho.Features.Global.RewardType.Service
                 var data = await dbConnection.QueryAsync<RewardTypeDto>(query, parameters);
                 var result = new RewardTypeItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     RewardTypeList = data.ToList(),
                 };
                 return new ApiResponse<RewardTypeItemDto>(HttpStatusCode.OK, result);
@@ -92,7 +92,7 @@ namespace ThePatho.Features.Global.RewardType.Service
                 var data = await dbConnection.QueryAsync<RewardTypeDto>(query, parameters);
                 var result = new RewardTypeItemDto
                 {
-                    DataOfRecords = data.ToList().Count,
+                    DataOfRecords = data.Count(),
                     RewardTypeList = data.ToList(),
                 };
                 return new ApiResponse<RewardTypeItemDto>(HttpStatusCode.OK, result);

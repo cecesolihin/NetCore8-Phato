@@ -1,6 +1,6 @@
 ﻿using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Identity.UserManagement.Commands.Group;
-using ThePatho.Features.Identity.UserManagement.Commands.GroupRole;
+using ThePatho.Features.Identity.UserManagement.Commands.UserRole;
 using ThePatho.Features.Identity.UserManagement.Commands.Role;
 using ThePatho.Features.Identity.UserManagement.Commands.User;
 using ThePatho.Features.Identity.UserManagement.Commands.UserGroup;
@@ -28,9 +28,9 @@ namespace ThePatho.Features.Identity.UserManagement.Service
         Task<ApiResponse<RoleDto>> GetSingleRole(GetSingleRoleCommand request);
         #endregion
 
-        #region [Group Role]
-        Task<ApiResponse<GroupRoleItemDto>> GetGroupRoleList(GetGroupRoleCommand request);
-        Task<ApiResponse<GroupRoleItemDto>> GetGroupRoleByCriteria(GetGroupRoleByCriteriaCommand request);
+        #region [User Role]
+        Task<ApiResponse<UserRoleItemDto>> GetUserRoleList(GetUserRoleCommand request);
+        Task<ApiResponse<UserRoleItemDto>> GetUserRoleByCriteria(GetUserRoleByCriteriaCommand request);
         #endregion
 
         #region [User Group]

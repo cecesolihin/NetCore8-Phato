@@ -14,9 +14,6 @@ namespace ThePatho.Features.Identity.UserManagement.Commands.Role
         [JsonPropertyName("Filter_Description")]
         public string? FilterDescription { get; set; }
 
-        [JsonPropertyName("filter_RoleLabel")]
-        public string? FilterRoleLabel { get; set; }
-
         [JsonPropertyName("sortBy")]
         [DefaultValue("InsertedDate")]
         public string? SortBy { get; set; } = "InsertedDate";
@@ -26,7 +23,7 @@ namespace ThePatho.Features.Identity.UserManagement.Commands.Role
         public string? OrderBy { get; set; } = "DESC";
 
         [JsonPropertyName("pageNumber")]
-        [DefaultValue(1)]
+        [DefaultValue(0)]
         public int PageNumber { get; set; } = 1;
 
         [JsonPropertyName("pageSize")]
