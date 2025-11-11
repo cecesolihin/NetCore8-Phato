@@ -1,10 +1,11 @@
-﻿using Dapper;
+using Dapper;
 using System.Data;
 using System.Net;
 using ThePatho.Features.Global.BloodType.Commands;
 using ThePatho.Features.Global.BloodType.DTO;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.ApiResponse;
+using ThePatho.Provider.UserContext;
 
 namespace ThePatho.Features.Global.BloodType.Service
 {
@@ -14,11 +15,13 @@ namespace ThePatho.Features.Global.BloodType.Service
         private readonly IDbConnection dbConnection;
         private readonly DapperContext dapperContext;
         private readonly ApplicationDbContext context;
+        private readonly ICurrentUserService currentUserService;
 
-        public BloodTypeService(DapperContext _dapperContext, SqlQueryLoader _queryLoader)
+        public BloodTypeService(DapperContext _dapperContext, SqlQueryLoader _queryLoader, ICurrentUserService _currentUserService)
         {
             dapperContext = _dapperContext;
             queryLoader = _queryLoader;
+            currentUserService = _currentUserService;
         }
 
         public async Task<ApiResponse<BloodTypeItemDto>> GetBloodType(GetBloodTypeCommand request)
@@ -122,7 +125,7 @@ namespace ThePatho.Features.Global.BloodType.Service
                 parameters.Add("@BloodTypeCode", request.BloodTypeCode);
                 parameters.Add("@BloodTypeName", request.BloodTypeName);
                 parameters.Add("@Action", request.Action);
-                parameters.Add("@User", "admin");
+                parameters.Add("@User", currentUserService.GetUserName() ?? "admin");
 
                 var query = await queryLoader.LoadQueryAsync("Global/BloodType/Sql/submit_blood_type");
                 await db.ExecuteAsync(query, parameters);

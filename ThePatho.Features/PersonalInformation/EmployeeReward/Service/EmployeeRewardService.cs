@@ -1,10 +1,11 @@
-﻿using Dapper;
+using Dapper;
 using System.Data;
 using System.Net;
 using ThePatho.Features.PersonalInformation.EmployeeReward.Commands;
 using ThePatho.Features.PersonalInformation.EmployeeReward.DTO;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.ApiResponse;
+using ThePatho.Provider.UserContext;
 
 namespace ThePatho.Features.PersonalInformation.EmployeeReward.Service
 {
@@ -15,13 +16,15 @@ namespace ThePatho.Features.PersonalInformation.EmployeeReward.Service
         private readonly IDbConnection dbConnection;
         private readonly DapperContext dapperContext;
         private readonly ApplicationDbContext context;
+        private readonly ICurrentUserService currentUserService;
         #endregion
 
         #region [CTOR]
-        public EmployeeRewardService(DapperContext _dapperContext, SqlQueryLoader _queryLoader)
+        public EmployeeRewardService(DapperContext _dapperContext, SqlQueryLoader _queryLoader, ICurrentUserService _currentUserService)
         {
             dapperContext = _dapperContext;
             queryLoader = _queryLoader;
+            currentUserService = _currentUserService;
         }
         #endregion
 
@@ -120,7 +123,8 @@ namespace ThePatho.Features.PersonalInformation.EmployeeReward.Service
                 parameters.Add("@Amount", request.Amount);
                 parameters.Add("@Attachment", request.Attachment);
                 parameters.Add("@Action", request.Action);
-                parameters.Add("@User", "admin");
+                var userName = currentUserService.GetUserName();
+                parameters.Add("@User", string.IsNullOrWhiteSpace(userName) ? "admin" : userName);
 
                 var query = await queryLoader.LoadQueryAsync("PersonalInformation/EmployeeReward/Sql/submit_emp_reward");
                 await db.ExecuteAsync(query, parameters);

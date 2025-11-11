@@ -6,6 +6,7 @@ using ThePatho.Features.Global.Bank.Commands;
 using ThePatho.Features.Global.Bank.DTO;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.ApiResponse;
+using ThePatho.Provider.UserContext;
 
 namespace ThePatho.Features.Global.Bank.Service
 {
@@ -14,12 +15,15 @@ namespace ThePatho.Features.Global.Bank.Service
         private readonly SqlQueryLoader queryLoader;
         private readonly IDbConnection dbConnection;
         private readonly DapperContext dapperContext;
-        private readonly ApplicationDbContext context;
+        private readonly ApplicationDbContext context; 
+        private readonly ICurrentUserService currentUserService;
 
-        public BankService(DapperContext _dapperContext, SqlQueryLoader _queryLoader)
+        public BankService(DapperContext _dapperContext, SqlQueryLoader _queryLoader, ICurrentUserService _currentUserService)
         {
             dapperContext = _dapperContext;
             queryLoader = _queryLoader;
+            currentUserService = _currentUserService;
+
         }
 
         public async Task<ApiResponse<BankItemDto>> GetBank(GetBankCommand request)
@@ -126,7 +130,7 @@ namespace ThePatho.Features.Global.Bank.Service
                 parameters.Add("@TransdferFee", request.TransdferFee);
                 parameters.Add("@SwiftCode", request.SwiftCode);
                 parameters.Add("@Action", request.Action);
-                parameters.Add("@User", "admin");
+                parameters.Add("@User", currentUserService.GetUserName() ?? "admin");
 
                 var query = await queryLoader.LoadQueryAsync("Global/Bank/Sql/submit_bank");
                 await db.ExecuteAsync(query, parameters);

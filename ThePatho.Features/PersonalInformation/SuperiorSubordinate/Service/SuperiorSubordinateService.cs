@@ -1,4 +1,4 @@
-﻿using Dapper;
+using Dapper;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
 using System.Net;
@@ -7,6 +7,7 @@ using ThePatho.Features.PersonalInformation.SuperiorSubordinate.DTO;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.ApiResponse;
 using ThePatho.Provider.QueryExecute;
+using ThePatho.Provider.UserContext;
 
 namespace ThePatho.Features.PersonalInformation.SuperiorSubordinate.Service
 {
@@ -17,13 +18,15 @@ namespace ThePatho.Features.PersonalInformation.SuperiorSubordinate.Service
         private readonly IDbConnection dbConnection;
         private readonly DapperContext dapperContext;
         private readonly ApplicationDbContext context;
+        private readonly ICurrentUserService currentUserService;
         #endregion
 
         #region [CTOR]
-        public SuperiorSubordinateService(DapperContext _dapperContext, SqlQueryLoader _queryLoader)
+        public SuperiorSubordinateService(DapperContext _dapperContext, SqlQueryLoader _queryLoader, ICurrentUserService _currentUserService)
         {
             dapperContext = _dapperContext;
             queryLoader = _queryLoader;
+            currentUserService = _currentUserService;
         }
         #endregion
 
@@ -132,7 +135,7 @@ namespace ThePatho.Features.PersonalInformation.SuperiorSubordinate.Service
                 parameters.Add("@Superior10ID", request.Superior10ID);
 
                 parameters.Add("@Action", request.Action);
-                parameters.Add("@User", "admin");
+                parameters.Add("@User", currentUserService.GetUserName() ?? "admin");
 
                 var query = await queryLoader.LoadQueryAsync("PersonalInformation/SuperiorSubordinate/Sql/submit_superior_subordinate");
                 await db.ExecuteAsync(query, parameters);
@@ -166,7 +169,7 @@ namespace ThePatho.Features.PersonalInformation.SuperiorSubordinate.Service
                 parameters.Add("@Superior10ID", request.Superior10ID);
 
                 parameters.Add("@Action", request.Action);
-                parameters.Add("@User", "admin");
+                parameters.Add("@User", currentUserService.GetUserName() ?? "admin");
 
                 var query = await queryLoader.LoadQueryAsync("PersonalInformation/SuperiorSubordinate/Sql/submit_multi_superior_subordinate");
                 var result = await db.QueryFirstOrDefaultAsync<ExecuteResult>(query, parameters);
@@ -188,7 +191,7 @@ namespace ThePatho.Features.PersonalInformation.SuperiorSubordinate.Service
                 using var db = dapperContext.CreateConnection();
                 var parameters = new DynamicParameters();
                 parameters.Add("@EmployeeSuperiorID", request.EmployeeSuperiorID);
-                parameters.Add("@User", "admin");
+                parameters.Add("@User", currentUserService.GetUserName() ?? "admin");
 
                 var query = await queryLoader.LoadQueryAsync("PersonalInformation/SuperiorSubordinate/Sql/get_single_superior_subordinate");
                 var data = await db.QueryFirstOrDefaultAsync<SuperiorSubordinateDto>(query, parameters);
@@ -220,7 +223,7 @@ namespace ThePatho.Features.PersonalInformation.SuperiorSubordinate.Service
                 parameters.Add("@EmployeeList", string.Join(",",request.EmployeeList));
                 parameters.Add("@Remarks", request.Remarks);
                 parameters.Add("@Action", "Generate");
-                parameters.Add("@User", "admin");
+                parameters.Add("@User", currentUserService.GetUserName() ?? "admin");
 
                 var query = await queryLoader.LoadQueryAsync("PersonalInformation/SuperiorSubordinate/Sql/generate_superior_subordinate");
                 var result = await db.QueryFirstOrDefaultAsync<ExecuteResult>(query, parameters);

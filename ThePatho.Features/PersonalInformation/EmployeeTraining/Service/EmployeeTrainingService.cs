@@ -1,10 +1,11 @@
-﻿using Dapper;
+using Dapper;
 using System.Data;
 using System.Net;
 using ThePatho.Features.PersonalInformation.EmployeeTraining.Commands;
 using ThePatho.Features.PersonalInformation.EmployeeTraining.DTO;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.ApiResponse;
+using ThePatho.Provider.UserContext;
 
 namespace ThePatho.Features.PersonalInformation.EmployeeTraining.Service
 {
@@ -15,13 +16,15 @@ namespace ThePatho.Features.PersonalInformation.EmployeeTraining.Service
         private readonly IDbConnection dbConnection;
         private readonly DapperContext dapperContext;
         private readonly ApplicationDbContext context;
+        private readonly ICurrentUserService currentUserService;
         #endregion
 
         #region [CTOR]
-        public EmployeeTrainingService(DapperContext _dapperContext, SqlQueryLoader _queryLoader)
+        public EmployeeTrainingService(DapperContext _dapperContext, SqlQueryLoader _queryLoader, ICurrentUserService _currentUserService)
         {
             dapperContext = _dapperContext;
             queryLoader = _queryLoader;
+            currentUserService = _currentUserService;
         }
         #endregion
 
@@ -133,7 +136,7 @@ namespace ThePatho.Features.PersonalInformation.EmployeeTraining.Service
                 parameters.Add("@TrainingBatchCode", request.TrainingBatchCode);
                 parameters.Add("@IsDeleted", request.IsDeleted);
                 parameters.Add("@Action", request.Action);
-                parameters.Add("@User", "admin");
+                parameters.Add("@User", currentUserService.GetUserName() ?? "admin");
 
                 var query = await queryLoader.LoadQueryAsync("PersonalInformation/EmployeeTraining/Sql/submit_emp_training");
                 await db.ExecuteAsync(query, parameters);
@@ -153,7 +156,7 @@ namespace ThePatho.Features.PersonalInformation.EmployeeTraining.Service
                 using var db = dapperContext.CreateConnection();
                 var parameters = new DynamicParameters();
                 parameters.Add("@EmpTrainingId", request.EmpTrainingId);
-                parameters.Add("@User", "admin");
+                parameters.Add("@User", currentUserService.GetUserName() ?? "admin");
 
                 var query = await queryLoader.LoadQueryAsync("PersonalInformation/EmployeeTraining/Sql/get_single_emp_training");
                 var data = await db.QueryFirstOrDefaultAsync<EmployeeTrainingDto>(query, parameters);

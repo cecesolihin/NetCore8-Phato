@@ -1,10 +1,11 @@
-﻿using Dapper;
+using Dapper;
 using System.Data;
 using System.Net;
 using ThePatho.Features.Global.Insurance.Commands;
 using ThePatho.Features.Global.Insurance.DTO;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.ApiResponse;
+using ThePatho.Provider.UserContext;
 
 namespace ThePatho.Features.Global.Insurance.Service
 {
@@ -14,12 +15,14 @@ namespace ThePatho.Features.Global.Insurance.Service
         private readonly IDbConnection dbConnection;
         private readonly DapperContext dappercontext;
         private readonly ApplicationDbContext context;
-        public InsuranceService(ApplicationDbContext _context, DapperContext _dappercontext, SqlQueryLoader _queryLoader, IDbConnection _dbConnection)
+        private readonly ICurrentUserService currentUserService;
+        public InsuranceService(ApplicationDbContext _context, DapperContext _dappercontext, SqlQueryLoader _queryLoader, IDbConnection _dbConnection, ICurrentUserService _currentUserService)
         {
             context = _context;
             dappercontext = _dappercontext;
             queryLoader = _queryLoader;
             dbConnection = _dbConnection;
+            currentUserService = _currentUserService;
         }
 
         public async Task<ApiResponse<InsuranceItemDto>> GetInsurance(GetInsuranceCommand request)
@@ -116,7 +119,8 @@ namespace ThePatho.Features.Global.Insurance.Service
                 parameters.Add("@InsuranceCode", request.InsuranceCode);
                 parameters.Add("@InsuranceName", request.InsuranceName);
                 parameters.Add("@Action", request.Action);
-                parameters.Add("@User", "admin");
+                var userName = currentUserService.GetUserName();
+                parameters.Add("@User", string.IsNullOrWhiteSpace(userName) ? "admin" : userName);
 
                 var query = await queryLoader.LoadQueryAsync("Global/Insurance/Sql/submit_insurance");
                 await dbConnection.ExecuteAsync(query, parameters);

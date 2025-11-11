@@ -1,10 +1,11 @@
-﻿using Dapper;
+using Dapper;
 using System.Data;
 using System.Net;
 using ThePatho.Features.PersonalInformation.EmployeePunishment.Commands;
 using ThePatho.Features.PersonalInformation.EmployeePunishment.DTO;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.ApiResponse;
+using ThePatho.Provider.UserContext;
 
 namespace ThePatho.Features.PersonalInformation.EmployeePunishment.Service
 {
@@ -15,13 +16,15 @@ namespace ThePatho.Features.PersonalInformation.EmployeePunishment.Service
         private readonly IDbConnection dbConnection;
         private readonly DapperContext dapperContext;
         private readonly ApplicationDbContext context;
+        private readonly ICurrentUserService currentUserService;
         #endregion
 
         #region [CTOR]
-        public EmployeePunishmentService(DapperContext _dapperContext, SqlQueryLoader _queryLoader)
+        public EmployeePunishmentService(DapperContext _dapperContext, SqlQueryLoader _queryLoader, ICurrentUserService _currentUserService)
         {
             dapperContext = _dapperContext;
             queryLoader = _queryLoader;
+            currentUserService = _currentUserService;
         }
         #endregion
 
@@ -125,7 +128,7 @@ namespace ThePatho.Features.PersonalInformation.EmployeePunishment.Service
                 parameters.Add("@Remarks", request.Remarks);
                 parameters.Add("@Attachment", request.Attachment);
                 parameters.Add("@Action", request.Action);
-                parameters.Add("@User", "admin");
+                parameters.Add("@User", currentUserService.GetUserName() ?? "admin");
 
                 var query = await queryLoader.LoadQueryAsync("PersonalInformation/EmployeePunishment/Sql/submit_emp_punishment");
                 await db.ExecuteAsync(query, parameters);
@@ -145,7 +148,7 @@ namespace ThePatho.Features.PersonalInformation.EmployeePunishment.Service
                 using var db = dapperContext.CreateConnection();
                 var parameters = new DynamicParameters();
                 parameters.Add("@EmPunishmentId", request.EmPunishmentId);
-                parameters.Add("@User", "admin");
+                parameters.Add("@User", currentUserService.GetUserName() ?? "admin");
 
                 var query = await queryLoader.LoadQueryAsync("PersonalInformation/EmployeePunishment/Sql/get_single_emp_punishment");
                 var data = await db.QueryFirstOrDefaultAsync<EmployeePunishmentDto>(query, parameters);

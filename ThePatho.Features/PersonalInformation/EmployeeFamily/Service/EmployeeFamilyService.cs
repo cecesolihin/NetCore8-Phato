@@ -1,10 +1,11 @@
-﻿using Dapper;
+using Dapper;
 using System.Data;
 using System.Net;
 using ThePatho.Features.PersonalInformation.EmployeeFamily.Commands;
 using ThePatho.Features.PersonalInformation.EmployeeFamily.DTO;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.ApiResponse;
+using ThePatho.Provider.UserContext;
 
 namespace ThePatho.Features.PersonalInformation.EmployeeFamily.Service
 {
@@ -15,13 +16,15 @@ namespace ThePatho.Features.PersonalInformation.EmployeeFamily.Service
         private readonly IDbConnection dbConnection;
         private readonly DapperContext dapperContext;
         private readonly ApplicationDbContext context;
+        private readonly ICurrentUserService currentUserService;
         #endregion
 
         #region [CTOR]
-        public EmployeeFamilyService(DapperContext _dapperContext, SqlQueryLoader _queryLoader)
+        public EmployeeFamilyService(DapperContext _dapperContext, SqlQueryLoader _queryLoader, ICurrentUserService _currentUserService)
         {
             dapperContext = _dapperContext;
             queryLoader = _queryLoader;
+            currentUserService = _currentUserService;
         }
         #endregion
 
@@ -137,7 +140,7 @@ namespace ThePatho.Features.PersonalInformation.EmployeeFamily.Service
                 parameters.Add("@PolisNo", request.PolisNo);
                 parameters.Add("@Remarks", request.Remarks);
                 parameters.Add("@Action", request.Action);
-                parameters.Add("@User", "admin");
+                parameters.Add("@User", currentUserService.GetUserName() ?? "admin");
 
                 var query = await queryLoader.LoadQueryAsync("PersonalInformation/EmployeeFamily/Sql/submit_emp_family");
                 await db.ExecuteAsync(query, parameters);
@@ -157,7 +160,7 @@ namespace ThePatho.Features.PersonalInformation.EmployeeFamily.Service
                 using var db = dapperContext.CreateConnection();
                 var parameters = new DynamicParameters();
                 parameters.Add("@EmployeeFamilyId", request.EmployeeFamilyId);
-                parameters.Add("@User", "admin");
+                parameters.Add("@User", currentUserService.GetUserName() ?? "admin");
 
                 var query = await queryLoader.LoadQueryAsync("PersonalInformation/EmployeeFamily/Sql/get_single_emp_family");
                 var data = await db.QueryFirstOrDefaultAsync<EmployeeFamilyDto>(query, parameters);

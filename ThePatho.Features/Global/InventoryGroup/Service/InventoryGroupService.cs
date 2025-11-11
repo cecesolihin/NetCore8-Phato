@@ -1,10 +1,11 @@
-﻿using Dapper;
+using Dapper;
 using System.Data;
 using System.Net;
 using ThePatho.Features.Global.InventoryGroup.Commands;
 using ThePatho.Features.Global.InventoryGroup.DTO;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.ApiResponse;
+using ThePatho.Provider.UserContext;
 
 namespace ThePatho.Features.Global.InventoryGroup.Service
 {
@@ -14,12 +15,14 @@ namespace ThePatho.Features.Global.InventoryGroup.Service
         private readonly IDbConnection dbConnection;
         private readonly DapperContext dappercontext;
         private readonly ApplicationDbContext context;
-        public InventoryGroupService(ApplicationDbContext _context, DapperContext _dappercontext, SqlQueryLoader _queryLoader, IDbConnection _dbConnection)
+        private readonly ICurrentUserService currentUserService;
+        public InventoryGroupService(ApplicationDbContext _context, DapperContext _dappercontext, SqlQueryLoader _queryLoader, IDbConnection _dbConnection, ICurrentUserService _currentUserService)
         {
             context = _context;
             dappercontext = _dappercontext;
             queryLoader = _queryLoader;
             dbConnection = _dbConnection;
+            currentUserService = _currentUserService;
         }
 
         public async Task<ApiResponse<InventoryGroupItemDto>> GetInventoryGroup(GetInventoryGroupCommand request)
@@ -117,7 +120,7 @@ namespace ThePatho.Features.Global.InventoryGroup.Service
                 parameters.Add("@InventoryGroupName", request.InventoryGroupName);
                 parameters.Add("@GroupBy", request.GroupBy);
                 parameters.Add("@Action", request.Action);
-                parameters.Add("@User", "admin");
+                parameters.Add("@User", currentUserService.GetUserName() ?? "admin");
 
                 var query = await queryLoader.LoadQueryAsync("Global/InventoryGroup/Sql/submit_inventorygroup");
                 await dbConnection.ExecuteAsync(query, parameters);

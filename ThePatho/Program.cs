@@ -9,6 +9,8 @@ using ThePatho.Features.Global.BloodType.Commands;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.DateTimeProvider;
 using ThePatho.Provider.Jwt;
+using Swashbuckle.AspNetCore.SwaggerUI;
+using ThePatho.Provider.UserContext;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -108,6 +110,9 @@ builder.Services.AddScoped<IDbConnection>(sp =>
 });
 builder.Services.AddSingleton<DapperContext>();
 builder.Services.AddApplicationServices();
+// Access HttpContext and current user info
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
 
 // Konfigurasi Identity dengan UserManager
 builder.Services.AddIdentityCore<User>(options =>
@@ -189,6 +194,7 @@ var app = builder.Build();
         options.SwaggerEndpoint("/swagger/Organization/swagger.json", "Organization API");
         options.SwaggerEndpoint("/swagger/Global/swagger.json", "Global API");
         options.SwaggerEndpoint("/swagger/PersonalInformation/swagger.json", "Personal Information API");
+        options.DocExpansion(DocExpansion.None);
     });
 //}
 

@@ -4,6 +4,7 @@ BEGIN
     (
         IdentityCode,
         IdentityName,
+        IsDeleted,
         InsertedBy,
         InsertedDate
     )
@@ -11,6 +12,7 @@ BEGIN
     (
         @IdentityCode,
         @IdentityName,
+        0,
         @User,
         GETDATE()
     );

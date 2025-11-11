@@ -5,6 +5,7 @@ using ThePatho.Features.Global.DiseaseCategory.Commands;
 using ThePatho.Features.Global.DiseaseCategory.DTO;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.ApiResponse;
+using ThePatho.Provider.UserContext;
 
 namespace ThePatho.Features.Global.DiseaseCategory.Service
 {
@@ -16,12 +17,14 @@ namespace ThePatho.Features.Global.DiseaseCategory.Service
         private readonly IDbConnection dbConnection;
         private readonly DapperContext dappercontext;
         private readonly ApplicationDbContext context;
-        public DiseaseCategoryService(ApplicationDbContext _context, DapperContext _dappercontext, SqlQueryLoader _queryLoader, IDbConnection _dbConnection)
+        private readonly ICurrentUserService currentUserService;
+        public DiseaseCategoryService(ApplicationDbContext _context, DapperContext _dappercontext, SqlQueryLoader _queryLoader, IDbConnection _dbConnection, ICurrentUserService _currentUserService)
         {
             context = _context;
             dappercontext = _dappercontext;
             queryLoader = _queryLoader;
             dbConnection = _dbConnection;
+            currentUserService =_currentUserService;
         }
 
         public async Task<ApiResponse<DiseaseCategoryItemDto>> GetDiseaseCategory(GetDiseaseCategoryCommand request)
@@ -116,7 +119,7 @@ namespace ThePatho.Features.Global.DiseaseCategory.Service
                 parameters.Add("@DiseaseCategoryCode", request.DiseaseCategoryCode);
                 parameters.Add("@DiseaseCategoryName", request.DiseaseCategoryName);
                 parameters.Add("@Action", request.Action);
-                parameters.Add("@User", "admin");
+                parameters.Add("@User", currentUserService.GetUserName() ?? "admin");
 
                 var query = await queryLoader.LoadQueryAsync("Global/DiseaseCategory/Sql/submit_diseasecategory");
                 await dbConnection.ExecuteAsync(query, parameters);

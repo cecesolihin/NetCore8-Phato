@@ -6,6 +6,7 @@ using ThePatho.Features.Global.Announcement.Commands;
 using ThePatho.Features.Global.Announcement.DTO;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.ApiResponse;
+using ThePatho.Provider.UserContext;
 
 namespace ThePatho.Features.Global.Announcement.Service
 {
@@ -15,12 +16,21 @@ namespace ThePatho.Features.Global.Announcement.Service
         private readonly IDbConnection dbConnection;
         private readonly DapperContext dappercontext;
         private readonly ApplicationDbContext context;
-        public AnnouncementService(ApplicationDbContext _context, DapperContext _dappercontext, SqlQueryLoader _queryLoader, IDbConnection _dbConnection)
+        private readonly ICurrentUserService currentUserService;
+        public AnnouncementService
+            (
+            ApplicationDbContext _context, 
+            DapperContext _dappercontext, 
+            SqlQueryLoader _queryLoader, 
+            IDbConnection _dbConnection, 
+            ICurrentUserService _currentUserService
+            )
         {
             context = _context;
             dappercontext = _dappercontext;
             queryLoader = _queryLoader;
             dbConnection = _dbConnection;
+            currentUserService =_currentUserService;
         }
 
         public async Task<ApiResponse<AnnouncementItemDto>> GetAnnouncement(GetAnnouncementCommand request)
@@ -122,7 +132,7 @@ namespace ThePatho.Features.Global.Announcement.Service
                 parameters.Add("@Status", request.Status);
                 parameters.Add("@ActiveStatus", request.ActiveStatus);
                 parameters.Add("@Action", request.Action);
-                parameters.Add("@User", "admin");
+                parameters.Add("@User", currentUserService.GetUserName() ?? "admin");
 
                 var query = await queryLoader.LoadQueryAsync("Global/Announcement/Sql/submit_announcement");
                 await dbConnection.ExecuteAsync(query, parameters);

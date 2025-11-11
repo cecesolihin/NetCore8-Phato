@@ -5,6 +5,7 @@ using ThePatho.Features.PersonalInformation.EmployeeMedical.Commands;
 using ThePatho.Features.PersonalInformation.EmployeeMedical.DTO;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.ApiResponse;
+using ThePatho.Provider.UserContext;
 
 namespace ThePatho.Features.PersonalInformation.EmployeeMedical.Service
 {
@@ -15,13 +16,15 @@ namespace ThePatho.Features.PersonalInformation.EmployeeMedical.Service
         private readonly IDbConnection dbConnection;
         private readonly DapperContext dapperContext;
         private readonly ApplicationDbContext context;
+        private readonly ICurrentUserService currentUserService;
         #endregion
 
         #region [CTOR]
-        public EmployeeMedicalService(DapperContext _dapperContext, SqlQueryLoader _queryLoader)
+        public EmployeeMedicalService(DapperContext _dapperContext, SqlQueryLoader _queryLoader, ICurrentUserService _currentUserService)
         {
             dapperContext = _dapperContext;
             queryLoader = _queryLoader;
+            currentUserService = _currentUserService;
         }
         #endregion
 
@@ -138,7 +141,7 @@ namespace ThePatho.Features.PersonalInformation.EmployeeMedical.Service
                 parameters.Add("@TindakanPertama", request.TindakanPertama);
                 parameters.Add("@TindakanKedua", request.TindakanKedua);
                 parameters.Add("@Action", request.Action);
-                parameters.Add("@User", "admin");
+                parameters.Add("@User", currentUserService.GetUserName() ?? "admin");
 
                 var query = await queryLoader.LoadQueryAsync("PersonalInformation/EmployeeMedical/Sql/submit_emp_medical");
                 await db.ExecuteAsync(query, parameters);
@@ -159,7 +162,7 @@ namespace ThePatho.Features.PersonalInformation.EmployeeMedical.Service
                 var parameters = new DynamicParameters();
                 parameters.Add("@EmployeeId", request.EmployeeId);
                 parameters.Add("@DiseaseCategoryCode", request.DiseaseCategoryCode);
-                parameters.Add("@User", "admin");
+                parameters.Add("@User", currentUserService.GetUserName() ?? "admin");
 
                 var query = await queryLoader.LoadQueryAsync("PersonalInformation/EmployeeMedical/Sql/get_single_emp_medical");
                 var data = await db.QueryFirstOrDefaultAsync<EmployeeMedicalDto>(query, parameters);

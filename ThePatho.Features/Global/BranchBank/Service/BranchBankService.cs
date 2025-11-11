@@ -1,10 +1,11 @@
-﻿using Dapper;
+using Dapper;
 using System.Net;
 using ThePatho.Features.Global.BloodType.DTO;
 using ThePatho.Features.Global.BranchBank.Commands;
 using ThePatho.Features.Global.BranchBank.DTO;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.ApiResponse;
+using ThePatho.Provider.UserContext;
 
 namespace ThePatho.Features.Global.BranchBank.Service
 {
@@ -12,11 +13,13 @@ namespace ThePatho.Features.Global.BranchBank.Service
     {
         private readonly DapperContext dapperContext;
         private readonly SqlQueryLoader queryLoader;
+        private readonly ICurrentUserService currentUserService;
 
-        public BranchBankService(DapperContext _dapperContext, SqlQueryLoader _queryLoader)
+        public BranchBankService(DapperContext _dapperContext, SqlQueryLoader _queryLoader, ICurrentUserService _currentUserService)
         {
             dapperContext = _dapperContext;
             queryLoader = _queryLoader;
+            currentUserService = _currentUserService;
         }
 
         public async Task<ApiResponse<BranchBankItemDto>> GetBranchBank(GetBranchBankCommand request)
@@ -131,7 +134,8 @@ namespace ThePatho.Features.Global.BranchBank.Service
                 parameters.Add("@BranchBankCode", request.BranchBankCode);
                 parameters.Add("@BranchBankName", request.BranchBankName);
                 parameters.Add("@Action", request.Action);
-                parameters.Add("@User", "admin");
+                var userName = currentUserService.GetUserName();
+                parameters.Add("@User", string.IsNullOrWhiteSpace(userName) ? "admin" : userName);
 
                 var query = await queryLoader.LoadQueryAsync("Global/BranchBank/Sql/submit_branch_bank");
                 await db.ExecuteAsync(query, parameters);

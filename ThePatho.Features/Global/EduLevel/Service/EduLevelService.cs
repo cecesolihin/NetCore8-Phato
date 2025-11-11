@@ -1,10 +1,11 @@
-﻿using Dapper;
+using Dapper;
 using System.Data;
 using System.Net;
 using ThePatho.Features.Global.EduLevel.Commands;
 using ThePatho.Features.Global.EduLevel.DTO;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.ApiResponse;
+using ThePatho.Provider.UserContext;
 
 namespace ThePatho.Features.Global.EduLevel.Service
 {
@@ -16,12 +17,14 @@ namespace ThePatho.Features.Global.EduLevel.Service
         private readonly IDbConnection dbConnection;
         private readonly DapperContext dappercontext;
         private readonly ApplicationDbContext context;
-        public EduLevelService(ApplicationDbContext _context, DapperContext _dappercontext, SqlQueryLoader _queryLoader, IDbConnection _dbConnection)
+        private readonly ICurrentUserService currentUserService;
+        public EduLevelService(ApplicationDbContext _context, DapperContext _dappercontext, SqlQueryLoader _queryLoader, IDbConnection _dbConnection, ICurrentUserService _currentUserService)
         {
             context = _context;
             dappercontext = _dappercontext;
             queryLoader = _queryLoader;
             dbConnection = _dbConnection;
+            currentUserService = _currentUserService;
         }
 
         public async Task<ApiResponse<EduLevelItemDto>> GetEduLevel(GetEduLevelCommand request)
@@ -117,7 +120,8 @@ namespace ThePatho.Features.Global.EduLevel.Service
                 parameters.Add("@EduLevelName", request.EduLevelName);
                 parameters.Add("@Sort", request.Sort);
                 parameters.Add("@Action", request.Action);
-                parameters.Add("@User", "admin");
+                var userName = currentUserService.GetUserName();
+                parameters.Add("@User", string.IsNullOrWhiteSpace(userName) ? "admin" : userName);
 
                 var query = await queryLoader.LoadQueryAsync("Global/EduLevel/Sql/submit_edulevel");
                 await dbConnection.ExecuteAsync(query, parameters);

@@ -149,6 +149,7 @@ namespace ThePatho.Provider.ApiResponse
             public const string SubmitMulti = "submit-multi";
             public const string generate = "generate";
             public const string Delete = "delete";
+            public const string Download = "download";
             #endregion
         }
     }

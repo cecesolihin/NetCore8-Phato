@@ -1,10 +1,11 @@
-﻿using Dapper;
+using Dapper;
 using System.Data;
 using System.Net;
 using ThePatho.Features.PersonalInformation.EmployeePickUp.Commands;
 using ThePatho.Features.PersonalInformation.EmployeePickUp.DTO;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.ApiResponse;
+using ThePatho.Provider.UserContext;
 
 namespace ThePatho.Features.PersonalInformation.EmployeePickUp.Service
 {
@@ -15,13 +16,15 @@ namespace ThePatho.Features.PersonalInformation.EmployeePickUp.Service
         private readonly IDbConnection dbConnection;
         private readonly DapperContext dapperContext;
         private readonly ApplicationDbContext context;
+        private readonly ICurrentUserService currentUserService;
         #endregion
 
         #region [CTOR]
-        public EmployeePickUpService(DapperContext _dapperContext, SqlQueryLoader _queryLoader)
+        public EmployeePickUpService(DapperContext _dapperContext, SqlQueryLoader _queryLoader, ICurrentUserService _currentUserService)
         {
             dapperContext = _dapperContext;
             queryLoader = _queryLoader;
+            currentUserService = _currentUserService;
         }
         #endregion
 
@@ -110,7 +113,7 @@ namespace ThePatho.Features.PersonalInformation.EmployeePickUp.Service
                 parameters.Add("@EmployeeId", request.PickUpId);
                 parameters.Add("@TrainingCourseCode", request.PickUpLocation);
                 parameters.Add("@Action", request.Action);
-                parameters.Add("@User", "admin");
+                parameters.Add("@User", currentUserService.GetUserName() ?? "admin");
 
                 var query = await queryLoader.LoadQueryAsync("PersonalInformation/EmployeePickUp/Sql/submit_employeepickup");
                 await db.ExecuteAsync(query, parameters);

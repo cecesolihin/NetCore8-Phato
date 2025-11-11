@@ -5,6 +5,7 @@ using ThePatho.Features.Global.Identity.Commands;
 using ThePatho.Features.Global.Identity.DTO;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.ApiResponse;
+using ThePatho.Provider.UserContext;
 
 namespace ThePatho.Features.Global.Identity.Service
 {
@@ -14,12 +15,14 @@ namespace ThePatho.Features.Global.Identity.Service
         private readonly IDbConnection dbConnection;
         private readonly DapperContext dappercontext;
         private readonly ApplicationDbContext context;
-        public IdentityService(ApplicationDbContext _context, DapperContext _dappercontext, SqlQueryLoader _queryLoader, IDbConnection _dbConnection)
+        private readonly ICurrentUserService currentUserService;
+        public IdentityService(ApplicationDbContext _context, DapperContext _dappercontext, SqlQueryLoader _queryLoader, IDbConnection _dbConnection, ICurrentUserService _currentUserService)
         {
             context = _context;
             dappercontext = _dappercontext;
             queryLoader = _queryLoader;
             dbConnection = _dbConnection;
+            currentUserService = _currentUserService;
         }
 
         public async Task<ApiResponse<IdentityItemDto>> GetIdentity(GetIdentityCommand request)
@@ -114,7 +117,7 @@ namespace ThePatho.Features.Global.Identity.Service
                 parameters.Add("@IdentityCode", request.IdentityCode);
                 parameters.Add("@IdentityName", request.IdentityName);
                 parameters.Add("@Action", request.Action);
-                parameters.Add("@User", "admin");
+                parameters.Add("@User", currentUserService.GetUserName() ?? "admin");
 
                 var query = await queryLoader.LoadQueryAsync("Global/Identity/Sql/submit_identity");
                 await dbConnection.ExecuteAsync(query, parameters);

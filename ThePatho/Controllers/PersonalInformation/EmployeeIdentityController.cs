@@ -1,8 +1,11 @@
-﻿using MediatR;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.PersonalInformation.EmployeeIdentity.Commands;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.StaticFiles;
+using Microsoft.Extensions.Configuration;
+using System.IO;
 
 namespace ThePatho.Controllers
 {
@@ -13,10 +16,12 @@ namespace ThePatho.Controllers
     public class EmployeeIdentityController : ControllerBase
     {
         private readonly IMediator mediator;
+        private readonly IConfiguration configuration;
 
-        public EmployeeIdentityController(IMediator _mediator)
+        public EmployeeIdentityController(IMediator _mediator, IConfiguration _configuration)
         {
             mediator = _mediator ?? throw new ArgumentNullException(nameof(mediator));
+            configuration = _configuration ?? throw new ArgumentNullException(nameof(configuration));
         }
 
         private static IActionResult ApiResult<TResponse>(TResponse response) where TResponse : ApiResponse
@@ -62,6 +67,36 @@ namespace ThePatho.Controllers
         {
             var result = await mediator.Send(command, cancellationToken);
             return ApiResult(result);
+        }
+
+        [HttpGet(ApiRoutes.Methods.Download)]
+        public async Task<IActionResult> DownloadEmployeeIdentity([FromQuery] GetSingleEmployeeIdentityCommand command,
+            CancellationToken cancellationToken)
+        {
+            var single = await mediator.Send(command, cancellationToken);
+            if (single.Code != 200 || single.Data == null || string.IsNullOrWhiteSpace(single.Data.FileFullPath))
+            {
+                return NotFound("File path not available for the requested identity.");
+            }
+
+            var configuredRoot = configuration["DocumentRootPath"];
+            var baseRoot = string.IsNullOrWhiteSpace(configuredRoot) ? Directory.GetCurrentDirectory() : configuredRoot;
+
+            var relativePath = single.Data.FileFullPath.Replace("~/", string.Empty).Replace("~\\", string.Empty);
+            var physicalPath = Path.Combine(baseRoot, relativePath.Replace('/', Path.DirectorySeparatorChar));
+
+            if (!System.IO.File.Exists(physicalPath))
+            {
+                return NotFound("File not found.");
+            }
+
+            var provider = new FileExtensionContentTypeProvider();
+            if (!provider.TryGetContentType(single.Data.FileName, out var contentType))
+            {
+                contentType = "application/octet-stream";
+            }
+
+            return PhysicalFile(physicalPath, contentType, single.Data.FileName);
         }
     }
 }

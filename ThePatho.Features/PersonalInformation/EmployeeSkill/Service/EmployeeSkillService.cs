@@ -1,10 +1,11 @@
-﻿using Dapper;
+using Dapper;
 using System.Data;
 using System.Net;
 using ThePatho.Features.PersonalInformation.EmployeeSkill.Commands;
 using ThePatho.Features.PersonalInformation.EmployeeSkill.DTO;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.ApiResponse;
+using ThePatho.Provider.UserContext;
 
 namespace ThePatho.Features.PersonalInformation.EmployeeSkill.Service
 {
@@ -15,13 +16,15 @@ namespace ThePatho.Features.PersonalInformation.EmployeeSkill.Service
         private readonly IDbConnection dbConnection;
         private readonly DapperContext dapperContext;
         private readonly ApplicationDbContext context;
+        private readonly ICurrentUserService currentUserService;
         #endregion
 
         #region [CTOR]
-        public EmployeeSkillService(DapperContext _dapperContext, SqlQueryLoader _queryLoader)
+        public EmployeeSkillService(DapperContext _dapperContext, SqlQueryLoader _queryLoader, ICurrentUserService _currentUserService)
         {
             dapperContext = _dapperContext;
             queryLoader = _queryLoader;
+            currentUserService = _currentUserService;
         }
         #endregion
 
@@ -122,7 +125,7 @@ namespace ThePatho.Features.PersonalInformation.EmployeeSkill.Service
                 parameters.Add("@Remarks", request.Remarks);
                 parameters.Add("@IsDeleted", request.IsDeleted);
                 parameters.Add("@Action", request.Action);
-                parameters.Add("@User", "admin");
+                parameters.Add("@User", currentUserService.GetUserName() ?? "admin");
 
                 var query = await queryLoader.LoadQueryAsync("PersonalInformation/EmployeeSkill/Sql/submit_emp_skill");
                 await db.ExecuteAsync(query, parameters);
@@ -143,7 +146,7 @@ namespace ThePatho.Features.PersonalInformation.EmployeeSkill.Service
                 var parameters = new DynamicParameters();
                 parameters.Add("@EmployeeId", request.EmployeeId);
                 parameters.Add("@SkillCode", request.SkillCode);
-                parameters.Add("@User", "admin");
+                parameters.Add("@User", currentUserService.GetUserName() ?? "admin");
 
                 var query = await queryLoader.LoadQueryAsync("PersonalInformation/EmployeeSkill/Sql/get_single_emp_skill");
                 var data = await db.QueryFirstOrDefaultAsync<EmployeeSkillDto>(query, parameters);

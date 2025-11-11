@@ -1,10 +1,11 @@
-﻿using Dapper;
+using Dapper;
 using System.Data;
 using System.Net;
 using ThePatho.Features.Global.NumericalSize.Commands;
 using ThePatho.Features.Global.NumericalSize.DTO;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.ApiResponse;
+using ThePatho.Provider.UserContext;
 
 namespace ThePatho.Features.Global.NumericalSize.Service
 {
@@ -14,12 +15,14 @@ namespace ThePatho.Features.Global.NumericalSize.Service
         private readonly IDbConnection dbConnection;
         private readonly DapperContext dappercontext;
         private readonly ApplicationDbContext context;
-        public NumericalSizeService(ApplicationDbContext _context, DapperContext _dappercontext, SqlQueryLoader _queryLoader, IDbConnection _dbConnection)
+        private readonly ICurrentUserService currentUserService;
+        public NumericalSizeService(ApplicationDbContext _context, DapperContext _dappercontext, SqlQueryLoader _queryLoader, IDbConnection _dbConnection, ICurrentUserService _currentUserService)
         {
             context = _context;
             dappercontext = _dappercontext;
             queryLoader = _queryLoader;
             dbConnection = _dbConnection;
+            currentUserService = _currentUserService;
         }
 
         public async Task<ApiResponse<NumericalSizeItemDto>> GetNumericalSize(GetNumericalSizeCommand request)
@@ -113,7 +116,7 @@ namespace ThePatho.Features.Global.NumericalSize.Service
                 parameters.Add("@NumericalSizeId", request.NumericalSizeId);
                 parameters.Add("@NumericalSizeName", request.NumericalSizeName);
                 parameters.Add("@Action", request.Action);
-                parameters.Add("@User", "admin");
+                parameters.Add("@User", currentUserService.GetUserName() ?? "admin");
 
                 var query = await queryLoader.LoadQueryAsync("Global/NumericalSize/Sql/submit_numericalsize");
                 await dbConnection.ExecuteAsync(query, parameters);

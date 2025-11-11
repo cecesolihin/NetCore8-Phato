@@ -1,10 +1,11 @@
-﻿using Dapper;
+using Dapper;
 using System.Data;
 using System.Net;
 using ThePatho.Features.PersonalInformation.EmployeeDocument.Commands;
 using ThePatho.Features.PersonalInformation.EmployeeDocument.DTO;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.ApiResponse;
+using ThePatho.Provider.UserContext;
 
 namespace ThePatho.Features.PersonalInformation.EmployeeDocument.Service
 {
@@ -15,13 +16,15 @@ namespace ThePatho.Features.PersonalInformation.EmployeeDocument.Service
         private readonly IDbConnection dbConnection;
         private readonly DapperContext dapperContext;
         private readonly ApplicationDbContext context;
+        private readonly ICurrentUserService currentUserService;
         #endregion
 
         #region [CTOR]
-        public EmployeeDocumentService(DapperContext _dapperContext, SqlQueryLoader _queryLoader)
+        public EmployeeDocumentService(DapperContext _dapperContext, SqlQueryLoader _queryLoader, ICurrentUserService _currentUserService)
         {
             dapperContext = _dapperContext;
             queryLoader = _queryLoader;
+            currentUserService = _currentUserService;
         }
         #endregion
 
@@ -121,7 +124,8 @@ namespace ThePatho.Features.PersonalInformation.EmployeeDocument.Service
                 parameters.Add("@ModifiedBy", request.ModifiedBy);
                 parameters.Add("@ModifiedDate", request.ModifiedDate);
                 parameters.Add("@Action", request.Action);
-                parameters.Add("@User", "admin");
+                var userName = currentUserService.GetUserName();
+                parameters.Add("@User", string.IsNullOrWhiteSpace(userName) ? "admin" : userName);
 
                 var query = await queryLoader.LoadQueryAsync("PersonalInformation/EmployeeDocument/Sql/submit_emp_document");
                 await db.ExecuteAsync(query, parameters);

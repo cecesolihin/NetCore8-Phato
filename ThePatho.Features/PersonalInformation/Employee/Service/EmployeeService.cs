@@ -1,4 +1,4 @@
-﻿using Dapper;
+using Dapper;
 using System.Data;
 using System.Net;
 using ThePatho.Features.PersonalInformation.Employee.Commands;
@@ -6,6 +6,7 @@ using ThePatho.Features.PersonalInformation.Employee.DTO;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.ApiResponse;
 using ThePatho.Provider.QueryExecute;
+using ThePatho.Provider.UserContext;
 
 namespace ThePatho.Features.PersonalInformation.Employee.Service
 {
@@ -16,13 +17,15 @@ namespace ThePatho.Features.PersonalInformation.Employee.Service
         private readonly IDbConnection dbConnection;
         private readonly DapperContext dapperContext;
         private readonly ApplicationDbContext context;
+        private readonly ICurrentUserService currentUserService;
         #endregion
 
         #region [CTOR]
-        public EmployeeService(DapperContext _dapperContext, SqlQueryLoader _queryLoader)
+        public EmployeeService(DapperContext _dapperContext, SqlQueryLoader _queryLoader, ICurrentUserService _currentUserService)
         {
             dapperContext = _dapperContext;
             queryLoader = _queryLoader;
+            currentUserService = _currentUserService;
         }
         #endregion
 
@@ -192,7 +195,8 @@ namespace ThePatho.Features.PersonalInformation.Employee.Service
                 parameters.Add("@FaskesId", request.FaskesId);
 
                 parameters.Add("@Action", request.Action);
-                parameters.Add("@User", "admin");
+                var userName = currentUserService.GetUserName();
+                parameters.Add("@User", string.IsNullOrWhiteSpace(userName) ? "admin" : userName);
 
                 var query = await queryLoader.LoadQueryAsync("PersonalInformation/Employee/Sql/submit_employee");
                 var result = await db.QueryFirstOrDefaultAsync<ExecuteResult>(query, parameters);
@@ -216,7 +220,8 @@ namespace ThePatho.Features.PersonalInformation.Employee.Service
                 using var db = dapperContext.CreateConnection();
                 var parameters = new DynamicParameters();
                 parameters.Add("@EmployeeId", request.EmployeeId);
-                parameters.Add("@User", "admin");
+                var userName = currentUserService.GetUserName();
+                parameters.Add("@User", string.IsNullOrWhiteSpace(userName) ? "admin" : userName);
 
                 var query = await queryLoader.LoadQueryAsync("PersonalInformation/Employee/Sql/delete_employee");
                 await db.ExecuteAsync(query, parameters);

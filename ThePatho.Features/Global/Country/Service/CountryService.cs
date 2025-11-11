@@ -5,6 +5,7 @@ using ThePatho.Features.Global.Country.Commands;
 using ThePatho.Features.Global.Country.DTO;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.ApiResponse;
+using ThePatho.Provider.UserContext;
 
 namespace ThePatho.Features.Global.Country.Service
 {
@@ -14,12 +15,14 @@ namespace ThePatho.Features.Global.Country.Service
         private readonly IDbConnection dbConnection;
         private readonly DapperContext dappercontext;
         private readonly ApplicationDbContext context;
-        public CountryService(ApplicationDbContext _context, DapperContext _dappercontext, SqlQueryLoader _queryLoader, IDbConnection _dbConnection)
+        private readonly ICurrentUserService currentUserService;
+        public CountryService(ApplicationDbContext _context, DapperContext _dappercontext, SqlQueryLoader _queryLoader, IDbConnection _dbConnection, ICurrentUserService _currentUserService)
         {
             context = _context;
             dappercontext = _dappercontext;
             queryLoader = _queryLoader;
             dbConnection = _dbConnection;
+            currentUserService = _currentUserService;
         }
 
         public async Task<ApiResponse<CountryItemDto>> GetCountry(GetCountryCommand request)
@@ -123,7 +126,7 @@ namespace ThePatho.Features.Global.Country.Service
                 parameters.Add("@TwoLetterIsoCode", request.TwoLetterIsoCode);
                 parameters.Add("@Sort", request.Sort);
                 parameters.Add("@Action", request.Action);
-                parameters.Add("@User", "admin");
+                parameters.Add("@User", currentUserService.GetUserName() ?? "admin");
 
                 var query = await queryLoader.LoadQueryAsync("Global/Country/Sql/submit_country");
                 await dbConnection.ExecuteAsync(query, parameters);

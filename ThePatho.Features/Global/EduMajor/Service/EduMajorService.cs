@@ -1,10 +1,11 @@
-﻿using Dapper;
+using Dapper;
 using System.Data;
 using System.Net;
 using ThePatho.Features.Global.EduMajor.Commands;
 using ThePatho.Features.Global.EduMajor.DTO;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.ApiResponse;
+using ThePatho.Provider.UserContext;
 
 namespace ThePatho.Features.Global.EduMajor.Service
 {
@@ -16,12 +17,14 @@ namespace ThePatho.Features.Global.EduMajor.Service
         private readonly IDbConnection dbConnection;
         private readonly DapperContext dappercontext;
         private readonly ApplicationDbContext context;
-        public EduMajorService(ApplicationDbContext _context, DapperContext _dappercontext, SqlQueryLoader _queryLoader, IDbConnection _dbConnection)
+        private readonly ICurrentUserService currentUserService;
+        public EduMajorService(ApplicationDbContext _context, DapperContext _dappercontext, SqlQueryLoader _queryLoader, IDbConnection _dbConnection, ICurrentUserService _currentUserService)
         {
             context = _context;
             dappercontext = _dappercontext;
             queryLoader = _queryLoader;
             dbConnection = _dbConnection;
+            currentUserService = _currentUserService;
         }
 
         public async Task<ApiResponse<EduMajorItemDto>> GetEduMajor(GetEduMajorCommand request)
@@ -116,7 +119,7 @@ namespace ThePatho.Features.Global.EduMajor.Service
                 parameters.Add("@MajorCode", request.MajorCode);
                 parameters.Add("@MajorName", request.MajorName);
                 parameters.Add("@Action", request.Action);
-                parameters.Add("@User", "admin");
+                parameters.Add("@User", currentUserService.GetUserName() ?? "admin");
 
                 var query = await queryLoader.LoadQueryAsync("Global/EduMajor/Sql/submit_edumajor");
                 await dbConnection.ExecuteAsync(query, parameters);

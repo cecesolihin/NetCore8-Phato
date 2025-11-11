@@ -5,6 +5,7 @@ using ThePatho.Features.Global.InventoryCondition.Commands;
 using ThePatho.Features.Global.InventoryCondition.DTO;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.ApiResponse;
+using ThePatho.Provider.UserContext;
 
 namespace ThePatho.Features.Global.InventoryCondition.Service
 {
@@ -14,12 +15,14 @@ namespace ThePatho.Features.Global.InventoryCondition.Service
         private readonly IDbConnection dbConnection;
         private readonly DapperContext dappercontext;
         private readonly ApplicationDbContext context;
-        public InventoryConditionService(ApplicationDbContext _context, DapperContext _dappercontext, SqlQueryLoader _queryLoader, IDbConnection _dbConnection)
+        private readonly ICurrentUserService currentUserService;
+        public InventoryConditionService(ApplicationDbContext _context, DapperContext _dappercontext, SqlQueryLoader _queryLoader, IDbConnection _dbConnection, ICurrentUserService _currentUserService)
         {
             context = _context;
             dappercontext = _dappercontext;
             queryLoader = _queryLoader;
             dbConnection = _dbConnection;
+            currentUserService = _currentUserService;
         }
 
         public async Task<ApiResponse<InventoryConditionItemDto>> GetInventoryCondition(GetInventoryConditionCommand request)
@@ -114,7 +117,7 @@ namespace ThePatho.Features.Global.InventoryCondition.Service
                 parameters.Add("@InventoryConditionCode", request.InventoryConditionCode);
                 parameters.Add("@InventoryConditionName", request.InventoryConditionName);
                 parameters.Add("@Action", request.Action);
-                parameters.Add("@User", "admin");
+                parameters.Add("@User", currentUserService.GetUserName() ?? "admin");
 
                 var query = await queryLoader.LoadQueryAsync("Global/InventoryCondition/Sql/submit_inventorycondition");
                 await dbConnection.ExecuteAsync(query, parameters);

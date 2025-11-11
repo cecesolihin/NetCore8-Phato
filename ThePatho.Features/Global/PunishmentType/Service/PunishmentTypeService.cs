@@ -5,6 +5,7 @@ using ThePatho.Features.Global.PunishmentType.Commands;
 using ThePatho.Features.Global.PunishmentType.DTO;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.ApiResponse;
+using ThePatho.Provider.UserContext;
 
 namespace ThePatho.Features.Global.PunishmentType.Service
 {
@@ -14,12 +15,14 @@ namespace ThePatho.Features.Global.PunishmentType.Service
         private readonly IDbConnection dbConnection;
         private readonly DapperContext dappercontext;
         private readonly ApplicationDbContext context;
-        public PunishmentTypeService(ApplicationDbContext _context, DapperContext _dappercontext, SqlQueryLoader _queryLoader, IDbConnection _dbConnection)
+        private readonly ICurrentUserService currentUserService;
+        public PunishmentTypeService(ApplicationDbContext _context, DapperContext _dappercontext, SqlQueryLoader _queryLoader, IDbConnection _dbConnection, ICurrentUserService _currentUserService)
         {
             context = _context;
             dappercontext = _dappercontext;
             queryLoader = _queryLoader;
             dbConnection = _dbConnection;
+            currentUserService = _currentUserService;
         }
 
         public async Task<ApiResponse<PunishmentTypeItemDto>> GetPunishmentType(GetPunishmentTypeCommand request)
@@ -114,7 +117,7 @@ namespace ThePatho.Features.Global.PunishmentType.Service
                 parameters.Add("@PunishmentCode", request.PunishmentCode);
                 parameters.Add("@PunishmentName", request.PunishmentName);
                 parameters.Add("@Action", request.Action);
-                parameters.Add("@User", "admin");
+                parameters.Add("@User", currentUserService.GetUserName() ?? "admin");
 
                 var query = await queryLoader.LoadQueryAsync("Global/PunishmentType/Sql/submit_punishmenttype");
                 await dbConnection.ExecuteAsync(query, parameters);

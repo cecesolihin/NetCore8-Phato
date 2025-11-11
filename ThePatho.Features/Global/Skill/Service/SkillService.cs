@@ -5,6 +5,7 @@ using ThePatho.Features.Global.Skill.Commands;
 using ThePatho.Features.Global.Skill.DTO;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.ApiResponse;
+using ThePatho.Provider.UserContext;
 
 namespace ThePatho.Features.Global.Skill.Service
 {
@@ -14,12 +15,14 @@ namespace ThePatho.Features.Global.Skill.Service
         private readonly IDbConnection dbConnection;
         private readonly DapperContext dappercontext;
         private readonly ApplicationDbContext context;
-        public SkillService(ApplicationDbContext _context, DapperContext _dappercontext, SqlQueryLoader _queryLoader, IDbConnection _dbConnection)
+        private readonly ICurrentUserService currentUserService;
+        public SkillService(ApplicationDbContext _context, DapperContext _dappercontext, SqlQueryLoader _queryLoader, IDbConnection _dbConnection, ICurrentUserService _currentUserService)
         {
             context = _context;
             dappercontext = _dappercontext;
             queryLoader = _queryLoader;
             dbConnection = _dbConnection;
+            currentUserService =_currentUserService;
         }
 
         public async Task<ApiResponse<SkillItemDto>> GetSkill(GetSkillCommand request)
@@ -116,7 +119,7 @@ namespace ThePatho.Features.Global.Skill.Service
                 parameters.Add("@SkillName", request.SkillName);
                 parameters.Add("@IsDeleted", request.IsDeleted);
                 parameters.Add("@Action", request.Action);
-                parameters.Add("@User", "admin");
+                parameters.Add("@User", currentUserService.GetUserName() ?? "admin");
 
                 var query = await queryLoader.LoadQueryAsync("Global/Skill/Sql/submit_skill");
                 await dbConnection.ExecuteAsync(query, parameters);

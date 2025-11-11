@@ -5,6 +5,7 @@ using ThePatho.Features.Global.LetterCategory.Commands;
 using ThePatho.Features.Global.LetterCategory.DTO;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.ApiResponse;
+using ThePatho.Provider.UserContext;
 
 namespace ThePatho.Features.Global.LetterCategory.Service
 {
@@ -14,12 +15,14 @@ namespace ThePatho.Features.Global.LetterCategory.Service
         private readonly IDbConnection dbConnection;
         private readonly DapperContext dappercontext;
         private readonly ApplicationDbContext context;
-        public LetterCategoryService(ApplicationDbContext _context, DapperContext _dappercontext, SqlQueryLoader _queryLoader, IDbConnection _dbConnection)
+        private readonly ICurrentUserService currentUserService;
+        public LetterCategoryService(ApplicationDbContext _context, DapperContext _dappercontext, SqlQueryLoader _queryLoader, IDbConnection _dbConnection, ICurrentUserService _currentUserService)
         {
             context = _context;
             dappercontext = _dappercontext;
             queryLoader = _queryLoader;
             dbConnection = _dbConnection;
+            currentUserService = _currentUserService;
         }
 
         public async Task<ApiResponse<LetterCategoryItemDto>> GetLetterCategory(GetLetterCategoryCommand request)
@@ -124,7 +127,7 @@ namespace ThePatho.Features.Global.LetterCategory.Service
                 parameters.Add("@DocPattern", request.DocPattern);
                 parameters.Add("@SequenceNo", request.SequenceNo);
                 parameters.Add("@Action", request.Action);
-                parameters.Add("@User", "admin");
+                parameters.Add("@User", currentUserService.GetUserName() ?? "admin");
 
                 var query = await queryLoader.LoadQueryAsync("Global/LetterCategory/Sql/submit_lettercategory");
                 await dbConnection.ExecuteAsync(query, parameters);

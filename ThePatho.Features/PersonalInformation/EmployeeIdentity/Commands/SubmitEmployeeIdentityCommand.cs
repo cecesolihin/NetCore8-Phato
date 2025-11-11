@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using System.Text.Json.Serialization;
 using ThePatho.Provider.ApiResponse;
 
@@ -25,16 +25,12 @@ namespace ThePatho.Features.PersonalInformation.EmployeeIdentity.Commands
         public string? ExpiredDate { get; set; }
 
         [JsonPropertyName("file_upload")]
-        public byte[]? FileUpload { get; set; }
+        public string? FileUpload { get; set; }
+        [JsonPropertyName("file_name")]
+        public string? FileName { get; set; }
 
         [JsonPropertyName("remarks")]
         public string Remarks { get; set; } = null!;
-
-        [JsonPropertyName("file_full_path")]
-        public string FileFullPath { get; set; } = null!;
-
-        [JsonPropertyName("file_name")]
-        public string FileName { get; set; } = null!;
 
         [JsonPropertyName("action")]
         public string Action { get; set; } = null!;

@@ -5,6 +5,7 @@ using ThePatho.Features.Global.SkillProficiency.Commands;
 using ThePatho.Features.Global.SkillProficiency.DTO;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.ApiResponse;
+using ThePatho.Provider.UserContext;
 
 namespace ThePatho.Features.Global.SkillProficiency.Service
 {
@@ -14,12 +15,14 @@ namespace ThePatho.Features.Global.SkillProficiency.Service
         private readonly IDbConnection dbConnection;
         private readonly DapperContext dappercontext;
         private readonly ApplicationDbContext context;
-        public SkillProficiencyService(ApplicationDbContext _context, DapperContext _dappercontext, SqlQueryLoader _queryLoader, IDbConnection _dbConnection)
+        private readonly ICurrentUserService currentUserService;
+        public SkillProficiencyService(ApplicationDbContext _context, DapperContext _dappercontext, SqlQueryLoader _queryLoader, IDbConnection _dbConnection, ICurrentUserService _currentUserService)
         {
             context = _context;
             dappercontext = _dappercontext;
             queryLoader = _queryLoader;
             dbConnection = _dbConnection;
+            currentUserService = _currentUserService;
         }
 
         public async Task<ApiResponse<SkillProficiencyItemDto>> GetSkillProficiency(GetSkillProficiencyCommand request)
@@ -115,7 +118,7 @@ namespace ThePatho.Features.Global.SkillProficiency.Service
                 parameters.Add("@ProfiencyName", request.ProfiencyName);
           
                 parameters.Add("@Action", request.Action);
-                parameters.Add("@User", "admin");
+                parameters.Add("@User", currentUserService.GetUserName() ?? "admin");
 
                 var query = await queryLoader.LoadQueryAsync("Global/SkillProficiency/Sql/submit_skillproficiency");
                 await dbConnection.ExecuteAsync(query, parameters);

@@ -63,7 +63,7 @@ namespace ThePatho.Features.Identity.Authentication.Service
                         "User account locked."
                     );
                 }
-
+                
                 if (!BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
                 {
                     //return new ApiResponse<JwtResult>(

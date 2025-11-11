@@ -1,4 +1,4 @@
-﻿using Dapper;
+using Dapper;
 using System.Data;
 using System.Net;
 using ThePatho.Features.PersonalInformation.EmployeeCareerHistory.Commands;
@@ -6,6 +6,7 @@ using ThePatho.Features.PersonalInformation.EmployeeCareerHistory.DTO;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.ApiResponse;
 using ThePatho.Provider.QueryExecute;
+using ThePatho.Provider.UserContext;
 
 namespace ThePatho.Features.PersonalInformation.EmployeeCareerHistory.Service
 {
@@ -16,13 +17,15 @@ namespace ThePatho.Features.PersonalInformation.EmployeeCareerHistory.Service
         private readonly IDbConnection dbConnection;
         private readonly DapperContext dapperContext;
         private readonly ApplicationDbContext context;
+        private readonly ICurrentUserService currentUserService;
         #endregion
 
         #region [CTOR]
-        public EmployeeCareerHistoryService(DapperContext _dapperContext, SqlQueryLoader _queryLoader)
+        public EmployeeCareerHistoryService(DapperContext _dapperContext, SqlQueryLoader _queryLoader, ICurrentUserService _currentUserService)
         {
             dapperContext = _dapperContext;
             queryLoader = _queryLoader;
+            currentUserService = _currentUserService;
         }
         #endregion
 
@@ -152,7 +155,7 @@ namespace ThePatho.Features.PersonalInformation.EmployeeCareerHistory.Service
                 parameters.Add("@JabatanId", request.JabatanId);
                 parameters.Add("@IsEligibleRehire", request.IsEligibleRehire);
                 parameters.Add("@Action", request.Action);
-                parameters.Add("@User", "admin");
+                parameters.Add("@User", currentUserService.GetUserName() ?? "admin");
 
                 var query = await queryLoader.LoadQueryAsync("PersonalInformation/EmployeeCareerHistory/Sql/submit_emp_career");
                 await db.ExecuteAsync(query, parameters);
@@ -178,7 +181,7 @@ namespace ThePatho.Features.PersonalInformation.EmployeeCareerHistory.Service
                 var parameters = new DynamicParameters();
                 parameters.Add("@EmployeeID", request.EmployeeId);
                 parameters.Add("@CareerHistoryNo", request.CareerHistoryNo);
-                parameters.Add("@User", "admin");
+                parameters.Add("@User", currentUserService.GetUserName() ?? "admin");
 
                 var query = await queryLoader.LoadQueryAsync("PersonalInformation/EmployeeCareerHistory/Sql/get_single_emp_career");
                 var data = await db.QueryFirstOrDefaultAsync<EmployeeCareerHistoryDto>(query, parameters);

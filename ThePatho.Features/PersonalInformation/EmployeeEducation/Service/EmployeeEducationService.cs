@@ -1,10 +1,11 @@
-﻿using Dapper;
+using Dapper;
 using System.Data;
 using System.Net;
 using ThePatho.Features.PersonalInformation.EmployeeEducation.Commands;
 using ThePatho.Features.PersonalInformation.EmployeeEducation.DTO;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.ApiResponse;
+using ThePatho.Provider.UserContext;
 
 namespace ThePatho.Features.PersonalInformation.EmployeeEducation.Service
 {
@@ -15,13 +16,15 @@ namespace ThePatho.Features.PersonalInformation.EmployeeEducation.Service
         private readonly IDbConnection dbConnection;
         private readonly DapperContext dapperContext;
         private readonly ApplicationDbContext context;
+        private readonly ICurrentUserService currentUserService;
         #endregion
 
         #region [CTOR]
-        public EmployeeEducationService(DapperContext _dapperContext, SqlQueryLoader _queryLoader)
+        public EmployeeEducationService(DapperContext _dapperContext, SqlQueryLoader _queryLoader, ICurrentUserService _currentUserService)
         {
             dapperContext = _dapperContext;
             queryLoader = _queryLoader;
+            currentUserService = _currentUserService;
         }
         #endregion
 
@@ -130,7 +133,7 @@ namespace ThePatho.Features.PersonalInformation.EmployeeEducation.Service
                 parameters.Add("@CertificateDate", request.CertificateDate);
                 parameters.Add("@Remarks", request.Remarks);
                 parameters.Add("@Action", request.Action);
-                parameters.Add("@User", "admin");
+                parameters.Add("@User", currentUserService.GetUserName() ?? "admin");
 
                 var query = await queryLoader.LoadQueryAsync("PersonalInformation/EmployeeEducation/Sql/submit_emp_education");
                 await db.ExecuteAsync(query, parameters);
@@ -150,7 +153,7 @@ namespace ThePatho.Features.PersonalInformation.EmployeeEducation.Service
                 using var db = dapperContext.CreateConnection();
                 var parameters = new DynamicParameters();
                 parameters.Add("@EmployeeEducationId", request.EmployeeEducationId);
-                parameters.Add("@User", "admin");
+                parameters.Add("@User", currentUserService.GetUserName() ?? "admin");
 
                 var query = await queryLoader.LoadQueryAsync("PersonalInformation/EmployeeEducation/Sql/get_single_emp_education");
                 var data = await db.QueryFirstOrDefaultAsync<EmployeeEducationDto>(query, parameters);

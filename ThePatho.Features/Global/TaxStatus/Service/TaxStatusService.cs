@@ -5,6 +5,7 @@ using ThePatho.Features.Global.TaxStatus.Commands;
 using ThePatho.Features.Global.TaxStatus.DTO;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.ApiResponse;
+using ThePatho.Provider.UserContext;
 
 namespace ThePatho.Features.Global.TaxStatus.Service
 {
@@ -14,11 +15,12 @@ namespace ThePatho.Features.Global.TaxStatus.Service
         private readonly IDbConnection dbConnection;
         private readonly DapperContext dapperContext;
         private readonly ApplicationDbContext context;
-
-        public TaxStatusService(DapperContext _dapperContext, SqlQueryLoader _queryLoader)
+        private readonly ICurrentUserService currentUserService;
+        public TaxStatusService(DapperContext _dapperContext, SqlQueryLoader _queryLoader, ICurrentUserService _currentUserService)
         {
             dapperContext = _dapperContext;
             queryLoader = _queryLoader;
+            currentUserService =_currentUserService;
         }
 
         public async Task<ApiResponse<TaxStatusItemDto>> GetTaxStatus(GetTaxStatusCommand request)
@@ -128,7 +130,7 @@ namespace ThePatho.Features.Global.TaxStatus.Service
                 parameters.Add("@Married", request.Married);
                 parameters.Add("@TotalDependents", request.TotalDependents);
                 parameters.Add("@Action", request.Action);
-                parameters.Add("@User", "admin");
+                parameters.Add("@User", currentUserService.GetUserName() ?? "admin");
 
                 var query = await queryLoader.LoadQueryAsync("Global/TaxStatus/Sql/submit_tax_status");
                 await db.ExecuteAsync(query, parameters);

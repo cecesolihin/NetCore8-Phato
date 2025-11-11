@@ -5,6 +5,7 @@ using ThePatho.Features.Global.RomanianSize.Commands;
 using ThePatho.Features.Global.RomanianSize.DTO;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.ApiResponse;
+using ThePatho.Provider.UserContext;
 
 namespace ThePatho.Features.Global.RomanianSize.Service
 {
@@ -14,12 +15,14 @@ namespace ThePatho.Features.Global.RomanianSize.Service
         private readonly IDbConnection dbConnection;
         private readonly DapperContext dappercontext;
         private readonly ApplicationDbContext context;
-        public RomanianSizeService(ApplicationDbContext _context, DapperContext _dappercontext, SqlQueryLoader _queryLoader, IDbConnection _dbConnection)
+        private readonly ICurrentUserService currentUserService;
+        public RomanianSizeService(ApplicationDbContext _context, DapperContext _dappercontext, SqlQueryLoader _queryLoader, IDbConnection _dbConnection, ICurrentUserService _currentUserService)
         {
             context = _context;
             dappercontext = _dappercontext;
             queryLoader = _queryLoader;
             dbConnection = _dbConnection;
+            currentUserService = _currentUserService;
         }
 
         public async Task<ApiResponse<RomanianSizeItemDto>> GetRomanianSize(GetRomanianSizeCommand request)
@@ -113,7 +116,7 @@ namespace ThePatho.Features.Global.RomanianSize.Service
                 parameters.Add("@RomanianSizeName", request.RomanianSizeName);
             
                 parameters.Add("@Action", request.Action);
-                parameters.Add("@User", "admin");
+                parameters.Add("@User", currentUserService.GetUserName() ?? "admin");
 
                 var query = await queryLoader.LoadQueryAsync("Global/RomanianSize/Sql/submit_romaniansize");
                 await dbConnection.ExecuteAsync(query, parameters);

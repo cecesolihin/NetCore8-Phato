@@ -5,6 +5,7 @@ using ThePatho.Features.Global.Building.Commands;
 using ThePatho.Features.Global.Building.DTO;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.ApiResponse;
+using ThePatho.Provider.UserContext;
 
 namespace ThePatho.Features.Global.Building.Service
 {
@@ -14,12 +15,17 @@ namespace ThePatho.Features.Global.Building.Service
         private readonly IDbConnection dbConnection;
         private readonly DapperContext dappercontext;
         private readonly ApplicationDbContext context;
-        public BuildingService(ApplicationDbContext _context, DapperContext _dappercontext, SqlQueryLoader _queryLoader, IDbConnection _dbConnection)
+        private readonly ICurrentUserService currentUserService;
+        public BuildingService(ApplicationDbContext _context, 
+            DapperContext _dappercontext, SqlQueryLoader _queryLoader, 
+            IDbConnection _dbConnection,
+            ICurrentUserService _currentUserService)
         {
             context = _context;
             dappercontext = _dappercontext;
             queryLoader = _queryLoader;
             dbConnection = _dbConnection;
+            currentUserService = _currentUserService;
         }
 
         public async Task<ApiResponse<BuildingItemDto>> GetBuilding(GetBuildingCommand request)
@@ -119,7 +125,7 @@ namespace ThePatho.Features.Global.Building.Service
                 parameters.Add("@BuildingCode", request.BuildingCode);
                 parameters.Add("@BuildingName", request.BuildingName);
                 parameters.Add("@Action", request.Action);
-                parameters.Add("@User", "admin");
+                parameters.Add("@User", currentUserService.GetUserName() ?? "admin");
 
                 var query = await queryLoader.LoadQueryAsync("Global/Building/Sql/submit_building");
                 await dbConnection.ExecuteAsync(query, parameters);

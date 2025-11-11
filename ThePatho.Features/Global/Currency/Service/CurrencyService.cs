@@ -5,6 +5,7 @@ using ThePatho.Features.Global.Currency.Commands;
 using ThePatho.Features.Global.Currency.DTO;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.ApiResponse;
+using ThePatho.Provider.UserContext;
 
 namespace ThePatho.Features.Global.Currency.Service
 {
@@ -14,12 +15,14 @@ namespace ThePatho.Features.Global.Currency.Service
         private readonly IDbConnection dbConnection;
         private readonly DapperContext dappercontext;
         private readonly ApplicationDbContext context;
-        public CurrencyService(ApplicationDbContext _context, DapperContext _dappercontext, SqlQueryLoader _queryLoader, IDbConnection _dbConnection)
+        private readonly ICurrentUserService currentUserService;
+        public CurrencyService(ApplicationDbContext _context, DapperContext _dappercontext, SqlQueryLoader _queryLoader, IDbConnection _dbConnection, ICurrentUserService _currentUserService)
         {
             context = _context;
             dappercontext = _dappercontext;
             queryLoader = _queryLoader;
             dbConnection = _dbConnection;
+            currentUserService = _currentUserService;
         }
 
         public async Task<ApiResponse<CurrencyItemDto>> GetCurrency(GetCurrencyCommand request)
@@ -118,7 +121,8 @@ namespace ThePatho.Features.Global.Currency.Service
                 parameters.Add("@DecimalDigit", request.DecimalDigit);
                 parameters.Add("@IsDefault", request.IsDefault);
                 parameters.Add("@Action", request.Action);
-                parameters.Add("@User", "admin");
+                var userName = currentUserService.GetUserName();
+                parameters.Add("@User", string.IsNullOrWhiteSpace(userName) ? "admin" : userName);
 
                 var query = await queryLoader.LoadQueryAsync("Global/Currency/Sql/submit_currency");
                 await dbConnection.ExecuteAsync(query, parameters);

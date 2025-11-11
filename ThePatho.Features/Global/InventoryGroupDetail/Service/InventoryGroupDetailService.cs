@@ -7,6 +7,7 @@ using ThePatho.Features.Global.InventoryGroupDetail.Commands;
 using ThePatho.Features.Global.InventoryGroupDetail.DTO;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.ApiResponse;
+using ThePatho.Provider.UserContext;
 
 namespace ThePatho.Features.Global.InventoryGroupDetail.Service
 {
@@ -16,12 +17,14 @@ namespace ThePatho.Features.Global.InventoryGroupDetail.Service
         private readonly IDbConnection dbConnection;
         private readonly DapperContext dappercontext;
         private readonly ApplicationDbContext context;
-        public InventoryGroupDetailService(ApplicationDbContext _context, DapperContext _dappercontext, SqlQueryLoader _queryLoader, IDbConnection _dbConnection)
+        private readonly ICurrentUserService currentUserService;
+        public InventoryGroupDetailService(ApplicationDbContext _context, DapperContext _dappercontext, SqlQueryLoader _queryLoader, IDbConnection _dbConnection, ICurrentUserService _currentUserService)
         {
             context = _context;
             dappercontext = _dappercontext;
             queryLoader = _queryLoader;
             dbConnection = _dbConnection;
+            currentUserService = _currentUserService; 
         }
 
         public async Task<ApiResponse<InventoryGroupDetailItemDto>> GetInventoryGroupDetail(GetInventoryGroupDetailCommand request)
@@ -113,7 +116,7 @@ namespace ThePatho.Features.Global.InventoryGroupDetail.Service
                 parameters.Add("@InventoryGroupCode", request.InventoryGroupCode);
                 parameters.Add("@InventoryTypeCode", request.InventoryTypeCode);
                 parameters.Add("@Action", request.Action);
-                parameters.Add("@User", "admin");
+                parameters.Add("@User", currentUserService.GetUserName() ?? "admin");
 
                 var query = await queryLoader.LoadQueryAsync("Global/InventoryGroupDetail/Sql/submit_inventorygroupdetail");
                 await dbConnection.ExecuteAsync(query, parameters);
