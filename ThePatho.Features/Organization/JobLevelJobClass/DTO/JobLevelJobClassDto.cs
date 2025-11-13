@@ -6,9 +6,9 @@ namespace ThePatho.Features.Organization.JobLevelJobClass.DTO
         public string JobClassCode { get; set; } = null!;
         public bool IsDeleted { get; set; }
         public string? InsertedBy { get; set; }
-        public string InsertedDate { get; set; } = null!;
+        public DateTime? InsertedDate { get; set; }
         public string? ModifiedBy { get; set; }
-        public string? ModifiedDate { get; set; }
+        public DateTime? ModifiedDate { get; set; }
     }
 
     public class JobLevelJobClassItemDto

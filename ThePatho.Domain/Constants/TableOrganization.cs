@@ -30,7 +30,7 @@ namespace ThePatho.Domain.Constants
         public const string SignatureReport = CorePrefix + "SignatureReport";
         public const string TerminationType = CorePrefix + "TerminationType";
         public const string WorkLocation = CorePrefix + "WorkLocation";
-        public const string WorkLocationGroup = CorePrefix + "WorkLocationGroup";
+        public const string WorkLocationGroup = CorePrefixDetail + "WorkLocationGroup";
         public const string CostCenter = CorePrefix + "CostCenter";
         #endregion
 

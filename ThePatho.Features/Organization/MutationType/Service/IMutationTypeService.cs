@@ -1,6 +1,7 @@
-﻿using ThePatho.Provider.ApiResponse;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Organization.MutationType.Commands;
 using ThePatho.Features.Organization.MutationType.DTO;
+using ThePatho.Features.Common.DTO;
 
 namespace ThePatho.Features.Organization.MutationType.Service
 {
@@ -11,5 +12,6 @@ namespace ThePatho.Features.Organization.MutationType.Service
         Task<ApiResponse<MutationTypeItemDto>> GetMutationTypeByCriteria(GetMutationTypeByCriteriaCommand request);
         Task<ApiResponse> SubmitMutationType(SubmitMutationTypeCommand request);
         Task<ApiResponse> DeleteMutationType(DeleteMutationTypeCommand request);
+        Task<ApiResponse<AttachmentFileDto>> ExportMutationTypeAsync(string type);
     }
 }

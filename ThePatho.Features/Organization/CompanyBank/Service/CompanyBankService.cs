@@ -1,12 +1,18 @@
-﻿using SqlKata;
+using SqlKata;
 using SqlKata.Execution;
 using System;
+using System.IO;
 using System.Net;
 using ThePatho.Domain.Constants;
 using ThePatho.Features.Organization.CompanyBank.Commands;
 using ThePatho.Features.Organization.CompanyBank.DTO;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.ApiResponse;
+using ClosedXML.Excel;
+using QuestPDF.Fluent;
+using QuestPDF.Helpers;
+using QuestPDF.Infrastructure;
+using ThePatho.Features.Common.DTO;
 
 namespace ThePatho.Features.Organization.CompanyBank.Service
 {
@@ -69,6 +75,207 @@ namespace ThePatho.Features.Organization.CompanyBank.Service
                          "An error occurred while retrieving data.",
                          ex.Message
                      );
+            }
+        }
+
+        public async Task<ApiResponse<AttachmentFileDto>> ExportCompanyBankAsync(string type)
+        {
+            try
+            {
+                using var connection = dapperContext.CreateConnection();
+                var db = new QueryFactory(connection, dapperContext.Compiler);
+                var query = new Query(TableOrganization.CompanyBank)
+                    .Select(
+                        "CompanyCode",
+                        "BankCode",
+                        "Branch",
+                        "AccountNo",
+                        "AccountName",
+                        "IsDefault"
+                    )
+                    .Where("IsDeleted", false)
+                    .OrderBy("CompanyCode");
+
+                var data = await db.GetAsync<CompanyBankDto>(query);
+
+                var exportType = (type ?? "").Trim().ToLowerInvariant();
+                if (string.IsNullOrWhiteSpace(exportType)) exportType = "excel";
+
+                // Excel export
+                if (exportType == "excel" || exportType == "xlsx")
+                {
+                    using var workbook = new XLWorkbook();
+                    var worksheet = workbook.Worksheets.Add("CompanyBank");
+
+                    // Title
+                    worksheet.Cell("A1").Value = "Company Bank List";
+                    worksheet.Range("A1:F1").Merge().Style
+                        .Font.SetBold()
+                        .Font.SetFontSize(16)
+                        .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center)
+                        .Alignment.SetVertical(XLAlignmentVerticalValues.Center);
+
+                    // Header
+                    worksheet.Cell(3, 1).Value = "Company Code";
+                    worksheet.Cell(3, 2).Value = "Bank Code";
+                    worksheet.Cell(3, 3).Value = "Branch";
+                    worksheet.Cell(3, 4).Value = "Account No";
+                    worksheet.Cell(3, 5).Value = "Account Name";
+                    worksheet.Cell(3, 6).Value = "Is Default";
+
+                    worksheet.Range(3, 1, 3, 6).Style
+                        .Font.SetBold()
+                        .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center)
+                        .Alignment.SetVertical(XLAlignmentVerticalValues.Center)
+                        .Fill.SetBackgroundColor(XLColor.FromHtml("#3DCBE0"));
+
+                    // Data
+                    var row = 4;
+                    foreach (var item in data)
+                    {
+                        worksheet.Cell(row, 1).Value = item.CompanyCode;
+                        worksheet.Cell(row, 2).Value = item.BankCode;
+                        worksheet.Cell(row, 3).Value = item.Branch;
+                        worksheet.Cell(row, 4).Value = item.AccountNo;
+                        worksheet.Cell(row, 5).Value = item.AccountName;
+                        worksheet.Cell(row, 6).Value = item.IsDefault.Value ? "Yes" : "No";
+                        row++;
+                    }
+
+                    worksheet.Columns(1, 6).AdjustToContents();
+
+                    var lastDataRow = row - 1;
+                    var tableRange = worksheet.Range(3, 1, lastDataRow, 6);
+                    tableRange.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                    tableRange.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+
+                    using var stream = new MemoryStream();
+                    workbook.SaveAs(stream);
+                    var bytes = stream.ToArray();
+
+                    var dto = new AttachmentFileDto
+                    {
+                        FileBytes = bytes,
+                        FileName = "CompanyBank.xlsx",
+                        ContentType = MimeTypesConstants.VND_OPENXML_EXCEL
+                    };
+
+                    return new ApiResponse<AttachmentFileDto>(HttpStatusCode.OK, dto);
+                }
+                // PDF export
+                else if (exportType == "pdf")
+                {
+                    var doc = Document.Create(container =>
+                    {
+                        container.Page(page =>
+                        {
+                            page.Margin(30);
+                            page.Size(PageSizes.A4.Landscape());
+
+                            // Title
+                            page.Header()
+                                .AlignCenter()
+                                .Text("Company Bank List")
+                                .SemiBold()
+                                .FontSize(16)
+                                .FontColor(Colors.Black);
+
+                            // Define text styles
+                            var headerStyle = TextStyle.Default.FontSize(12).Bold();
+                            var boldTextStyle = TextStyle.Default.FontSize(8).Bold();
+                            var normalTextStyle = TextStyle.Default.FontSize(8);
+
+                            // Table
+                            page.Content().PaddingTop(10).Table(table =>
+                            {
+                                // Column definitions
+                                table.ColumnsDefinition(columns =>
+                                {
+                                    columns.RelativeColumn(1.2f); // Company Code
+                                    columns.RelativeColumn(1f);   // Bank Code
+                                    columns.RelativeColumn(1.4f); // Branch
+                                    columns.RelativeColumn(1.2f); // Account No
+                                    columns.RelativeColumn(1.6f); // Account Name
+                                    columns.RelativeColumn(0.8f); // Is Default
+                                });
+
+                              
+                                // Header
+                                table.Header(header =>
+                                {
+                                    string[] headers = {
+                                        "Company Code", "Bank Code", "Branch",
+                                        "Account No", "Account Name", "Is Default"
+                                    };
+
+                                    foreach (var title in headers)
+                                    {
+                                        header.Cell()
+                                            .Border(1)
+                                            .PaddingVertical(4)
+                                            .PaddingHorizontal(6)
+                                            .Background(Colors.BlueGrey.Lighten2)
+                                            .AlignCenter()
+                                            .AlignMiddle()
+                                            .Text(title)
+                                            .Style(headerStyle);
+                                    }
+                                });
+
+                                // Data rows
+                                foreach (var item in data)
+                                {
+                                    table.Cell().Border(1).Padding(5).AlignMiddle()
+                                        .Text(item.CompanyCode ?? "-")
+                                        .Style(normalTextStyle);
+
+                                    table.Cell().Border(1).Padding(5).AlignMiddle()
+                                        .Text(item.BankCode ?? "-")
+                                        .Style(normalTextStyle);
+
+                                    table.Cell().Border(1).Padding(5).AlignMiddle()
+                                        .Text(item.Branch ?? "-")
+                                        .Style(normalTextStyle);
+
+                                    table.Cell().Border(1).Padding(5).AlignMiddle()
+                                        .Text(item.AccountNo ?? "-")
+                                        .Style(normalTextStyle);
+
+                                    table.Cell().Border(1).Padding(5).AlignMiddle()
+                                        .Text(item.AccountName ?? "-")
+                                        .Style(normalTextStyle);
+
+                                    table.Cell().Border(1).Padding(5).AlignMiddle()
+                                        .Text(item.IsDefault == true ? "Yes" : "No")
+                                        .Style(normalTextStyle);
+                                }
+                            });
+
+                           
+                        });
+                    });
+
+                    using var stream = new MemoryStream();
+                    doc.GeneratePdf(stream);
+                    var bytes = stream.ToArray();
+
+                    var dto = new AttachmentFileDto
+                    {
+                        FileBytes = bytes,
+                        FileName = "CompanyBank.pdf",
+                        ContentType = MimeTypesConstants.PDF
+                    };
+
+                    return new ApiResponse<AttachmentFileDto>(HttpStatusCode.OK, dto);
+                }
+                else
+                {
+                    return new ApiResponse<AttachmentFileDto>(HttpStatusCode.BadRequest, default, "Type harus 'excel' atau 'pdf'");
+                }
+            }
+            catch (Exception ex)
+            {
+                return new ApiResponse<AttachmentFileDto>(HttpStatusCode.BadRequest, default, "Gagal export company bank", ex.Message);
             }
         }
 

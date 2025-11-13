@@ -4,6 +4,7 @@ using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.PersonalInformation.EmployeeIdentity.Commands;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.StaticFiles;
+using ThePatho.Domain.Constants;
 using Microsoft.Extensions.Configuration;
 using System.IO;
 
@@ -69,7 +70,7 @@ namespace ThePatho.Controllers
             return ApiResult(result);
         }
 
-        [HttpGet(ApiRoutes.Methods.Download)]
+        [HttpGet(ApiRoutes.Methods.Export)]
         public async Task<IActionResult> DownloadEmployeeIdentity([FromQuery] GetSingleEmployeeIdentityCommand command,
             CancellationToken cancellationToken)
         {
@@ -93,7 +94,7 @@ namespace ThePatho.Controllers
             var provider = new FileExtensionContentTypeProvider();
             if (!provider.TryGetContentType(single.Data.FileName, out var contentType))
             {
-                contentType = "application/octet-stream";
+                contentType = MimeTypesConstants.APPLICATION_OCTET_STREAM;
             }
 
             return PhysicalFile(physicalPath, contentType, single.Data.FileName);

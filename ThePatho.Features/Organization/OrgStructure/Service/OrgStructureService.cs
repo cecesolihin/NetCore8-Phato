@@ -9,6 +9,11 @@ using ThePatho.Features.Organization.OrgStructure.DTO;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Domain.Models.Organization;
 using System.IO;
+using ClosedXML.Excel;
+using QuestPDF.Fluent;
+using QuestPDF.Helpers;
+using QuestPDF.Infrastructure;
+using ThePatho.Features.Common.DTO;
 
 namespace ThePatho.Features.Organization.OrgStructure.Service
 {
@@ -333,6 +338,225 @@ namespace ThePatho.Features.Organization.OrgStructure.Service
                          "An error occurred while retrieving data.",
                          ex.Message
                      );
+            }
+        }
+
+        public async Task<ApiResponse<AttachmentFileDto>> ExportOrgStructureAsync(string type)
+        {
+            try
+            {
+                using var connection = dapperContext.CreateConnection();
+                var db = new QueryFactory(connection, dapperContext.Compiler);
+                var query = new Query(TableOrganization.OrgStructure)
+                    .Select(
+                        "OrgStructureCode",
+                        "OrgStructureName",
+                        "ParentOrgStructureID",
+                        "OrgLevelCode",
+                        "CostCenterCode",
+                        "Location",
+                        "Path",
+                        "Status"
+                    )
+                    .Where("IsDeleted", false)
+                    .OrderBy("ParentOrgStructureID");
+
+                var data = await db.GetAsync<OrgStructureDto>(query);
+
+                var exportType = (type ?? "").Trim().ToLowerInvariant();
+                if (string.IsNullOrWhiteSpace(exportType)) exportType = "excel";
+
+                // Excel
+                if (exportType == "excel" || exportType == "xlsx")
+                {
+                    using var workbook = new XLWorkbook();
+                    var worksheet = workbook.Worksheets.Add("OrgStructure");
+
+                    // ===== TITLE =====
+                    worksheet.Cell("A1").Value = "Organization Structure List";
+                    worksheet.Range("A1:H1").Merge().Style
+                        .Font.SetBold()
+                        .Font.SetFontSize(16)
+                        .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center)
+                        .Alignment.SetVertical(XLAlignmentVerticalValues.Center);
+
+                    // ===== HEADER =====
+                    worksheet.Cell(3, 1).Value = "Org Structure Code";
+                    worksheet.Cell(3, 2).Value = "Org Structure Name";
+                    worksheet.Cell(3, 3).Value = "Parent Org Structure ID";
+                    worksheet.Cell(3, 4).Value = "Org Level Code";
+                    worksheet.Cell(3, 5).Value = "Cost Center Code";
+                    worksheet.Cell(3, 6).Value = "Location";
+                    worksheet.Cell(3, 7).Value = "Path";
+                    worksheet.Cell(3, 8).Value = "Status";
+
+                    worksheet.Range(3, 1, 3, 8).Style
+                        .Font.SetBold()
+                        .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center)
+                        .Alignment.SetVertical(XLAlignmentVerticalValues.Center)
+                        .Fill.SetBackgroundColor(XLColor.FromHtml("#3DCBE0"));
+
+                    // ===== DATA =====
+                    var row = 4;
+                    foreach (var item in data)
+                    {
+                        worksheet.Cell(row, 1).Value = item.OrgStructureCode;
+                        worksheet.Cell(row, 2).Value = item.OrgStructureName;
+                        worksheet.Cell(row, 3).Value = item.ParentOrgStructureID?.ToString() ?? string.Empty;
+                        worksheet.Cell(row, 4).Value = item.OrgLevelCode;
+                        worksheet.Cell(row, 5).Value = item.CostCenterCode;
+                        worksheet.Cell(row, 6).Value = item.Location;
+                        worksheet.Cell(row, 7).Value = item.Path;
+                        worksheet.Cell(row, 8).Value = item.Status =='1' ? "Yes" :"No";
+                        row++;
+                    }
+
+                    // ===== BORDER =====
+                    var lastDataRow = row - 1;
+                    var range = worksheet.Range(3, 1, lastDataRow, 8);
+                    range.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                    range.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+
+                    // ===== AUTO FIT =====
+                    worksheet.Columns(1, 8).AdjustToContents();
+
+                    // ===== EXPORT =====
+                    using var ms = new MemoryStream();
+                    workbook.SaveAs(ms);
+                    var bytes = ms.ToArray();
+
+                    var fileName = $"OrgStructure.xlsx";
+
+                    return new ApiResponse<AttachmentFileDto>(HttpStatusCode.OK, new AttachmentFileDto
+                    {
+                        FileBytes = bytes,
+                        FileName = fileName,
+                        ContentType = MimeTypesConstants.VND_OPENXML_EXCEL
+                    });
+
+                }
+                // PDF
+                else if (exportType == "pdf")
+                {
+                    var doc = Document.Create(container =>
+                    {
+                        container.Page(page =>
+                        {
+                            page.Margin(30);
+                            page.Size(PageSizes.A4.Landscape());
+                            page.DefaultTextStyle(x => x.FontSize(10));
+
+                            // Title
+                            page.Header()
+                                .AlignCenter()
+                                .Text("Org Structure")
+                                .SemiBold()
+                                .FontSize(16)
+                                .FontColor(Colors.Black);
+
+                            // Define text styles
+                            var headerStyle = TextStyle.Default.FontSize(12).Bold();
+                            var normalTextStyle = TextStyle.Default.FontSize(8);
+
+                            // Table
+                            page.Content().PaddingTop(10).Table(table =>
+                            {
+                                // Column definitions
+                                table.ColumnsDefinition(columns =>
+                                {
+                                    columns.RelativeColumn(1.2f); // OrgStructureCode
+                                    columns.RelativeColumn(1.6f); // OrgStructureName
+                                    columns.RelativeColumn(1f);   // ParentOrgId
+                                    columns.RelativeColumn(0.8f); // OrgLevelCode
+                                    columns.RelativeColumn(1.2f); // CostCenterCode
+                                    columns.RelativeColumn(1.4f); // Location
+                                    columns.RelativeColumn(1.8f); // Path
+                                    columns.RelativeColumn(0.8f); // Status
+                                });
+
+                                // Header
+                                table.Header(header =>
+                                {
+                                    string[] headers = {
+                                        "Org Structure Code", "Org Structure Name", "Parent Org ID",
+                                        "Org Level Code", "Cost Center Code", "Location",
+                                        "Path", "Status"
+                                    };
+
+                                    foreach (var title in headers)
+                                    {
+                                        header.Cell()
+                                            .Border(1)
+                                            .PaddingVertical(4)
+                                            .PaddingHorizontal(6)
+                                            .Background(Colors.BlueGrey.Lighten2)
+                                            .AlignCenter()
+                                            .AlignMiddle()
+                                            .Text(title)
+                                            .Style(headerStyle);
+                                    }
+                                });
+
+                                // Data rows
+                                foreach (var item in data)
+                                {
+                                    table.Cell().Border(1).Padding(5).AlignMiddle()
+                                        .Text(item.OrgStructureCode ?? "-")
+                                        .Style(normalTextStyle);
+
+                                    table.Cell().Border(1).Padding(5).AlignMiddle()
+                                        .Text(item.OrgStructureName ?? "-")
+                                        .Style(normalTextStyle);
+
+                                    table.Cell().Border(1).Padding(5).AlignMiddle()
+                                        .Text(item.ParentOrgStructureID?.ToString() ?? "-")
+                                        .Style(normalTextStyle);
+
+                                    table.Cell().Border(1).Padding(5).AlignMiddle()
+                                        .Text(item.OrgLevelCode ?? "-")
+                                        .Style(normalTextStyle);
+
+                                    table.Cell().Border(1).Padding(5).AlignMiddle()
+                                        .Text(item.CostCenterCode ?? "-")
+                                        .Style(normalTextStyle);
+
+                                    table.Cell().Border(1).Padding(5).AlignMiddle()
+                                        .Text(item.Location ?? "-")
+                                        .Style(normalTextStyle);
+
+                                    table.Cell().Border(1).Padding(5).AlignMiddle()
+                                        .Text(item.Path ?? "-")
+                                        .Style(normalTextStyle);
+
+                                    table.Cell().Border(1).Padding(5).AlignMiddle()
+                                        .Text(item.Status.ToString())
+                                        .Style(normalTextStyle);
+                                }
+                            });
+                        });
+                    });
+
+                    using var stream = new MemoryStream();
+                    doc.GeneratePdf(stream);
+                    var bytes = stream.ToArray();
+
+                    var dto = new AttachmentFileDto
+                    {
+                        FileBytes = bytes,
+                        FileName = $"OrgStructure.pdf",
+                        ContentType = MimeTypesConstants.PDF
+                    };
+
+                    return new ApiResponse<AttachmentFileDto>(HttpStatusCode.OK, dto);
+                }
+                else
+                {
+                    return new ApiResponse<AttachmentFileDto>(HttpStatusCode.BadRequest, "Unsupported export type");
+                }
+            }
+            catch (Exception ex)
+            {
+                return new ApiResponse<AttachmentFileDto>(HttpStatusCode.BadRequest, "Failed to export Org Structure", ex.Message);
             }
         }
         #endregion

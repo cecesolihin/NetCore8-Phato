@@ -2,6 +2,7 @@
 using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Organization.Position.Commands;
 using ThePatho.Features.Organization.Position.DTO;
+using ThePatho.Features.Common.DTO;
 
 namespace ThePatho.Features.Organization.Position.Service
 {
@@ -12,5 +13,6 @@ namespace ThePatho.Features.Organization.Position.Service
         Task<ApiResponse<PositionItemDto>> GetPositionByCriteria(GetPositionByCriteriaCommand request);
         Task<ApiResponse> SubmitPosition(SubmitPositionCommand request);
         Task<ApiResponse> DeletePosition(DeletePositionCommand request);
+        Task<ApiResponse<AttachmentFileDto>> ExportPositionAsync(string type);
     }
 }

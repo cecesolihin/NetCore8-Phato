@@ -1,6 +1,7 @@
-﻿using ThePatho.Provider.ApiResponse;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Organization.CompanyBank.Commands;
 using ThePatho.Features.Organization.CompanyBank.DTO;
+using ThePatho.Features.Common.DTO;
 
 namespace ThePatho.Features.Organization.CompanyBank.Service
 {
@@ -11,5 +12,6 @@ namespace ThePatho.Features.Organization.CompanyBank.Service
         Task<ApiResponse<CompanyBankItemDto>> GetCompanyBankByCriteria(GetCompanyBankByCriteriaCommand request);
         Task<ApiResponse> SubmitCompanyBank(SubmitCompanyBankCommand request);
         Task<ApiResponse> DeleteCompanyBank(DeleteCompanyBankCommand request);
+        Task<ApiResponse<AttachmentFileDto>> ExportCompanyBankAsync(string type);
     }
 }

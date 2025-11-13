@@ -1,4 +1,4 @@
-﻿using SqlKata;
+using SqlKata;
 using SqlKata.Execution;
 using System.Net;
 using ThePatho.Domain.Constants;
@@ -6,6 +6,11 @@ using ThePatho.Features.Organization.ResignType.Commands;
 using ThePatho.Features.Organization.ResignType.DTO;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.ApiResponse;
+using ClosedXML.Excel;
+using QuestPDF.Fluent;
+using QuestPDF.Helpers;
+using QuestPDF.Infrastructure;
+using ThePatho.Features.Common.DTO;
 
 namespace ThePatho.Features.Organization.ResignType.Service
 {
@@ -207,5 +212,173 @@ namespace ThePatho.Features.Organization.ResignType.Service
             }
         }
         #endregion
+
+        public async Task<ApiResponse<AttachmentFileDto>> ExportResignTypeAsync(string type)
+        {
+            try
+            {
+                using var connection = dapperContext.CreateConnection();
+                var db = new QueryFactory(connection, dapperContext.Compiler);
+
+                var data = await db.Query(TableOrganization.ResignType)
+                    .OrderBy("ResignTypeCode")
+                    .GetAsync<ResignTypeDto>();
+
+                var exportType = (type ?? "").Trim().ToLowerInvariant();
+                if (string.IsNullOrWhiteSpace(exportType)) exportType = "excel";
+
+                byte[] fileBytes;
+                string fileName;
+                string contentType;
+
+                if (exportType == "excel" || exportType == "xlsx")
+                {
+                    using var workbook = new XLWorkbook();
+                    var ws = workbook.Worksheets.Add("ResignType");
+
+                    // ===== TITLE =====
+                    ws.Cell("A1").Value = "Resign Type Master List";
+                    ws.Range("A1:B1").Merge().Style
+                        .Font.SetBold()
+                        .Font.SetFontSize(16)
+                        .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center)
+                        .Alignment.SetVertical(XLAlignmentVerticalValues.Center);
+
+                    // ===== HEADER =====
+                    var headers = new[] { "Resign Type Code", "Resign Type Name" };
+                    for (int i = 0; i < headers.Length; i++)
+                    {
+                        ws.Cell(3, i + 1).Value = headers[i];
+                    }
+                    ws.Range(3, 1, 3, headers.Length).Style
+                        .Font.SetBold()
+                        .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center)
+                        .Alignment.SetVertical(XLAlignmentVerticalValues.Center)
+                        .Fill.SetBackgroundColor(XLColor.FromHtml("#3DCBE0"));
+
+                    // ===== DATA =====
+                    int row = 4;
+                    foreach (var item in data)
+                    {
+                        ws.Cell(row, 1).Value = item.ResignTypeCode;
+                        ws.Cell(row, 2).Value = item.ResignTypeName;
+                        row++;
+                    }
+
+                    // ===== BORDER =====
+                    var lastRow = row - 1;
+                    var range = ws.Range(3, 1, lastRow, headers.Length);
+                    range.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                    range.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+                    range.Style.Alignment.SetVertical(XLAlignmentVerticalValues.Center);
+
+                    // ===== AUTO FIT =====
+                    ws.Columns(1, headers.Length).AdjustToContents();
+
+                    // ===== EXPORT =====
+                    using var ms = new MemoryStream();
+                    workbook.SaveAs(ms);
+                    fileBytes = ms.ToArray();
+
+                    var dto = new AttachmentFileDto
+                    {
+                        FileBytes = fileBytes,
+                        FileName = $"ResignType.xlsx",
+                        ContentType = MimeTypesConstants.VND_OPENXML_EXCEL
+                    };
+
+                    return new ApiResponse<AttachmentFileDto>(HttpStatusCode.OK, dto);
+
+                }
+                else if (exportType == "pdf")
+                {
+                    var document = Document.Create(container =>
+                    {
+                        container.Page(page =>
+                        {
+                            page.Margin(30);
+                            page.Size(PageSizes.A4.Landscape());
+
+                            // Title
+                            page.Header()
+                                .AlignCenter()
+                                .Text("Resign Type")
+                                .SemiBold()
+                                .FontSize(16)
+                                .FontColor(Colors.Black);
+
+                            // Define text styles
+                            var headerStyle = TextStyle.Default.FontSize(12).Bold();
+                            var normalTextStyle = TextStyle.Default.FontSize(8);
+
+                            // Table
+                            page.Content().PaddingTop(10).Table(table =>
+                            {
+                                // Column definitions
+                                table.ColumnsDefinition(columns =>
+                                {
+                                    columns.RelativeColumn(1.2f); // ResignTypeCode
+                                    columns.RelativeColumn(2.8f); // ResignTypeName
+                                });
+
+                                // Header
+                                table.Header(header =>
+                                {
+                                    string[] headers = {
+                                        "Resign Type Code", "Resign Type Name"
+                                    };
+
+                                    foreach (var title in headers)
+                                    {
+                                        header.Cell()
+                                            .Border(1)
+                                            .PaddingVertical(4)
+                                            .PaddingHorizontal(6)
+                                            .Background(Colors.BlueGrey.Lighten2)
+                                            .AlignCenter()
+                                            .AlignMiddle()
+                                            .Text(title)
+                                            .Style(headerStyle);
+                                    }
+                                });
+
+                                // Data rows
+                                foreach (var item in data)
+                                {
+                                    table.Cell().Border(1).Padding(5).AlignMiddle()
+                                        .Text(item.ResignTypeCode ?? "-")
+                                        .Style(normalTextStyle);
+
+                                    table.Cell().Border(1).Padding(5).AlignMiddle()
+                                        .Text(item.ResignTypeName ?? "-")
+                                        .Style(normalTextStyle);
+                                }
+                            });
+                        });
+                    });
+
+                    using var ms = new MemoryStream();
+                    document.GeneratePdf(ms);
+                    fileBytes = ms.ToArray();
+
+                    var dto = new AttachmentFileDto
+                    {
+                        FileBytes = fileBytes,
+                        FileName = "ResignType.pdf",
+                        ContentType = MimeTypesConstants.PDF
+                    };
+
+                    return new ApiResponse<AttachmentFileDto>(HttpStatusCode.OK, dto);
+                }
+                else
+                {
+                    return new ApiResponse<AttachmentFileDto>(HttpStatusCode.BadRequest, default, "Tipe file tidak dikenali. Gunakan 'excel' atau 'pdf'.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return new ApiResponse<AttachmentFileDto>(HttpStatusCode.BadRequest, default, "Gagal mengekspor Resign Type", ex.Message);
+            }
+        }
     }
 }

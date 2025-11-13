@@ -1,6 +1,7 @@
-﻿using ThePatho.Provider.ApiResponse;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Organization.Grade.Commands;
 using ThePatho.Features.Organization.Grade.DTO;
+using ThePatho.Features.Common.DTO;
 
 namespace ThePatho.Features.Organization.Grade.Service
 {
@@ -11,5 +12,8 @@ namespace ThePatho.Features.Organization.Grade.Service
         Task<ApiResponse<GradeItemDto>> GetGradeByCriteria(GetGradeByCriteriaCommand request);
         Task<ApiResponse> SubmitGrade(SubmitGradeCommand request);
         Task<ApiResponse> DeleteGrade(DeleteGradeCommand request);
+        Task<ApiResponse<AttachmentFileDto>> DownloadGradeTemplate();
+        Task<ApiResponse<GradeUploadResultDto>> UploadGradeTemplate(UploadGradeTemplateCommand request);
+        Task<ApiResponse<AttachmentFileDto>> ExportGradeAsync(ExportGradeCommand request);
     }
 }

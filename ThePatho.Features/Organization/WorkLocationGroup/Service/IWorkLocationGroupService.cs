@@ -1,6 +1,7 @@
-﻿using ThePatho.Provider.ApiResponse;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Organization.WorkLocationGroup.Commands;
 using ThePatho.Features.Organization.WorkLocationGroup.DTO;
+using ThePatho.Features.Common.DTO;
 
 namespace ThePatho.Features.Organization.WorkLocationGroup.Service
 {
@@ -11,5 +12,6 @@ namespace ThePatho.Features.Organization.WorkLocationGroup.Service
         Task<ApiResponse<WorkLocationGroupItemDto>> GetWorkLocationGroupByCriteria(GetWorkLocationGroupByCriteriaCommand request);
         Task<ApiResponse> SubmitWorkLocationGroup(SubmitWorkLocationGroupCommand request);
         Task<ApiResponse> DeleteWorkLocationGroup(DeleteWorkLocationGroupCommand request);
+        Task<ApiResponse<AttachmentFileDto>> ExportWorkLocationGroupAsync(string type);
     }
 }

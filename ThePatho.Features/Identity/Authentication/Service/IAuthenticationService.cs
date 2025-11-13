@@ -11,5 +11,7 @@ namespace ThePatho.Features.Identity.Authentication.Service
         Task<ApiResponse<JwtResult>> LoginAsync(LoginCommand request, CancellationToken token);
         Task<ApiResponse<JwtResult>> RefreshTokenAsync(RefreshTokenCommand request, CancellationToken token);
         Task<JwtResult> Authenticate(User user, CancellationToken token);
+        Task<ApiResponse> ChangePasswordAsync(Commands.ChangePasswordCommand request, CancellationToken token);
+        Task<ApiResponse> ResetPasswordAsync(Commands.ResetPasswordCommand request, CancellationToken token);
     }
 }

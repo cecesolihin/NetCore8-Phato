@@ -1,4 +1,4 @@
-﻿using SqlKata;
+using SqlKata;
 using SqlKata.Execution;
 using System.Net;
 using ThePatho.Domain.Constants;
@@ -6,6 +6,11 @@ using ThePatho.Features.Organization.WorkLocationGroup.Commands;
 using ThePatho.Features.Organization.WorkLocationGroup.DTO;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.ApiResponse;
+using ClosedXML.Excel;
+using QuestPDF.Fluent;
+using QuestPDF.Infrastructure;
+using ThePatho.Features.Common.DTO;
+using QuestPDF.Helpers;
 
 namespace ThePatho.Features.Organization.WorkLocationGroup.Service
 {
@@ -209,6 +214,179 @@ namespace ThePatho.Features.Organization.WorkLocationGroup.Service
                          "An error occurred while retrieving data.",
                          ex.Message
                      );
+            }
+        }
+
+        public async Task<ApiResponse<AttachmentFileDto>> ExportWorkLocationGroupAsync(string type)
+        {
+            try
+            {
+                using var connection = dapperContext.CreateConnection();
+                var db = new QueryFactory(connection, dapperContext.Compiler);
+                var query = new Query(TableOrganization.WorkLocationGroup)
+                    .Select("GroupDetailId", "GroupId", "WorkLocationCode")
+                    .OrderBy("GroupId");
+
+                var data = await db.GetAsync<WorkLocationGroupDto>(query);
+
+                var exportType = (type ?? "").Trim().ToLowerInvariant();
+                if (string.IsNullOrWhiteSpace(exportType)) exportType = "excel";
+
+                if (exportType == "excel" || exportType == "xlsx")
+                {
+                    using var workbook = new XLWorkbook();
+                    var ws = workbook.Worksheets.Add("WorkLocationGroup");
+
+                    // ===== TITLE =====
+                    ws.Cell("A1").Value = "Work Location Group Master List";
+                    ws.Range("A1:C1").Merge().Style
+                        .Font.SetBold()
+                        .Font.SetFontSize(16)
+                        .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center)
+                        .Alignment.SetVertical(XLAlignmentVerticalValues.Center);
+                    ws.Row(1).Height = 24;
+
+                    // ===== HEADER =====
+                    var headers = new[] { "Group Detail ID", "Group ID", "Work Location Code" };
+                    for (int i = 0; i < headers.Length; i++)
+                        ws.Cell(3, i + 1).Value = headers[i];
+
+                    var headerRange = ws.Range(3, 1, 3, headers.Length);
+                    headerRange.Style
+                        .Font.SetBold()
+                        .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center)
+                        .Alignment.SetVertical(XLAlignmentVerticalValues.Center)
+                        .Fill.SetBackgroundColor(XLColor.FromHtml("#3DCBE0"));
+
+                    // ===== DATA =====
+                    int row = 4;
+                    foreach (var item in data)
+                    {
+                        ws.Cell(row, 1).Value = item.GroupDetailId;
+                        ws.Cell(row, 2).Value = item.GroupId;
+                        ws.Cell(row, 3).Value = item.WorkLocationCode ?? string.Empty;
+                        row++;
+                    }
+
+                    // ===== BORDER & ALIGNMENT =====
+                    var lastRow = row - 1;
+                    var tableRange = ws.Range(3, 1, lastRow, headers.Length);
+                    tableRange.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                    tableRange.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+                    tableRange.Style.Alignment.SetVertical(XLAlignmentVerticalValues.Center);
+
+                    // ===== AUTO FIT =====
+                    ws.Columns(1, headers.Length).AdjustToContents();
+
+                    // ===== FREEZE HEADER =====
+                    ws.SheetView.FreezeRows(3);
+
+                    // ===== EXPORT =====
+                    using var ms = new MemoryStream();
+                    workbook.SaveAs(ms);
+                    var fileBytes = ms.ToArray();
+
+                    var dto = new AttachmentFileDto
+                    {
+                        FileBytes = fileBytes,
+                        FileName = $"WorkLocationGroup.xlsx",
+                        ContentType = MimeTypesConstants.VND_OPENXML_EXCEL
+                    };
+
+                    return new ApiResponse<AttachmentFileDto>(HttpStatusCode.OK, dto);
+
+                }
+                else if (exportType == "pdf")
+                {
+                    var doc = Document.Create(container =>
+                    {
+                        container.Page(page =>
+                        {
+                            page.Margin(30);
+                            page.Size(PageSizes.A4.Landscape());
+
+                            // Title
+                            page.Header()
+                                .AlignCenter()
+                                .Text("Work Location Group")
+                                .SemiBold()
+                                .FontSize(16)
+                                .FontColor(Colors.Black);
+
+                            // Define text styles
+                            var headerStyle = TextStyle.Default.FontSize(12).Bold();
+                            var normalTextStyle = TextStyle.Default.FontSize(8);
+
+                            // Table
+                            page.Content().PaddingTop(10).Table(table =>
+                            {
+                                // Column definitions
+                                table.ColumnsDefinition(cols =>
+                                {
+                                    cols.RelativeColumn(1.2f); // GroupDetailId
+                                    cols.RelativeColumn(1f);   // GroupId
+                                    cols.RelativeColumn(1.8f); // WorkLocationCode
+                                });
+
+                                // Header
+                                table.Header(header =>
+                                {
+                                    string[] headers = {
+                    "Group Detail ID", "Group ID", "Work Location Code"
+                };
+
+                                    foreach (var title in headers)
+                                    {
+                                        header.Cell()
+                                            .Border(1)
+                                            .PaddingVertical(4)
+                                            .PaddingHorizontal(6)
+                                            .Background(Colors.BlueGrey.Lighten2)
+                                            .AlignCenter()
+                                            .AlignMiddle()
+                                            .Text(title)
+                                            .Style(headerStyle);
+                                    }
+                                });
+
+                                // Data rows
+                                foreach (var item in data)
+                                {
+                                    table.Cell().Border(1).Padding(5).AlignMiddle()
+                                        .Text(item.GroupDetailId.ToString())
+                                        .Style(normalTextStyle);
+
+                                    table.Cell().Border(1).Padding(5).AlignMiddle()
+                                        .Text(item.GroupId.ToString())
+                                        .Style(normalTextStyle);
+
+                                    table.Cell().Border(1).Padding(5).AlignMiddle()
+                                        .Text(item.WorkLocationCode ?? "-")
+                                        .Style(normalTextStyle);
+                                }
+                            });
+                        });
+                    });
+
+                    using var stream = new MemoryStream();
+                    doc.GeneratePdf(stream);
+                    var bytes = stream.ToArray();
+
+                    return new ApiResponse<AttachmentFileDto>(HttpStatusCode.OK, new AttachmentFileDto
+                    {
+                        FileBytes = bytes,
+                        FileName = "WorkLocationGroup.pdf",
+                        ContentType = MimeTypesConstants.PDF
+                    });
+                }
+                else
+                {
+                    return new ApiResponse<AttachmentFileDto>(HttpStatusCode.BadRequest, default, "Type harus 'excel' atau 'pdf'");
+                }
+            }
+            catch (Exception ex)
+            {
+                return new ApiResponse<AttachmentFileDto>(HttpStatusCode.BadRequest, default, "Gagal export work location group", ex.Message);
             }
         }
         #endregion

@@ -1,4 +1,4 @@
-﻿using System.Net;
+using System.Net;
 using System.Text.Json.Serialization;
 
 namespace ThePatho.Provider.ApiResponse
@@ -28,6 +28,13 @@ namespace ThePatho.Provider.ApiResponse
         }
 
         public ApiResponse(HttpStatusCode code, TType? data) : base(code)
+        {
+            Data = data;
+        }
+
+        // New overload: allow setting Data and Message simultaneously
+        public ApiResponse(HttpStatusCode code, TType? data, string? message = default, string? messageDetail = default)
+            : base(code, message, messageDetail)
         {
             Data = data;
         }

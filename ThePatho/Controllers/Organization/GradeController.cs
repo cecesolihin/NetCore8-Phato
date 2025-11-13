@@ -1,8 +1,11 @@
-﻿using MediatR;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Organization.Grade.Commands;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.StaticFiles;
+using ThePatho.Domain.Constants;
+using ThePatho.Features.Organization.Grade.DTO;
 
 namespace ThePatho.Controllers
 {
@@ -60,6 +63,72 @@ namespace ThePatho.Controllers
         public async Task<IActionResult> DeleteGrade([FromBody] DeleteGradeCommand command,
             CancellationToken cancellationToken)
         {
+            var result = await mediator.Send(command, cancellationToken);
+            return ApiResult(result);
+        }
+
+        [HttpGet(ApiRoutes.Methods.Download_template)]
+        public async Task<IActionResult> DownloadGradeTemplate(CancellationToken cancellationToken)
+        {
+            var templateResponse = await mediator.Send(new DownloadGradeTemplateCommand(), cancellationToken);
+
+            if (templateResponse.Code != 200 || templateResponse.Data == null || templateResponse.Data.FileBytes.Length == 0)
+            {
+                return ApiResult(templateResponse);
+            }
+
+            var contentType = templateResponse.Data.ContentType;
+            if (string.IsNullOrWhiteSpace(contentType))
+            {
+                var provider = new FileExtensionContentTypeProvider();
+                if (!provider.TryGetContentType(templateResponse.Data.FileName, out contentType))
+                {
+                    contentType = MimeTypesConstants.APPLICATION_OCTET_STREAM;
+                }
+            }
+
+            return File(templateResponse.Data.FileBytes, contentType, templateResponse.Data.FileName);
+        }
+
+        [HttpGet(ApiRoutes.Methods.Export)]
+        public async Task<IActionResult> ExportGrade([FromQuery] string type, CancellationToken cancellationToken)
+        {
+            var exportResponse = await mediator.Send(new ExportGradeCommand { Type = type }, cancellationToken);
+
+            if (exportResponse.Code != 200 || exportResponse.Data == null || exportResponse.Data.FileBytes.Length == 0)
+            {
+                return ApiResult(exportResponse);
+            }
+
+            var contentType = exportResponse.Data.ContentType;
+            if (string.IsNullOrWhiteSpace(contentType))
+            {
+                var provider = new FileExtensionContentTypeProvider();
+                if (!provider.TryGetContentType(exportResponse.Data.FileName, out contentType))
+                {
+                    contentType = MimeTypesConstants.APPLICATION_OCTET_STREAM;
+                }
+            }
+
+            return File(exportResponse.Data.FileBytes, contentType, exportResponse.Data.FileName);
+        }
+
+        [HttpPost(ApiRoutes.Methods.upload)]
+        public async Task<IActionResult> UploadGradeTemplate([FromForm] IFormFile file, CancellationToken cancellationToken)
+        {
+            if (file == null || file.Length == 0)
+            {
+                return ApiResult(new ApiResponse<string>(System.Net.HttpStatusCode.BadRequest, "File not found"));
+            }
+
+            using var ms = new MemoryStream();
+            await file.CopyToAsync(ms, cancellationToken);
+            var command = new UploadGradeTemplateCommand
+            {
+                FileBytes = ms.ToArray(),
+                FileName = file.FileName
+            };
+
             var result = await mediator.Send(command, cancellationToken);
             return ApiResult(result);
         }

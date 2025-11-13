@@ -1,4 +1,4 @@
-﻿using SqlKata;
+using SqlKata;
 using SqlKata.Execution;
 using System.Net;
 using ThePatho.Domain.Constants;
@@ -6,6 +6,12 @@ using ThePatho.Features.Organization.Jabatan.Commands;
 using ThePatho.Features.Organization.Jabatan.DTO;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.ApiResponse;
+using ClosedXML.Excel;
+using System.IO;
+using QuestPDF.Fluent;
+using QuestPDF.Helpers;
+using QuestPDF.Infrastructure;
+using ThePatho.Features.Common.DTO;
 
 namespace ThePatho.Features.Organization.Jabatan.Service
 {
@@ -215,6 +221,180 @@ namespace ThePatho.Features.Organization.Jabatan.Service
                          "An error occurred while retrieving data.",
                          ex.Message
                      );
+            }
+        }
+        
+        public async Task<ApiResponse<AttachmentFileDto>> ExportJabatanAsync(string type)
+        {
+            
+            try
+            {
+                using var connection = dapperContext.CreateConnection();
+                var db = new QueryFactory(connection, dapperContext.Compiler);
+
+                var data = await db.Query(TableOrganization.Jabatan)
+                    .Where("IsDeleted", false)
+                    .OrderBy("JabatanCode")
+                    .GetAsync<JabatanDto>();
+
+                var fileName = $"jabatan_{DateTime.Now:yyyyMMddHHmmss}";
+                byte[] fileBytes;
+                string contentType;
+
+                if (string.Equals(type, "excel", StringComparison.OrdinalIgnoreCase))
+                {
+                    using var workbook = new XLWorkbook();
+                    var worksheet = workbook.Worksheets.Add("Jabatan");
+
+                    // ===== TITLE =====
+                    worksheet.Cell("A1").Value = "Jabatan List";
+                    worksheet.Range("A1:C1").Merge().Style
+                        .Font.SetBold()
+                        .Font.SetFontSize(16)
+                        .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center)
+                        .Alignment.SetVertical(XLAlignmentVerticalValues.Center);
+
+                    // ===== HEADER =====
+                    worksheet.Cell(3, 1).Value = "Jabatan Code";
+                    worksheet.Cell(3, 2).Value = "Jabatan Name";
+                    worksheet.Cell(3, 3).Value = "Jabatan Description";
+
+                    worksheet.Range(3, 1, 3, 3).Style
+                        .Font.SetBold()
+                        .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center)
+                        .Alignment.SetVertical(XLAlignmentVerticalValues.Center)
+                        .Fill.SetBackgroundColor(XLColor.FromHtml("#3DCBE0"));
+
+                    // ===== DATA =====
+                    var row = 4;
+                    foreach (var item in data)
+                    {
+                        worksheet.Cell(row, 1).Value = item.JabatanCode;
+                        worksheet.Cell(row, 2).Value = item.JabatanName;
+                        worksheet.Cell(row, 3).Value = item.JabatanDescription;
+                        row++;
+                    }
+
+                    // ===== AUTO FIT =====
+                    worksheet.Columns(1, 3).AdjustToContents();
+
+                    // ===== BORDER =====
+                    var lastDataRow = row - 1;
+                    var tableRange = worksheet.Range(3, 1, lastDataRow, 3);
+                    tableRange.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                    tableRange.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+
+                    // ===== EXPORT FILE =====
+                    using var ms = new MemoryStream();
+                    workbook.SaveAs(ms);
+                    fileBytes = ms.ToArray();
+
+                    fileName = $"Jabatan.xlsx";
+                    var dto = new AttachmentFileDto
+                    {
+                        FileBytes = fileBytes,
+                        FileName = fileName,
+                        ContentType = MimeTypesConstants.VND_OPENXML_EXCEL
+                    };
+
+                    return new ApiResponse<AttachmentFileDto>(HttpStatusCode.OK, dto);
+
+                }
+                else if (string.Equals(type, "pdf", StringComparison.OrdinalIgnoreCase))
+                {
+                    var document = Document.Create(container =>
+                    {
+                        container.Page(page =>
+                        {
+                            page.Margin(30);
+                            page.Size(PageSizes.A4.Landscape());
+
+                            // ===== TITLE =====
+                            page.Header().Element(header =>
+                            {
+                                header.AlignCenter()
+                                    .PaddingBottom(10)
+                                    .Text("Jabatan List")
+                                    .SemiBold()
+                                    .FontSize(18);
+                                    //.FontColor("#007BFF"); // Biru profesional
+                            });
+
+                            // ===== CONTENT =====
+                            page.Content().PaddingTop(10).Table(table =>
+                            {
+                                // ===== COLUMN DEFINITIONS =====
+                                table.ColumnsDefinition(columns =>
+                                {
+                                    columns.ConstantColumn(120); // Code
+                                    columns.ConstantColumn(200); // Name
+                                    columns.RelativeColumn(2f);  // Description
+                                });
+
+                                var headerStyle = TextStyle.Default.FontSize(12).Bold();
+                                var normalTextStyle = TextStyle.Default.FontSize(8);
+
+                                // ===== TABLE HEADER =====
+                                table.Header(header =>
+                                {
+                                    string[] headers = { "Jabatan Code", "Jabatan Name", "Description" };
+
+                                    foreach (var title in headers)
+                                    {
+                                        header.Cell()
+                                            .Border(1)
+                                            .PaddingVertical(4)
+                                            .PaddingHorizontal(6)
+                                            .Background(Colors.BlueGrey.Lighten2)
+                                            .AlignCenter()
+                                            .AlignMiddle()
+                                            .Text(title)
+                                            .Style(headerStyle);
+                                    }
+                                });
+
+                                // ===== TABLE DATA ROWS =====
+                                foreach (var item in data)
+                                {
+                                    table.Cell().Border(1).Padding(5).AlignMiddle()
+                                        .Text(item.JabatanCode ?? "-")
+                                        .Style(normalTextStyle);
+
+                                    table.Cell().Border(1).Padding(5).AlignMiddle()
+                                        .Text(item.JabatanName ?? "-")
+                                        .Style(normalTextStyle);
+
+                                    table.Cell().Border(1).Padding(5).AlignMiddle()
+                                        .Text(item.JabatanDescription ?? "-")
+                                        .Style(normalTextStyle);
+                                }
+                            });
+                        });
+                    });
+
+                    using var ms = new MemoryStream();
+                    document.GeneratePdf(ms);
+                    var bytes = ms.ToArray();
+
+                    var dto = new AttachmentFileDto
+                    {
+                        FileBytes = bytes,
+                        FileName = "JabatanList.pdf",
+                        ContentType = MimeTypesConstants.PDF
+                    };
+
+                    return new ApiResponse<AttachmentFileDto>(HttpStatusCode.OK, dto);
+
+                }
+                else
+                {
+                    return new ApiResponse<AttachmentFileDto>(HttpStatusCode.BadRequest, default, "Type harus 'excel' atau 'pdf'");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return new ApiResponse<AttachmentFileDto>(HttpStatusCode.BadRequest, default, "Gagal export company profile", ex.Message);
             }
         }
         #endregion

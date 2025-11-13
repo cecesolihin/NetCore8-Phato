@@ -1,4 +1,4 @@
-﻿using SqlKata;
+using SqlKata;
 using SqlKata.Execution;
 using System.Net;
 using ThePatho.Domain.Constants;
@@ -6,6 +6,12 @@ using ThePatho.Features.Organization.CostCenter.Commands;
 using ThePatho.Features.Organization.CostCenter.DTO;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.ApiResponse;
+using ClosedXML.Excel;
+using System.IO;
+using QuestPDF.Fluent;
+using QuestPDF.Helpers;
+using QuestPDF.Infrastructure;
+using ThePatho.Features.Common.DTO;
 
 namespace ThePatho.Features.Organization.CostCenter.Service
 {
@@ -205,6 +211,180 @@ namespace ThePatho.Features.Organization.CostCenter.Service
                          "An error occurred while retrieving data.",
                          ex.Message
                      );
+            }
+        }
+        
+        public async Task<ApiResponse<AttachmentFileDto>> ExportCostCenterAsync(string type)
+        {
+            try
+            {
+                using var connection = dapperContext.CreateConnection();
+                var db = new QueryFactory(connection, dapperContext.Compiler);
+                var query = new Query(TableOrganization.CostCenter)
+                    .Select(
+                        "CostCenterCode",
+                        "CostCenterName",
+                        "Sort",
+                        "CostCenterType"
+                    )
+                    .Where("IsDeleted", 0)
+                    .OrderBy("CostCenterCode");
+
+                var data = await db.GetAsync<CostCenterDto>(query);
+
+                var exportType = (type ?? "").Trim().ToLowerInvariant();
+                if (string.IsNullOrWhiteSpace(exportType)) exportType = "excel";
+
+                if (exportType == "excel" || exportType == "xlsx")
+                {
+                    using var workbook = new XLWorkbook();
+                    var worksheet = workbook.Worksheets.Add("CostCenter");
+
+                    worksheet.Cell("A1").Value = "Cost Center List";
+                    worksheet.Range("A1:D1").Merge().Style
+                        .Font.SetBold()
+                        .Font.SetFontSize(16)
+                        .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center)
+                        .Alignment.SetVertical(XLAlignmentVerticalValues.Center);
+
+                    worksheet.Cell(3, 1).Value = "Cost Center Code";
+                    worksheet.Cell(3, 2).Value = "Cost Center Name";
+                    worksheet.Cell(3, 3).Value = "Sort";
+                    worksheet.Cell(3, 4).Value = "Type";
+
+                    worksheet.Range(3, 1, 3, 4).Style
+                        .Font.SetBold()
+                        .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center)
+                        .Alignment.SetVertical(XLAlignmentVerticalValues.Center)
+                        .Fill.SetBackgroundColor(XLColor.FromHtml("#3DCBE0"));
+
+                    var row = 4;
+                    foreach (var item in data)
+                    {
+                        worksheet.Cell(row, 1).Value = item.CostCenterCode;
+                        worksheet.Cell(row, 2).Value = item.CostCenterName;
+                        worksheet.Cell(row, 3).Value = item.Sort;
+                        worksheet.Cell(row, 4).Value = item.CostCenterType;
+                        row++;
+                    }
+
+                    worksheet.Columns(1, 4).AdjustToContents();
+
+                    var lastDataRow = row - 1;
+                    var tableRange = worksheet.Range(3, 1, lastDataRow, 4);
+                    tableRange.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                    tableRange.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+
+                    using var stream = new MemoryStream();
+                    workbook.SaveAs(stream);
+                    var bytes = stream.ToArray();
+
+                    var dto = new AttachmentFileDto
+                    {
+                        FileBytes = bytes,
+                        FileName = "CostCenter.xlsx",
+                        ContentType = MimeTypesConstants.VND_OPENXML_EXCEL
+                    };
+
+                    return new ApiResponse<AttachmentFileDto>(HttpStatusCode.OK, dto);
+                }
+                else if (exportType == "pdf")
+                {
+                    var doc = Document.Create(container =>
+                    {
+                        container.Page(page =>
+                        {
+                            page.Margin(30);
+                            page.Size(PageSizes.A4.Landscape());
+
+                            // Title
+                            page.Header()
+                                .AlignCenter()
+                                .Text("Cost Center List")
+                                .SemiBold()
+                                .FontSize(16)
+                                .FontColor(Colors.Black);
+
+                            // Define text styles
+                            var headerStyle = TextStyle.Default.FontSize(12).Bold();
+                            var normalTextStyle = TextStyle.Default.FontSize(8);
+
+                            // Table
+                            page.Content().PaddingTop(10).Table(table =>
+                            {
+                                // Column definitions
+                                table.ColumnsDefinition(columns =>
+                                {
+                                    columns.RelativeColumn(1.2f); // Code
+                                    columns.RelativeColumn(2f);   // Name
+                                    columns.RelativeColumn(0.8f); // Sort
+                                    columns.RelativeColumn(1.2f); // Type
+                                });
+
+                                // Header
+                                table.Header(header =>
+                                {
+                                    string[] headers = { "Cost Center Code", "Cost Center Name", "Sort", "Type" };
+
+                                    foreach (var title in headers)
+                                    {
+                                        header.Cell()
+                                            .Border(1)
+                                            .PaddingVertical(4)
+                                            .PaddingHorizontal(6)
+                                            .Background(Colors.BlueGrey.Lighten2)
+                                            .AlignCenter()
+                                            .AlignMiddle()
+                                            .Text(title)
+                                            .Style(headerStyle);
+                                    }
+                                });
+
+                                // Data rows
+                                foreach (var item in data)
+                                {
+                                    table.Cell().Border(1).Padding(5).AlignMiddle()
+                                        .Text(item.CostCenterCode ?? "-")
+                                        .Style(normalTextStyle);
+
+                                    table.Cell().Border(1).Padding(5).AlignMiddle()
+                                        .Text(item.CostCenterName ?? "-")
+                                        .Style(normalTextStyle);
+
+                                    table.Cell().Border(1).Padding(5).AlignMiddle()
+                                        .Text(item.Sort.ToString())
+                                        .Style(normalTextStyle);
+
+                                    table.Cell().Border(1).Padding(5).AlignMiddle()
+                                        .Text(item.CostCenterType ?? "-")
+                                        .Style(normalTextStyle);
+                                }
+                            });
+                        });
+                    });
+
+                    using var stream = new MemoryStream();
+                    doc.GeneratePdf(stream);
+                    var bytes = stream.ToArray();
+
+                    var dto = new AttachmentFileDto
+                    {
+                        FileBytes = bytes,
+                        FileName = "CostCenter.pdf",
+                        ContentType = MimeTypesConstants.PDF
+                    };
+
+                    return new ApiResponse<AttachmentFileDto>(HttpStatusCode.OK, dto);
+
+                }
+                else
+                {
+                    return new ApiResponse<AttachmentFileDto>(HttpStatusCode.BadRequest, default, "Type harus 'excel' atau 'pdf'");
+                }
+            }
+            catch (Exception ex)
+            {
+                return new ApiResponse<AttachmentFileDto>(HttpStatusCode.BadRequest, default, "Gagal export cost center", ex.Message);
             }
         }
         #endregion

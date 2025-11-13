@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.Data.Entity;
@@ -148,7 +148,60 @@ namespace ThePatho.Features.Identity.Authentication.Service
 
         public async Task<ApiResponse<JwtResult>> RegisterAsync(RegisterCommand request)
         {
-            throw new NotImplementedException();
+            try
+            {
+                // Cek apakah username sudah ada
+                var existingByUsername = await _userManager.FindByNameAsync(request.Username);
+                if (existingByUsername != null)
+                {
+                    return new ApiResponse<JwtResult>(HttpStatusCode.Conflict, "Username already exists.");
+                }
+
+                // Cek apakah email sudah digunakan
+                var existingByEmail = await _userManager.FindByEmailAsync(request.Email);
+                if (existingByEmail != null)
+                {
+                    return new ApiResponse<JwtResult>(HttpStatusCode.Conflict, "Email already in use.");
+                }
+
+                var names = (request.Fullname ?? string.Empty).Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                var firstName = names.Length > 0 ? names[0] : request.Username;
+                var lastName = names.Length > 1 ? string.Join(' ', names.Skip(1)) : string.Empty;
+
+                var user = new User
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    UserName = request.Username,
+                    Email = request.Email,
+                    PhoneNumber = request.PhoneNumber,
+                    FirstName = firstName,
+                    LastName = lastName,
+                    Activated = true,
+                    InsertedBy = request.Username,
+                    InsertedDate = DateTime.UtcNow,
+                    EmailConfirmed = false,
+                    PhoneNumberConfirmed = false,
+                    TwoFactorEnabled = false,
+                    LockoutEnabled = false,
+                    AccessFailedCount = 0,
+                    SecurityStamp = Guid.NewGuid().ToString(),
+                    PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.Password)
+                };
+
+                var createResult = await _userManager.CreateAsync(user);
+                if (!createResult.Succeeded)
+                {
+                    var errors = string.Join("; ", createResult.Errors.Select(e => e.Description));
+                    return new ApiResponse<JwtResult>(HttpStatusCode.BadRequest, $"Failed to register user: {errors}");
+                }
+
+                var jwt = await Authenticate(user, CancellationToken.None);
+                return new ApiResponse<JwtResult>(HttpStatusCode.OK, jwt, "Register and login successful.");
+            }
+            catch (Exception ex)
+            {
+                return new ApiResponse<JwtResult>(HttpStatusCode.InternalServerError, ex.Message);
+            }
         }
 
         public async Task<ApiResponse<JwtResult>> RefreshTokenAsync(RefreshTokenCommand request, CancellationToken cancellationToken)
@@ -219,6 +272,71 @@ namespace ThePatho.Features.Identity.Authentication.Service
             bool isValid = BCrypt.Net.BCrypt.Verify(password, existingUser.PasswordHash);
 
             return isValid;
+        }
+
+        public async Task<ApiResponse> ChangePasswordAsync(ChangePasswordCommand request, CancellationToken cancellationToken)
+        {
+            try
+            {
+                var user = await _userManager.FindByNameAsync(request.Username);
+                if (user == null)
+                {
+                    return new ApiResponse(HttpStatusCode.NotFound, "User not found.");
+                }
+
+                // Verifikasi password saat ini
+                var currentValid = BCrypt.Net.BCrypt.Verify(request.CurrentPassword, user.PasswordHash);
+                if (!currentValid)
+                {
+                    return new ApiResponse(HttpStatusCode.Unauthorized, "Current password is incorrect.");
+                }
+
+                user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.NewPassword);
+                user.ModifiedBy = request.Username;
+                user.ModifiedDate = DateTime.UtcNow;
+
+                var updateResult = await _userManager.UpdateAsync(user);
+                if (!updateResult.Succeeded)
+                {
+                    var errors = string.Join("; ", updateResult.Errors.Select(e => e.Description));
+                    return new ApiResponse(HttpStatusCode.BadRequest, $"Failed to change password: {errors}");
+                }
+
+                return new ApiResponse(HttpStatusCode.OK, "Password changed successfully.");
+            }
+            catch (Exception ex)
+            {
+                return new ApiResponse(HttpStatusCode.InternalServerError, "Change password failed.", ex.Message);
+            }
+        }
+
+        public async Task<ApiResponse> ResetPasswordAsync(ResetPasswordCommand request, CancellationToken cancellationToken)
+        {
+            try
+            {
+                var user = await _userManager.FindByNameAsync(request.Username);
+                if (user == null)
+                {
+                    return new ApiResponse(HttpStatusCode.NotFound, "User not found.");
+                }
+
+                user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.NewPassword);
+                user.ModifiedBy = request.Username;
+                user.ModifiedDate = DateTime.UtcNow;
+
+                var updateResult = await _userManager.UpdateAsync(user);
+                if (!updateResult.Succeeded)
+                {
+                    var errors = string.Join("; ", updateResult.Errors.Select(e => e.Description));
+                    return new ApiResponse(HttpStatusCode.BadRequest, $"Failed to reset password: {errors}");
+                }
+
+                return new ApiResponse(HttpStatusCode.OK, "Password reset successfully.");
+            }
+            catch (Exception ex)
+            {
+                return new ApiResponse(HttpStatusCode.InternalServerError, "Reset password failed.", ex.Message);
+            }
         }
         public Task<IList<string>> GetUserGroupAsync(User user, CancellationToken cancellationToken)
         {

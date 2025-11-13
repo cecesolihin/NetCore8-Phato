@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Organization.OrgStructure.Commands;
+using Microsoft.AspNetCore.StaticFiles;
+using ThePatho.Domain.Constants;
 
 namespace ThePatho.Controllers
 {
@@ -64,6 +66,29 @@ namespace ThePatho.Controllers
             var result = await mediator.Send(command, cancellationToken);
 
             return ApiResult(result);
+        }
+
+        [HttpGet(ApiRoutes.Methods.Export)]
+        public async Task<IActionResult> ExportOrgStructure([FromQuery] string type, CancellationToken cancellationToken)
+        {
+            var exportResponse = await mediator.Send(new ExportOrgStructureCommand { Type = type }, cancellationToken);
+
+            if (exportResponse.Code != 200 || exportResponse.Data == null || exportResponse.Data.FileBytes.Length == 0)
+            {
+                return ApiResult(exportResponse);
+            }
+
+            var contentType = exportResponse.Data.ContentType;
+            if (string.IsNullOrWhiteSpace(contentType))
+            {
+                var provider = new FileExtensionContentTypeProvider();
+                if (!provider.TryGetContentType(exportResponse.Data.FileName, out contentType))
+                {
+                    contentType = MimeTypesConstants.APPLICATION_OCTET_STREAM;
+                }
+            }
+
+            return File(exportResponse.Data.FileBytes, contentType, exportResponse.Data.FileName);
         }
     }
 }

@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using SqlKata;
 using SqlKata.Execution;
 using System.Net;
+using System.IO;
 using ThePatho.Domain.Constants;
 using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Organization.JobLevel.Commands;
@@ -11,6 +12,11 @@ using ThePatho.Features.Organization.OrgStructure.DTO;
 using ThePatho.Infrastructure.Persistance;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using ThePatho.Features.Organization.Grade.DTO;
+using ClosedXML.Excel;
+using QuestPDF.Fluent;
+using QuestPDF.Helpers;
+using QuestPDF.Infrastructure;
+using ThePatho.Features.Common.DTO;
 
 namespace ThePatho.Features.Organization.JobLevel.Service
 {
@@ -214,6 +220,190 @@ namespace ThePatho.Features.Organization.JobLevel.Service
                          "An error occurred while retrieving data.",
                          ex.Message
                      );
+            }
+        }
+
+        public async Task<ApiResponse<AttachmentFileDto>> ExportJobLevelAsync(string type)
+        {
+            try
+            {
+                using var connection = dapperContext.CreateConnection();
+                var db = new QueryFactory(connection, dapperContext.Compiler);
+
+                var data = await db.Query(TableOrganization.JobLevel)
+                    .Where("IsDeleted", false)
+                    .OrderBy("Sort")
+                    .GetAsync<JobLevelDto>();
+
+                var exportType = (type ?? "").Trim().ToLowerInvariant();
+                if (string.IsNullOrWhiteSpace(exportType)) exportType = "excel";
+
+                if (exportType == "excel" || exportType == "xlsx")
+                {
+                    using var workbook = new XLWorkbook();
+                    var worksheet = workbook.Worksheets.Add("JobLevel");
+
+                    // ===== TITLE =====
+                    worksheet.Cell("A1").Value = "Job Level List";
+                    worksheet.Range("A1:E1").Merge().Style
+                        .Font.SetBold()
+                        .Font.SetFontSize(16)
+                        .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center)
+                        .Alignment.SetVertical(XLAlignmentVerticalValues.Center);
+
+                    // ===== HEADER =====
+                    worksheet.Cell(3, 1).Value = "Job Level Code";
+                    worksheet.Cell(3, 2).Value = "Job Level Name";
+                    worksheet.Cell(3, 3).Value = "Sort";
+                    worksheet.Cell(3, 4).Value = "Remarks";
+                    worksheet.Cell(3, 5).Value = "Is Active";
+
+                    worksheet.Range(3, 1, 3, 5).Style
+                        .Font.SetBold()
+                        .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center)
+                        .Alignment.SetVertical(XLAlignmentVerticalValues.Center)
+                        .Fill.SetBackgroundColor(XLColor.FromHtml("#3DCBE0"));
+
+                    // ===== DATA =====
+                    var row = 4;
+                    foreach (var item in data)
+                    {
+                        worksheet.Cell(row, 1).Value = item.JobLevelCode;
+                        worksheet.Cell(row, 2).Value = item.JobLevelName;
+                        worksheet.Cell(row, 3).Value = item.Sort;
+                        worksheet.Cell(row, 4).Value = item.Remarks;
+                        worksheet.Cell(row, 5).Value = item.IsActive.HasValue && item.IsActive.Value ? "Active" : "Inactive";
+                        row++;
+                    }
+
+                    // ===== AUTO FIT =====
+                    worksheet.Columns(1, 5).AdjustToContents();
+
+                    // ===== BORDER =====
+                    var lastDataRow = row - 1;
+                    var tableRange = worksheet.Range(3, 1, lastDataRow, 5);
+                    tableRange.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                    tableRange.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+
+                    // ===== EXPORT FILE =====
+                    using var ms = new MemoryStream();
+                    workbook.SaveAs(ms);
+                    var fileBytes = ms.ToArray();
+
+                    var fileName = $"JobLevel.xlsx";
+
+                    var dto = new AttachmentFileDto
+                    {
+                        FileBytes = fileBytes,
+                        FileName = fileName,
+                        ContentType = MimeTypesConstants.VND_OPENXML_EXCEL
+                    };
+
+                    return new ApiResponse<AttachmentFileDto>(HttpStatusCode.OK, dto);
+
+                }
+                else if (exportType == "pdf")
+                {
+                    var document = Document.Create(container =>
+                    {
+                        container.Page(page =>
+                        {
+                            page.Margin(30);
+                            page.Size(PageSizes.A4.Landscape());
+
+                            // ===== TITLE =====
+                            page.Header().Element(header =>
+                            {
+                                header.AlignCenter()
+                                    .PaddingBottom(10)
+                                    .Text("Job Class List")
+                                    .SemiBold()
+                                    .FontSize(18);
+                                    //.FontColor("#007BFF"); // Warna biru profesional
+                            });
+
+                            // ===== CONTENT =====
+                            page.Content().PaddingTop(10).Table(table =>
+                            {
+                                // ===== COLUMN DEFINITIONS =====
+                                table.ColumnsDefinition(columns =>
+                                {
+                                    columns.ConstantColumn(100);  // Code
+                                    columns.ConstantColumn(200);  // Name
+                                    columns.ConstantColumn(100);  // Grade
+                                    columns.ConstantColumn(100);  // Rank
+                                    columns.RelativeColumn(2f);   // Remarks
+                                    columns.ConstantColumn(80);   // Active
+                                });
+
+                                var headerStyle = TextStyle.Default.FontSize(12).Bold();
+                                var normalTextStyle = TextStyle.Default.FontSize(8);
+
+                                // ===== TABLE HEADER =====
+                                table.Header(header =>
+                                {
+                                    string[] headers = { "Job Level Code", "Job Level Name", "Sort", "Remarks",  "Active" };
+
+                                    foreach (var title in headers)
+                                    {
+                                        header.Cell()
+                                            .Border(1)
+                                            .PaddingVertical(4)
+                                            .PaddingHorizontal(6)
+                                            .Background(Colors.BlueGrey.Lighten2)
+                                            .AlignCenter()
+                                            .AlignMiddle()
+                                            .Text(title)
+                                            .Style(headerStyle);
+                                    }
+                                });
+
+                                // ===== TABLE DATA ROWS =====
+                                foreach (var item in data)
+                                {
+                                    table.Cell().Border(1).Padding(5).AlignMiddle()
+                                        .Text(item.JobLevelCode ?? "-")
+                                        .Style(normalTextStyle);
+
+                                    table.Cell().Border(1).Padding(5).AlignMiddle()
+                                        .Text(item.JobLevelName ?? "-")
+                                        .Style(normalTextStyle);
+
+                                    table.Cell().Border(1).Padding(5).AlignMiddle()
+                                        .Text(item.Sort.ToString())
+                                        .Style(normalTextStyle);
+
+                                    table.Cell().Border(1).Padding(5).AlignMiddle()
+                                        .Text(item.Remarks ?? "-")
+                                        .Style(normalTextStyle);
+
+                                    table.Cell().Border(1).Padding(5).AlignMiddle()
+                                        .Text(item.IsActive.Value ? "True" : "False")
+                                        .Style(normalTextStyle);
+                                }
+                            });
+                        });
+                    });
+
+                    using var ms = new MemoryStream();
+                    document.GeneratePdf(ms);
+                    var fileBytes = ms.ToArray();
+
+                    var dto = new AttachmentFileDto
+                    {
+                        FileBytes = fileBytes,
+                        FileName = "JobLevel.pdf",
+                        ContentType = MimeTypesConstants.PDF
+                    };
+
+                    return new ApiResponse<AttachmentFileDto>(HttpStatusCode.OK, dto);
+                }
+
+                return new ApiResponse<AttachmentFileDto>(HttpStatusCode.BadRequest, "Unsupported export type");
+            }
+            catch (Exception ex)
+            {
+                return new ApiResponse<AttachmentFileDto>(HttpStatusCode.BadRequest, "Failed to export Job Level", ex.Message);
             }
         }
     }

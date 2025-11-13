@@ -117,6 +117,8 @@ namespace ThePatho.Provider.ApiResponse
             public const string RefreshToken = "refresh-token";
             public const string ForgetPassword = "forget-password";
             public const string ResetPassword = "reset-password";
+            public const string ChangePassword = "change-password";
+            public const string Logout = "logout";
             public const string AssignUserGroup = "assign-user-group";
             public const string UserInfo = "user-info";
             #endregion
@@ -150,6 +152,9 @@ namespace ThePatho.Provider.ApiResponse
             public const string generate = "generate";
             public const string Delete = "delete";
             public const string Download = "download";
+            public const string Export = "export";
+            public const string Download_template = "download-template";
+            public const string upload = "upload";
             #endregion
         }
     }

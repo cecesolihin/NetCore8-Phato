@@ -1,6 +1,7 @@
 ﻿using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Organization.EmploymentType.Commands;
 using ThePatho.Features.Organization.EmploymentType.DTO;
+using ThePatho.Features.Common.DTO;
 
 namespace ThePatho.Features.Organization.EmploymentType.Service
 {
@@ -11,5 +12,6 @@ namespace ThePatho.Features.Organization.EmploymentType.Service
         Task<ApiResponse<EmploymentTypeItemDto>> GetEmploymentTypeByCriteria(GetEmploymentTypeByCriteriaCommand request);
         Task<ApiResponse> SubmitEmploymentType(SubmitEmploymentTypeCommand request);
         Task<ApiResponse> DeleteEmploymentType(DeleteEmploymentTypeCommand request);
+        Task<ApiResponse<AttachmentFileDto>> ExportEmploymentTypeAsync(string type);
     }
 }

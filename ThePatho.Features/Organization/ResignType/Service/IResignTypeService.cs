@@ -1,6 +1,7 @@
-﻿using ThePatho.Provider.ApiResponse;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Organization.ResignType.Commands;
 using ThePatho.Features.Organization.ResignType.DTO;
+using ThePatho.Features.Common.DTO;
 
 namespace ThePatho.Features.Organization.ResignType.Service
 {
@@ -11,5 +12,6 @@ namespace ThePatho.Features.Organization.ResignType.Service
         Task<ApiResponse<ResignTypeItemDto>> GetResignTypeByCriteria(GetResignTypeByCriteriaCommand request);
         Task<ApiResponse> SubmitResignType(SubmitResignTypeCommand request);
         Task<ApiResponse> DeleteResignType(DeleteResignTypeCommand request);
+        Task<ApiResponse<AttachmentFileDto>> ExportResignTypeAsync(string type);
     }
 }

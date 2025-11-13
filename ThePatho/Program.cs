@@ -11,8 +11,13 @@ using ThePatho.Provider.DateTimeProvider;
 using ThePatho.Provider.Jwt;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using ThePatho.Provider.UserContext;
+using QuestPDF.Infrastructure;
+using ThePatho.Provider.Email;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Konfigurasi lisensi QuestPDF agar tidak memunculkan exception lisensi
+QuestPDF.Settings.License = LicenseType.Community;
 
 // Add services to the container.
 builder.Services.AddControllers().AddJsonOptions(options =>
@@ -114,6 +119,10 @@ builder.Services.AddApplicationServices();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
 
+// Email Service
+builder.Services.Configure<EmailConfiguration>(builder.Configuration.GetSection("EmailConfiguration"));
+builder.Services.AddScoped<IEmailService, EmailService>();
+
 // Konfigurasi Identity dengan UserManager
 builder.Services.AddIdentityCore<User>(options =>
 {
@@ -194,6 +203,7 @@ var app = builder.Build();
         options.SwaggerEndpoint("/swagger/Organization/swagger.json", "Organization API");
         options.SwaggerEndpoint("/swagger/Global/swagger.json", "Global API");
         options.SwaggerEndpoint("/swagger/PersonalInformation/swagger.json", "Personal Information API");
+        options.SwaggerEndpoint("/swagger/Email/swagger.json", "Email API");
         options.DocExpansion(DocExpansion.None);
     });
 //}

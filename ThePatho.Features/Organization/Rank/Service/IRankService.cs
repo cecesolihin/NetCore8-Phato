@@ -1,6 +1,7 @@
-﻿using ThePatho.Provider.ApiResponse;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Organization.Rank.Commands;
 using ThePatho.Features.Organization.Rank.DTO;
+using ThePatho.Features.Common.DTO;
 
 namespace ThePatho.Features.Organization.Rank.Service
 {
@@ -11,5 +12,6 @@ namespace ThePatho.Features.Organization.Rank.Service
         Task<ApiResponse<RankItemDto>> GetRankByCriteria(GetRankByCriteriaCommand request);
         Task<ApiResponse> SubmitRank(SubmitRankCommand request);
         Task<ApiResponse> DeleteRank(DeleteRankCommand request);
+        Task<ApiResponse<AttachmentFileDto>> ExportRankAsync(string type);
     }
 }

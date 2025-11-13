@@ -1,6 +1,7 @@
-﻿using ThePatho.Provider.ApiResponse;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Organization.CompanyProfile.Commands;
 using ThePatho.Features.Organization.CompanyProfile.DTO;
+using ThePatho.Features.Common.DTO;
 
 namespace ThePatho.Features.Organization.CompanyProfile.Service
 {
@@ -11,5 +12,6 @@ namespace ThePatho.Features.Organization.CompanyProfile.Service
         Task<ApiResponse<CompanyProfileItemDto>> GetCompanyProfileByCriteria(GetCompanyProfileByCriteriaCommand request);
         Task<ApiResponse> SubmitCompanyProfile(SubmitCompanyProfileCommand request);
         Task<ApiResponse> DeleteCompanyProfile(DeleteCompanyProfileCommand request);
+        Task<ApiResponse<AttachmentFileDto>> ExportCompanyProfileAsync(string type);
     }
 }

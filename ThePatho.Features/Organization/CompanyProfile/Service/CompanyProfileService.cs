@@ -1,4 +1,4 @@
-﻿using SqlKata;
+using SqlKata;
 using SqlKata.Execution;
 using System.Net;
 using ThePatho.Domain.Constants;
@@ -7,6 +7,12 @@ using ThePatho.Features.Organization.CompanyProfile.Commands;
 using ThePatho.Features.Organization.CompanyProfile.DTO;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.ApiResponse;
+using ClosedXML.Excel;
+using System.IO;
+using QuestPDF.Fluent;
+using QuestPDF.Helpers;
+using QuestPDF.Infrastructure;
+using ThePatho.Features.Common.DTO;
 
 namespace ThePatho.Features.Organization.CompanyProfile.Service
 {
@@ -69,6 +75,207 @@ namespace ThePatho.Features.Organization.CompanyProfile.Service
                          "An error occurred while retrieving data.",
                          ex.Message
                      );
+            }
+        }
+
+        public async Task<ApiResponse<AttachmentFileDto>> ExportCompanyProfileAsync(string type)
+        {
+            try
+            {
+                using var connection = dapperContext.CreateConnection();
+                var db = new QueryFactory(connection, dapperContext.Compiler);
+                var query = new Query(TableOrganization.CompanyProfile)
+                    .Select(
+                        "CompanyCode",
+                        "CompanyName",
+                        "Phone",
+                        "Email",
+                        "Address",
+                        "City",
+                        "CountryCode"
+                    )
+                    .Where("IsDeleted", false)
+                    .OrderBy("CompanyCode");
+
+                var data = await db.GetAsync<CompanyProfileDto>(query);
+
+                var exportType = (type ?? "").Trim().ToLowerInvariant();
+                if (string.IsNullOrWhiteSpace(exportType)) exportType = "excel";
+
+                if (exportType == "excel" || exportType == "xlsx")
+                {
+                    using var workbook = new XLWorkbook();
+                    var worksheet = workbook.Worksheets.Add("CompanyProfile");
+
+                    worksheet.Cell("A1").Value = "Company Profile List";
+                    worksheet.Range("A1:G1").Merge().Style
+                        .Font.SetBold()
+                        .Font.SetFontSize(16)
+                        .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center)
+                        .Alignment.SetVertical(XLAlignmentVerticalValues.Center);
+
+                    worksheet.Cell(3, 1).Value = "Company Code";
+                    worksheet.Cell(3, 2).Value = "Company Name";
+                    worksheet.Cell(3, 3).Value = "Phone";
+                    worksheet.Cell(3, 4).Value = "Email";
+                    worksheet.Cell(3, 5).Value = "Address";
+                    worksheet.Cell(3, 6).Value = "City";
+                    worksheet.Cell(3, 7).Value = "Country Code";
+
+                    worksheet.Range(3, 1, 3, 7).Style
+                        .Font.SetBold()
+                        .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center)
+                        .Alignment.SetVertical(XLAlignmentVerticalValues.Center)
+                        .Fill.SetBackgroundColor(XLColor.FromHtml("#3DCBE0"));
+
+                    var row = 4;
+                    foreach (var item in data)
+                    {
+                        worksheet.Cell(row, 1).Value = item.CompanyCode;
+                        worksheet.Cell(row, 2).Value = item.CompanyName;
+                        worksheet.Cell(row, 3).Value = item.Phone;
+                        worksheet.Cell(row, 4).Value = item.Email;
+                        worksheet.Cell(row, 5).Value = item.Address;
+                        worksheet.Cell(row, 6).Value = item.City;
+                        worksheet.Cell(row, 7).Value = item.CountryCode;
+                        row++;
+                    }
+
+                    worksheet.Columns(1, 7).AdjustToContents();
+
+                    var lastDataRow = row - 1;
+                    var tableRange = worksheet.Range(3, 1, lastDataRow, 7);
+                    tableRange.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                    tableRange.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+
+                    using var stream = new MemoryStream();
+                    workbook.SaveAs(stream);
+                    var bytes = stream.ToArray();
+
+                    var dto = new AttachmentFileDto
+                    {
+                        FileBytes = bytes,
+                        FileName = "CompanyProfile.xlsx",
+                        ContentType = MimeTypesConstants.VND_OPENXML_EXCEL
+                    };
+
+                    return new ApiResponse<AttachmentFileDto>(HttpStatusCode.OK, dto);
+                }
+                else if (exportType == "pdf")
+                {
+                    var doc = Document.Create(container =>
+                    {
+                        container.Page(page =>
+                        {
+                            page.Margin(30);
+                            page.Size(PageSizes.A4.Landscape());
+
+                            // Title
+                            page.Header()
+                                .AlignCenter()
+                                .Text("Company Profile List")
+                                .SemiBold()
+                                .FontSize(16)
+                                .FontColor(Colors.Black);
+
+                            // Define text styles
+                            var headerStyle = TextStyle.Default.FontSize(12).Bold();
+                            var normalTextStyle = TextStyle.Default.FontSize(8);
+
+                            // Table
+                            page.Content().PaddingTop(10).Table(table =>
+                            {
+                                // Column definitions
+                                table.ColumnsDefinition(columns =>
+                                {
+                                    columns.RelativeColumn(1f); // Company Code
+                                    columns.RelativeColumn(1.5f); // Company Name
+                                    columns.RelativeColumn(1f); // Phone
+                                    columns.RelativeColumn(1.4f); // Email
+                                    columns.RelativeColumn(2f); // Address
+                                    columns.RelativeColumn(1.2f); // City
+                                    columns.RelativeColumn(1f); // Country Code
+                                });
+
+                                // Header
+                                table.Header(header =>
+                                {
+                                    string[] headers = {
+                                        "Company Code", "Company Name", "Phone",
+                                        "Email", "Address", "City", "Country Code"
+                                    };
+
+                                    foreach (var title in headers)
+                                    {
+                                        header.Cell()
+                                            .Border(1)
+                                            .PaddingVertical(4)
+                                            .PaddingHorizontal(6)
+                                            .Background(Colors.BlueGrey.Lighten2)
+                                            .AlignCenter()
+                                            .AlignMiddle()
+                                            .Text(title)
+                                            .Style(headerStyle);
+                                    }
+                                });
+
+                                // Data rows
+                                foreach (var item in data)
+                                {
+                                    table.Cell().Border(1).Padding(5).AlignMiddle()
+                                        .Text(item.CompanyCode ?? "-")
+                                        .Style(normalTextStyle);
+
+                                    table.Cell().Border(1).Padding(5).AlignMiddle()
+                                        .Text(item.CompanyName ?? "-")
+                                        .Style(normalTextStyle);
+
+                                    table.Cell().Border(1).Padding(5).AlignMiddle()
+                                        .Text(item.Phone ?? "-")
+                                        .Style(normalTextStyle);
+
+                                    table.Cell().Border(1).Padding(5).AlignMiddle()
+                                        .Text(item.Email ?? "-")
+                                        .Style(normalTextStyle);
+
+                                    table.Cell().Border(1).Padding(5).AlignMiddle()
+                                        .Text(item.Address ?? "-")
+                                        .Style(normalTextStyle);
+
+                                    table.Cell().Border(1).Padding(5).AlignMiddle()
+                                        .Text(item.City ?? "-")
+                                        .Style(normalTextStyle);
+
+                                    table.Cell().Border(1).Padding(5).AlignMiddle()
+                                        .Text(item.CountryCode ?? "-")
+                                        .Style(normalTextStyle);
+                                }
+                            });
+                        });
+                    });
+
+                    using var stream = new MemoryStream();
+                    doc.GeneratePdf(stream);
+                    var bytes = stream.ToArray();
+
+                    var dto = new AttachmentFileDto
+                    {
+                        FileBytes = bytes,
+                        FileName = "CompanyProfile.pdf",
+                        ContentType = MimeTypesConstants.PDF
+                    };
+
+                    return new ApiResponse<AttachmentFileDto>(HttpStatusCode.OK, dto);
+
+                }
+                else
+                {
+                    return new ApiResponse<AttachmentFileDto>(HttpStatusCode.BadRequest, default, "Type harus 'excel' atau 'pdf'");
+                }
+            }
+            catch (Exception ex)
+            {
+                return new ApiResponse<AttachmentFileDto>(HttpStatusCode.BadRequest, default, "Gagal export company profile", ex.Message);
             }
         }
 

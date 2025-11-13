@@ -1,11 +1,17 @@
-﻿using SqlKata;
+using SqlKata;
 using SqlKata.Execution;
 using System.Net;
+using System.IO;
 using ThePatho.Domain.Constants;
 using ThePatho.Features.Organization.JobLevelJobClass.Commands;
 using ThePatho.Features.Organization.JobLevelJobClass.DTO;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.ApiResponse;
+using ClosedXML.Excel;
+using QuestPDF.Fluent;
+using QuestPDF.Helpers;
+using QuestPDF.Infrastructure;
+using ThePatho.Features.Common.DTO;
 
 namespace ThePatho.Features.Organization.JobLevelJobClass.Service
 {
@@ -210,5 +216,154 @@ namespace ThePatho.Features.Organization.JobLevelJobClass.Service
             }
         }
         #endregion
+
+        public async Task<ApiResponse<AttachmentFileDto>> ExportJobLevelJobClassAsync(string type)
+        {
+            try
+            {
+                using var connection = dapperContext.CreateConnection();
+                var db = new QueryFactory(connection, dapperContext.Compiler);
+
+                var data = await db.Query(TableOrganization.JobLevelJobClass)
+                    .Where("IsDeleted", false)
+                    .OrderBy("JobLevelCode")
+                    .GetAsync<JobLevelJobClassDto>();
+
+                var exportType = (type ?? "").Trim().ToLowerInvariant();
+                if (string.IsNullOrWhiteSpace(exportType)) exportType = "excel";
+
+                if (exportType == "excel" || exportType == "xlsx")
+                {
+                    using var workbook = new XLWorkbook();
+                    var worksheet = workbook.Worksheets.Add("JobLevelJobClass");
+
+                    // ===== TITLE =====
+                    worksheet.Cell("A1").Value = "Job Level Job Class List";
+                    worksheet.Range("A1:F1").Merge().Style
+                        .Font.SetBold()
+                        .Font.SetFontSize(16)
+                        .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center)
+                        .Alignment.SetVertical(XLAlignmentVerticalValues.Center);
+
+                    // ===== HEADER =====
+                    worksheet.Cell(3, 1).Value = "Job Level Code";
+                    worksheet.Cell(3, 2).Value = "Job Class Code";
+
+                    worksheet.Range(3, 1, 3, 2).Style
+                        .Font.SetBold()
+                        .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center)
+                        .Alignment.SetVertical(XLAlignmentVerticalValues.Center)
+                        .Fill.SetBackgroundColor(XLColor.FromHtml("#3DCBE0"));
+
+                    // ===== DATA =====
+                    var row = 4;
+                    foreach (var item in data)
+                    {
+                        worksheet.Cell(row, 1).Value = item.JobLevelCode;
+                        worksheet.Cell(row, 2).Value = item.JobClassCode;
+                        row++;
+                    }
+
+                    // ===== BORDER =====
+                    var lastDataRow = row - 1;
+                    var range = worksheet.Range(3, 1, lastDataRow, 2);
+                    range.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                    range.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+
+                    // ===== AUTO FIT =====
+                    worksheet.Columns(1, 6).AdjustToContents();
+
+                    // ===== EXPORT =====
+                    using var ms = new MemoryStream();
+                    workbook.SaveAs(ms);
+                    var bytes = ms.ToArray();
+
+                    var fileName = $"JobLevel-JobClass.xlsx";
+
+                    return new ApiResponse<AttachmentFileDto>(HttpStatusCode.OK, new AttachmentFileDto
+                    {
+                        FileBytes = bytes,
+                        FileName = fileName,
+                        ContentType = MimeTypesConstants.VND_OPENXML_EXCEL
+                    });
+
+                }
+                else if (exportType == "pdf")
+                {
+                    var document = Document.Create(container =>
+                    {
+                        container.Page(page =>
+                        {
+                            page.Margin(20);
+                            page.Size(PageSizes.A4);
+                            page.DefaultTextStyle(x => x.FontSize(10));
+
+                            // Header Title
+                            page.Header()
+                                .Text("JobLevel - JobClass Relation")
+                                .SemiBold()
+                                .FontSize(14)
+                                .AlignCenter();
+
+                            // Table Content
+                            page.Content().Table(table =>
+                            {
+                                table.ColumnsDefinition(columns =>
+                                {
+                                    columns.ConstantColumn(100); // JobLevelCode
+                                    columns.ConstantColumn(100); // JobClassCode
+                                });
+
+                                var headerStyle = TextStyle.Default.FontSize(12).Bold();
+                                var normalTextStyle = TextStyle.Default.FontSize(8); 
+                                // Header row
+                                table.Header(header =>
+                                {
+
+                                    string[] headers = { "Job Level Code", "Job Class Name"};
+
+                                    foreach (var title in headers)
+                                    {
+                                        header.Cell()
+                                            .Border(1)
+                                            .PaddingVertical(4)
+                                            .PaddingHorizontal(6)
+                                            .Background(Colors.BlueGrey.Lighten2)
+                                            .AlignCenter()
+                                            .AlignMiddle()
+                                            .Text(title)
+                                            .Style(headerStyle);
+                                    }
+                                });
+
+                                // Data rows
+                                foreach (var item in data)
+                                {
+                                    table.Cell().Border(1).Padding(5).AlignMiddle().Text(item.JobLevelCode ?? "").Style(normalTextStyle);
+                                    table.Cell().Border(1).Padding(5).AlignMiddle().Text(item.JobClassCode ?? "").Style(normalTextStyle);
+                                }
+                            });
+                        });
+                    });
+
+                    // === Generate PDF ===
+                    var bytes = document.GeneratePdf();
+
+                    return new ApiResponse<AttachmentFileDto>(HttpStatusCode.OK, new AttachmentFileDto
+                    {
+                        FileBytes = bytes,
+                        FileName = $"JobLevel-JobClass.pdf",
+                        ContentType = MimeTypesConstants.PDF
+                    });
+
+                }
+
+                return new ApiResponse<AttachmentFileDto>(HttpStatusCode.BadRequest, "Unsupported export type");
+            }
+            catch (Exception ex)
+            {
+                return new ApiResponse<AttachmentFileDto>(HttpStatusCode.BadRequest, "Failed to export JobLevel-JobClass", ex.Message);
+            }
+        }
     }
 }

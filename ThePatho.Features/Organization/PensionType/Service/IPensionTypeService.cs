@@ -1,6 +1,7 @@
 ﻿using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Organization.PensionType.Commands;
 using ThePatho.Features.Organization.PensionType.DTO;
+using ThePatho.Features.Common.DTO;
 
 namespace ThePatho.Features.Organization.PensionType.Service
 {
@@ -11,5 +12,6 @@ namespace ThePatho.Features.Organization.PensionType.Service
         Task<ApiResponse<PensionTypeItemDto>> GetPensionTypeByCriteria(GetPensionTypeByCriteriaCommand request);
         Task<ApiResponse> SubmitPensionType(SubmitPensionTypeCommand request);
         Task<ApiResponse> DeletePensionType(DeletePensionTypeCommand request);
+        Task<ApiResponse<AttachmentFileDto>> ExportPensionTypeAsync(string type);
     }
 }

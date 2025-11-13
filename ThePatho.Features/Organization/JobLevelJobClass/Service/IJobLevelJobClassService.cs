@@ -1,6 +1,7 @@
-﻿using ThePatho.Provider.ApiResponse;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Organization.JobLevelJobClass.Commands;
 using ThePatho.Features.Organization.JobLevelJobClass.DTO;
+using ThePatho.Features.Common.DTO;
 
 namespace ThePatho.Features.Organization.JobLevelJobClass.Service
 {
@@ -11,5 +12,6 @@ namespace ThePatho.Features.Organization.JobLevelJobClass.Service
         Task<ApiResponse<JobLevelJobClassItemDto>> GetJobLevelJobClassByCriteria(GetJobLevelJobClassByCriteriaCommand request);
         Task<ApiResponse> SubmitJobLevelJobClass(SubmitJobLevelJobClassCommand request);
         Task<ApiResponse> DeleteJobLevelJobClass(DeleteJobLevelJobClassCommand request);
+        Task<ApiResponse<AttachmentFileDto>> ExportJobLevelJobClassAsync(string type);
     }
 }

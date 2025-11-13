@@ -7,6 +7,11 @@ using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Organization.OrgLevel.Commands;
 using ThePatho.Features.Organization.OrgLevel.DTO;
 using ThePatho.Infrastructure.Persistance;
+using ClosedXML.Excel;
+using QuestPDF.Fluent;
+using QuestPDF.Helpers;
+using QuestPDF.Infrastructure;
+using ThePatho.Features.Common.DTO;
 
 namespace ThePatho.Features.Organization.OrgLevel.Service
 {
@@ -209,6 +214,173 @@ namespace ThePatho.Features.Organization.OrgLevel.Service
                          "An error occurred while retrieving data.",
                          ex.Message
                      );
+            }
+        }
+
+        public async Task<ApiResponse<AttachmentFileDto>> ExportOrgLevelAsync(string type)
+        {
+            try
+            {
+                using var connection = dapperContext.CreateConnection();
+                var db = new QueryFactory(connection, dapperContext.Compiler);
+
+                var data = await db.Query(TableOrganization.OrgLevel)
+                    .Where("IsDeleted", false)
+                    .OrderBy("Sort")
+                    .GetAsync<OrgLevelDto>();
+
+                var exportType = (type ?? "").Trim().ToLowerInvariant();
+                if (string.IsNullOrWhiteSpace(exportType)) exportType = "excel";
+
+                if (exportType == "excel" || exportType == "xlsx")
+                {
+                    using var workbook = new XLWorkbook();
+                    var worksheet = workbook.Worksheets.Add("OrgLevel");
+
+                    // ===== TITLE =====
+                    worksheet.Cell("A1").Value = "Organization Level List";
+                    worksheet.Range("A1:C1").Merge().Style
+                        .Font.SetBold()
+                        .Font.SetFontSize(16)
+                        .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center)
+                        .Alignment.SetVertical(XLAlignmentVerticalValues.Center);
+
+                    // ===== HEADER =====
+                    worksheet.Cell(3, 1).Value = "Org Level Code";
+                    worksheet.Cell(3, 2).Value = "Org Level Name";
+                    worksheet.Cell(3, 3).Value = "Sort";
+
+                    worksheet.Range(3, 1, 3, 3).Style
+                        .Font.SetBold()
+                        .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center)
+                        .Alignment.SetVertical(XLAlignmentVerticalValues.Center)
+                        .Fill.SetBackgroundColor(XLColor.FromHtml("#3DCBE0"));
+
+                    // ===== DATA =====
+                    var row = 4;
+                    foreach (var item in data)
+                    {
+                        worksheet.Cell(row, 1).Value = item.OrgLevelCode;
+                        worksheet.Cell(row, 2).Value = item.OrgLevelName;
+                        worksheet.Cell(row, 3).Value = item.Sort;
+                        row++;
+                    }
+
+                    // ===== BORDER =====
+                    var lastDataRow = row - 1;
+                    var range = worksheet.Range(3, 1, lastDataRow, 3);
+                    range.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                    range.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+
+                    // ===== AUTO FIT =====
+                    worksheet.Columns(1, 3).AdjustToContents();
+
+                    // ===== EXPORT =====
+                    using var ms = new MemoryStream();
+                    workbook.SaveAs(ms);
+                    var bytes = ms.ToArray();
+
+                    var fileName = $"OrgLevel.xlsx";
+
+                    return new ApiResponse<AttachmentFileDto>(HttpStatusCode.OK, new AttachmentFileDto
+                    {
+                        FileBytes = bytes,
+                        FileName = fileName,
+                        ContentType = MimeTypesConstants.VND_OPENXML_EXCEL
+                    });
+
+                }
+                else if (exportType == "pdf")
+                {
+                    var document = Document.Create(container =>
+                    {
+                        container.Page(page =>
+                        {
+                            page.Margin(30);
+                            page.Size(PageSizes.A4.Landscape());
+
+                            // ===== TITLE =====
+                            page.Header().Element(header =>
+                            {
+                                header.AlignCenter()
+                                    .PaddingBottom(10)
+                                    .Text("Job Class List")
+                                    .SemiBold()
+                                    .FontSize(18);
+                                //.FontColor("#007BFF"); // Warna biru profesional
+                            });
+
+                            // ===== CONTENT =====
+                            page.Content().PaddingTop(10).Table(table =>
+                            {
+                                // ===== COLUMN DEFINITIONS =====
+                                table.ColumnsDefinition(columns =>
+                                {
+                                    columns.ConstantColumn(120);
+                                    columns.RelativeColumn();
+                                    columns.ConstantColumn(60);
+                                });
+
+                                var headerStyle = TextStyle.Default.FontSize(12).Bold();
+                                var normalTextStyle = TextStyle.Default.FontSize(8);
+
+                                // ===== TABLE HEADER =====
+                                table.Header(header =>
+                                {
+                                    string[] headers = { "Org Level Code", "Org Level Name", "Sort" };
+
+                                    foreach (var title in headers)
+                                    {
+                                        header.Cell()
+                                            .Border(1)
+                                            .PaddingVertical(4)
+                                            .PaddingHorizontal(6)
+                                            .Background(Colors.BlueGrey.Lighten2)
+                                            .AlignCenter()
+                                            .AlignMiddle()
+                                            .Text(title)
+                                            .Style(headerStyle);
+                                    }
+                                });
+
+                                // ===== TABLE DATA ROWS =====
+                                foreach (var item in data)
+                                {
+                                    table.Cell().Border(1).Padding(5).AlignMiddle()
+                                        .Text(item.OrgLevelCode ?? "-")
+                                        .Style(normalTextStyle);
+
+                                    table.Cell().Border(1).Padding(5).AlignMiddle()
+                                        .Text(item.OrgLevelName ?? "-")
+                                        .Style(normalTextStyle);
+
+                                    table.Cell().Border(1).Padding(5).AlignMiddle()
+                                        .Text(item.Sort.ToString())
+                                        .Style(normalTextStyle);
+                                }
+                            });
+                        });
+                    });
+
+                    using var ms = new MemoryStream();
+                    document.GeneratePdf(ms);
+                    var fileBytes = ms.ToArray();
+
+                    var dto = new AttachmentFileDto
+                    {
+                        FileBytes = fileBytes,
+                        FileName = "OrgLevel.pdf",
+                        ContentType = MimeTypesConstants.PDF
+                    };
+
+                    return new ApiResponse<AttachmentFileDto>(HttpStatusCode.OK, dto);
+                }
+
+                return new ApiResponse<AttachmentFileDto>(HttpStatusCode.BadRequest, "Unsupported export type");
+            }
+            catch (Exception ex)
+            {
+                return new ApiResponse<AttachmentFileDto>(HttpStatusCode.BadRequest, "Failed to export Org Level", ex.Message);
             }
         }
         #endregion

@@ -1,11 +1,12 @@
-﻿using MediatR;
+using MediatR;
 using System.Text.Json.Serialization;
 using ThePatho.Provider.ApiResponse;
 using ThePatho.Provider.Jwt;
+using ThePatho.Features.Identity.Authentication.DTO;
 
 namespace ThePatho.Features.Identity.Authentication.Commands
 {
-    public class RegisterCommand : IRequest<ApiResponse<JwtResult>>
+    public class RegisterCommand : IRequest<ApiResponse<RegisterResponseDto>>
     {
         [JsonPropertyName("username")]
         public string? Username { get; set; }

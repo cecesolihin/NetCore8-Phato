@@ -6,7 +6,7 @@ namespace ThePatho.Features.Organization.OrgStructure.DTO
         public int OrgStructureId { get; set; }
         public string OrgStructureCode { get; set; }
         public string OrgStructureName { get; set; }
-        public int? ParentOrgId { get; set; }
+        public int? ParentOrgStructureID { get; set; }
         public string OrgLevelCode { get; set; }
         public string CostCenterCode { get; set; }
         public string Location { get; set; }

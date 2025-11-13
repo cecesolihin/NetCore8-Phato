@@ -5,7 +5,7 @@ namespace ThePatho.Features.Organization.JobLevel.DTO
     {
         public string JobLevelCode { get; set; }
         public string JobLevelName { get; set; }
-        public byte? Jort { get; set; }
+        public byte? Sort { get; set; }
         public string? Remarks { get; set; }
         public bool IsDeleted { get; set; }
         public string? InsertedBy { get; set; }
