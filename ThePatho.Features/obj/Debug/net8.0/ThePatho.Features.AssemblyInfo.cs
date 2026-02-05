@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ThePatho.Features")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f9a7c1d2dc75912c9f5bb1e779c04400daa1713b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3558db030cc9f515120624ffcceeedd823ccf5d9")]
 [assembly: System.Reflection.AssemblyProductAttribute("ThePatho.Features")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ThePatho.Features")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

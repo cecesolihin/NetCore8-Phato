@@ -63,7 +63,8 @@ namespace ThePatho.Features.Identity.Authentication.Service
                         "User account locked."
                     );
                 }
-                
+                string dummyPassword = "password12345";
+                string hash = BCrypt.Net.BCrypt.HashPassword(dummyPassword);
                 if (!BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
                 {
                     //return new ApiResponse<JwtResult>(

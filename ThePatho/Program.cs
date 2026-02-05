@@ -13,8 +13,28 @@ using Swashbuckle.AspNetCore.SwaggerUI;
 using ThePatho.Provider.UserContext;
 using QuestPDF.Infrastructure;
 using ThePatho.Provider.Email;
+using ThePatho.Provider;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Load environment variables from .env file for development
+//if (builder.Environment.IsDevelopment())
+//{
+    var envFile = Path.Combine(Directory.GetCurrentDirectory(), "..", ".env");
+    if (File.Exists(envFile))
+    {
+        var envVars = File.ReadAllLines(envFile)
+            .Where(line => !string.IsNullOrWhiteSpace(line) && !line.StartsWith("#"))
+            .Select(line => line.Split('=', 2))
+            .Where(parts => parts.Length == 2)
+            .ToDictionary(parts => parts[0].Trim(), parts => parts[1].Trim());
+
+        foreach (var envVar in envVars)
+        {
+            Environment.SetEnvironmentVariable(envVar.Key, envVar.Value);
+        }
+    }
+//}
 
 // Konfigurasi lisensi QuestPDF agar tidak memunculkan exception lisensi
 QuestPDF.Settings.License = LicenseType.Community;
@@ -192,6 +212,11 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 
 builder.Services.AddAuthorization();
+//// Load environment variables
+//DotNetEnv.Env.Load();
+
+//builder.Configuration.AddEnvironmentVariables();
+
 var app = builder.Build();
 
 //if (app.Environment.IsDevelopment())

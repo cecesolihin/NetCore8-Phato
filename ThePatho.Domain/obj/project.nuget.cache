@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "6BzS0L/nmr8DzJrmcTuiwh5kEFoV4pv5if5NyzAvNTzOP14afujHJfC0nIV1/zYy9yOQ6v5RlyEYY7lrgtoHmA==",
+  "dgSpecHash": "rN4cTEwaVAM=",
   "success": true,
   "projectFilePath": "D:\\COURSES\\ThePatho\\ThePatho.Domain\\ThePatho.Domain.csproj",
   "expectedPackageFiles": [
@@ -30,8 +30,10 @@
     {
       "code": "NU1701",
       "level": "Warning",
-      "warningLevel": 1,
       "message": "Package 'EntityFramework 6.1.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net8.0'. This package may not be fully compatible with your project.",
+      "projectPath": "D:\\COURSES\\ThePatho\\ThePatho.Domain\\ThePatho.Domain.csproj",
+      "warningLevel": 1,
+      "filePath": "D:\\COURSES\\ThePatho\\ThePatho.Domain\\ThePatho.Domain.csproj",
       "libraryId": "EntityFramework",
       "targetGraphs": [
         "net8.0"
@@ -40,8 +42,10 @@
     {
       "code": "NU1701",
       "level": "Warning",
-      "warningLevel": 1,
       "message": "Package 'Microsoft.AspNet.Identity.Core 2.2.4' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net8.0'. This package may not be fully compatible with your project.",
+      "projectPath": "D:\\COURSES\\ThePatho\\ThePatho.Domain\\ThePatho.Domain.csproj",
+      "warningLevel": 1,
+      "filePath": "D:\\COURSES\\ThePatho\\ThePatho.Domain\\ThePatho.Domain.csproj",
       "libraryId": "Microsoft.AspNet.Identity.Core",
       "targetGraphs": [
         "net8.0"
@@ -50,8 +54,10 @@
     {
       "code": "NU1701",
       "level": "Warning",
-      "warningLevel": 1,
       "message": "Package 'Microsoft.AspNet.Identity.EntityFramework 2.2.4' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net8.0'. This package may not be fully compatible with your project.",
+      "projectPath": "D:\\COURSES\\ThePatho\\ThePatho.Domain\\ThePatho.Domain.csproj",
+      "warningLevel": 1,
+      "filePath": "D:\\COURSES\\ThePatho\\ThePatho.Domain\\ThePatho.Domain.csproj",
       "libraryId": "Microsoft.AspNet.Identity.EntityFramework",
       "targetGraphs": [
         "net8.0"

@@ -8,13 +8,13 @@ namespace ThePatho.Features.Global.Bank.Commands
     public class GetBankByCriteriaCommand : IRequest<ApiResponse<BankItemDto>>
     {
         [JsonPropertyName("filter_BankCode")]
-        public string FilterBankCode { get; set; } = null!;
+        public string? FilterBankCode { get; set; }
 
         [JsonPropertyName("filter_Name")]
-        public string FilterName { get; set; } = null!;
+        public string? FilterName { get; set; }
 
         [JsonPropertyName("filter_CurrencyCode")]
-        public string FilterCurrencyCode { get; set; } = null!;
+        public string? FilterCurrencyCode { get; set; }
 
         [JsonPropertyName("filter_TransferCode")]
         public string? FilterTransferCode { get; set; }

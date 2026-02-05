@@ -13,7 +13,7 @@ namespace ThePatho.Features.PersonalInformation.EmployeeReward.Commands
         public string LetterNo { get; set; } = null!;
 
         [JsonPropertyName("employee_id")]
-        public int EmployeeId { get; set; }
+        public List<int> EmployeeId { get; set; }
 
         [JsonPropertyName("letter_date")]
         public string LetterDate { get; set; } = null!;

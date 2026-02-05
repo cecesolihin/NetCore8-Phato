@@ -19,4 +19,4 @@ WHERE
     (@BranchName IS NULL OR BranchName LIKE '%' + @BranchName + '%') AND
     (@CurrencyCode IS NULL OR CurrencyCode LIKE '%' + @CurrencyCode + '%') AND
     (@SwiftCode IS NULL OR SwiftCode LIKE '%' + @SwiftCode + '%') AND
-    (@TransdferFee > 0 OR TransdferFee = @TransdferFee)
+    (@TransdferFee >= 0 OR TransdferFee = @TransdferFee)
