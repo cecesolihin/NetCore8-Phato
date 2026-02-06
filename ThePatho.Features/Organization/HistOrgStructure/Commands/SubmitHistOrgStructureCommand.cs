@@ -25,7 +25,7 @@ namespace ThePatho.Features.Organization.HistOrgStructure.Commands
         public string OrgLevelCode { get; set; } = null!;
 
         [JsonPropertyName("status")]
-        public string Status { get; set; } = null!;
+        public string IsActive { get; set; } = null!;
 
         [JsonPropertyName("costCenterCode")]
         public string? CostCenterCode { get; set; }
@@ -40,7 +40,7 @@ namespace ThePatho.Features.Organization.HistOrgStructure.Commands
         public string? PhoneExt { get; set; }
 
         [JsonPropertyName("sort")]
-        public byte Sort { get; set; }
+        public byte SortOrder { get; set; }
 
         [JsonPropertyName("companyCode")]
         public string CompanyCode { get; set; } = null!;

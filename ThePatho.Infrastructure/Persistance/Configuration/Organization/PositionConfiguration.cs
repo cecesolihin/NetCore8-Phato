@@ -32,7 +32,7 @@ namespace ThePatho.Infrastructure.Persistance.Configuration.Organization
             builder.Property(e => e.StartDate);
             builder.Property(e => e.EndDate);
             builder.Property(e => e.DocumentNo);
-            builder.Property(e => e.Status).IsRequired();
+            builder.Property(e => e.IsActive).IsRequired();
             builder.Property(e => e.ParentPositionCode).HasMaxLength(255);
             builder.Property(e => e.PositionPath);
         }

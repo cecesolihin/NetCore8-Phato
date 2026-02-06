@@ -4,7 +4,7 @@ namespace ThePatho.Features.Organization.CostCenter.DTO
     {
         public string CostCenterCode { get; set; } = null!;
         public string CostCenterName { get; set; } = null!;
-        public byte Sort { get; set; }
+        public byte SortOrder { get; set; }
         public bool IsDeleted { get; set; }
         public string? CostCenterType { get; set; }
         public string? InsertedBy { get; set; }

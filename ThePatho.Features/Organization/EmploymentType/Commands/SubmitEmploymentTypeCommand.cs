@@ -10,13 +10,13 @@ namespace ThePatho.Features.Organization.EmploymentType.Commands
         public string EmploymentTypeCode { get; set; } = null!;
 
         [JsonPropertyName("employment_type_name")]
-        public string EmployementTypeName { get; set; } = null!;
+        public string EmploymentTypeName { get; set; } = null!;
 
         [JsonPropertyName("status")]
-        public string Status { get; set; } = null!;
+        public bool IsActive { get; set; }
 
         [JsonPropertyName("order")]
-        public byte Order { get; set; }
+        public byte SortOrder { get; set; }
 
         [JsonPropertyName("remarks")]
         public string? Remarks { get; set; }

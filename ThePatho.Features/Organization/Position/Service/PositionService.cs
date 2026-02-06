@@ -295,7 +295,7 @@ namespace ThePatho.Features.Organization.Position.Service
                         worksheet.Cell(row, 5).Value = item.ActAsHead ? "Yes" : "No";
                         worksheet.Cell(row, 6).Value = item.Objective ?? string.Empty;
                         worksheet.Cell(row, 7).Value = item.JobDescription ?? string.Empty;
-                        worksheet.Cell(row, 8).Value = item.Status ? "Active" : "Inactive";
+                        worksheet.Cell(row, 8).Value = item.IsActive ? "Active" :"Inactive";
                         worksheet.Cell(row, 9).Value = item.ParentPositionCode ?? string.Empty;
                         worksheet.Cell(row, 10).Value = item.PositionPath ?? string.Empty;
                         row++;

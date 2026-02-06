@@ -13,9 +13,9 @@ namespace ThePatho.Infrastructure.Persistance.Configuration.Organization
 
             builder.HasKey(e => e.EmploymentTypeCode);
             builder.Property(e => e.EmploymentTypeCode).HasMaxLength(128).IsRequired();
-            builder.Property(e => e.EmployementTypeName).HasMaxLength(255).IsRequired();
-            builder.Property(e => e.Status).IsRequired();
-            builder.Property(e => e.Order).IsRequired();
+            builder.Property(e => e.EmploymentTypeName).HasMaxLength(255).IsRequired();
+            builder.Property(e => e.IsActive).IsRequired();
+            builder.Property(e => e.SortOrder).IsRequired();
             builder.Property(e => e.Remarks).HasMaxLength(500);
             builder.Property(e => e.UseEndDate).IsRequired();
             builder.Property(e => e.EmploymentPeriodMonth);

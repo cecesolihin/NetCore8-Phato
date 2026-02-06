@@ -16,7 +16,7 @@ namespace ThePatho.Features.Organization.Grade.Commands
         public string? Status { get; set; }
 
         [JsonPropertyName("order")]
-        public byte Order { get; set; }
+        public byte SortOrder { get; set; }
 
         [JsonPropertyName("remarks")]
         public string? Remarks { get; set; }

@@ -42,12 +42,17 @@ namespace ThePatho.Features.Organization.EmploymentType.Service
                         q => q.WhereContains("EmploymentTypeCode", request.FilterEmploymentTypeCode)
                     )
                     .When(
-                        !string.IsNullOrWhiteSpace(request.FilterEmployementTypeName),
-                        q => q.WhereContains("EmploymentTypeName", request.FilterEmployementTypeName)
+                        !string.IsNullOrWhiteSpace(request.FilterEmploymentTypeName),
+                        q => q.WhereContains("EmploymentTypeName", request.FilterEmploymentTypeName)
                     )
                     .When(
-                        !string.IsNullOrWhiteSpace(request.FilterStatus),
-                        q => q.Where("Status", request.FilterStatus)
+                        !string.IsNullOrWhiteSpace(request.FilterStatus)
+                        && request.FilterStatus.ToLower() != "all",
+                        q =>
+                        {
+                            bool isActive = request.FilterStatus == "1";
+                            return q.Where("IsActive", isActive);
+                        }
                     );
 
                 query = query.OrderByRaw(
@@ -88,12 +93,17 @@ namespace ThePatho.Features.Organization.EmploymentType.Service
                         q => q.WhereContains("EmploymentTypeCode", request.FilterEmploymentTypeCode)
                     )
                     .When(
-                        !string.IsNullOrWhiteSpace(request.FilterEmployementTypeName),
-                        q => q.WhereContains("EmploymentTypeName", request.FilterEmployementTypeName)
+                        !string.IsNullOrWhiteSpace(request.FilterEmploymentTypeName),
+                        q => q.WhereContains("EmploymentTypeName", request.FilterEmploymentTypeName)
                     )
                     .When(
-                        !string.IsNullOrWhiteSpace(request.FilterStatus),
-                        q => q.Where("Status", request.FilterStatus)
+                        !string.IsNullOrWhiteSpace(request.FilterStatus)
+                        && request.FilterStatus.ToLower() != "all",
+                        q =>
+                        {
+                            bool isActive = request.FilterStatus == "1";
+                            return q.Where("IsActive", isActive);
+                        }
                     );
 
                 var data = await db.GetAsync<EmploymentTypeDto>(query);
@@ -140,9 +150,9 @@ namespace ThePatho.Features.Organization.EmploymentType.Service
                     var insertQuery = new Query(TableOrganization.EmploymentType).AsInsert(new
                     {
                         EmploymentTypeCode = request.EmploymentTypeCode,
-                        EmployementTypeName = request.EmployementTypeName,
-                        Status = request.Status,
-                        Order = request.Order,
+                        EmployementTypeName = request.EmploymentTypeName,
+                        IsActive = request.IsActive,
+                        SortOrder = request.SortOrder,
                         Remarks = request.Remarks,
                         UseEndDate = request.UseEndDate,
                         EmploymentPeriodMonth = request.EmploymentPeriodMonth,
@@ -160,9 +170,9 @@ namespace ThePatho.Features.Organization.EmploymentType.Service
                         .Where("EmploymentTypeCode", request.EmploymentTypeCode) // Perbaiki typo: EmploymentType_code -> EmploymentTypeCode
                         .AsUpdate(new
                         {
-                            EmployementTypeName = request.EmployementTypeName,
-                            Status = request.Status,
-                            Order = request.Order,
+                            EmploymentTypeName = request.EmploymentTypeName,
+                            IsActive = request.IsActive,
+                            SortOrder = request.SortOrder,
                             Remarks = request.Remarks,
                             UseEndDate = request.UseEndDate,
                             EmploymentPeriodMonth = request.EmploymentPeriodMonth,
@@ -276,8 +286,8 @@ namespace ThePatho.Features.Organization.EmploymentType.Service
                     foreach (var item in data)
                     {
                         ws.Cell(row, 1).Value = item.EmploymentTypeCode;
-                        ws.Cell(row, 2).Value = item.EmployementTypeName;
-                        ws.Cell(row, 3).Value = item.Status;
+                        ws.Cell(row, 2).Value = item.EmploymentTypeName;
+                        ws.Cell(row, 3).Value = item.IsActive;
                         ws.Cell(row, 4).Value = item.Order;
                         ws.Cell(row, 5).Value = item.UseEndDate ? "Yes" :"No";
                         ws.Cell(row, 6).Value = item.EmploymentPeriodMonth;
@@ -375,11 +385,11 @@ namespace ThePatho.Features.Organization.EmploymentType.Service
                                         .Style(normalTextStyle);
 
                                     table.Cell().Border(1).Padding(5).AlignMiddle()
-                                        .Text(item.EmployementTypeName ?? "-")
+                                        .Text(item.EmploymentTypeName ?? "-")
                                         .Style(normalTextStyle);
 
                                     table.Cell().Border(1).Padding(5).AlignMiddle()
-                                        .Text(item.Status ?? "-")
+                                        .Text(item.IsActive ? "Active" :"Inactive")
                                         .Style(normalTextStyle);
 
                                     table.Cell().Border(1).Padding(5).AlignMiddle()

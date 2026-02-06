@@ -1,4 +1,5 @@
-﻿using SqlKata;
+﻿using Microsoft.Data.SqlClient;
+using SqlKata;
 using SqlKata.Execution;
 using System.Net;
 using ThePatho.Domain.Constants;
@@ -42,10 +43,6 @@ namespace ThePatho.Features.Organization.HistOrgStructure.Service
                         q => q.WhereContains("OrgStructureName", request.OrgStructureName)
                     )
                     .When(
-                        !string.IsNullOrWhiteSpace(request.Status),
-                        q => q.Where("Status", request.Status)
-                    )
-                    .When(
                         !string.IsNullOrWhiteSpace(request.CompanyCode),
                         q => q.WhereContains("CompanyCode", request.CompanyCode)
                     )
@@ -56,6 +53,15 @@ namespace ThePatho.Features.Organization.HistOrgStructure.Service
                     .When(
                         !string.IsNullOrWhiteSpace(request.Location),
                         q => q.WhereContains("Location", request.Location)
+                    )
+                    .When(
+                        !string.IsNullOrWhiteSpace(request.Status)
+                        && request.Status.ToLower() != "all",
+                        q =>
+                        {
+                            bool isActive = request.Status == "1";
+                            return q.Where("IsActive", isActive);
+                        }
                     );
 
                 query = query.OrderByRaw(
@@ -104,10 +110,6 @@ namespace ThePatho.Features.Organization.HistOrgStructure.Service
                         q => q.WhereContains("OrgStructureName", request.OrgStructureName)
                     )
                     .When(
-                        !string.IsNullOrWhiteSpace(request.Status),
-                        q => q.Where("Status", request.Status)
-                    )
-                    .When(
                         !string.IsNullOrWhiteSpace(request.CompanyCode),
                         q => q.WhereContains("CompanyCode", request.CompanyCode)
                     )
@@ -118,6 +120,15 @@ namespace ThePatho.Features.Organization.HistOrgStructure.Service
                     .When(
                         !string.IsNullOrWhiteSpace(request.Location),
                         q => q.WhereContains("Location", request.Location)
+                    )
+                    .When(
+                        !string.IsNullOrWhiteSpace(request.Status)
+                        && request.Status.ToLower() != "all",
+                        q =>
+                        {
+                            bool isActive = request.Status == "1";
+                            return q.Where("IsActive", isActive);
+                        }
                     );
 
                 var data = await db.GetAsync<HistOrgStructureDto>(query);
@@ -157,12 +168,12 @@ namespace ThePatho.Features.Organization.HistOrgStructure.Service
                         OrgStructureName = request.OrgStructureName,
                         ParentOrgStructureId = request.ParentOrgStructureId,
                         OrgLevelCode = request.OrgLevelCode,
-                        Status = request.Status,
+                        IsActive = request.IsActive,
                         CostCenterCode = request.CostCenterCode,
                         Location = request.Location,
                         Phone = request.Phone,
                         PhoneExt = request.PhoneExt,
-                        Sort = request.Sort,
+                        SortOrder = request.SortOrder,
                         CompanyCode = request.CompanyCode,
                         StartDate = !string.IsNullOrWhiteSpace(request.StartDate) ? DateTime.Parse(request.StartDate) : (DateTime?)null,
                         EndDate = !string.IsNullOrWhiteSpace(request.EndDate) ? DateTime.Parse(request.EndDate) : (DateTime?)null,
@@ -199,12 +210,12 @@ namespace ThePatho.Features.Organization.HistOrgStructure.Service
                             OrgStructureName = request.OrgStructureName,
                             ParentOrgStructureId = request.ParentOrgStructureId,
                             OrgLevelCode = request.OrgLevelCode,
-                            Status = request.Status,
+                            IsActive = request.IsActive,
                             CostCenterCode = request.CostCenterCode,
                             Location = request.Location,
                             Phone = request.Phone,
                             PhoneExt = request.PhoneExt,
-                            Sort = request.Sort,
+                            SortOrder = request.SortOrder,
                             CompanyCode = request.CompanyCode,
                             StartDate = !string.IsNullOrWhiteSpace(request.StartDate) ? DateTime.Parse(request.StartDate) : (DateTime?)null,
                             EndDate = !string.IsNullOrWhiteSpace(request.EndDate) ? DateTime.Parse(request.EndDate) : (DateTime?)null,

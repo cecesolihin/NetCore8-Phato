@@ -126,7 +126,7 @@ namespace ThePatho.Features.Organization.OrgLevel.Service
                     {
                         OrgLevelCode = request.OrgLevelCode,
                         OrgLevelName = request.OrgLevelName,
-                        Sort = request.Sort,
+                        SortOrder = request.SortOrder,
                         IsDeleted = false,
                         InsertedBy = "system",
                         InsertedDate = DateTime.UtcNow
@@ -142,7 +142,7 @@ namespace ThePatho.Features.Organization.OrgLevel.Service
                         .AsUpdate(new
                         {
                             OrgLevelName = request.OrgLevelName,
-                            Sort = request.Sort,
+                            SortOrder = request.SortOrder,
                             IsDeleted = false,
                             ModifiedBy = "system",
                             ModifiedDate = DateTime.UtcNow
@@ -262,7 +262,7 @@ namespace ThePatho.Features.Organization.OrgLevel.Service
                     {
                         worksheet.Cell(row, 1).Value = item.OrgLevelCode;
                         worksheet.Cell(row, 2).Value = item.OrgLevelName;
-                        worksheet.Cell(row, 3).Value = item.Sort;
+                        worksheet.Cell(row, 3).Value = item.SortOrder;
                         row++;
                     }
 
@@ -355,7 +355,7 @@ namespace ThePatho.Features.Organization.OrgLevel.Service
                                         .Style(normalTextStyle);
 
                                     table.Cell().Border(1).Padding(5).AlignMiddle()
-                                        .Text(item.Sort.ToString())
+                                        .Text(item.SortOrder.ToString())
                                         .Style(normalTextStyle);
                                 }
                             });

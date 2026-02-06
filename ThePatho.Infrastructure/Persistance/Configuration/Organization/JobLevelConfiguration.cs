@@ -14,7 +14,7 @@ namespace ThePatho.Infrastructure.Persistance.Configuration.Organization
             builder.HasKey(e => e.JobLevelCode);
             builder.Property(e => e.JobLevelCode).HasMaxLength(50).IsRequired();
             builder.Property(e => e.JobLevelName).HasMaxLength(255).IsRequired();
-            builder.Property(e => e.Sort);
+            builder.Property(e => e.SortOrder);
             builder.Property(e => e.Remarks).HasMaxLength(500);
             builder.Property(e => e.IsDeleted).IsRequired();
             builder.Property(e => e.InsertedBy).HasMaxLength(255);

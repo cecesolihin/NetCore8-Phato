@@ -43,7 +43,7 @@ namespace ThePatho.Features.Organization.JobLevel.Service
                         q => q.WhereIn("JobLevelCode", request.FilterJobLevelCode)
                     ).When(
                         !string.IsNullOrWhiteSpace(request.FilterJobLevelName),
-                            q => q.WhereContains("FilterJobLevelName", request.FilterJobLevelName)
+                            q => q.WhereContains("JobLevelName", request.FilterJobLevelName)
                     );
 
                 query = query.OrderByRaw(
@@ -125,7 +125,7 @@ namespace ThePatho.Features.Organization.JobLevel.Service
                     {
                         JobLevelCode = request.JobLevelCode,
                         JobLevelName = request.JobLevelName,
-                        Sort = request.Sort,
+                        SortOrder = request.SortOrder,
                         Remarks = request.Remarks,
                         IsDeleted = false,
                         InsertedBy = "system",
@@ -143,7 +143,7 @@ namespace ThePatho.Features.Organization.JobLevel.Service
                         .AsUpdate(new
                         {
                             JobLevelName = request.JobLevelName,
-                            Sort = request.Sort,
+                            SortOrder = request.SortOrder,
                             Remarks = request.Remarks,
                             ModifiedBy = "system",
                             ModifiedDate = DateTime.UtcNow,
@@ -270,7 +270,7 @@ namespace ThePatho.Features.Organization.JobLevel.Service
                     {
                         worksheet.Cell(row, 1).Value = item.JobLevelCode;
                         worksheet.Cell(row, 2).Value = item.JobLevelName;
-                        worksheet.Cell(row, 3).Value = item.Sort;
+                        worksheet.Cell(row, 3).Value = item.SortOrder;
                         worksheet.Cell(row, 4).Value = item.Remarks;
                         worksheet.Cell(row, 5).Value = item.IsActive.HasValue && item.IsActive.Value ? "Active" : "Inactive";
                         row++;
@@ -370,7 +370,7 @@ namespace ThePatho.Features.Organization.JobLevel.Service
                                         .Style(normalTextStyle);
 
                                     table.Cell().Border(1).Padding(5).AlignMiddle()
-                                        .Text(item.Sort.ToString())
+                                        .Text(item.SortOrder.ToString())
                                         .Style(normalTextStyle);
 
                                     table.Cell().Border(1).Padding(5).AlignMiddle()

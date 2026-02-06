@@ -45,8 +45,13 @@ namespace ThePatho.Features.Organization.Grade.Service
                         q => q.WhereContains("GradeName", request.FilterGradeName)
                     )
                     .When(
-                        !string.IsNullOrWhiteSpace(request.FilterStatus),
-                        q => q.Where("Status", request.FilterStatus)
+                        !string.IsNullOrWhiteSpace(request.FilterStatus)
+                        && request.FilterStatus.ToLower() != "all",
+                        q =>
+                        {
+                            bool isActive = request.FilterStatus == "1";
+                            return q.Where("IsActive", isActive);
+                        }
                     );
 
                 query = query.OrderByRaw(
@@ -91,10 +96,14 @@ namespace ThePatho.Features.Organization.Grade.Service
                         q => q.WhereContains("GradeName", request.FilterGradeName)
                     )
                     .When(
-                        !string.IsNullOrWhiteSpace(request.FilterStatus),
-                        q => q.Where("Status", request.FilterStatus)
+                        !string.IsNullOrWhiteSpace(request.FilterStatus)
+                        && request.FilterStatus.ToLower() != "all",
+                        q =>
+                        {
+                            bool isActive = request.FilterStatus == "1";
+                            return q.Where("IsActive", isActive);
+                        }
                     );
-
                 var data = await db.GetAsync<GradeDto>(query);
 
                 var result = new GradeItemDto
@@ -137,7 +146,7 @@ namespace ThePatho.Features.Organization.Grade.Service
                         GradeCode = request.GradeCode,
                         GradeName = request.GradeName,
                         Status = request.Status,
-                        Order = request.Order,
+                        SortOrder = request.SortOrder,
                         Remarks = request.Remarks,
                         IsDeleted = false,
                         InsertedBy = "system",
@@ -155,7 +164,7 @@ namespace ThePatho.Features.Organization.Grade.Service
                         {
                             GradeName = request.GradeName,
                             Status = request.Status,
-                            Order = request.Order,
+                            SortOrder = request.SortOrder,
                             Remarks = request.Remarks,
                             IsDeleted = false,
                             ModifiedBy = "system",
@@ -495,7 +504,7 @@ namespace ThePatho.Features.Organization.Grade.Service
                         worksheet.Cell(row, 2).Value = g.GradeCode;
                         worksheet.Cell(row, 3).Value = g.GradeName;
                         worksheet.Cell(row, 4).Value = g.Status == "1" ? "Active" : "Inactive";
-                        worksheet.Cell(row, 5).Value = g.Order;
+                        worksheet.Cell(row, 5).Value = g.SortOrder;
                         worksheet.Cell(row, 6).Value = g.Remarks;
                         row++;
                     }
@@ -590,7 +599,7 @@ namespace ThePatho.Features.Organization.Grade.Service
                                     table.Cell().Border(1).Padding(5).AlignCenter().Text(g.GradeCode ?? "-").Style(normalTextStyle);
                                     table.Cell().Border(1).Padding(5).Text(g.GradeName ?? "-").Style(normalTextStyle);
                                     table.Cell().Border(1).Padding(5).AlignCenter().Text(g.Status ?? "-").Style(normalTextStyle);
-                                    table.Cell().Border(1).Padding(5).AlignCenter().Text(g.Order.ToString()).Style(normalTextStyle);
+                                    table.Cell().Border(1).Padding(5).AlignCenter().Text(g.SortOrder.ToString()).Style(normalTextStyle);
                                     table.Cell().Border(1).Padding(5).Text(g.Remarks ?? "-").Style(normalTextStyle);
                                     no++;
                                 }
@@ -676,7 +685,7 @@ namespace ThePatho.Features.Organization.Grade.Service
                         worksheet.Cell(row, 1).Value = g.GradeCode;
                         worksheet.Cell(row, 2).Value = g.GradeName;
                         worksheet.Cell(row, 3).Value = g.Status;
-                        worksheet.Cell(row, 4).Value = g.Order;
+                        worksheet.Cell(row, 4).Value = g.SortOrder;
                         worksheet.Cell(row, 5).Value = g.Remarks;
                         row++;
                     }
@@ -808,7 +817,7 @@ namespace ThePatho.Features.Organization.Grade.Service
                                         BodyCell(table.Cell(), g.GradeCode ?? "-", bgColor);
                                         BodyCell(table.Cell(), g.GradeName ?? "-", bgColor);
                                         BodyCell(table.Cell(), g.Status.ToString(), bgColor);
-                                        BodyCell(table.Cell(), g.Order.ToString(), bgColor);
+                                        BodyCell(table.Cell(), g.SortOrder.ToString(), bgColor);
                                         BodyCell(table.Cell(), g.Remarks ?? "-", bgColor);
                                     }
                                 });

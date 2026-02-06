@@ -21,7 +21,7 @@ namespace ThePatho.Infrastructure.Persistance.Configuration.Organization
                 .HasMaxLength(255)
                 .IsRequired();
 
-            builder.Property(e => e.Sort)
+            builder.Property(e => e.SortOrder)
                 .IsRequired();
 
             builder.Property(e => e.IsDeleted)

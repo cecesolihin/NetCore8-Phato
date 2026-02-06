@@ -8,12 +8,12 @@ namespace ThePatho.Features.Organization.HistOrgStructure.DTO
         public string OrgStructureName { get; set; } = null!;
         public int? ParentOrgStructureId { get; set; }
         public string OrgLevelCode { get; set; } = null!;
-        public string Status { get; set; } = null!;
+        public bool IsActive { get; set; }
         public string? CostCenterCode { get; set; }
         public string? Location { get; set; }
         public string? Phone { get; set; }
         public string? PhoneExt { get; set; }
-        public byte Sort { get; set; }
+        public byte SortOrder { get; set; }
         public string CompanyCode { get; set; } = null!;
         public string? StartDate { get; set; }
         public string? EndDate { get; set; }

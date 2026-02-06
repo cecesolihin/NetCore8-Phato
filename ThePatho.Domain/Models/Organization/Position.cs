@@ -23,7 +23,7 @@ namespace ThePatho.Domain.Models.Organization
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
         public string? DocumentNo { get; set; }
-        public bool Status { get; set; }
+        public bool IsActive { get; set; }
         public string? ParentPositionCode { get; set; }
         public string? PositionPath { get; set; }
     }

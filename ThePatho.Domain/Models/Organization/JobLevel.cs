@@ -5,7 +5,7 @@ namespace ThePatho.Domain.Models.Organization
     {
         public string JobLevelCode { get; set; } = null!;
         public string JobLevelName { get; set; } = null!;
-        public byte? Sort { get; set; }
+        public byte? SortOrder { get; set; }
         public string? Remarks { get; set; }
         public bool IsDeleted { get; set; }
         public string? InsertedBy { get; set; }

@@ -11,7 +11,7 @@ namespace ThePatho.Features.Organization.OrgStructure.DTO
         public string CostCenterCode { get; set; }
         public string Location { get; set; }
         public string Path { get; set; }
-        public char Status { get; set; }
+        public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
         public string? InsertedBy { get; set; }
         public DateTime? InsertedDate { get; set; }

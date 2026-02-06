@@ -135,7 +135,7 @@ namespace ThePatho.Features.Organization.CostCenter.Service
                     {
                         CostCenterCode = request.CostCenterCode,
                         CostCenterName = request.CostCenterName,
-                        Sort = request.Sort,
+                        SortOrder = request.SortOrder,
                         CostCenterType = request.CostCenterType,
                         IsDeleted = 0,
                         InsertedBy = "system",
@@ -152,7 +152,7 @@ namespace ThePatho.Features.Organization.CostCenter.Service
                         .AsUpdate(new
                         {
                             CostCenterName = request.CostCenterName,
-                            Sort = request.Sort,
+                            SortOrder = request.SortOrder,
                             CostCenterType = request.CostCenterType,
                             ModifiedBy = "system",
                             ModifiedDate = DateTime.UtcNow
@@ -263,7 +263,7 @@ namespace ThePatho.Features.Organization.CostCenter.Service
                     {
                         worksheet.Cell(row, 1).Value = item.CostCenterCode;
                         worksheet.Cell(row, 2).Value = item.CostCenterName;
-                        worksheet.Cell(row, 3).Value = item.Sort;
+                        worksheet.Cell(row, 3).Value = item.SortOrder;
                         worksheet.Cell(row, 4).Value = item.CostCenterType;
                         row++;
                     }
@@ -352,7 +352,7 @@ namespace ThePatho.Features.Organization.CostCenter.Service
                                         .Style(normalTextStyle);
 
                                     table.Cell().Border(1).Padding(5).AlignMiddle()
-                                        .Text(item.Sort.ToString())
+                                        .Text(item.SortOrder.ToString())
                                         .Style(normalTextStyle);
 
                                     table.Cell().Border(1).Padding(5).AlignMiddle()

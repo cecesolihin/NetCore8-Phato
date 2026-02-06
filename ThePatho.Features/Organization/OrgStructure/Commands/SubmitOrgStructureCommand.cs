@@ -27,10 +27,10 @@ namespace ThePatho.Features.Organization.OrgStructure.Commands
         [JsonPropertyName("phone")]
         public string? Phone { get; set; }
         [JsonPropertyName("sort")]
-        public int? Sort { get; set; }
+        public int? SortOrder { get; set; }
 
         [JsonPropertyName("status")]
-        public bool Status { get; set; }
+        public bool IsActive { get; set; }
 
         [JsonPropertyName("action")]
         public string Action { get; set; }

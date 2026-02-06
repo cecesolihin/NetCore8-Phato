@@ -27,7 +27,7 @@ namespace ThePatho.Infrastructure.Persistance.Configuration.Organization
             builder.Property(e => e.Location).HasMaxLength(255);
             builder.Property(e => e.Phone).HasMaxLength(50);
             builder.Property(e => e.PhoneExt).HasMaxLength(10);
-            builder.Property(e => e.Sort).IsRequired();
+            builder.Property(e => e.SortOrder).IsRequired();
             builder.Property(e => e.CompanyCode).HasMaxLength(128).IsRequired();
             builder.Property(e => e.IsDeleted).IsRequired();
             builder.Property(e => e.Path).HasMaxLength(200);

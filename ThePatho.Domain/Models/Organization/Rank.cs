@@ -10,7 +10,7 @@ namespace ThePatho.Domain.Models.Organization
     {
         public string RankCode { get; set; } = null!;
         public string RankName { get; set; } = null!;
-        public byte Order { get; set; }
+        public byte SortOrder { get; set; }
         public string? Remarks { get; set; }
         public bool IsDeleted { get; set; }
         public string? InsertedBy { get; set; }

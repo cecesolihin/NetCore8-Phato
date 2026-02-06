@@ -12,10 +12,10 @@ namespace ThePatho.Features.Organization.EmploymentType.Commands
         public string FilterEmploymentTypeCode { get; set; } = null!;
 
         [JsonPropertyName("filter_employment_type_name")]
-        public string FilterEmployementTypeName { get; set; } = null!;
+        public string FilterEmploymentTypeName { get; set; } = null!;
 
         [JsonPropertyName("filter_status")]
-        public string FilterStatus { get; set; } = null!;
+        public string FilterStatus { get; set; }
 
     }
 }

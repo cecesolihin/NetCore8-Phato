@@ -10,7 +10,7 @@ namespace ThePatho.Domain.Models.Organization
     {
         public string CostCenterCode { get; set; } = null!;
         public string CostCenterName { get; set; } = null!;
-        public byte Sort { get; set; }
+        public byte SortOrder { get; set; }
         public bool IsDeleted { get; set; }
         public string? InsertedBy { get; set; }
         public DateTime? InsertedDate { get; set; }

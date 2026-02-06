@@ -18,7 +18,7 @@ namespace ThePatho.Domain.Models.Organization
         public string? Location { get; set; }
         public string? Phone { get; set; }
         public string? PhoneExt { get; set; }
-        public byte Sort { get; set; }
+        public byte SortOrder { get; set; }
         public string CompanyCode { get; set; } = null!;
         public bool IsDeleted { get; set; }
         public string? Path { get; set; }

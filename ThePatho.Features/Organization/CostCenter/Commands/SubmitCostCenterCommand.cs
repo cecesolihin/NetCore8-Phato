@@ -13,7 +13,7 @@ namespace ThePatho.Features.Organization.CostCenter.Commands
         public string CostCenterName { get; set; } = null!;
 
         [JsonPropertyName("sort")]
-        public byte Sort { get; set; }
+        public byte SortOrder { get; set; }
 
         [JsonPropertyName("cost_center_type")]
         public string CostCenterType { get; set; }

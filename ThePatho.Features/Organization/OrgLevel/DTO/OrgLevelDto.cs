@@ -5,7 +5,7 @@ namespace ThePatho.Features.Organization.OrgLevel.DTO
     {
         public string OrgLevelCode { get; set; }
         public string OrgLevelName { get; set; }
-        public byte Sort { get; set; }
+        public byte SortOrder { get; set; }
         public bool IsDeleted { get; set; }
         public string? InsertedBy { get; set; }
         public DateTime? InsertedDate { get; set; }

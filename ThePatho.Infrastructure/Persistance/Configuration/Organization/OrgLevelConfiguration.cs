@@ -14,7 +14,7 @@ namespace ThePatho.Infrastructure.Persistance.Configuration.Organization
             builder.HasKey(e => e.OrgLevelCode);
             builder.Property(e => e.OrgLevelCode).HasMaxLength(128).IsRequired();
             builder.Property(e => e.OrgLevelName).HasMaxLength(255).IsRequired();
-            builder.Property(e => e.Sort).IsRequired();
+            builder.Property(e => e.SortOrder).IsRequired();
             builder.Property(e => e.IsDeleted).IsRequired();
             builder.Property(e => e.InsertedBy).HasMaxLength(255);
             builder.Property(e => e.InsertedDate);

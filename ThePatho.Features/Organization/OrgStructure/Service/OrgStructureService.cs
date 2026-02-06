@@ -50,8 +50,13 @@ namespace ThePatho.Features.Organization.OrgStructure.Service
                         q => q.WhereContains("OrgLevelCode", request.OrgLevelCode)
                     )
                     .When(
-                        !string.IsNullOrWhiteSpace(request.Status),
-                        q => q.Where("Status", request.Status)
+                        !string.IsNullOrWhiteSpace(request.Status)
+                        && request.Status.ToLower() != "all",
+                        q =>
+                        {
+                            bool isActive = request.Status == "1";
+                            return q.Where("IsActive", isActive);
+                        }
                     );
 
                 query = query.OrderByRaw(
@@ -104,8 +109,13 @@ namespace ThePatho.Features.Organization.OrgStructure.Service
                         q => q.WhereContains("OrgLevelCode", request.OrgLevelCode)
                     )
                     .When(
-                        !string.IsNullOrWhiteSpace(request.Status),
-                        q => q.Where("Status", request.Status)
+                        !string.IsNullOrWhiteSpace(request.Status)
+                        && request.Status.ToLower() != "all",
+                        q =>
+                        {
+                            bool isActive = request.Status == "1";
+                            return q.Where("IsActive", isActive);
+                        }
                     );
 
                 var data = await db.GetAsync<OrgStructureDto>(query);
@@ -177,12 +187,12 @@ namespace ThePatho.Features.Organization.OrgStructure.Service
                         OrgStructureName = request.OrgStructureName,
                         ParentOrgId = request.ParentOrgId,
                         OrgLevelCode = request.OrgLevelCode,
-                        Status = request.Status ? 1 : 0,
+                        IsActive = request.IsActive,
                         Location = request.Location,
                         Path = path,
                         CostCenter = request.CostCenter,
                         Phone = request.Phone,
-                        Sort = request.Sort,
+                        SortOrder = request.SortOrder,
                         IsDeleted = false,
                         InsertedBy = "system",
                         InsertedDate = DateTime.UtcNow
@@ -245,12 +255,12 @@ namespace ThePatho.Features.Organization.OrgStructure.Service
                             OrgStructureName = request.OrgStructureName,
                             ParentOrgId = request.ParentOrgId,
                             OrgLevelCode = request.OrgLevelCode,
-                            Status = request.Status ? 1 : 0,
+                            IsActive = request.IsActive,
                             Location = request.Location,
                             Path = path,
                             CostCenter = request.CostCenter,
                             Phone = request.Phone,
-                            Sort = request.Sort,
+                            SortOrder = request.SortOrder,
                             ModifiedBy = "system",
                             ModifiedDate = DateTime.UtcNow
                         });
@@ -407,7 +417,7 @@ namespace ThePatho.Features.Organization.OrgStructure.Service
                         worksheet.Cell(row, 5).Value = item.CostCenterCode;
                         worksheet.Cell(row, 6).Value = item.Location;
                         worksheet.Cell(row, 7).Value = item.Path;
-                        worksheet.Cell(row, 8).Value = item.Status =='1' ? "Yes" :"No";
+                        worksheet.Cell(row, 8).Value = item.IsActive ? "Active" :"Inactive";
                         row++;
                     }
 
@@ -529,7 +539,7 @@ namespace ThePatho.Features.Organization.OrgStructure.Service
                                         .Style(normalTextStyle);
 
                                     table.Cell().Border(1).Padding(5).AlignMiddle()
-                                        .Text(item.Status.ToString())
+                                        .Text(item.IsActive ? "Active" :"Inactive")
                                         .Style(normalTextStyle);
                                 }
                             });
