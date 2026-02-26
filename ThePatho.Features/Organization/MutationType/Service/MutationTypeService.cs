@@ -34,15 +34,14 @@ namespace ThePatho.Features.Organization.MutationType.Service
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
                 var query = new Query(TableOrganization.MutationType)
-                    .Select("*")
-                    .When(
-                        !string.IsNullOrWhiteSpace(request.MutationTypeCode),
-                        q => q.WhereContains("MutationTypeCode", request.MutationTypeCode)
-                    )
-                    .When(
-                        !string.IsNullOrWhiteSpace(request.MutationTypeName),
-                        q => q.WhereContains("MutationTypeName", request.MutationTypeName)
-                    );
+                        .Select("*")
+                        .When(
+                            !string.IsNullOrWhiteSpace(request.FilterMutationType),
+                            q => q.Where(w => w
+                                .WhereContains("MutationTypeCode", request.FilterMutationType)
+                                .OrWhereContains("MutationTypeName", request.FilterMutationType)
+                            )
+                        );
 
                 query = query.OrderByRaw(
                     $"{(!string.IsNullOrWhiteSpace(request.SortBy) ? request.SortBy : "InsertedBy")} {(!string.IsNullOrWhiteSpace(request.OrderBy) && (request.OrderBy.ToUpper() == "ASC" || request.OrderBy.ToUpper() == "DESC") ? request.OrderBy.ToUpper() : "DESC")}"

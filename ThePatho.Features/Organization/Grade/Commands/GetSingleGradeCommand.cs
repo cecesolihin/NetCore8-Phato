@@ -8,7 +8,7 @@ namespace ThePatho.Features.Organization.Grade.Commands
 {
     public class GetSingleGradeCommand : IRequest<ApiResponse<GradeDto>>
     {
-        [JsonPropertyName("grade_code")]
+        [JsonPropertyName("gradeCode")]
         public string GradeCode { get; set; } = null!;
     }
 }

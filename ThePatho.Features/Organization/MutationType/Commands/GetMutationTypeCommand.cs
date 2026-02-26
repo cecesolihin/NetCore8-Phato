@@ -8,11 +8,8 @@ namespace ThePatho.Features.Organization.MutationType.Commands
 {
     public class GetMutationTypeCommand : IRequest<ApiResponse<MutationTypeItemDto>>
     {
-        [JsonPropertyName("mutationTypeCode")]
-        public string? MutationTypeCode { get; set; }
-
-        [JsonPropertyName("mutationTypeName")]
-        public string? MutationTypeName { get; set; }
+       [JsonPropertyName("filter_MutationType")]
+        public string? FilterMutationType { get; set; }
 
         [JsonPropertyName("sortBy")]
         [DefaultValue("InsertedDate")]

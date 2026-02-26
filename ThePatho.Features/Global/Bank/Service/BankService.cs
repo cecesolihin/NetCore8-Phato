@@ -90,13 +90,8 @@ namespace ThePatho.Features.Global.Bank.Service
             {
                 using var db = dapperContext.CreateConnection();
                 var parameters = new DynamicParameters();
-                parameters.Add("@BankCode", request.FilterBankCode ?? string.Empty);
-                parameters.Add("@Name", request.FilterName ?? string.Empty);
-                parameters.Add("@BranchName", request.FilterBranchName ?? string.Empty);
-                parameters.Add("@CurrencyCode", request.FilterCurrencyCode ?? string.Empty);
-                parameters.Add("@TransferCode", request.FilterTransferCode ?? string.Empty);
-                parameters.Add("@TransdferFee", request.FilterTransdferFee ?? 0);
-                parameters.Add("@SwiftCode", request.FilterSwiftCode ?? string.Empty);
+                parameters.Add("@BankCode", request.BankCode ?? string.Empty);
+                parameters.Add("@Name", request.BankName ?? string.Empty);
 
                 var query = await queryLoader.LoadQueryAsync("Global/Bank/Sql/get_criteria_bank");
                 var data = await db.QueryAsync<BankDto>(query, parameters);

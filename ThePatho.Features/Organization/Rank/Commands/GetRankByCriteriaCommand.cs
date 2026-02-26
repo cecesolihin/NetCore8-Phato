@@ -8,10 +8,10 @@ namespace ThePatho.Features.Organization.Rank.Commands
 {
     public class GetRankByCriteriaCommand : IRequest<ApiResponse<RankItemDto>>
     {
-        [JsonPropertyName("rank_code")]
-        public string RankCode { get; set; } = null!;
+        [JsonPropertyName("rankCode")]
+        public string? RankCode { get; set; }
 
-        [JsonPropertyName("rank_name")]
+        [JsonPropertyName("rankName")]
         public string? RankName { get; set; }
     }
 }

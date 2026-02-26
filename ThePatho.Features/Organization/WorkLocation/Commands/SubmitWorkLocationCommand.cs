@@ -6,10 +6,10 @@ namespace ThePatho.Features.Organization.WorkLocation.Commands
 {
     public class SubmitWorkLocationCommand : IRequest<ApiResponse>
     {
-        [JsonPropertyName("work_location_code")]
+        [JsonPropertyName("workLocationCode")]
         public string WorkLocationCode { get; set; } = null!;
 
-        [JsonPropertyName("work_location_name")]
+        [JsonPropertyName("workLocationName")]
         public string WorkLocationName { get; set; } = null!;
 
         [JsonPropertyName("latitude")]
@@ -21,16 +21,16 @@ namespace ThePatho.Features.Organization.WorkLocation.Commands
         [JsonPropertyName("radius")]
         public int? Radius { get; set; }
 
-        [JsonPropertyName("is_active")]
+        [JsonPropertyName("isActive")]
         public bool? IsActive { get; set; }
 
-        [JsonPropertyName("time_zone")]
+        [JsonPropertyName("timeZone")]
         public string? TimeZone { get; set; }
 
-        [JsonPropertyName("tax_location_code")]
+        [JsonPropertyName("taxLocationCode")]
         public string? TaxLocationCode { get; set; }
 
-        [JsonPropertyName("hazard_information")]
+        [JsonPropertyName("hazardInformation")]
         public string? HazardInformation { get; set; }
 
         [JsonPropertyName("action")]

@@ -8,15 +8,15 @@ namespace ThePatho.Features.Global.Province.Commands
 {
     public class GetProvinceByCriteriaCommand : IRequest<ApiResponse<ProvinceItemDto>>
     {
-        [JsonPropertyName("filter_Name")]
-        public string? FilterName { get; set; }
+        [JsonPropertyName("name")]
+        public string? Name { get; set; }
 
 
-        [JsonPropertyName("filter_Country")]
-        public int? FilterCountry { get; set; }
+        [JsonPropertyName("country")]
+        public int? Country { get; set; }
 
-        [JsonPropertyName("filter_Abbreviation")]
-        public string? FilterAbbreviation { get; set; }
+        [JsonPropertyName("abbreviation")]
+        public string? Abbreviation { get; set; }
 
     }
 }

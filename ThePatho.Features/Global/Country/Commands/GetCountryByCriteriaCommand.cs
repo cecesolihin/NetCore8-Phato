@@ -8,17 +8,17 @@ namespace ThePatho.Features.Global.Country.Commands
 {
     public class GetCountryByCriteriaCommand : IRequest<ApiResponse<CountryItemDto>>
     {
-        [JsonPropertyName("filter_Name")]
-        public string? FilterName { get; set; }
+        [JsonPropertyName("name")]
+        public string? Name { get; set; }
 
-        [JsonPropertyName("filter_NumericIsoCode")]
-        public int? FilterNumericIsoCode { get; set; }
+        [JsonPropertyName("numericIsoCode")]
+        public int? NumericIsoCode { get; set; }
 
-        [JsonPropertyName("filter_ThreeLetterIsoCode")]
-        public string? FilterThreeLetterIsoCode { get; set; }
+        [JsonPropertyName("threeLetterIsoCode")]
+        public string? ThreeLetterIsoCode { get; set; }
 
-        [JsonPropertyName("filter_TwoLetterIsoCode")]
-        public string? FilterTwoLetterIsoCode { get; set; }
+        [JsonPropertyName("twoLetterIsoCode")]
+        public string? TwoLetterIsoCode { get; set; }
 
 
     }

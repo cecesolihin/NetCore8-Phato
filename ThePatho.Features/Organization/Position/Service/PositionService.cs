@@ -36,14 +36,25 @@ namespace ThePatho.Features.Organization.Position.Service
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
                 var query = new Query(TableOrganization.Position)
-                    .Select("*")
-                    .When(
-                        !string.IsNullOrWhiteSpace(request.FilterPositionCode),
-                        q => q.WhereIn("PositionCode", request.FilterPositionCode)
-                    ).When(
-                        !string.IsNullOrWhiteSpace(request.FilterPositionName),
-                            q => q.WhereContains("PositionName", request.FilterPositionName)
-                    );
+                        .Select("*")
+                        .Where("IsDeleted", false)
+                        .When(
+                            !string.IsNullOrWhiteSpace(request.FilterPosition),
+                            q => q.Where(w => w
+                                .WhereContains("PositionCode", request.FilterPosition)
+                                .OrWhereContains("PositionName", request.FilterPosition)
+                                .OrWhereContains("JobLevelCode", request.FilterPosition)
+                            )
+                        )
+                        .When(
+                            !string.IsNullOrWhiteSpace(request.FilterStatus)
+                            && request.FilterStatus.ToLower() != "all",
+                            q =>
+                            {
+                                bool isActive = request.FilterStatus == "1";
+                                return q.Where("IsActive", isActive);
+                            }
+                        );
 
                 query = query.OrderByRaw(
                     $"{(!string.IsNullOrWhiteSpace(request.SortBy) ? request.SortBy : "InsertedBy")} {(!string.IsNullOrWhiteSpace(request.OrderBy) && (request.OrderBy.ToUpper() == "ASC" || request.OrderBy.ToUpper() == "DESC") ? request.OrderBy.ToUpper() : "DESC")}"
@@ -78,9 +89,15 @@ namespace ThePatho.Features.Organization.Position.Service
                 var db = new QueryFactory(connection, dapperContext.Compiler);
                 var query = new Query(TableOrganization.Position)
                     .Select("*")
+                    .Where("IsDeleted", false)
+                    .Where("IsActive", true)
                     .When(
-                        !string.IsNullOrWhiteSpace(request.FilterOrgStructureId),
-                        q => q.WhereIn("OrgStructureID", request.FilterOrgStructureId)
+                        !string.IsNullOrWhiteSpace(request.OrgStructureId),
+                        q => q.WhereIn("OrgStructureID", request.OrgStructureId)
+                    )
+                    .When(
+                        !string.IsNullOrWhiteSpace(request.JobLevelCode),
+                        q => q.WhereIn("JobLevelCode", request.JobLevelCode)
                     );
 
                 var data = await db.GetAsync<PositionDto>(query);
@@ -171,26 +188,47 @@ namespace ThePatho.Features.Organization.Position.Service
                 if (string.IsNullOrWhiteSpace(request.PositionCode))
                 {
                     return new ApiResponse<PositionDto>(
-                         HttpStatusCode.BadRequest,
-                         "Position is required"
-                     );
+                        HttpStatusCode.BadRequest,
+                        "Position is required"
+                    );
                 }
 
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
 
-                var deleteQuery = new Query(TableOrganization.Position)
-                                .Where("PositionCode", request.PositionCode)
-                                .AsDelete();
+                var updateResult = await db
+                    .Query(TableOrganization.Position)
+                    .Where("PositionCode", request.PositionCode)
+                    .WhereFalse("IsDeleted") // optional: prevent double delete
+                    .UpdateAsync(new
+                    {
+                        IsDeleted = true,
+                        ModifiedBy = "system",
+                        ModifiedDate = DateTime.UtcNow
+                    });
 
-                var deleteResult = await db.ExecuteAsync(deleteQuery);
-                return new ApiResponse(HttpStatusCode.OK, $"Delete {request.PositionCode} successfully");
+                if (updateResult == 0)
+                {
+                    return new ApiResponse(
+                        HttpStatusCode.NotFound,
+                        $"Position {request.PositionCode} not found"
+                    );
+                }
+
+                return new ApiResponse(
+                    HttpStatusCode.OK,
+                    $"Delete {request.PositionCode} successfully"
+                );
             }
             catch (Exception ex)
             {
-                return new ApiResponse(HttpStatusCode.BadRequest, $"Failed to delete {request.PositionCode}", ex.Message.ToString());
+                return new ApiResponse(
+                    HttpStatusCode.InternalServerError,
+                    $"Failed to delete {request.PositionCode}",
+                    ex.Message
+                );
             }
-            
+
         }
 
         public async Task<ApiResponse<PositionDto>> GetSinglePosition(GetSinglePositionCommand request)
@@ -202,8 +240,8 @@ namespace ThePatho.Features.Organization.Position.Service
                 var query = new Query(TableOrganization.Position)
                     .Select("*")
                     .When(
-                        !string.IsNullOrWhiteSpace(request.FilterPositionCode),
-                        q => q.WhereIn("PositionCode", request.FilterPositionCode)
+                        !string.IsNullOrWhiteSpace(request.PositionCode),
+                        q => q.WhereIn("PositionCode", request.PositionCode)
                     );
 
                 var data = await db.FirstOrDefaultAsync<PositionDto>(query);

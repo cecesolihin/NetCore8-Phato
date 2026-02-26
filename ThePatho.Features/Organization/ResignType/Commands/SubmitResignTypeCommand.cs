@@ -6,10 +6,10 @@ namespace ThePatho.Features.Organization.ResignType.Commands
 {
     public class SubmitResignTypeCommand : IRequest<ApiResponse>
     {
-        [JsonPropertyName("resign_type_code")]
+        [JsonPropertyName("resignTypeCode")]
         public string ResignTypeCode { get; set; } = null!;
 
-        [JsonPropertyName("resign_type_name")]
+        [JsonPropertyName("resignTypeName")]
         public string ResignTypeName { get; set; } = null!;
 
         [JsonPropertyName("action")]

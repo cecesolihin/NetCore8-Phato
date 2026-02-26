@@ -88,9 +88,9 @@ namespace ThePatho.Features.Global.City.Service
             try
             {
                 var parameters = new DynamicParameters();
-                parameters.Add("@CityCode", request.FilterCityCode ?? string.Empty);
-                parameters.Add("@Name", request.FilterName ?? string.Empty);
-                parameters.Add("@ProvinceId", request.FilterProvinceId);
+                parameters.Add("@CityCode", request.CityCode ?? string.Empty);
+                parameters.Add("@Name", request.Name ?? string.Empty);
+                parameters.Add("@ProvinceId", request.ProvinceId ?? 0);
 
 
                 var query = await queryLoader.LoadQueryAsync("Global/City/Sql/get_criteria_city");

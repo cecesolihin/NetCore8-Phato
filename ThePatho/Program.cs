@@ -17,14 +17,17 @@ using ThePatho.Provider;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Load environment variables from .env file for development
-//if (builder.Environment.IsDevelopment())
-//{
-    var envFile = Path.Combine(Directory.GetCurrentDirectory(), "..", ".env");
+// Pastikan environment variables tersedia agar menimpa nilai di appsettings
+builder.Configuration.AddEnvironmentVariables();
+
+// Load environment variables dari .env hanya saat Development
+if (builder.Environment.IsDevelopment())
+{
+    var envFile = Path.Combine(Directory.GetCurrentDirectory(), ".env");
     if (File.Exists(envFile))
     {
         var envVars = File.ReadAllLines(envFile)
-            .Where(line => !string.IsNullOrWhiteSpace(line) && !line.StartsWith("#"))
+            .Where(line => !string.IsNullOrWhiteSpace(line) && !line.TrimStart().StartsWith("#"))
             .Select(line => line.Split('=', 2))
             .Where(parts => parts.Length == 2)
             .ToDictionary(parts => parts[0].Trim(), parts => parts[1].Trim());
@@ -34,7 +37,7 @@ var builder = WebApplication.CreateBuilder(args);
             Environment.SetEnvironmentVariable(envVar.Key, envVar.Value);
         }
     }
-//}
+}
 
 // Konfigurasi lisensi QuestPDF agar tidak memunculkan exception lisensi
 QuestPDF.Settings.License = LicenseType.Community;
@@ -56,16 +59,6 @@ builder.Services.AddSwaggerGen(options =>
         Title = "Identity API",
         Version = "v1"
     });
-    //options.SwaggerDoc("MasterData", new Microsoft.OpenApi.Models.OpenApiInfo
-    //{
-    //    Title = "Master Data API",
-    //    Version = "v1"
-    //});
-    //options.SwaggerDoc("MasterSetting", new Microsoft.OpenApi.Models.OpenApiInfo
-    //{
-    //    Title = "Master Setting API",
-    //    Version = "v1"
-    //});
     options.SwaggerDoc("Organization", new Microsoft.OpenApi.Models.OpenApiInfo
     {
         Title = "Organization API",
@@ -81,25 +74,13 @@ builder.Services.AddSwaggerGen(options =>
         Title = "Personal Information API",
         Version = "v1"
     });
-    //options.SwaggerDoc("Applicant", new Microsoft.OpenApi.Models.OpenApiInfo
-    //{
-    //    Title = "Applicant API",
-    //    Version = "v1"
-    //});
-    //options.SwaggerDoc("Recruitment", new Microsoft.OpenApi.Models.OpenApiInfo
-    //{
-    //    Title = "Recruitment API",
-    //    Version = "v1"
-    //});
 
-    // Use Controller Group Names
     options.DocInclusionPredicate((docName, apiDesc) =>
     {
         var groupName = apiDesc.GroupName ?? string.Empty;
         return docName.Equals(groupName, StringComparison.OrdinalIgnoreCase);
     });
 
-    // Add JWT Bearer security definition to enable token input in Swagger
     options.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
     {
         Name = "Authorization",
@@ -175,7 +156,15 @@ builder.Services.AddCors(options =>
     });
 });
 
-var jwtConfig = builder.Configuration.GetSection("Jwt").Get<JwtConfiguration>();
+// Safe JWT configuration read (toleran terhadap missing / non-int values)
+var jwtSection = builder.Configuration.GetSection("Jwt");
+var jwtConfig = new JwtConfiguration
+{
+    Issuer = jwtSection["Issuer"],
+    Audience = jwtSection["Audience"],
+    Key = jwtSection["Key"],
+    ExpiryMinutes = int.TryParse(jwtSection["ExpiryMinutes"], out var minutes) ? minutes : 60
+};
 
 builder.Services.Configure<JwtConfiguration>(builder.Configuration.GetSection("Jwt"));
 builder.Services.AddSingleton(jwtConfig);
@@ -184,15 +173,32 @@ builder.Services.AddScoped<IDateTimeService, DateTimeService>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
+        // Prepare signing key: expect base64, but fallback to UTF8 plain-text
+        var jwtKeyConfigValue = builder.Configuration["Jwt:Key"] ?? jwtConfig.Key;
+        if (string.IsNullOrWhiteSpace(jwtKeyConfigValue))
+        {
+            throw new InvalidOperationException("Jwt:Key is not configured. Set environment variable Jwt__Key (base64 or plain text).");
+        }
+
+        byte[] keyBytes;
+        try
+        {
+            keyBytes = Convert.FromBase64String(jwtKeyConfigValue);
+        }
+        catch (FormatException)
+        {
+            keyBytes = System.Text.Encoding.UTF8.GetBytes(jwtKeyConfigValue);
+        }
+
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = builder.Configuration["Jwt:Issuer"],
-            ValidAudience = builder.Configuration["Jwt:Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(Convert.FromBase64String(builder.Configuration["Jwt:Key"]!)),
+            ValidIssuer = jwtConfig.Issuer ?? builder.Configuration["Jwt:Issuer"],
+            ValidAudience = jwtConfig.Audience ?? builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(keyBytes),
             ClockSkew = TimeSpan.FromMinutes(2)
         };
         options.SaveToken = true;
@@ -212,26 +218,18 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 
 builder.Services.AddAuthorization();
-//// Load environment variables
-//DotNetEnv.Env.Load();
-
-//builder.Configuration.AddEnvironmentVariables();
 
 var app = builder.Build();
 
-//if (app.Environment.IsDevelopment())
-//{
-    app.UseSwagger();
-    app.UseSwaggerUI(options =>
-    {
-        options.SwaggerEndpoint("/swagger/Identity/swagger.json", "Identity API");
-        options.SwaggerEndpoint("/swagger/Organization/swagger.json", "Organization API");
-        options.SwaggerEndpoint("/swagger/Global/swagger.json", "Global API");
-        options.SwaggerEndpoint("/swagger/PersonalInformation/swagger.json", "Personal Information API");
-        options.SwaggerEndpoint("/swagger/Email/swagger.json", "Email API");
-        options.DocExpansion(DocExpansion.None);
-    });
-//}
+app.UseSwagger();
+app.UseSwaggerUI(options =>
+{
+    options.SwaggerEndpoint("/swagger/Identity/swagger.json", "Identity API");
+    options.SwaggerEndpoint("/swagger/Organization/swagger.json", "Organization API");
+    options.SwaggerEndpoint("/swagger/Global/swagger.json", "Global API");
+    options.SwaggerEndpoint("/swagger/PersonalInformation/swagger.json", "Personal Information API");
+    options.DocExpansion(DocExpansion.None);
+});
 
 // Global exception handler with ProblemDetails
 app.UseExceptionHandler(errorApp =>
@@ -259,7 +257,6 @@ app.UseCors(CorsPolicyName);
 // Header-based API versioning (minimal): require x-api-version=v1
 app.Use(async (context, next) =>
 {
-    // Bypass for Swagger UI and CORS preflight
     var path = context.Request.Path;
     if (path.StartsWithSegments("/swagger") || string.Equals(context.Request.Method, "OPTIONS", StringComparison.OrdinalIgnoreCase))
     {
@@ -267,7 +264,6 @@ app.Use(async (context, next) =>
         return;
     }
 
-    // Default to v1 if not provided to keep DX simple; validate if provided
     if (!context.Request.Headers.TryGetValue("x-api-version", out var version))
     {
         context.Request.Headers.Add("x-api-version", "v1");
@@ -297,7 +293,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-// Root and health endpoints to avoid 404 on base URL
 app.MapGet("/", () => Results.Json(new { status = "ok", service = "ThePatho API" }));
 app.MapGet("/health", () => Results.Ok("Healthy"));
 

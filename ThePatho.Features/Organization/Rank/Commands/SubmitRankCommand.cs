@@ -6,14 +6,14 @@ namespace ThePatho.Features.Organization.Rank.Commands
 {
     public class SubmitRankCommand : IRequest<ApiResponse>
     {
-        [JsonPropertyName("rank_code")]
+        [JsonPropertyName("rankCode")]
         public string RankCode { get; set; } = null!;
 
-        [JsonPropertyName("rank_name")]
+        [JsonPropertyName("rankName")]
         public string RankName { get; set; } = null!;
 
-        [JsonPropertyName("order")]
-        public byte Order { get; set; }
+        [JsonPropertyName("sortOrder")]
+        public byte SortOrder { get; set; }
 
         [JsonPropertyName("remarks")]
         public string? Remarks { get; set; }

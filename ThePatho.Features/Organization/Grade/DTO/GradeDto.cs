@@ -4,7 +4,7 @@ namespace ThePatho.Features.Organization.Grade.DTO
     {
         public string GradeCode { get; set; } = null!;
         public string GradeName { get; set; } = null!;
-        public string? Status { get; set; }
+        public bool IsActive { get; set; }
         public byte SortOrder { get; set; }
         public string? Remarks { get; set; }
         public bool IsDeleted { get; set; }

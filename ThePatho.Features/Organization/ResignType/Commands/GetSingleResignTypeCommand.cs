@@ -8,7 +8,7 @@ namespace ThePatho.Features.Organization.ResignType.Commands
 {
     public class GetSingleResignTypeCommand : IRequest<ApiResponse<ResignTypeDto>>
     {
-        [JsonPropertyName("resign_type_code")]
+        [JsonPropertyName("resignTypeCode")]
         public string ResignTypeCode { get; set; } = null!;
     }
 }

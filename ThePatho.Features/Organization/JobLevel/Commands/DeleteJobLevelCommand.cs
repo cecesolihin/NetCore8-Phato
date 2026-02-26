@@ -6,7 +6,7 @@ namespace ThePatho.Features.Organization.JobLevel.Commands
 {
     public class DeleteJobLevelCommand : IRequest<ApiResponse>
     {
-        [JsonPropertyName("job_level_code")]
+        [JsonPropertyName("jobLevelCode")]
         public string JobLevelCode { get; set; }
     }
 }

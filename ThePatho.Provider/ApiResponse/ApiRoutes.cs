@@ -108,6 +108,9 @@ namespace ThePatho.Provider.ApiResponse
             public const string InventoryGroupDetail = BaseApiPathGlobal + "inventory-group-detail";
             public const string InventoryGroupOrg = BaseApiPathGlobal + "inventory-group-org";
             public const string TaxStatus = BaseApiPathGlobal + "tax-status";
+            public const string RadiusUnit = BaseApiPathGlobal + "radius-unit";
+            public const string TimeZone = BaseApiPathGlobal + "time-zone";
+            public const string TaxLocation = BaseApiPathGlobal + "tax-location";
         }
         public static class Methods
         {

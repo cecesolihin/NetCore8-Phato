@@ -11,7 +11,7 @@ namespace ThePatho.Controllers
     [ApiController]
     [Route(ApiRoutes.OrganizationMenu.TerminationType)]
     [ApiExplorerSettings(GroupName = "Organization")]
-    //[Authorize]
+    [Authorize]
     public class TerminationTypeController : ControllerBase
     {
         private readonly IMediator mediator;

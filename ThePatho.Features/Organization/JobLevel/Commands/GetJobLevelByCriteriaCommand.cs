@@ -7,10 +7,10 @@ namespace ThePatho.Features.Organization.JobLevel.Commands
 {
     public class GetJobLevelByCriteriaCommand :IRequest<ApiResponse<JobLevelItemDto>>
     {
-        [JsonPropertyName("filter_JobLevelName")]
-        public string? FilterJobLevelName { get; set; }
+        [JsonPropertyName("jobLevelName")]
+        public string? JobLevelName { get; set; }
 
-        [JsonPropertyName("filter_JobLevelCode")]
-        public string? FilterJobLevelCode { get; set; }
+        [JsonPropertyName("jobLevelCode")]
+        public string? JobLevelCode { get; set; }
     }
 }

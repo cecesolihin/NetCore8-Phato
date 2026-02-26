@@ -8,17 +8,15 @@ namespace ThePatho.Features.Organization.CompanyProfile.Commands
 {
     public class GetCompanyProfileByCriteriaCommand : IRequest<ApiResponse<CompanyProfileItemDto>>
     {
-        [JsonPropertyName("filter_company_code")]
-        public string FilterCompanyCode { get; set; } = null!;
+        [JsonPropertyName("companyCode")]
+        public string? CompanyCode { get; set; }
 
-        [JsonPropertyName("filter_company_name")]
-        public string FilterCompanyName { get; set; } = null!;
+        [JsonPropertyName("companyName")]
+        public string? CompanyName { get; set; }
 
-        [JsonPropertyName("filter_country_code")]
-        public string? FilterCountryCode { get; set; }
+        [JsonPropertyName("countryCode")]
+        public string? CountryCode { get; set; }
 
-        [JsonPropertyName("filter_city")]
-        public string? FilterCity { get; set; }
 
     }
 }

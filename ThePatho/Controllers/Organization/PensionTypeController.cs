@@ -11,7 +11,7 @@ namespace ThePatho.Controllers
     [ApiController]
     [Route(ApiRoutes.OrganizationMenu.PensionType)]
     [ApiExplorerSettings(GroupName = "Organization")]
-    //[Authorize]
+    [Authorize]
     public class PensionTypeController : ControllerBase
     {
         private readonly IMediator mediator;

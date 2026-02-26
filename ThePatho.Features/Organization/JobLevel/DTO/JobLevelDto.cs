@@ -13,6 +13,8 @@ namespace ThePatho.Features.Organization.JobLevel.DTO
         public string? ModifiedBy { get; set; }
         public DateTime? ModifiedDate { get; set; }
         public bool? IsActive { get; set; }
+        public List<string> JobClassCodes { get; set; } = new();
+        public string JobClass { get; set; }
     }
     public class JobLevelItemDto
     {

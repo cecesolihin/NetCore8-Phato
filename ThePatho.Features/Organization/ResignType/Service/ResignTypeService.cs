@@ -33,15 +33,14 @@ namespace ThePatho.Features.Organization.ResignType.Service
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
                 var query = new Query(TableOrganization.ResignType)
-                    .Select("*")
-                    .When(
-                        !string.IsNullOrWhiteSpace(request.ResignTypeCode),
-                        q => q.WhereContains("ResignTypeCode", request.ResignTypeName)
-                    )
-                    .When(
-                        !string.IsNullOrWhiteSpace(request.ResignTypeName),
-                        q => q.WhereContains("ResignTypeName", request.ResignTypeName)
-                    );
+                        .Select("*")
+                        .When(
+                            !string.IsNullOrWhiteSpace(request.FilterResignType),
+                            q => q.Where(w => w
+                                .WhereContains("ResignTypeCode", request.FilterResignType)
+                                .OrWhereContains("ResignTypeName", request.FilterResignType)
+                            )
+                        );
 
                 query = query.OrderByRaw(
                     $"{(!string.IsNullOrWhiteSpace(request.SortBy) ? request.SortBy : "InsertedBy")} {(!string.IsNullOrWhiteSpace(request.OrderBy) && (request.OrderBy.ToUpper() == "ASC" || request.OrderBy.ToUpper() == "DESC") ? request.OrderBy.ToUpper() : "DESC")}"

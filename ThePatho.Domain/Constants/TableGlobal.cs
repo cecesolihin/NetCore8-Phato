@@ -67,6 +67,9 @@ namespace ThePatho.Domain.Constants
         public const string Ownership = CorePrefix + "Ownership";
         public const string TaxStatus = CorePrefix + "TaxStatus";
         public const string Bank = CorePrefix + "Bank";
+        public const string RadiusUnit = CorePrefix + "RadiusUnit";
+        public const string TimeZone = CorePrefix + "TimeZone";
+        public const string TaxLocation = CorePrefix + "TaxLocation";
         #endregion
 
         #region [Prefix - TGED]

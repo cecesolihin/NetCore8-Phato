@@ -8,11 +8,11 @@ namespace ThePatho.Features.Organization.Position.Commands
 {
     public class GetPositionCommand :IRequest<ApiResponse<PositionItemDto>>
     {
-        [JsonPropertyName("filter_PositionName")]
-        public string? FilterPositionName { get; set; }
+        [JsonPropertyName("filter_Position")]
+        public string? FilterPosition { get; set; }
 
-        [JsonPropertyName("filter_PositionCode")]
-        public string? FilterPositionCode { get; set; }
+        [JsonPropertyName("filter_status")]
+        public string? FilterStatus { get; set; }
 
         [JsonPropertyName("sortBy")]
         [DefaultValue("InsertedDate")]

@@ -8,11 +8,11 @@ namespace ThePatho.Features.Organization.ResignType.Commands
 {
     public class GetResignTypeByCriteriaCommand : IRequest<ApiResponse<ResignTypeItemDto>>
     {
-        [JsonPropertyName("resign_type_code")]
-        public string ResignTypeCode { get; set; } = null!;
+        [JsonPropertyName("resignTypeCode")]
+        public string ResignTypeCode { get; set; }
 
-        [JsonPropertyName("resign_type_name")]
-        public string ResignTypeName { get; set; } = null!;
+        [JsonPropertyName("resignTypeName")]
+        public string? ResignTypeName { get; set; }
 
     }
 }

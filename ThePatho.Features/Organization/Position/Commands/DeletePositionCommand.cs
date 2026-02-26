@@ -6,7 +6,7 @@ namespace ThePatho.Features.Organization.Position.Commands
 {
     public class DeletePositionCommand : IRequest<ApiResponse>
     {
-        [JsonPropertyName("position_code")]
+        [JsonPropertyName("positionCode")]
         public string PositionCode { get; set; }
     }
 }

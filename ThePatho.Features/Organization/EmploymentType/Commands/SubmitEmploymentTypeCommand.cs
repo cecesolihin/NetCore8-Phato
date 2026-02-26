@@ -6,40 +6,40 @@ namespace ThePatho.Features.Organization.EmploymentType.Commands
 {
     public class SubmitEmploymentTypeCommand : IRequest<ApiResponse>
     {
-        [JsonPropertyName("employment_type_code")]
+        [JsonPropertyName("employmentTypeCode")]
         public string EmploymentTypeCode { get; set; } = null!;
 
-        [JsonPropertyName("employment_type_name")]
+        [JsonPropertyName("employmentTypeName")]
         public string EmploymentTypeName { get; set; } = null!;
 
-        [JsonPropertyName("status")]
+        [JsonPropertyName("isActive")]
         public bool IsActive { get; set; }
 
-        [JsonPropertyName("order")]
+        [JsonPropertyName("sortOrder")]
         public byte SortOrder { get; set; }
 
         [JsonPropertyName("remarks")]
         public string? Remarks { get; set; }
 
-        [JsonPropertyName("use_end_date")]
+        [JsonPropertyName("useEndDate")]
         public bool UseEndDate { get; set; }
 
-        [JsonPropertyName("employment_period_month")]
+        [JsonPropertyName("employmentPeriodMonth")]
         public int? EmploymentPeriodMonth { get; set; }
 
-        [JsonPropertyName("is_deleted")]
+        [JsonPropertyName("isDeleted")]
         public bool IsDeleted { get; set; }
 
-        [JsonPropertyName("inserted_by")]
+        [JsonPropertyName("insertedBy")]
         public string? InsertedBy { get; set; }
 
-        [JsonPropertyName("inserted_date")]
+        [JsonPropertyName("insertedDate")]
         public string? InsertedDate { get; set; }
 
-        [JsonPropertyName("modified_by")]
+        [JsonPropertyName("modifiedBy")]
         public string? ModifiedBy { get; set; }
 
-        [JsonPropertyName("modified_date")]
+        [JsonPropertyName("modifiedDate")]
         public string? ModifiedDate { get; set; }
 
         [JsonPropertyName("action")]

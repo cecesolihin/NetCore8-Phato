@@ -37,20 +37,19 @@ namespace ThePatho.Features.Organization.CompanyBank.Service
                 var query = new Query(TableOrganization.CompanyBank)
                             .Select("*")
                             .When(
+                                !string.IsNullOrWhiteSpace(request.FilterCompanyBank),
+                                q => q.Where(w => w
+                                    //.WhereContains("CompanyCode", request.FilterCompanyBank)
+                                    .OrWhereContains("BankCode", request.FilterCompanyBank)
+                                    .OrWhereContains("Branch", request.FilterCompanyBank)
+                                    .OrWhereContains("AccountName", request.FilterCompanyBank)
+                                )
+                            )
+                            .When(
                                 !string.IsNullOrWhiteSpace(request.FilterCompanyCode),
-                                q => q.WhereContains("CompanyCode", request.FilterCompanyCode)
-                            )
-                            .When(
-                                !string.IsNullOrWhiteSpace(request.FilterBankCode),
-                                q => q.WhereContains("BankCode", request.FilterBankCode)
-                            )
-                            .When(
-                                !string.IsNullOrWhiteSpace(request.FilterBranch),
-                                q => q.WhereContains("Branch", request.FilterBranch)
-                            )
-                            .When(
-                                !string.IsNullOrWhiteSpace(request.FilterAccountName),
-                                q => q.WhereContains("AccountName", request.FilterAccountName)
+                                q => q.Where(w => w
+                                    .Where("CompanyCode", request.FilterCompanyCode)
+                                )
                             );
 
                 query = query.OrderByRaw(

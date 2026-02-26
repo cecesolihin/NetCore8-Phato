@@ -89,10 +89,10 @@ namespace ThePatho.Features.Global.Country.Service
             try
             {
                 var parameters = new DynamicParameters();
-                parameters.Add("@Name", request.FilterName ?? string.Empty);
-                parameters.Add("@NumericIsoCode", request.FilterNumericIsoCode ?? 0);
-                parameters.Add("@ThreeLetterIsoCode", request.FilterThreeLetterIsoCode ?? string.Empty);
-                parameters.Add("@TwoLetterIsoCode", request.FilterTwoLetterIsoCode ?? string.Empty);
+                parameters.Add("@Name", request.Name ?? string.Empty);
+                parameters.Add("@NumericIsoCode", request.NumericIsoCode ?? 0);
+                parameters.Add("@ThreeLetterIsoCode", request.ThreeLetterIsoCode ?? string.Empty);
+                parameters.Add("@TwoLetterIsoCode", request.TwoLetterIsoCode ?? string.Empty);
 
 
                 var query = await queryLoader.LoadQueryAsync("Global/Country/Sql/get_criteria_country");

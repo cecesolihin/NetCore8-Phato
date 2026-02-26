@@ -8,7 +8,7 @@ namespace ThePatho.Features.Organization.Rank.Commands
 {
     public class GetSingleRankCommand : IRequest<ApiResponse<RankDto>>
     {
-        [JsonPropertyName("rank_code")]
+        [JsonPropertyName("rankCode")]
         public string RankCode { get; set; } = null!;
     }
 }

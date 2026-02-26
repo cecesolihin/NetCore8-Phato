@@ -8,17 +8,10 @@ namespace ThePatho.Features.Organization.CompanyBank.Commands
 {
     public class GetCompanyBankCommand : IRequest<ApiResponse<CompanyBankItemDto>>
     {
+        [JsonPropertyName("filter_CompanyBank")]
+        public string? FilterCompanyBank { get; set; }
         [JsonPropertyName("filter_CompanyCode")]
         public string? FilterCompanyCode { get; set; }
-
-        [JsonPropertyName("filter_BankCode")]
-        public string? FilterBankCode { get; set; }
-
-        [JsonPropertyName("filter_Branch")]
-        public string? FilterBranch { get; set; }
-
-        [JsonPropertyName("filter_AccountName")]
-        public string? FilterAccountName { get; set; }
 
         [JsonPropertyName("sortBy")]
         [DefaultValue("InsertedDate")]

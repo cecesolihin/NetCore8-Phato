@@ -11,7 +11,7 @@ namespace ThePatho.Controllers
     [ApiController]
     [Route(ApiRoutes.OrganizationMenu.JobClass)]
     [ApiExplorerSettings(GroupName = "Organization")]
-    //[Authorize]
+    [Authorize]
     public class JobClassController : ControllerBase
     {
         private readonly IMediator mediator;

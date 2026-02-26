@@ -34,15 +34,14 @@ namespace ThePatho.Features.Organization.JobLevelJobClass.Service
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
                 var query = new Query(TableOrganization.JobLevelJobClass)
-                    .Select("*")
-                    .When(
-                        !string.IsNullOrWhiteSpace(request.JobLevelCode),
-                        q => q.WhereContains("JobLevelCode", request.JobLevelCode)
-                    )
-                    .When(
-                        !string.IsNullOrWhiteSpace(request.JobClassCode),
-                        q => q.WhereContains("JobClassCode", request.JobClassCode)
-                    );
+                        .Select("*")
+                        .When(
+                            !string.IsNullOrWhiteSpace(request.FilterJobLevelJobClass),
+                            q => q.Where(w => w
+                                .WhereContains("JobLevelCode", request.FilterJobLevelJobClass)
+                                .OrWhereContains("JobClassCode", request.FilterJobLevelJobClass)
+                            )
+                        );
 
                 query = query.OrderByRaw(
                     $"{(!string.IsNullOrWhiteSpace(request.SortBy) ? request.SortBy : "InsertedBy")} {(!string.IsNullOrWhiteSpace(request.OrderBy) && (request.OrderBy.ToUpper() == "ASC" || request.OrderBy.ToUpper() == "DESC") ? request.OrderBy.ToUpper() : "DESC")}"

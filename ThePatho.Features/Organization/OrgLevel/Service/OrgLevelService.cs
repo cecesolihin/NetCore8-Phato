@@ -34,15 +34,15 @@ namespace ThePatho.Features.Organization.OrgLevel.Service
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
                 var query = new Query(TableOrganization.OrgLevel)
-                    .Select("*")
-                    .When(
-                        !string.IsNullOrWhiteSpace(request.OrgLevelCode),
-                        q => q.WhereContains("OrgLevelCode", request.OrgLevelCode)
-                    )
-                    .When(
-                        !string.IsNullOrWhiteSpace(request.OrgLevelName),
-                        q => q.WhereContains("OrgLevelName", request.OrgLevelName)
-                    );
+                        .Select("*")
+                        .Where("IsDeleted", false)
+                        .When(
+                            !string.IsNullOrWhiteSpace(request.FilterOrgLevel),
+                            q => q.Where(w => w
+                                .WhereContains("OrgLevelCode", request.FilterOrgLevel)
+                                .OrWhereContains("OrgLevelName", request.FilterOrgLevel)
+                            )
+                        );
 
                 query = query.OrderByRaw(
                     $"{(!string.IsNullOrWhiteSpace(request.SortBy) ? request.SortBy : "InsertedBy")} {(!string.IsNullOrWhiteSpace(request.OrderBy) && (request.OrderBy.ToUpper() == "ASC" || request.OrderBy.ToUpper() == "DESC") ? request.OrderBy.ToUpper() : "DESC")}"
@@ -77,6 +77,7 @@ namespace ThePatho.Features.Organization.OrgLevel.Service
                 var db = new QueryFactory(connection, dapperContext.Compiler);
                 var query = new Query(TableOrganization.OrgLevel)
                     .Select("*")
+                    .Where("IsDeleted", false)
                     .When(
                         !string.IsNullOrWhiteSpace(request.OrgLevelCode),
                         q => q.WhereContains("OrgLevelCode", request.OrgLevelCode)
@@ -164,24 +165,45 @@ namespace ThePatho.Features.Organization.OrgLevel.Service
                 if (string.IsNullOrWhiteSpace(request.OrgLevelCode))
                 {
                     return new ApiResponse<OrgLevelDto>(
-                         HttpStatusCode.BadRequest,
-                         "OrgLevel is required"
-                     );
+                        HttpStatusCode.BadRequest,
+                        "OrgLevel is required"
+                    );
                 }
 
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
 
-                var deleteQuery = new Query(TableOrganization.OrgLevel)
-                                .Where("OrgLevelCode", request.OrgLevelCode)
-                                .AsDelete();
+                var updateResult = await db
+                    .Query(TableOrganization.OrgLevel)
+                    .Where("OrgLevelCode", request.OrgLevelCode)
+                    .WhereFalse("IsDeleted")
+                    .UpdateAsync(new
+                    {
+                        IsDeleted = true,
+                        ModifiedBy = "system",
+                        ModifiedDate = DateTime.UtcNow
+                    });
 
-                var deleteResult = await db.ExecuteAsync(deleteQuery);
-                return new ApiResponse(HttpStatusCode.OK, $"Delete {request.OrgLevelCode} successfully");
+                if (updateResult == 0)
+                {
+                    return new ApiResponse(
+                        HttpStatusCode.NotFound,
+                        $"OrgLevel {request.OrgLevelCode} not found"
+                    );
+                }
+
+                return new ApiResponse(
+                    HttpStatusCode.OK,
+                    $"Delete {request.OrgLevelCode} successfully"
+                );
             }
             catch (Exception ex)
             {
-                return new ApiResponse(HttpStatusCode.BadRequest, $"Failed to delete {request.OrgLevelCode}", ex.Message.ToString());
+                return new ApiResponse(
+                    HttpStatusCode.InternalServerError,
+                    $"Failed to delete {request.OrgLevelCode}",
+                    ex.Message
+                );
             }
 
         }

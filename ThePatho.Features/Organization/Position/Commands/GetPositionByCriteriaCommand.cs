@@ -7,7 +7,9 @@ namespace ThePatho.Features.Organization.Position.Commands
 {
     public class GetPositionByCriteriaCommand :IRequest<ApiResponse<PositionItemDto>>
     {
-        [JsonPropertyName("filter_OrgStructureId")]
-        public string FilterOrgStructureId { get; set; }
+        [JsonPropertyName("orgStructureId")]
+        public string? OrgStructureId { get; set; }
+        [JsonPropertyName("jobLevelCode")]
+        public string? JobLevelCode { get; set; }
     }
 }

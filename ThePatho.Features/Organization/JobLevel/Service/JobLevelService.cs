@@ -1,22 +1,24 @@
-using Microsoft.EntityFrameworkCore;
-using SqlKata;
-using SqlKata.Execution;
-using System.Net;
-using System.IO;
-using ThePatho.Domain.Constants;
-using ThePatho.Provider.ApiResponse;
-using ThePatho.Features.Organization.JobLevel.Commands;
-using ThePatho.Features.Organization.JobLevel.DTO;
-using ThePatho.Features.Organization.OrgLevel.DTO;
-using ThePatho.Features.Organization.OrgStructure.DTO;
-using ThePatho.Infrastructure.Persistance;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using ThePatho.Features.Organization.Grade.DTO;
 using ClosedXML.Excel;
+using Microsoft.EntityFrameworkCore;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
+using SqlKata;
+using SqlKata.Execution;
+using System.IO;
+using System.Net;
+using ThePatho.Domain.Constants;
 using ThePatho.Features.Common.DTO;
+using ThePatho.Features.Organization.Grade.DTO;
+using ThePatho.Features.Organization.JobClass.DTO;
+using ThePatho.Features.Organization.JobLevel.Commands;
+using ThePatho.Features.Organization.JobLevel.DTO;
+using ThePatho.Features.Organization.JobLevelJobClass.DTO;
+using ThePatho.Features.Organization.OrgLevel.DTO;
+using ThePatho.Features.Organization.OrgStructure.DTO;
+using ThePatho.Infrastructure.Persistance;
+using ThePatho.Provider.ApiResponse;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ThePatho.Features.Organization.JobLevel.Service
 {
@@ -35,29 +37,73 @@ namespace ThePatho.Features.Organization.JobLevel.Service
             {
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
+                // 1. Ambil data JobLevel dengan filter dan pagination
                 var query = new Query(TableOrganization.JobLevel)
-                    .Select("*"
-                        )
+                    .Select("*")
+                    .Where("IsDeleted", false)
                     .When(
-                        !string.IsNullOrWhiteSpace(request.FilterJobLevelCode),
-                        q => q.WhereIn("JobLevelCode", request.FilterJobLevelCode)
-                    ).When(
-                        !string.IsNullOrWhiteSpace(request.FilterJobLevelName),
-                            q => q.WhereContains("JobLevelName", request.FilterJobLevelName)
+                        !string.IsNullOrWhiteSpace(request.FilterJobLevel),
+                        q => q.Where(w => w
+                            .WhereContains("JobLevelCode", request.FilterJobLevel)
+                            .OrWhereContains("JobLevelName", request.FilterJobLevel)
+                        )
+                    )
+                    .When(
+                        !string.IsNullOrWhiteSpace(request.FilterStatus)
+                        && request.FilterStatus.ToLower() != "all",
+                        q =>
+                        {
+                            bool isActive = request.FilterStatus == "1";
+                            return q.Where("IsActive", isActive);
+                        }
                     );
 
+                // Sorting
                 query = query.OrderByRaw(
                     $"{(!string.IsNullOrWhiteSpace(request.SortBy) ? request.SortBy : "InsertedBy")} {(!string.IsNullOrWhiteSpace(request.OrderBy) && (request.OrderBy.ToUpper() == "ASC" || request.OrderBy.ToUpper() == "DESC") ? request.OrderBy.ToUpper() : "DESC")}"
                 );
 
+                // Pagination
                 query = query.Skip(request.PageNumber * request.PageSize).Take(request.PageSize);
 
-                var data = await db.GetAsync<JobLevelDto>(query);
+                // Eksekusi query JobLevel
+                var jobLevels = await db.GetAsync<JobLevelDto>(query);
+
+                // 2. Ambil JobClass untuk semua JobLevel sekaligus
+                var jobLevelCodes = jobLevels.Select(j => j.JobLevelCode).ToList();
+
+                var jobClassQuery = new Query(TableOrganization.JobLevelJobClass)
+                    .Select("JobLevelCode", "JobClassCode")
+                    .WhereIn("JobLevelCode", jobLevelCodes)
+                    .Where("IsDeleted", false);
+
+                var jobClassMappings = await db.GetAsync<JobLevelJobClassDto>(jobClassQuery);
+
+                // 3. Gabungkan hasilnya
+                var jobLevelList = jobLevels.Select(jobLevel => {
+                    var jobClasses = jobClassMappings
+                        .Where(jc => jc.JobLevelCode == jobLevel.JobLevelCode)
+                        .Select(jc => jc.JobClassCode)
+                        .ToList();
+
+                    return new JobLevelDto
+                    {
+                        JobLevelCode = jobLevel.JobLevelCode,
+                        JobLevelName = jobLevel.JobLevelName,
+                        Remarks = jobLevel.Remarks,
+                        SortOrder = jobLevel.SortOrder,
+                        IsActive = jobLevel.IsActive,
+                        JobClassCodes = jobClasses,
+                        JobClass = string.Join(", ", jobClasses)
+                    };
+                }).ToList();
+
                 var result = new JobLevelItemDto
                 {
-                    DataOfRecords = data.Count(),
-                    JobLevelList = data.ToList(),
+                    DataOfRecords = jobLevelList.Count(),
+                    JobLevelList = jobLevelList
                 };
+
                 return new ApiResponse<JobLevelItemDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
@@ -78,11 +124,10 @@ namespace ThePatho.Features.Organization.JobLevel.Service
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
                 var query = new Query(TableOrganization.JobLevel)
-                    .Select("*"
-                        )
+                    .Select("*")
                     .When(
-                        !string.IsNullOrWhiteSpace(request.FilterJobLevelCode),
-                        q => q.WhereIn("JobLevelCode", request.FilterJobLevelCode)
+                        !string.IsNullOrWhiteSpace(request.JobLevelCode),
+                        q => q.WhereIn("JobLevelCode", request.JobLevelCode)
                     );
 
                 var data = await db.FirstOrDefaultAsync<JobLevelDto>(query);
@@ -93,7 +138,26 @@ namespace ThePatho.Features.Organization.JobLevel.Service
                          "data not found"
                      );
                 }
-                return new ApiResponse<JobLevelDto>(HttpStatusCode.OK, data);
+                // 2. Ambil JobClass untuk JobLevel tersebut
+                var jobClassQuery = new Query(TableOrganization.JobLevelJobClass)
+                    .Select("JobClassCode")
+                    .Where("JobLevelCode", data.JobLevelCode)
+                    .Where("IsDeleted", false);
+
+                var jobClasses = await db.GetAsync<JobLevelJobClassDto>(jobClassQuery);
+
+                // 3. Map ke DTO dengan informasi JobClass
+                var result = new JobLevelDto
+                {
+                    JobLevelCode = data.JobLevelCode,
+                    JobLevelName = data.JobLevelName,
+                    Remarks = data.Remarks,
+                    SortOrder = data.SortOrder,
+                    IsActive = data.IsActive,
+                    JobClassCodes = jobClasses.Select(jc => jc.JobClassCode).ToList(),
+                    JobClass = string.Join(", ", jobClasses.Select(jc => jc.JobClassCode))
+                };
+                return new ApiResponse<JobLevelDto>(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
@@ -134,6 +198,24 @@ namespace ThePatho.Features.Organization.JobLevel.Service
                     });
 
                     var insertResult = await db.ExecuteAsync(insertQuery);
+
+                    // INSERT JobLevelJobClass (relasi)
+                    if (request.JobClassCodes != null && request.JobClassCodes.Any())
+                    {
+                        foreach (var jobClassCode in request.JobClassCodes)
+                        {
+                            var insertJobClassQuery = new Query(TableOrganization.JobLevelJobClass).AsInsert(new
+                            {
+                                JobLevelCode = request.JobLevelCode,
+                                JobClassCode = jobClassCode,
+                                IsDeleted = false,
+                                InsertedBy = "system",
+                                InsertedDate = DateTime.UtcNow
+                            });
+
+                            await db.ExecuteAsync(insertJobClassQuery);
+                        }
+                    }
                 }
                 else
                 {
@@ -151,6 +233,32 @@ namespace ThePatho.Features.Organization.JobLevel.Service
                         });
 
                     var updateResult = await db.ExecuteAsync(updateQuery);
+
+                    // UPDATE JobLevelJobClass (relasi)
+                    // Hapus semua relasi lama
+                    var deleteQuery = new Query(TableOrganization.JobLevelJobClass)
+                        .Where("JobLevelCode", request.JobLevelCode)
+                        .AsDelete();
+
+                    await db.ExecuteAsync(deleteQuery);
+
+                    // Insert relasi baru
+                    if (request.JobClassCodes != null && request.JobClassCodes.Any())
+                    {
+                        foreach (var jobClassCode in request.JobClassCodes)
+                        {
+                            var insertJobClassQuery = new Query(TableOrganization.JobLevelJobClass).AsInsert(new
+                            {
+                                JobLevelCode = request.JobLevelCode,
+                                JobClassCode = jobClassCode,
+                                IsDeleted = false,
+                                InsertedBy = "system",
+                                InsertedDate = DateTime.UtcNow
+                            });
+
+                            await db.ExecuteAsync(insertJobClassQuery);
+                        }
+                    }
                 }
                 return new ApiResponse(HttpStatusCode.OK, $"{request.Action} {request.JobLevelCode} successfully");
             }
@@ -166,20 +274,46 @@ namespace ThePatho.Features.Organization.JobLevel.Service
                 if (string.IsNullOrWhiteSpace(request.JobLevelCode))
                 {
                     return new ApiResponse<GradeDto>(
-                         HttpStatusCode.BadRequest,
-                         "Job level is required"
-                     );
+                        HttpStatusCode.BadRequest,
+                        "Job level is required"
+                    );
                 }
 
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
 
-                var deleteQuery = new Query(TableOrganization.JobLevel)
-                    .Where("job_level_code", request.JobLevelCode)
-                    .AsDelete();
+                // Soft delete: UPDATE IsDeleted = true
+                var updateResult = await db
+                    .Query(TableOrganization.JobLevel)
+                    .Where("JobLevelCode", request.JobLevelCode)
+                    .UpdateAsync(new
+                    {
+                        IsDeleted = true,
+                        ModifiedBy = "system",
+                        ModifiedDate = DateTime.UtcNow,
+                    });
+                await db
+                    .Query(TableOrganization.JobLevelJobClass)
+                    .Where("JobLevelCode", request.JobLevelCode)
+                    .UpdateAsync(new
+                    {
+                        IsDeleted = true,
+                        ModifiedBy = "system",
+                        ModifiedDate = DateTime.UtcNow,
+                    });
 
-                var deleteResult = await db.ExecuteAsync(deleteQuery);
-                return new ApiResponse(HttpStatusCode.OK, $"Delete {request.JobLevelCode} successfully");
+                if (updateResult == 0)
+                {
+                    return new ApiResponse(
+                        HttpStatusCode.NotFound,
+                        $"Job level {request.JobLevelCode} not found"
+                    );
+                }
+
+                return new ApiResponse(
+                    HttpStatusCode.OK,
+                    $"Delete {request.JobLevelCode} successfully"
+                );
             }
             catch (Exception ex)
             {
@@ -195,21 +329,53 @@ namespace ThePatho.Features.Organization.JobLevel.Service
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
                 var query = new Query(TableOrganization.JobLevel)
-                    .Select("*"
-                        )
+                    .Select("*")
+                    .Where("IsDeleted", false)
+                    .Where("IsActive", true)
                     .When(
-                        !string.IsNullOrWhiteSpace(request.FilterJobLevelCode),
-                        q => q.WhereIn("JobLevelCode", request.FilterJobLevelCode)
+                        !string.IsNullOrWhiteSpace(request.JobLevelCode),
+                        q => q.WhereIn("JobLevelCode", request.JobLevelCode)
                     ).When(
-                        !string.IsNullOrWhiteSpace(request.FilterJobLevelName),
-                            q => q.WhereContains("JobLevelName", request.FilterJobLevelName)
+                        !string.IsNullOrWhiteSpace(request.JobLevelName),
+                            q => q.WhereContains("JobLevelName", request.JobLevelName)
                     );
 
-                var data = await db.GetAsync<JobLevelDto>(query);
+                // Eksekusi query JobLevel
+                var jobLevels = await db.GetAsync<JobLevelDto>(query);
+
+                // 2. Ambil JobClass untuk semua JobLevel sekaligus
+                var jobLevelCodes = jobLevels.Select(j => j.JobLevelCode).ToList();
+
+                var jobClassQuery = new Query(TableOrganization.JobLevelJobClass)
+                    .Select("JobLevelCode", "JobClassCode")
+                    .WhereIn("JobLevelCode", jobLevelCodes)
+                    .Where("IsDeleted", false);
+
+                var jobClassMappings = await db.GetAsync<JobLevelJobClassDto>(jobClassQuery);
+
+                // 3. Gabungkan hasilnya
+                var jobLevelList = jobLevels.Select(jobLevel => {
+                    var jobClasses = jobClassMappings
+                        .Where(jc => jc.JobLevelCode == jobLevel.JobLevelCode)
+                        .Select(jc => jc.JobClassCode)
+                        .ToList();
+
+                    return new JobLevelDto
+                    {
+                        JobLevelCode = jobLevel.JobLevelCode,
+                        JobLevelName = jobLevel.JobLevelName,
+                        Remarks = jobLevel.Remarks,
+                        SortOrder = jobLevel.SortOrder,
+                        IsActive = jobLevel.IsActive,
+                        JobClassCodes = jobClasses,
+                        JobClass = string.Join(", ", jobClasses)
+                    };
+                }).ToList();
+
                 var result = new JobLevelItemDto
                 {
-                    DataOfRecords = data.Count(),
-                    JobLevelList = data.ToList(),
+                    DataOfRecords = jobLevelList.Count(),
+                    JobLevelList = jobLevelList
                 };
                 return new ApiResponse<JobLevelItemDto>(HttpStatusCode.OK, result);
             }

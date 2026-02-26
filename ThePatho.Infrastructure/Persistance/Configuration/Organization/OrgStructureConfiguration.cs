@@ -22,7 +22,7 @@ namespace ThePatho.Infrastructure.Persistance.Configuration.Organization
             builder.Property(e => e.OrgStructureName).HasMaxLength(255).IsRequired();
             builder.Property(e => e.ParentOrgStructureID);
             builder.Property(e => e.OrgLevelCode).HasMaxLength(128).IsRequired();
-            builder.Property(e => e.Status).IsRequired();
+            builder.Property(e => e.IsActive).IsRequired();
             builder.Property(e => e.CostCenterCode).HasMaxLength(128);
             builder.Property(e => e.Location).HasMaxLength(255);
             builder.Property(e => e.Phone).HasMaxLength(50);

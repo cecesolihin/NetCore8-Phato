@@ -12,7 +12,7 @@ namespace ThePatho.Controllers
     [ApiController]
     [Route(ApiRoutes.OrganizationMenu.Position)]
     [ApiExplorerSettings(GroupName = "Organization")]
-    //[Authorize]
+    [Authorize]
     public class PositionController : ControllerBase
     {
         private readonly IMediator mediator;

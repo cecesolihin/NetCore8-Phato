@@ -18,6 +18,7 @@ namespace ThePatho.Domain.Models.Organization
         public decimal? Longitude { get; set; }
         public int? Radius { get; set; }
         public bool? IsActive { get; set; }
+        public bool IsDeleted { get; set; }
         public string? TimeZone { get; set; }
         public string? TaxLocationCode { get; set; }
         public string? HazardInformation { get; set; }

@@ -8,7 +8,7 @@ namespace ThePatho.Features.Organization.Position.Commands
 {
     public class GetSinglePositionCommand : IRequest<ApiResponse<PositionDto>>
     {
-        [JsonPropertyName("filter_PositionCode")]
-        public string FilterPositionCode { get; set; }
+        [JsonPropertyName("positionCode")]
+        public string PositionCode { get; set; }
     }
 }

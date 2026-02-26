@@ -35,24 +35,24 @@ namespace ThePatho.Features.Organization.Grade.Service
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
                 var query = new Query(TableOrganization.Grade)
-                    .Select("*")
-                    .When(
-                        !string.IsNullOrWhiteSpace(request.FilterGradeCode),
-                        q => q.WhereContains("GradeCode", request.FilterGradeCode)
-                    )
-                    .When(
-                        !string.IsNullOrWhiteSpace(request.FilterGradeName),
-                        q => q.WhereContains("GradeName", request.FilterGradeName)
-                    )
-                    .When(
-                        !string.IsNullOrWhiteSpace(request.FilterStatus)
-                        && request.FilterStatus.ToLower() != "all",
-                        q =>
-                        {
-                            bool isActive = request.FilterStatus == "1";
-                            return q.Where("IsActive", isActive);
-                        }
-                    );
+                        .Select("*")
+                         .Where("IsDeleted", false)
+                        .When(
+                            !string.IsNullOrWhiteSpace(request.FilterGrade),
+                            q => q.Where(w => w
+                                .WhereContains("GradeCode", request.FilterGrade)
+                                .OrWhereContains("GradeName", request.FilterGrade)
+                            )
+                        )
+                        .When(
+                            !string.IsNullOrWhiteSpace(request.FilterStatus)
+                            && request.FilterStatus.ToLower() != "all",
+                            q =>
+                            {
+                                bool isActive = request.FilterStatus == "1";
+                                return q.Where("IsActive", isActive);
+                            }
+                        );
 
                 query = query.OrderByRaw(
                     $"{(!string.IsNullOrWhiteSpace(request.SortBy) ? request.SortBy : "InsertedBy")} {(!string.IsNullOrWhiteSpace(request.OrderBy) && (request.OrderBy.ToUpper() == "ASC" || request.OrderBy.ToUpper() == "DESC") ? request.OrderBy.ToUpper() : "DESC")}"
@@ -87,22 +87,14 @@ namespace ThePatho.Features.Organization.Grade.Service
                 var db = new QueryFactory(connection, dapperContext.Compiler);
                 var query = new Query(TableOrganization.Grade)
                     .Select("*")
+                    .Where("IsDeleted", false)
                     .When(
-                        !string.IsNullOrWhiteSpace(request.FilterGradeCode),
-                        q => q.WhereContains("GradeCode", request.FilterGradeCode)
+                        !string.IsNullOrWhiteSpace(request.GradeCode),
+                        q => q.WhereContains("GradeCode", request.GradeCode)
                     )
                     .When(
-                        !string.IsNullOrWhiteSpace(request.FilterGradeName),
-                        q => q.WhereContains("GradeName", request.FilterGradeName)
-                    )
-                    .When(
-                        !string.IsNullOrWhiteSpace(request.FilterStatus)
-                        && request.FilterStatus.ToLower() != "all",
-                        q =>
-                        {
-                            bool isActive = request.FilterStatus == "1";
-                            return q.Where("IsActive", isActive);
-                        }
+                        !string.IsNullOrWhiteSpace(request.GradeName),
+                        q => q.WhereContains("GradeName", request.GradeName)
                     );
                 var data = await db.GetAsync<GradeDto>(query);
 
@@ -145,7 +137,7 @@ namespace ThePatho.Features.Organization.Grade.Service
                     {
                         GradeCode = request.GradeCode,
                         GradeName = request.GradeName,
-                        Status = request.Status,
+                        IsActive = request.IsActive,
                         SortOrder = request.SortOrder,
                         Remarks = request.Remarks,
                         IsDeleted = false,
@@ -163,7 +155,7 @@ namespace ThePatho.Features.Organization.Grade.Service
                         .AsUpdate(new
                         {
                             GradeName = request.GradeName,
-                            Status = request.Status,
+                            IsActive = request.IsActive,
                             SortOrder = request.SortOrder,
                             Remarks = request.Remarks,
                             IsDeleted = false,
@@ -187,20 +179,37 @@ namespace ThePatho.Features.Organization.Grade.Service
                 if (string.IsNullOrWhiteSpace(request.GradeCode))
                 {
                     return new ApiResponse<GradeDto>(
-                         HttpStatusCode.BadRequest,
-                         "Grade is required"
-                     );
+                        HttpStatusCode.BadRequest,
+                        "Grade is required"
+                    );
                 }
 
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
 
-                var deleteQuery = new Query(TableOrganization.Grade)
-                                .Where("GradeCode", request.GradeCode)
-                                .AsDelete();
+                // Soft delete: UPDATE IsDeleted = true
+                var updateResult = await db
+                    .Query(TableOrganization.Grade)
+                    .Where("GradeCode", request.GradeCode)
+                    .UpdateAsync(new
+                    {
+                        IsDeleted = true,
+                        ModifiedBy = "system",
+                        ModifiedDate = DateTime.UtcNow
+                    });
 
-                var deleteResult = await db.ExecuteAsync(deleteQuery);
-                return new ApiResponse(HttpStatusCode.OK, $"Delete {request.GradeCode} successfully");
+                if (updateResult == 0)
+                {
+                    return new ApiResponse(
+                        HttpStatusCode.NotFound,
+                        $"Grade {request.GradeCode} not found"
+                    );
+                }
+
+                return new ApiResponse(
+                    HttpStatusCode.OK,
+                    $"Delete {request.GradeCode} successfully"
+                );
             }
             catch (Exception ex)
             {
@@ -503,7 +512,7 @@ namespace ThePatho.Features.Organization.Grade.Service
                         worksheet.Cell(row, 1).Value = no++;
                         worksheet.Cell(row, 2).Value = g.GradeCode;
                         worksheet.Cell(row, 3).Value = g.GradeName;
-                        worksheet.Cell(row, 4).Value = g.Status == "1" ? "Active" : "Inactive";
+                        worksheet.Cell(row, 4).Value = g.IsActive ? "Active" : "Inactive";
                         worksheet.Cell(row, 5).Value = g.SortOrder;
                         worksheet.Cell(row, 6).Value = g.Remarks;
                         row++;
@@ -598,7 +607,7 @@ namespace ThePatho.Features.Organization.Grade.Service
                                     table.Cell().Border(1).Padding(5).AlignCenter().Text(no.ToString()).Style(normalTextStyle);
                                     table.Cell().Border(1).Padding(5).AlignCenter().Text(g.GradeCode ?? "-").Style(normalTextStyle);
                                     table.Cell().Border(1).Padding(5).Text(g.GradeName ?? "-").Style(normalTextStyle);
-                                    table.Cell().Border(1).Padding(5).AlignCenter().Text(g.Status ?? "-").Style(normalTextStyle);
+                                    table.Cell().Border(1).Padding(5).AlignCenter().Text(g.IsActive ?  "Active" : "Inactive").Style(normalTextStyle);
                                     table.Cell().Border(1).Padding(5).AlignCenter().Text(g.SortOrder.ToString()).Style(normalTextStyle);
                                     table.Cell().Border(1).Padding(5).Text(g.Remarks ?? "-").Style(normalTextStyle);
                                     no++;
@@ -684,7 +693,7 @@ namespace ThePatho.Features.Organization.Grade.Service
                     {
                         worksheet.Cell(row, 1).Value = g.GradeCode;
                         worksheet.Cell(row, 2).Value = g.GradeName;
-                        worksheet.Cell(row, 3).Value = g.Status;
+                        worksheet.Cell(row, 3).Value = g.IsActive ? "Active" :"Non Active";
                         worksheet.Cell(row, 4).Value = g.SortOrder;
                         worksheet.Cell(row, 5).Value = g.Remarks;
                         row++;
@@ -816,7 +825,7 @@ namespace ThePatho.Features.Organization.Grade.Service
 
                                         BodyCell(table.Cell(), g.GradeCode ?? "-", bgColor);
                                         BodyCell(table.Cell(), g.GradeName ?? "-", bgColor);
-                                        BodyCell(table.Cell(), g.Status.ToString(), bgColor);
+                                        BodyCell(table.Cell(), g.IsActive ? "Active":"Inactive", bgColor);
                                         BodyCell(table.Cell(), g.SortOrder.ToString(), bgColor);
                                         BodyCell(table.Cell(), g.Remarks ?? "-", bgColor);
                                     }

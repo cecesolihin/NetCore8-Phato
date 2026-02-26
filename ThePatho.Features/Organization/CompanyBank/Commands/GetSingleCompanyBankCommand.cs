@@ -8,7 +8,7 @@ namespace ThePatho.Features.Organization.CompanyBank.Commands
 {
     public class GetSingleCompanyBankCommand : IRequest<ApiResponse<CompanyBankDto>>
     {
-        [JsonPropertyName("company_bank_id")]
+        [JsonPropertyName("companyBankId")]
         public int CompanyBankId { get; set; }
 
     }

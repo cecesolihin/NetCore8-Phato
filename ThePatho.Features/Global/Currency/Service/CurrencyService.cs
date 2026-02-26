@@ -88,8 +88,8 @@ namespace ThePatho.Features.Global.Currency.Service
             try
             {
                 var parameters = new DynamicParameters();
-                parameters.Add("@CurrencyCode", request.FilterCurrencyCode ?? string.Empty);
-                parameters.Add("@CurrencyName", request.FilterCurrencyName ?? string.Empty);
+                parameters.Add("@CurrencyCode", request.CurrencyCode ?? string.Empty);
+                parameters.Add("@CurrencyName", request.CurrencyName ?? string.Empty);
 
                 var query = await queryLoader.LoadQueryAsync("Global/Currency/Sql/get_criteria_currency");
                 var data = await dbConnection.QueryAsync<CurrencyDto>(query, parameters);

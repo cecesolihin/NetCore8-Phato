@@ -33,15 +33,14 @@ namespace ThePatho.Features.Organization.TerminationType.Service
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
                 var query = new Query(TableOrganization.TerminationType)
-                    .Select("*")
-                    .When(
-                        !string.IsNullOrWhiteSpace(request.TerminationTypeCode),
-                        q => q.WhereContains("TerminationTypeCode", request.TerminationTypeCode)
-                    )
-                    .When(
-                        !string.IsNullOrWhiteSpace(request.TerminationTypeName),
-                        q => q.WhereContains("TerminationTypeName", request.TerminationTypeName)
-                    );
+                        .Select("*")
+                        .When(
+                            !string.IsNullOrWhiteSpace(request.FilterTerminationType),
+                            q => q.Where(w => w
+                                .WhereContains("TerminationTypeCode", request.FilterTerminationType)
+                                .OrWhereContains("TerminationTypeName", request.FilterTerminationType)
+                            )
+                        );
 
                 query = query.OrderByRaw(
                     $"{(!string.IsNullOrWhiteSpace(request.SortBy) ? request.SortBy : "InsertedBy")} {(!string.IsNullOrWhiteSpace(request.OrderBy) && (request.OrderBy.ToUpper() == "ASC" || request.OrderBy.ToUpper() == "DESC") ? request.OrderBy.ToUpper() : "DESC")}"

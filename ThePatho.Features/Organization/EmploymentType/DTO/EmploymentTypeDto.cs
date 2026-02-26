@@ -4,7 +4,7 @@ namespace ThePatho.Features.Organization.EmploymentType.DTO
     {
         public string EmploymentTypeCode { get; set; } = null!;
         public string EmploymentTypeName { get; set; } = null!;
-        public byte Order { get; set; }
+        public byte SortOrder { get; set; }
         public string? Remarks { get; set; }
         public bool UseEndDate { get; set; }
         public int? EmploymentPeriodMonth { get; set; }

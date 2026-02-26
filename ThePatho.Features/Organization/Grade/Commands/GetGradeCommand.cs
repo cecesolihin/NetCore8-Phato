@@ -8,11 +8,8 @@ namespace ThePatho.Features.Organization.Grade.Commands
 {
     public class GetGradeCommand : IRequest<ApiResponse<GradeItemDto>>
     {
-        [JsonPropertyName("filter_grade_code")]
-        public string FilterGradeCode { get; set; } = null!;
-
-        [JsonPropertyName("filter_grade_name")]
-        public string FilterGradeName { get; set; } = null!;
+        [JsonPropertyName("filter_grade")]
+        public string? FilterGrade { get; set; }
 
         [JsonPropertyName("filter_status")]
         public string? FilterStatus { get; set; }

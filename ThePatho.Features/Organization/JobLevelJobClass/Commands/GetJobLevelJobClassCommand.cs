@@ -8,11 +8,8 @@ namespace ThePatho.Features.Organization.JobLevelJobClass.Commands
 {
     public class GetJobLevelJobClassCommand : IRequest<ApiResponse<JobLevelJobClassItemDto>>
     {
-        [JsonPropertyName("jobLevelCode")]
-        public string? JobLevelCode { get; set; }
-
-        [JsonPropertyName("jobClassCode")]
-        public string? JobClassCode { get; set; }
+        [JsonPropertyName("jobLevelJobClass")]
+        public string? FilterJobLevelJobClass { get; set; }
 
         [JsonPropertyName("sortBy")]
         [DefaultValue("InsertedDate")]

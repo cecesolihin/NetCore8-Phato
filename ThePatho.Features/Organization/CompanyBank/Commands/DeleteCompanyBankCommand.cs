@@ -6,7 +6,7 @@ namespace ThePatho.Features.Organization.CompanyBank.Commands
 {
     public class DeleteCompanyBankCommand : IRequest<ApiResponse>
     {
-        [JsonPropertyName("company_bank_id")]
+        [JsonPropertyName("companyBankId")]
         public int CompanyBankId { get; set; }
     }
 }

@@ -8,7 +8,7 @@ namespace ThePatho.Features.Organization.EmploymentType.Commands
 {
     public class GetSingleEmploymentTypeCommand : IRequest<ApiResponse<EmploymentTypeDto>>
     {
-        [JsonPropertyName("employment_type_code")]
+        [JsonPropertyName("employmentTypeCode")]
         public string EmploymentTypeCode { get; set; } = null!;
     }
 }

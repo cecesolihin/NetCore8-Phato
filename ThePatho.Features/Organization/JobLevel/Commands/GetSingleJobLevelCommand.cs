@@ -8,7 +8,7 @@ namespace ThePatho.Features.Organization.JobLevel.Commands
 {
     public class GetSingleJobLevelCommand : IRequest<ApiResponse<JobLevelDto>>
     {
-        [JsonPropertyName("filter_JobLevelCode")]
-        public string FilterJobLevelCode { get; set; }
+        [JsonPropertyName("jobLevelCode")]
+        public string JobLevelCode { get; set; }
     }
 }

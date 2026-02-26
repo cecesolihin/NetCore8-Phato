@@ -8,17 +8,10 @@ namespace ThePatho.Features.Organization.JobClass.Commands
 {
     public class GetJobClassCommand : IRequest<ApiResponse<JobClassItemDto>>
     {
-        [JsonPropertyName("jobClassCode")]
-        public string? JobClassCode { get; set; }
-
-        [JsonPropertyName("jobClassName")]
-        public string? JobClassName { get; set; }
-
-        [JsonPropertyName("gradeCode")]
-        public string? GradeCode { get; set; }
-
-        [JsonPropertyName("rankCode")]
-        public string? RankCode { get; set; }
+        [JsonPropertyName("filter_jobClass")]
+        public string? FilterJobClass { get; set; }
+        [JsonPropertyName("filter_status")]
+        public string? FilterStatus { get; set; }
 
         [JsonPropertyName("sortBy")]
         [DefaultValue("InsertedDate")]

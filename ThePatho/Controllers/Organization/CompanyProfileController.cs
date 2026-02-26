@@ -11,7 +11,7 @@ namespace ThePatho.Controllers
     [ApiController]
     [Route(ApiRoutes.OrganizationMenu.CompanyProfile)]
     [ApiExplorerSettings(GroupName = "Organization")]
-    //[Authorize]
+    [Authorize]
     public class CompanyProfileController : ControllerBase
     {
         private readonly IMediator mediator;

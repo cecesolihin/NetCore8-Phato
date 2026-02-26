@@ -8,7 +8,7 @@ namespace ThePatho.Features.Organization.TerminationType.Commands
 {
     public class GetSingleTerminationTypeCommand : IRequest<ApiResponse<TerminationTypeDto>>
     {
-        [JsonPropertyName("termination_type_code")]
+        [JsonPropertyName("terminationTypeCode")]
         public string TerminationTypeCode { get; set; } = null!;
     }
 }

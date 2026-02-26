@@ -8,11 +8,8 @@ namespace ThePatho.Features.Organization.TerminationType.Commands
 {
     public class GetTerminationTypeCommand : IRequest<ApiResponse<TerminationTypeItemDto>>
     {
-        [JsonPropertyName("termination_type_code")]
-        public string TerminationTypeCode { get; set; } = null!;
-
-        [JsonPropertyName("termination_type_name")]
-        public string TerminationTypeName { get; set; } = null!;
+        [JsonPropertyName("filter_TerminationType")]
+        public string? FilterTerminationType { get; set; }
 
         [JsonPropertyName("sortBy")]
         [DefaultValue("InsertedDate")]

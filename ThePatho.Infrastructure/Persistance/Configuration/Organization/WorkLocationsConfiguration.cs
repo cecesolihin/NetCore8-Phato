@@ -22,6 +22,7 @@ namespace ThePatho.Infrastructure.Persistance.Configuration.Organization
             builder.Property(e => e.Longitude).HasColumnType("decimal(18, 9)");
             builder.Property(e => e.Radius);
             builder.Property(e => e.IsActive);
+            builder.Property(e => e.IsDeleted);
             builder.Property(e => e.TimeZone).HasMaxLength(10);
             builder.Property(e => e.TaxLocationCode);
             builder.Property(e => e.HazardInformation);

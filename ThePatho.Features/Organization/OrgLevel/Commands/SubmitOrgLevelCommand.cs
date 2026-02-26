@@ -12,7 +12,7 @@ namespace ThePatho.Features.Organization.OrgLevel.Commands
         [JsonPropertyName("orgLevelName")]
         public string OrgLevelName { get; set; } = null!;
 
-        [JsonPropertyName("sort")]
+        [JsonPropertyName("sortOrder")]
         public byte SortOrder { get; set; }
 
         [JsonPropertyName("isDeleted")]

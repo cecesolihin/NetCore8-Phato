@@ -33,15 +33,14 @@ namespace ThePatho.Features.Organization.PensionType.Service
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
                 var query = new Query(TableOrganization.PensionType)
-                    .Select("*")
-                    .When(
-                        !string.IsNullOrWhiteSpace(request.PensionTypeCode),
-                        q => q.WhereContains("PensionTypeCode", request.PensionTypeName)
-                    )
-                    .When(
-                        !string.IsNullOrWhiteSpace(request.PensionTypeName),
-                        q => q.WhereContains("PensionTypeName", request.PensionTypeName)
-                    );
+                        .Select("*")
+                        .When(
+                            !string.IsNullOrWhiteSpace(request.FilterPensionType),
+                            q => q.Where(w => w
+                                .WhereContains("PensionTypeCode", request.FilterPensionType)
+                                .OrWhereContains("PensionTypeName", request.FilterPensionType)
+                            )
+                        );
 
                 query = query.OrderByRaw(
                     $"{(!string.IsNullOrWhiteSpace(request.SortBy) ? request.SortBy : "InsertedBy")} {(!string.IsNullOrWhiteSpace(request.OrderBy) && (request.OrderBy.ToUpper() == "ASC" || request.OrderBy.ToUpper() == "DESC") ? request.OrderBy.ToUpper() : "DESC")}"

@@ -12,7 +12,7 @@ namespace ThePatho.Controllers
     [ApiController]
     [Route(ApiRoutes.OrganizationMenu.Grade)]
     [ApiExplorerSettings(GroupName = "Organization")]
-    //[Authorize]
+    [Authorize]
     public class GradeController : ControllerBase
     {
         private readonly IMediator mediator;

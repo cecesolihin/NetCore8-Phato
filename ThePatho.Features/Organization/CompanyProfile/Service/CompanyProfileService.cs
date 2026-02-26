@@ -35,23 +35,16 @@ namespace ThePatho.Features.Organization.CompanyProfile.Service
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
                 var query = new Query(TableOrganization.CompanyProfile)
-                    .Select("*")
-                    .When(
-                        !string.IsNullOrWhiteSpace(request.FilterCompanyCode),
-                        q => q.WhereContains("CompanyCode", request.FilterCompanyCode)
-                    )
-                    .When(
-                        !string.IsNullOrWhiteSpace(request.FilterCompanyName),
-                        q => q.WhereContains("CompanyName", request.FilterCompanyName)
-                    )
-                    .When(
-                        !string.IsNullOrWhiteSpace(request.FilterCountryCode),
-                        q => q.WhereContains("CountryCode", request.FilterCountryCode)
-                    )
-                    .When(
-                        !string.IsNullOrWhiteSpace(request.FilterCity),
-                        q => q.WhereContains("City", request.FilterCity)
-                    );
+                         .Select("*")
+                         .When(
+                             !string.IsNullOrWhiteSpace(request.FilterCompany),
+                             q => q.Where(w => w
+                                 .WhereContains("CompanyCode", request.FilterCompany)
+                                 .OrWhereContains("CompanyName", request.FilterCompany)
+                                 .OrWhereContains("CountryCode", request.FilterCompany)
+                                 .OrWhereContains("City", request.FilterCompany)
+                             )
+                         );
 
                 query = query.OrderByRaw(
                     $"{(!string.IsNullOrWhiteSpace(request.SortBy) ? request.SortBy : "InsertedBy")} {(!string.IsNullOrWhiteSpace(request.OrderBy) && (request.OrderBy.ToUpper() == "ASC" || request.OrderBy.ToUpper() == "DESC") ? request.OrderBy.ToUpper() : "DESC")}"
@@ -288,20 +281,16 @@ namespace ThePatho.Features.Organization.CompanyProfile.Service
                 var query = new Query(TableOrganization.CompanyProfile)
                     .Select("*")
                     .When(
-                        !string.IsNullOrWhiteSpace(request.FilterCompanyCode),
-                        q => q.WhereContains("CompanyCode", request.FilterCompanyCode)
+                        !string.IsNullOrWhiteSpace(request.CompanyCode),
+                        q => q.WhereContains("CompanyCode", request.CompanyCode)
                     )
                     .When(
-                        !string.IsNullOrWhiteSpace(request.FilterCompanyName),
-                        q => q.WhereContains("CompanyName", request.FilterCompanyName)
+                        !string.IsNullOrWhiteSpace(request.CompanyName),
+                        q => q.WhereContains("CompanyName", request.CompanyName)
                     )
                     .When(
-                        !string.IsNullOrWhiteSpace(request.FilterCountryCode),
-                        q => q.WhereContains("CountryCode", request.FilterCountryCode)
-                    )
-                    .When(
-                        !string.IsNullOrWhiteSpace(request.FilterCity),
-                        q => q.WhereContains("City", request.FilterCity)
+                        !string.IsNullOrWhiteSpace(request.CountryCode),
+                        q => q.WhereContains("CountryCode", request.CountryCode)
                     );
 
                 var data = await db.GetAsync<CompanyProfileDto>(query);

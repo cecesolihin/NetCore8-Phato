@@ -136,6 +136,9 @@ namespace ThePatho.Infrastructure.Persistance
             modelBuilder.ApplyConfiguration(new TemplateKeywordConfiguration());
             modelBuilder.ApplyConfiguration(new BankConfiguration());
             modelBuilder.ApplyConfiguration(new TaxStatusConfiguration());
+            modelBuilder.ApplyConfiguration(new RadiusUnitConfiguration());
+            modelBuilder.ApplyConfiguration(new TimeZoneConfiguration());
+            modelBuilder.ApplyConfiguration(new TaxLocationConfiguration());
             #endregion
         }
 

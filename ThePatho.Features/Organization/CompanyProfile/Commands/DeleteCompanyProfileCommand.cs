@@ -6,7 +6,7 @@ namespace ThePatho.Features.Organization.CompanyProfile.Commands
 {
     public class DeleteCompanyProfileCommand : IRequest<ApiResponse>
     {
-        [JsonPropertyName("company_code")]
+        [JsonPropertyName("companyCode")]
         public string CompanyCode { get; set; } = null!;
     }
 }

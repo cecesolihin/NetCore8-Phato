@@ -6,7 +6,7 @@ namespace ThePatho.Features.Organization.WorkLocation.Commands
 {
     public class DeleteWorkLocationCommand : IRequest<ApiResponse>
     {
-        [JsonPropertyName("work_location_code")]
+        [JsonPropertyName("workLocationCode")]
         public string WorkLocationCode { get; set; } = null!;
     }
 }

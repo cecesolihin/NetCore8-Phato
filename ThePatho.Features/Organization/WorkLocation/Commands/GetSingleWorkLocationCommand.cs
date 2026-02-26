@@ -8,7 +8,7 @@ namespace ThePatho.Features.Organization.WorkLocation.Commands
 {
     public class GetSingleWorkLocationCommand : IRequest<ApiResponse<WorkLocationDto>>
     {
-        [JsonPropertyName("work_location_code")]
+        [JsonPropertyName("workLocationCode")]
         public string WorkLocationCode { get; set; } = null!;
     }
 }

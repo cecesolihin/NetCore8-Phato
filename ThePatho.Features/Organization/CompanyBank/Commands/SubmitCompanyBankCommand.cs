@@ -6,28 +6,28 @@ namespace ThePatho.Features.Organization.CompanyBank.Commands
 {
     public class SubmitCompanyBankCommand : IRequest<ApiResponse>
     {
-        [JsonPropertyName("company_bank_id")]
+        [JsonPropertyName("companyBankId")]
         public int? CompanyBankId { get; set; }
 
-        [JsonPropertyName("company_code")]
+        [JsonPropertyName("companyCode")]
         public string? CompanyCode { get; set; }
 
-        [JsonPropertyName("bank_code")]
+        [JsonPropertyName("bankCode")]
         public string? BankCode { get; set; }
 
         [JsonPropertyName("branch")]
         public string Branch { get; set; } = null!;
 
-        [JsonPropertyName("account_no")]
+        [JsonPropertyName("accountNo")]
         public string? AccountNo { get; set; }
 
-        [JsonPropertyName("account_name")]
+        [JsonPropertyName("accountName")]
         public string? AccountName { get; set; }
 
-        [JsonPropertyName("is_deleted")]
+        [JsonPropertyName("isDeleted")]
         public bool IsDeleted { get; set; }
 
-        [JsonPropertyName("is_default")]
+        [JsonPropertyName("isDefault")]
         public bool? IsDefault { get; set; }
 
         [JsonPropertyName("action")]

@@ -8,11 +8,8 @@ namespace ThePatho.Features.Organization.OrgLevel.Commands
 {
     public class GetOrgLevelCommand :IRequest<ApiResponse<OrgLevelItemDto>>
     {
-        [JsonPropertyName("orgLevelCode")]
-        public string? OrgLevelCode { get; set; }
-
-        [JsonPropertyName("orgLevelName")]
-        public string? OrgLevelName { get; set; }
+        [JsonPropertyName("filter_OrgLevel")]
+        public string? FilterOrgLevel { get; set; }
 
         [JsonPropertyName("sortBy")]
         [DefaultValue("InsertedDate")]

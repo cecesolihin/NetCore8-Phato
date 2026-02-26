@@ -6,28 +6,28 @@ namespace ThePatho.Features.Organization.Position.Commands
 {
     public class SubmitPositionCommand : IRequest<ApiResponse>
     {
-        [JsonPropertyName("position_code")]
+        [JsonPropertyName("positionCode")]
         public string PositionCode { get; set; }
 
-        [JsonPropertyName("position_name")]
+        [JsonPropertyName("positionName")]
         public string PositionName { get; set; }
 
-        [JsonPropertyName("job_level_code")]
+        [JsonPropertyName("jobLevelCode")]
         public string JobLevelCode { get; set; }
 
-        [JsonPropertyName("org_structure_id")]
+        [JsonPropertyName("orgStructureId")]
         public int OrgStructureId { get; set; }
 
-        [JsonPropertyName("act_as_head")]
+        [JsonPropertyName("actAsHead")]
         public bool ActAsHead { get; set; }
 
         [JsonPropertyName("objective")]
         public string? Objective { get; set; }
 
-        [JsonPropertyName("job_description")]
+        [JsonPropertyName("jobDescription")]
         public string? JobDescription { get; set; }
 
-        [JsonPropertyName("is_active")]
+        [JsonPropertyName("isActive")]
         public bool IsActive { get; set; }
 
         [JsonPropertyName("action")]

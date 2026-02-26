@@ -894,6 +894,51 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Global\RadiusUnit\Sql\delete_radiusunit.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Global\RadiusUnit\Sql\get_criteria_radiusunit.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Global\RadiusUnit\Sql\get_radiusunit.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Global\RadiusUnit\Sql\get_single_radiusunit.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Global\RadiusUnit\Sql\submit_radiusunit.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Global\TaxLocation\Sql\delete_taxlocation.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Global\TaxLocation\Sql\get_criteria_taxlocation.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Global\TaxLocation\Sql\get_taxlocation.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Global\TaxLocation\Sql\get_single_taxlocation.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Global\TaxLocation\Sql\submit_taxlocation.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Global\TimeZone\Sql\delete_timezone.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Global\TimeZone\Sql\get_criteria_timezone.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Global\TimeZone\Sql\get_timezone.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Global\TimeZone\Sql\get_single_timezone.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Global\TimeZone\Sql\submit_timezone.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="PersonalInformation/Employee/Sql/delete_employee.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>    <Content Include="PersonalInformation/Employee/Sql/get_criteria_employee.sql">

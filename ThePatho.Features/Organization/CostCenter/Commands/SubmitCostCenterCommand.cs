@@ -6,16 +6,16 @@ namespace ThePatho.Features.Organization.CostCenter.Commands
 {
     public class SubmitCostCenterCommand : IRequest<ApiResponse>
     {
-        [JsonPropertyName("cost_center_code")]
+        [JsonPropertyName("costCenterCode")]
         public string CostCenterCode { get; set; } = null!;
 
-        [JsonPropertyName("cost_center_name")]
+        [JsonPropertyName("costCenterName")]
         public string CostCenterName { get; set; } = null!;
 
-        [JsonPropertyName("sort")]
+        [JsonPropertyName("sortOrder")]
         public byte SortOrder { get; set; }
 
-        [JsonPropertyName("cost_center_type")]
+        [JsonPropertyName("costCenterType")]
         public string CostCenterType { get; set; }
 
         [JsonPropertyName("action")]

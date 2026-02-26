@@ -6,20 +6,22 @@ namespace ThePatho.Features.Organization.JobLevel.Commands
 {
     public class SubmitJobLevelCommand : IRequest<ApiResponse>
     {
-        [JsonPropertyName("job_level_code")]
+        [JsonPropertyName("jobLevelCode")]
         public string JobLevelCode { get; set; }
 
-        [JsonPropertyName("job_level_name")]
+        [JsonPropertyName("jobLevelName")]
         public string JobLevelName { get; set; }
 
-        [JsonPropertyName("sort")]
+        [JsonPropertyName("sortOrder")]
         public byte? SortOrder { get; set; }
 
         [JsonPropertyName("remarks")]
         public string? Remarks { get; set; }
 
-        [JsonPropertyName("is_active")]
+        [JsonPropertyName("isActive")]
         public bool IsActive { get; set; }
+        [JsonPropertyName("jobClassCodes")]
+        public List<string> JobClassCodes { get; set; }
 
         [JsonPropertyName("action")]
         public string Action { get; set; }

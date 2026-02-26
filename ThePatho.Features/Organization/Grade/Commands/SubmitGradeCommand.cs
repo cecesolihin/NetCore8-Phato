@@ -6,16 +6,16 @@ namespace ThePatho.Features.Organization.Grade.Commands
 {
     public class SubmitGradeCommand : IRequest<ApiResponse>
     {
-        [JsonPropertyName("grade_code")]
+        [JsonPropertyName("gradeCode")]
         public string GradeCode { get; set; } = null!;
 
-        [JsonPropertyName("grade_name")]
+        [JsonPropertyName("gradeName")]
         public string GradeName { get; set; } = null!;
 
-        [JsonPropertyName("status")]
-        public string? Status { get; set; }
+        [JsonPropertyName("isActive")]
+        public bool IsActive { get; set; }
 
-        [JsonPropertyName("order")]
+        [JsonPropertyName("sortOrder")]
         public byte SortOrder { get; set; }
 
         [JsonPropertyName("remarks")]

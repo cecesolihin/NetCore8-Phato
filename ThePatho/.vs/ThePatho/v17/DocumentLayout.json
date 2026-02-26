@@ -1,41 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\COURSES\\ThePatho\\ThePatho\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\organization\\worklocation\\service\\worklocationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\organization\\position\\service\\positionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\organization\\orgstructure\\service\\orgstructureservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\organization\\orglevel\\service\\orglevelservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\organization\\jobleveljobclass\\service\\jobleveljobclassservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\organization\\joblevel\\service\\joblevelservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\organization\\jobclass\\service\\jobclassservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\organization\\historgstructure\\service\\historgstructureservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\organization\\historgstructure\\dto\\historgstructuredto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\organization\\grade\\service\\gradeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{95EBF083-C435-4648-BC28-CED18554F0CD}|..\\ThePatho.Features\\ThePatho.Features.csproj|d:\\courses\\thepatho\\thepatho.features\\organization\\costcenter\\service\\costcenterservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -43,7 +9,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 241,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": -1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -56,149 +22,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "WorkLocationService.cs",
-              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Organization\\WorkLocation\\Service\\WorkLocationService.cs",
-              "RelativeDocumentMoniker": "..\\ThePatho.Features\\Organization\\WorkLocation\\Service\\WorkLocationService.cs",
-              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Organization\\WorkLocation\\Service\\WorkLocationService.cs",
-              "RelativeToolTip": "..\\ThePatho.Features\\Organization\\WorkLocation\\Service\\WorkLocationService.cs",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAAAC0AAAAoAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-06T03:08:22.541Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "PositionService.cs",
-              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Organization\\Position\\Service\\PositionService.cs",
-              "RelativeDocumentMoniker": "..\\ThePatho.Features\\Organization\\Position\\Service\\PositionService.cs",
-              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Organization\\Position\\Service\\PositionService.cs",
-              "RelativeToolTip": "..\\ThePatho.Features\\Organization\\Position\\Service\\PositionService.cs",
-              "ViewState": "AgIAABQAAAAAAAAAAAAAwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-06T03:08:12.761Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "OrgStructureService.cs",
-              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Organization\\OrgStructure\\Service\\OrgStructureService.cs",
-              "RelativeDocumentMoniker": "..\\ThePatho.Features\\Organization\\OrgStructure\\Service\\OrgStructureService.cs",
-              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Organization\\OrgStructure\\Service\\OrgStructureService.cs*",
-              "RelativeToolTip": "..\\ThePatho.Features\\Organization\\OrgStructure\\Service\\OrgStructureService.cs*",
-              "ViewState": "AgIAAGoAAAAAAAAAAAAYwHMAAAA6AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-06T03:07:28.38Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "OrgLevelService.cs",
-              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Organization\\OrgLevel\\Service\\OrgLevelService.cs",
-              "RelativeDocumentMoniker": "..\\ThePatho.Features\\Organization\\OrgLevel\\Service\\OrgLevelService.cs",
-              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Organization\\OrgLevel\\Service\\OrgLevelService.cs",
-              "RelativeToolTip": "..\\ThePatho.Features\\Organization\\OrgLevel\\Service\\OrgLevelService.cs",
-              "ViewState": "AgIAABsAAAAAAAAAAAAAwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-06T03:07:21.841Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "JobLevelJobClassService.cs",
-              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Organization\\JobLevelJobClass\\Service\\JobLevelJobClassService.cs",
-              "RelativeDocumentMoniker": "..\\ThePatho.Features\\Organization\\JobLevelJobClass\\Service\\JobLevelJobClassService.cs",
-              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Organization\\JobLevelJobClass\\Service\\JobLevelJobClassService.cs",
-              "RelativeToolTip": "..\\ThePatho.Features\\Organization\\JobLevelJobClass\\Service\\JobLevelJobClassService.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAABwAAAAOAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-06T03:07:12.841Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "JobLevelService.cs",
-              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Organization\\JobLevel\\Service\\JobLevelService.cs",
-              "RelativeDocumentMoniker": "..\\ThePatho.Features\\Organization\\JobLevel\\Service\\JobLevelService.cs",
-              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Organization\\JobLevel\\Service\\JobLevelService.cs*",
-              "RelativeToolTip": "..\\ThePatho.Features\\Organization\\JobLevel\\Service\\JobLevelService.cs*",
-              "ViewState": "AgIAAK4AAAAAAAAAAAAowC0AAAAyAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-06T03:06:49.895Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "JobClassService.cs",
-              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Organization\\JobClass\\Service\\JobClassService.cs",
-              "RelativeDocumentMoniker": "..\\ThePatho.Features\\Organization\\JobClass\\Service\\JobClassService.cs",
-              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Organization\\JobClass\\Service\\JobClassService.cs",
-              "RelativeToolTip": "..\\ThePatho.Features\\Organization\\JobClass\\Service\\JobClassService.cs",
-              "ViewState": "AgIAABIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-06T03:06:45.419Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "HistOrgStructureService.cs",
-              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Organization\\HistOrgStructure\\Service\\HistOrgStructureService.cs",
-              "RelativeDocumentMoniker": "..\\ThePatho.Features\\Organization\\HistOrgStructure\\Service\\HistOrgStructureService.cs",
-              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Organization\\HistOrgStructure\\Service\\HistOrgStructureService.cs*",
-              "RelativeToolTip": "..\\ThePatho.Features\\Organization\\HistOrgStructure\\Service\\HistOrgStructureService.cs*",
-              "ViewState": "AgIAAFsAAAAAAAAAAAA1wHsAAAAUAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-06T03:05:35.637Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "HistOrgStructureDto.cs",
-              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Organization\\HistOrgStructure\\DTO\\HistOrgStructureDto.cs",
-              "RelativeDocumentMoniker": "..\\ThePatho.Features\\Organization\\HistOrgStructure\\DTO\\HistOrgStructureDto.cs",
-              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Organization\\HistOrgStructure\\DTO\\HistOrgStructureDto.cs",
-              "RelativeToolTip": "..\\ThePatho.Features\\Organization\\HistOrgStructure\\DTO\\HistOrgStructureDto.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAywAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-06T03:05:33.195Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "GradeService.cs",
-              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Organization\\Grade\\Service\\GradeService.cs",
-              "RelativeDocumentMoniker": "..\\ThePatho.Features\\Organization\\Grade\\Service\\GradeService.cs",
-              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Organization\\Grade\\Service\\GradeService.cs*",
-              "RelativeToolTip": "..\\ThePatho.Features\\Organization\\Grade\\Service\\GradeService.cs*",
-              "ViewState": "AgIAAEcAAAAAAAAAAAAQwGIAAAAEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-06T03:05:11.671Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "CostCenterService.cs",
-              "DocumentMoniker": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Organization\\CostCenter\\Service\\CostCenterService.cs",
-              "RelativeDocumentMoniker": "..\\ThePatho.Features\\Organization\\CostCenter\\Service\\CostCenterService.cs",
-              "ToolTip": "D:\\COURSES\\ThePatho\\ThePatho.Features\\Organization\\CostCenter\\Service\\CostCenterService.cs",
-              "RelativeToolTip": "..\\ThePatho.Features\\Organization\\CostCenter\\Service\\CostCenterService.cs",
-              "ViewState": "AgIAACMAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-06T03:05:00.876Z",
-              "EditorCaption": ""
             }
           ]
         },

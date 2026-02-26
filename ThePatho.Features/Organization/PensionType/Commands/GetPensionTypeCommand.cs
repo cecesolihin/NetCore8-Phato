@@ -8,11 +8,8 @@ namespace ThePatho.Features.Organization.PensionType.Commands
 {
     public class GetPensionTypeCommand : IRequest<ApiResponse<PensionTypeItemDto>>
     {
-        [JsonPropertyName("pensionTypeCode")]
-        public string? PensionTypeCode { get; set; }
-
-        [JsonPropertyName("pensionTypeName")]
-        public string? PensionTypeName { get; set; }
+        [JsonPropertyName("pensionType")]
+        public string? FilterPensionType { get; set; }
 
         [JsonPropertyName("sortBy")]
         [DefaultValue("InsertedDate")]

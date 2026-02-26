@@ -6,7 +6,7 @@ namespace ThePatho.Features.Organization.Grade.Commands
 {
     public class DeleteGradeCommand : IRequest<ApiResponse>
     {
-        [JsonPropertyName("grade_code")]
+        [JsonPropertyName("gradeCode")]
         public string GradeCode { get; set; } = null!;
     }
 }

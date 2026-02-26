@@ -8,11 +8,11 @@ namespace ThePatho.Features.Global.Currency.Commands
 {
     public class GetCurrencyByCriteriaCommand : IRequest<ApiResponse<CurrencyItemDto>>
     {
-        [JsonPropertyName("filter_CurrencyName")]
-        public string? FilterCurrencyName { get; set; }
+        [JsonPropertyName("currencyName")]
+        public string? CurrencyName { get; set; }
 
-        [JsonPropertyName("filter_CurrencyCode")]
-        public string? FilterCurrencyCode { get; set; }
+        [JsonPropertyName("currencyCode")]
+        public string? CurrencyCode { get; set; }
 
 
     }

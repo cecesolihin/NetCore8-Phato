@@ -6,7 +6,7 @@ namespace ThePatho.Features.Organization.Rank.Commands
 {
     public class DeleteRankCommand : IRequest<ApiResponse>
     {
-        [JsonPropertyName("rank_code")]
+        [JsonPropertyName("rankCode")]
         public string RankCode { get; set; } = null!;
     }
 }

@@ -8,11 +8,8 @@ namespace ThePatho.Features.Organization.Rank.Commands
 {
     public class GetRankCommand : IRequest<ApiResponse<RankItemDto>>
     {
-        [JsonPropertyName("rank_code")]
-        public string RankCode { get; set; } = null!;
-
-        [JsonPropertyName("rank_name")]
-        public string RankName { get; set; } = null!;
+        [JsonPropertyName("filter_Rank")]
+        public string? FilterRank { get; set; }
 
         [JsonPropertyName("sortBy")]
         [DefaultValue("InsertedDate")]

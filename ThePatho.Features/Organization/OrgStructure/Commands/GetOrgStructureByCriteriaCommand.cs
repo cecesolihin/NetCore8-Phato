@@ -18,8 +18,7 @@ namespace ThePatho.Features.Organization.OrgStructure.Commands
 
         [JsonPropertyName("orgLevelCode")]
         public string? OrgLevelCode { get; set; }
-
-        [JsonPropertyName("status")]
-        public string? Status { get; set; }
+        [JsonPropertyName("costCenterCode")]
+        public string? CostCenterCode { get; set; }
     }
 }

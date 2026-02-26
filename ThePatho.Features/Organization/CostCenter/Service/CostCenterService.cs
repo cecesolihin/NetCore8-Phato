@@ -35,17 +35,14 @@ namespace ThePatho.Features.Organization.CostCenter.Service
                 var db = new QueryFactory(connection, dapperContext.Compiler);
                 var query = new Query(TableOrganization.CostCenter)
                     .Select("*")
+                    .Where("IsDeleted", false)
                     .When(
-                        !string.IsNullOrWhiteSpace(request.FilterCostCenterCode),
-                        q => q.WhereContains("CostCenterCode", request.FilterCostCenterCode)
-                    )
-                    .When(
-                        !string.IsNullOrWhiteSpace(request.FilterCostCenterName),
-                        q => q.WhereContains("CostCenterName", request.FilterCostCenterName)
-                    )
-                    .When(
-                        !string.IsNullOrWhiteSpace(request.FilterCostCenterType),
-                        q => q.Where("CostCenterType", request.FilterCostCenterType)
+                        !string.IsNullOrWhiteSpace(request.FilterCostCenter),
+                        q => q.Where(w => w
+                            .WhereContains("CostCenterCode", request.FilterCostCenter)
+                            .OrWhereContains("CostCenterName", request.FilterCostCenter)
+                            .OrWhereContains("CostCenterType", request.FilterCostCenter)
+                        )
                     );
 
                 query = query.OrderByRaw(
@@ -81,17 +78,18 @@ namespace ThePatho.Features.Organization.CostCenter.Service
                 var db = new QueryFactory(connection, dapperContext.Compiler);
                 var query = new Query(TableOrganization.CostCenter)
                     .Select("*")
+                    .Where("IsDeleted", false)
                     .When(
-                        !string.IsNullOrWhiteSpace(request.FilterCostCenterCode),
-                        q => q.WhereContains("CostCenterCode", request.FilterCostCenterCode)
+                        !string.IsNullOrWhiteSpace(request.CostCenterCode),
+                        q => q.WhereContains("CostCenterCode", request.CostCenterCode)
                     )
                     .When(
-                        !string.IsNullOrWhiteSpace(request.FilterCostCenterName),
-                        q => q.WhereContains("CostCenterName", request.FilterCostCenterName)
+                        !string.IsNullOrWhiteSpace(request.CostCenterName),
+                        q => q.WhereContains("CostCenterName", request.CostCenterName)
                     )
                     .When(
-                        !string.IsNullOrWhiteSpace(request.FilterCostCenterType),
-                        q => q.Where("CostCenterType", request.FilterCostCenterType)
+                        !string.IsNullOrWhiteSpace(request.CostCenterType),
+                        q => q.Where("CostCenterType", request.CostCenterType)
                     );
 
                 var data = await db.GetAsync<CostCenterDto>(query);
@@ -172,21 +170,47 @@ namespace ThePatho.Features.Organization.CostCenter.Service
             try
             {
                 if (string.IsNullOrWhiteSpace(request.CostCenterCode))
-                    return new ApiResponse(HttpStatusCode.NotFound, $"Delete {request.CostCenterCode} CostCenter is required.");
-               
+                {
+                    return new ApiResponse(
+                        HttpStatusCode.BadRequest,
+                        "CostCenter is required"
+                    );
+                }
+
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
 
-                var deleteQuery = new Query(TableOrganization.CostCenter)
-                                .Where("CostCenterCode", request.CostCenterCode)
-                                .AsDelete();
+                var updateResult = await db
+                    .Query(TableOrganization.CostCenter)
+                    .Where("CostCenterCode", request.CostCenterCode)
+                    .WhereFalse("IsDeleted") // optional: prevent double delete
+                    .UpdateAsync(new
+                    {
+                        IsDeleted = true,
+                        ModifiedBy = "system",
+                        ModifiedDate = DateTime.UtcNow
+                    });
 
-                var deleteResult = await db.ExecuteAsync(deleteQuery);
-                return new ApiResponse(HttpStatusCode.OK, $"Delete {request.CostCenterCode} successfully");
+                if (updateResult == 0)
+                {
+                    return new ApiResponse(
+                        HttpStatusCode.NotFound,
+                        $"CostCenter {request.CostCenterCode} not found"
+                    );
+                }
+
+                return new ApiResponse(
+                    HttpStatusCode.OK,
+                    $"Delete {request.CostCenterCode} successfully"
+                );
             }
             catch (Exception ex)
             {
-                return new ApiResponse(HttpStatusCode.BadRequest, $"Failed to delete {request.CostCenterCode}", ex.Message.ToString());
+                return new ApiResponse(
+                    HttpStatusCode.InternalServerError,
+                    $"Failed to delete {request.CostCenterCode}",
+                    ex.Message
+                );
             }
 
         }

@@ -8,14 +8,11 @@ namespace ThePatho.Features.Organization.EmploymentType.Commands
 {
     public class GetEmploymentTypeByCriteriaCommand : IRequest<ApiResponse<EmploymentTypeItemDto>>
     {
-        [JsonPropertyName("filter_employment_type_code")]
-        public string FilterEmploymentTypeCode { get; set; } = null!;
+        [JsonPropertyName("employmentTypeCode")]
+        public string? EmploymentTypeCode { get; set; }
 
-        [JsonPropertyName("filter_employment_type_name")]
-        public string FilterEmploymentTypeName { get; set; } = null!;
-
-        [JsonPropertyName("filter_status")]
-        public string FilterStatus { get; set; }
+        [JsonPropertyName("employmentTypeName")]
+        public string? EmploymentTypeName { get; set; }
 
     }
 }

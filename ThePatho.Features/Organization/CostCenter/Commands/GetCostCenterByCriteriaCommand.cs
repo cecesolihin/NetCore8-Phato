@@ -8,14 +8,14 @@ namespace ThePatho.Features.Organization.CostCenter.Commands
 {
     public class GetCostCenterByCriteriaCommand : IRequest<ApiResponse<CostCenterItemDto>>
     {
-        [JsonPropertyName("filter_CostCenterCode")]
-        public string? FilterCostCenterCode { get; set; } = null!;
+        [JsonPropertyName("costCenterCode")]
+        public string? CostCenterCode { get; set; }
 
-        [JsonPropertyName("filter_CostCenterName")]
-        public string? FilterCostCenterName { get; set; } = null!;
+        [JsonPropertyName("costCenterName")]
+        public string? CostCenterName { get; set; }
 
-        [JsonPropertyName("filter_CostCenterType")]
-        public string? FilterCostCenterType { get; set; } = null!;
+        [JsonPropertyName("costCenterType")]
+        public string? CostCenterType { get; set; }
 
     }
 }

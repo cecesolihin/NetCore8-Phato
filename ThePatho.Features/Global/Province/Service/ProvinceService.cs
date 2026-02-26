@@ -89,9 +89,9 @@ namespace ThePatho.Features.Global.Province.Service
             try
             {
                 var parameters = new DynamicParameters();
-                parameters.Add("@Abbreviation", request.FilterAbbreviation ?? string.Empty);
-                parameters.Add("@CountryId", request.FilterCountry ?? 0);
-                parameters.Add("@Name", request.FilterName ?? string.Empty);
+                parameters.Add("@Abbreviation", request.Abbreviation ?? string.Empty);
+                parameters.Add("@CountryId", request.Country ?? 0);
+                parameters.Add("@Name", request.Name ?? string.Empty);
 
                 var query = await queryLoader.LoadQueryAsync("Global/Province/Sql/get_criteria_province");
                 var data = await dbConnection.QueryAsync<ProvinceDto>(query, parameters);

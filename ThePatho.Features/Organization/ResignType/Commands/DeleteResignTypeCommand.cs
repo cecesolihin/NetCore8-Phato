@@ -6,7 +6,7 @@ namespace ThePatho.Features.Organization.ResignType.Commands
 {
     public class DeleteResignTypeCommand : IRequest<ApiResponse>
     {
-        [JsonPropertyName("resign_type_code")]
+        [JsonPropertyName("resignTypeCode")]
         public string ResignTypeCode { get; set; } = null!;
     }
 }

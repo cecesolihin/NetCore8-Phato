@@ -37,13 +37,13 @@ namespace ThePatho.Features.Organization.EmploymentType.Service
                 var db = new QueryFactory(connection, dapperContext.Compiler);
                 var query = new Query(TableOrganization.EmploymentType)
                     .Select("*")
+                    .Where("IsDeleted", false)
                     .When(
-                        !string.IsNullOrWhiteSpace(request.FilterEmploymentTypeCode),
-                        q => q.WhereContains("EmploymentTypeCode", request.FilterEmploymentTypeCode)
-                    )
-                    .When(
-                        !string.IsNullOrWhiteSpace(request.FilterEmploymentTypeName),
-                        q => q.WhereContains("EmploymentTypeName", request.FilterEmploymentTypeName)
+                        !string.IsNullOrWhiteSpace(request.FilterEmploymentType),
+                        q => q.Where(w => w
+                            .WhereContains("EmploymentTypeCode", request.FilterEmploymentType)
+                            .OrWhereContains("EmploymentTypeName", request.FilterEmploymentType)
+                        )
                     )
                     .When(
                         !string.IsNullOrWhiteSpace(request.FilterStatus)
@@ -88,22 +88,15 @@ namespace ThePatho.Features.Organization.EmploymentType.Service
                 var db = new QueryFactory(connection, dapperContext.Compiler);
                 var query = new Query(TableOrganization.EmploymentType)
                     .Select("*")
+                    .Where("IsDeleted", false)
+                    .Where("IsActive", true)
                     .When(
-                        !string.IsNullOrWhiteSpace(request.FilterEmploymentTypeCode),
-                        q => q.WhereContains("EmploymentTypeCode", request.FilterEmploymentTypeCode)
+                        !string.IsNullOrWhiteSpace(request.EmploymentTypeCode),
+                        q => q.WhereContains("EmploymentTypeCode", request.EmploymentTypeCode)
                     )
                     .When(
-                        !string.IsNullOrWhiteSpace(request.FilterEmploymentTypeName),
-                        q => q.WhereContains("EmploymentTypeName", request.FilterEmploymentTypeName)
-                    )
-                    .When(
-                        !string.IsNullOrWhiteSpace(request.FilterStatus)
-                        && request.FilterStatus.ToLower() != "all",
-                        q =>
-                        {
-                            bool isActive = request.FilterStatus == "1";
-                            return q.Where("IsActive", isActive);
-                        }
+                        !string.IsNullOrWhiteSpace(request.EmploymentTypeName),
+                        q => q.WhereContains("EmploymentTypeName", request.EmploymentTypeName)
                     );
 
                 var data = await db.GetAsync<EmploymentTypeDto>(query);
@@ -150,7 +143,7 @@ namespace ThePatho.Features.Organization.EmploymentType.Service
                     var insertQuery = new Query(TableOrganization.EmploymentType).AsInsert(new
                     {
                         EmploymentTypeCode = request.EmploymentTypeCode,
-                        EmployementTypeName = request.EmploymentTypeName,
+                        EmploymentTypeName = request.EmploymentTypeName,
                         IsActive = request.IsActive,
                         SortOrder = request.SortOrder,
                         Remarks = request.Remarks,
@@ -195,21 +188,47 @@ namespace ThePatho.Features.Organization.EmploymentType.Service
             try
             {
                 if (string.IsNullOrWhiteSpace(request.EmploymentTypeCode))
-                    return new ApiResponse(HttpStatusCode.NotFound, $"Delete {request.EmploymentTypeCode} EmploymentType is required.");
-               
+                {
+                    return new ApiResponse(
+                        HttpStatusCode.BadRequest,
+                        "EmploymentType is required"
+                    );
+                }
+
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
 
-                var deleteQuery = new Query(TableOrganization.EmploymentType)
-                                .Where("EmploymentTypeCode", request.EmploymentTypeCode)
-                                .AsDelete();
+                var updateResult = await db
+                    .Query(TableOrganization.EmploymentType)
+                    .Where("EmploymentTypeCode", request.EmploymentTypeCode)
+                    .WhereFalse("IsDeleted") // optional: prevent double delete
+                    .UpdateAsync(new
+                    {
+                        IsDeleted = true,
+                        ModifiedBy = "system",
+                        ModifiedDate = DateTime.UtcNow
+                    });
 
-                var deleteResult = await db.ExecuteAsync(deleteQuery);
-                return new ApiResponse(HttpStatusCode.OK, $"Delete {request.EmploymentTypeCode} successfully");
+                if (updateResult == 0)
+                {
+                    return new ApiResponse(
+                        HttpStatusCode.NotFound,
+                        $"EmploymentType {request.EmploymentTypeCode} not found"
+                    );
+                }
+
+                return new ApiResponse(
+                    HttpStatusCode.OK,
+                    $"Delete {request.EmploymentTypeCode} successfully"
+                );
             }
             catch (Exception ex)
             {
-                return new ApiResponse(HttpStatusCode.BadRequest, $"Failed to delete {request.EmploymentTypeCode}", ex.Message.ToString());
+                return new ApiResponse(
+                    HttpStatusCode.InternalServerError,
+                    $"Failed to delete {request.EmploymentTypeCode}",
+                    ex.Message
+                );
             }
 
         }
@@ -288,7 +307,7 @@ namespace ThePatho.Features.Organization.EmploymentType.Service
                         ws.Cell(row, 1).Value = item.EmploymentTypeCode;
                         ws.Cell(row, 2).Value = item.EmploymentTypeName;
                         ws.Cell(row, 3).Value = item.IsActive;
-                        ws.Cell(row, 4).Value = item.Order;
+                        ws.Cell(row, 4).Value = item.SortOrder;
                         ws.Cell(row, 5).Value = item.UseEndDate ? "Yes" :"No";
                         ws.Cell(row, 6).Value = item.EmploymentPeriodMonth;
                         row++;
@@ -393,7 +412,7 @@ namespace ThePatho.Features.Organization.EmploymentType.Service
                                         .Style(normalTextStyle);
 
                                     table.Cell().Border(1).Padding(5).AlignMiddle()
-                                        .Text(item.Order.ToString())
+                                        .Text(item.SortOrder.ToString())
                                         .Style(normalTextStyle);
 
                                     table.Cell().Border(1).Padding(5).AlignMiddle()

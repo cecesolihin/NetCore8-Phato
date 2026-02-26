@@ -8,13 +8,11 @@ namespace ThePatho.Features.Organization.WorkLocation.Commands
 {
     public class GetWorkLocationByCriteriaCommand : IRequest<ApiResponse<WorkLocationItemDto>>
     {
-        [JsonPropertyName("work_location_code")]
+        [JsonPropertyName("workLocationCode")]
         public string? WorkLocationCode { get; set; }
-        [JsonPropertyName("work_location_name")]
+        [JsonPropertyName("workLocationName")]
         public string? WorkLocationName { get; set; }
-
-
-        [JsonPropertyName("tax_location_code")]
+        [JsonPropertyName("taxLocationCode")]
         public string? TaxLocationCode { get; set; }
     }
 }

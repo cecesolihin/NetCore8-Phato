@@ -13,6 +13,6 @@ FROM
     dbo.TGEMCountry
 WHERE
     (@Name IS NULL OR [Name] LIKE '%' + @Name + '%') AND
-    (@NumericIsoCode > 0 OR NumericIsoCode LIKE '%' + @NumericIsoCode + '%') AND
+    (@NumericIsoCode > 0 OR NumericIsoCode LIKE '%' + Cast(@NumericIsoCode as varchar) + '%') AND
     (@ThreeLetterIsoCode IS NULL OR ThreeLetterIsoCode LIKE '%' + @ThreeLetterIsoCode + '%') AND
     (@TwoLetterIsoCode IS NULL OR TwoLetterIsoCode LIKE '%' + @TwoLetterIsoCode + '%') 

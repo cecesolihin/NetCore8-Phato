@@ -37,17 +37,14 @@ namespace ThePatho.Features.Organization.OrgStructure.Service
                 var db = new QueryFactory(connection, dapperContext.Compiler);
                 var query = new Query(TableOrganization.OrgStructure)
                     .Select("*")
+                    .Where("IsDeleted", false)
                     .When(
-                        !string.IsNullOrWhiteSpace(request.OrgStructureCode),
-                        q => q.WhereContains("OrgStructureCode", request.OrgStructureCode)
-                    )
-                    .When(
-                        !string.IsNullOrWhiteSpace(request.OrgStructureName),
-                        q => q.WhereContains("OrgStructureName", request.OrgStructureName)
-                    )
-                    .When(
-                        !string.IsNullOrWhiteSpace(request.OrgLevelCode),
-                        q => q.WhereContains("OrgLevelCode", request.OrgLevelCode)
+                        !string.IsNullOrWhiteSpace(request.FilterOrgStructure),
+                        q => q.Where(w => w
+                            .WhereContains("OrgStructureCode", request.FilterOrgStructure)
+                            .OrWhereContains("OrgStructureName", request.FilterOrgStructure)
+                            .OrWhereContains("OrgLevelCode", request.FilterOrgStructure)
+                        )
                     )
                     .When(
                         !string.IsNullOrWhiteSpace(request.Status)
@@ -91,32 +88,29 @@ namespace ThePatho.Features.Organization.OrgStructure.Service
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
                 var query = new Query(TableOrganization.OrgStructure)
-                .Select("*")
-                    .When(
-                        request.OrgStructureId > 0,
-                        q => q.WhereContains("OrgStructureId", request.OrgStructureId)
-                    )
-                    .When(
-                        !string.IsNullOrWhiteSpace(request.OrgStructureCode),
-                        q => q.WhereContains("OrgStructureCode", request.OrgStructureCode)
-                    )
-                    .When(
-                        !string.IsNullOrWhiteSpace(request.OrgStructureName),
-                        q => q.WhereContains("OrgStructureName", request.OrgStructureName)
-                    )
-                    .When(
-                        !string.IsNullOrWhiteSpace(request.OrgLevelCode),
-                        q => q.WhereContains("OrgLevelCode", request.OrgLevelCode)
-                    )
-                    .When(
-                        !string.IsNullOrWhiteSpace(request.Status)
-                        && request.Status.ToLower() != "all",
-                        q =>
-                        {
-                            bool isActive = request.Status == "1";
-                            return q.Where("IsActive", isActive);
-                        }
-                    );
+                        .Select("*")
+                        .Where("IsDeleted", false)
+                        .Where("IsActive", true)
+                        .When(
+                            request.OrgStructureId > 0,
+                            q => q.WhereContains("OrgStructureId", request.OrgStructureId)
+                        )
+                        .When(
+                            !string.IsNullOrWhiteSpace(request.OrgStructureCode),
+                            q => q.WhereContains("OrgStructureCode", request.OrgStructureCode)
+                        )
+                        .When(
+                            !string.IsNullOrWhiteSpace(request.OrgStructureName),
+                            q => q.WhereContains("OrgStructureName", request.OrgStructureName)
+                        )
+                        .When(
+                            !string.IsNullOrWhiteSpace(request.CostCenterCode),
+                            q => q.WhereContains("CostCenterCode", request.CostCenterCode)
+                        )
+                        .When(
+                            !string.IsNullOrWhiteSpace(request.OrgLevelCode),
+                            q => q.WhereContains("OrgLevelCode", request.OrgLevelCode)
+                        );
 
                 var data = await db.GetAsync<OrgStructureDto>(query);
 
@@ -295,29 +289,48 @@ namespace ThePatho.Features.Organization.OrgStructure.Service
         {
             try
             {
-                if (request.OrgStructureId > 0)
+                if (request.OrgStructureId <= 0)
                 {
                     return new ApiResponse<OrgStructureDto>(
-                         HttpStatusCode.BadRequest,
-                         "OrgStructure is required"
-                     );
+                        HttpStatusCode.BadRequest,
+                        "OrgStructure is required"
+                    );
                 }
 
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
 
-                var deleteQuery = new Query(TableOrganization.OrgStructure)
-                                .Where("OrgStructureId", request.OrgStructureId)
-                                .AsDelete();
+                var updateResult = await db
+                    .Query(TableOrganization.OrgStructure)
+                    .Where("OrgStructureId", request.OrgStructureId)
+                    .UpdateAsync(new
+                    {
+                        IsDeleted = true,
+                        ModifiedBy = "system",
+                        ModifiedDate = DateTime.UtcNow
+                    });
 
-                var deleteResult = await db.ExecuteAsync(deleteQuery);
-                return new ApiResponse(HttpStatusCode.OK, $"Delete successfully");
+                if (updateResult == 0)
+                {
+                    return new ApiResponse(
+                        HttpStatusCode.NotFound,
+                        "OrgStructure not found"
+                    );
+                }
+
+                return new ApiResponse(
+                    HttpStatusCode.OK,
+                    "Delete successfully"
+                );
             }
             catch (Exception ex)
             {
-                return new ApiResponse(HttpStatusCode.BadRequest, $"Failed to delete ", ex.Message.ToString());
+                return new ApiResponse(
+                    HttpStatusCode.InternalServerError,
+                    "Failed to delete OrgStructure",
+                    ex.Message
+                );
             }
-
         }
 
         public async Task<ApiResponse<OrgStructureDto>> GetSingleOrgStructure(GetSingleOrgStructureCommand request)

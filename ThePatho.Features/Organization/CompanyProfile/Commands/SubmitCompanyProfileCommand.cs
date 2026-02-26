@@ -6,10 +6,10 @@ namespace ThePatho.Features.Organization.CompanyProfile.Commands
 {
     public class SubmitCompanyProfileCommand : IRequest<ApiResponse>
     {
-        [JsonPropertyName("company_code")]
+        [JsonPropertyName("companyCode")]
         public string CompanyCode { get; set; } = null!;
 
-        [JsonPropertyName("company_name")]
+        [JsonPropertyName("companyName")]
         public string CompanyName { get; set; } = null!;
 
         [JsonPropertyName("phone")]
@@ -21,31 +21,31 @@ namespace ThePatho.Features.Organization.CompanyProfile.Commands
         [JsonPropertyName("email")]
         public string? Email { get; set; }
 
-        [JsonPropertyName("comp_tax_no")]
+        [JsonPropertyName("compTaxNo")]
         public string? CompTaxNo { get; set; }
 
-        [JsonPropertyName("bpjs_tk_card_no")]
+        [JsonPropertyName("bpjsTkCardNo")]
         public string? BpjsTkCardNo { get; set; }
 
-        [JsonPropertyName("bpjs_tk_reg_no")]
+        [JsonPropertyName("bpjsTkRegNo")]
         public string? BpjsTkRegNo { get; set; }
 
-        [JsonPropertyName("bpjs_ks_card_no")]
+        [JsonPropertyName("bpjsKsCardNo")]
         public string? BpjsKsCardNo { get; set; }
 
-        [JsonPropertyName("bpjs_ks_reg_no")]
+        [JsonPropertyName("bpjsKsRegNo")]
         public string? BpjsKsRegNo { get; set; }
 
         [JsonPropertyName("abbreviation")]
         public string Abbreviation { get; set; } = null!;
 
-        [JsonPropertyName("main_business")]
+        [JsonPropertyName("mainBusiness")]
         public string? MainBusiness { get; set; }
 
         [JsonPropertyName("address")]
         public string? Address { get; set; }
 
-        [JsonPropertyName("zip_code")]
+        [JsonPropertyName("zipCode")]
         public string? ZipCode { get; set; }
 
         [JsonPropertyName("logo")]
@@ -54,79 +54,79 @@ namespace ThePatho.Features.Organization.CompanyProfile.Commands
         [JsonPropertyName("city")]
         public string? City { get; set; }
 
-        [JsonPropertyName("country_code")]
+        [JsonPropertyName("countryCode")]
         public string? CountryCode { get; set; }
 
-        [JsonPropertyName("is_deleted")]
+        [JsonPropertyName("isDeleted")]
         public bool IsDeleted { get; set; }
 
-        [JsonPropertyName("tax_penalty_by_emp")]
+        [JsonPropertyName("taxPenaltyByEmp")]
         public int? TaxPenaltyByEmp { get; set; }
 
-        [JsonPropertyName("tax_penalty_by_comp")]
+        [JsonPropertyName("taxPenaltyByComp")]
         public int? TaxPenaltyByComp { get; set; }
 
-        [JsonPropertyName("tax_location_id")]
+        [JsonPropertyName("taxLocationId")]
         public int? TaxLocationId { get; set; }
 
-        [JsonPropertyName("inserted_by")]
+        [JsonPropertyName("insertedBy")]
         public string? InsertedBy { get; set; }
 
-        [JsonPropertyName("inserted_date")]
+        [JsonPropertyName("insertedDate")]
         public string? InsertedDate { get; set; }
 
-        [JsonPropertyName("modified_by")]
+        [JsonPropertyName("modifiedBy")]
         public string? ModifiedBy { get; set; }
 
-        [JsonPropertyName("modified_date")]
+        [JsonPropertyName("modifiedDate")]
         public string? ModifiedDate { get; set; }
 
-        [JsonPropertyName("general_settings_config_guid")]
+        [JsonPropertyName("generalSettingsConfigGuid")]
         public string? GeneralSettingsConfigGuid { get; set; }
 
-        [JsonPropertyName("bpjstk_location")]
+        [JsonPropertyName("bpjstkLocation")]
         public string? BpjstkLocation { get; set; }
 
-        [JsonPropertyName("bpjskes_location")]
+        [JsonPropertyName("bpjskesLocation")]
         public string? BpjskesLocation { get; set; }
 
-        [JsonPropertyName("phone_upin")]
+        [JsonPropertyName("phoneUpin")]
         public string? PhoneUpin { get; set; }
 
-        [JsonPropertyName("fax_upin")]
+        [JsonPropertyName("faxUpin")]
         public string? FaxUpin { get; set; }
 
-        [JsonPropertyName("email_upin")]
+        [JsonPropertyName("emailUpin")]
         public string? EmailUpin { get; set; }
 
-        [JsonPropertyName("abbreviation_upin")]
+        [JsonPropertyName("abbreviationUpin")]
         public string AbbreviationUpin { get; set; } = null!;
 
-        [JsonPropertyName("main_business_upin")]
+        [JsonPropertyName("mainBusinessUpin")]
         public string? MainBusinessUpin { get; set; }
 
-        [JsonPropertyName("address_upin")]
+        [JsonPropertyName("addressUpin")]
         public string? AddressUpin { get; set; }
 
-        [JsonPropertyName("zip_code_upin")]
+        [JsonPropertyName("zipCodeUpin")]
         public string? ZipCodeUpin { get; set; }
 
-        [JsonPropertyName("city_upin")]
+        [JsonPropertyName("cityUpin")]
         public string? CityUpin { get; set; }
 
-        [JsonPropertyName("country_code_upin")]
+        [JsonPropertyName("countryCodeUpin")]
         public string? CountryCodeUpin { get; set; }
 
-        [JsonPropertyName("checked_by_id")]
+        [JsonPropertyName("checkedById")]
         public int? CheckedById { get; set; }
 
-        [JsonPropertyName("approved1_id")]
+        [JsonPropertyName("approved1Id")]
         public int? Approved1Id { get; set; }
 
-        [JsonPropertyName("approved2_id")]
+        [JsonPropertyName("approved2Id")]
         public int? Approved2Id { get; set; }
 
-        [JsonPropertyName("prepared_id")]
+        [JsonPropertyName("preparedId")]
         public int? PreparedId { get; set; }
 
         [JsonPropertyName("action")]

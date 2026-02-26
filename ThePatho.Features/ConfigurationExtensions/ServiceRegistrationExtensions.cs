@@ -31,6 +31,7 @@ using ThePatho.Features.Global.Nationality.Service;
 using ThePatho.Features.Global.NumericalSize.Service;
 using ThePatho.Features.Global.Province.Service;
 using ThePatho.Features.Global.PunishmentType.Service;
+using ThePatho.Features.Global.RadiusUnit.Service;
 using ThePatho.Features.Global.Religion.Service;
 using ThePatho.Features.Global.ResignReason.Service;
 using ThePatho.Features.Global.RewardType.Service;
@@ -39,8 +40,10 @@ using ThePatho.Features.Global.Room.Service;
 using ThePatho.Features.Global.ShoeSize.Service;
 using ThePatho.Features.Global.Skill.Service;
 using ThePatho.Features.Global.SkillProficiency.Service;
+using ThePatho.Features.Global.TaxLocation.Service;
 using ThePatho.Features.Global.TaxStatus.Service;
 using ThePatho.Features.Global.TemplateKeyword.Service;
+using ThePatho.Features.Global.TimeZone.Service;
 using ThePatho.Features.Identity.Authentication.Service;
 using ThePatho.Features.Identity.UserManagement.Service;
 using ThePatho.Features.Organization.CompanyBank.Service;
@@ -152,6 +155,9 @@ public static class ServiceRegistrationExtensions
         services.AddScoped<ISkillProficiencyService, SkillProficiencyService>();
         services.AddScoped<ITemplateKeywordService, TemplateKeywordService>();
         services.AddScoped<ITaxStatusService, TaxStatusService>();
+        services.AddScoped<IRadiusUnitService, RadiusUnitService>();
+        services.AddScoped<ITimeZoneService, TimeZoneService>();
+        services.AddScoped<ITaxLocationService, TaxLocationService>();
         #endregion
 
         #region [Personal Information]

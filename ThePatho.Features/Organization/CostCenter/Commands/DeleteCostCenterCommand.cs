@@ -6,7 +6,7 @@ namespace ThePatho.Features.Organization.CostCenter.Commands
 {
     public class DeleteCostCenterCommand : IRequest<ApiResponse>
     {
-        [JsonPropertyName("cost_center_code")]
+        [JsonPropertyName("costCenterCode")]
         public string CostCenterCode { get; set; } = null!;
     }
 }

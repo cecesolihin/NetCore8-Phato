@@ -1,17 +1,18 @@
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ThePatho.Provider.ApiResponse;
-using ThePatho.Features.Organization.OrgLevel.Commands;
 using Microsoft.AspNetCore.StaticFiles;
 using ThePatho.Domain.Constants;
+using ThePatho.Features.Organization.OrgLevel.Commands;
+using ThePatho.Features.Organization.OrgStructure.Commands;
+using ThePatho.Provider.ApiResponse;
 
 namespace ThePatho.Controllers
 {
     [ApiController]
     [Route(ApiRoutes.OrganizationMenu.OrgLevel)]
     [ApiExplorerSettings(GroupName = "Organization")]
-    //[Authorize]
+    [Authorize]
     public class OrgLevelController : ControllerBase
     {
         private readonly IMediator mediator;
@@ -36,6 +37,15 @@ namespace ThePatho.Controllers
 
         [HttpGet(ApiRoutes.Methods.GetByCriteria)]
         public async Task<IActionResult> GetOrganizationLevelByCriteria([FromQuery] GetOrgLevelByCriteriaCommand command,
+            CancellationToken cancellationToken)
+        {
+            var result = await mediator.Send(command, cancellationToken);
+
+            return ApiResult(result);
+        }
+
+        [HttpGet(ApiRoutes.Methods.GetSingle)]
+        public async Task<IActionResult> GetSingleOrganizationLevel([FromQuery] GetSingleOrgLevelCommand command,
             CancellationToken cancellationToken)
         {
             var result = await mediator.Send(command, cancellationToken);

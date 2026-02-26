@@ -33,22 +33,24 @@ namespace ThePatho.Features.Organization.WorkLocation.Service
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
                 var query = new Query(TableOrganization.WorkLocation)
-                    .Select("*")
-                    .When(
-                        !string.IsNullOrWhiteSpace(request.WorkLocationName),
-                        q => q.WhereContains("WorkLocationCode", request.WorkLocationCode)
-                    )
-                    .When(
-                        !string.IsNullOrWhiteSpace(request.WorkLocationName),
-                        q => q.WhereContains("WorkLocationName", request.WorkLocationName)
-                    )
-                    .When(
-                        request.IsActive.HasValue,
-                        q => q.Where("IsActive", request.IsActive.Value)
-                    )
-                    .When(
-                        !string.IsNullOrWhiteSpace(request.TaxLocationCode),
-                        q => q.WhereContains("TaxLocationCode", request.TaxLocationCode)
+                        .Select("*")
+                        .Where("IsDeleted", false)
+                        .When(
+                            !string.IsNullOrWhiteSpace(request.FilterWorkLocation),
+                            q => q.Where(w => w
+                                .WhereContains("WorkLocationCode", request.FilterWorkLocation)
+                                .OrWhereContains("WorkLocationName", request.FilterWorkLocation)
+                                .OrWhereContains("TaxLocationCode", request.FilterWorkLocation)
+                            )
+                        )
+                        .When(
+                        !string.IsNullOrWhiteSpace(request.Status)
+                        && request.Status.ToLower() != "all",
+                        q =>
+                        {
+                            bool isActive = request.Status == "1";
+                            return q.Where("IsActive", isActive);
+                        }
                     );
 
                 query = query.OrderByRaw(
@@ -84,6 +86,8 @@ namespace ThePatho.Features.Organization.WorkLocation.Service
                 var db = new QueryFactory(connection, dapperContext.Compiler);
                 var query = new Query(TableOrganization.WorkLocation)
                     .Select("*")
+                    .Where("IsDeleted", false)
+                    .Where("IsActive", true)
                     .When(
                         !string.IsNullOrWhiteSpace(request.WorkLocationName),
                         q => q.WhereContains("WorkLocationCode", request.WorkLocationCode)
@@ -183,24 +187,44 @@ namespace ThePatho.Features.Organization.WorkLocation.Service
                 if (string.IsNullOrWhiteSpace(request.WorkLocationCode))
                 {
                     return new ApiResponse<WorkLocationDto>(
-                         HttpStatusCode.BadRequest,
-                         "WorkLocation is required"
-                     );
+                        HttpStatusCode.BadRequest,
+                        "WorkLocation is required"
+                    );
                 }
 
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
 
-                var deleteQuery = new Query(TableOrganization.WorkLocation)
-                                .Where("WorkLocationCode", request.WorkLocationCode)
-                                .AsDelete();
+                var updateResult = await db
+                    .Query(TableOrganization.WorkLocation)
+                    .Where("WorkLocationCode", request.WorkLocationCode)
+                    .UpdateAsync(new
+                    {
+                        IsDeleted = true,
+                        ModifiedBy = "system",
+                        ModifiedDate = DateTime.UtcNow,
+                    });
 
-                var deleteResult = await db.ExecuteAsync(deleteQuery);
-                return new ApiResponse(HttpStatusCode.OK, $"Delete {request.WorkLocationCode} successfully");
+                if (updateResult == 0)
+                {
+                    return new ApiResponse(
+                        HttpStatusCode.NotFound,
+                        $"WorkLocation {request.WorkLocationCode} not found"
+                    );
+                }
+
+                return new ApiResponse(
+                    HttpStatusCode.OK,
+                    $"Delete {request.WorkLocationCode} successfully"
+                );
             }
             catch (Exception ex)
             {
-                return new ApiResponse(HttpStatusCode.BadRequest, $"Failed to delete {request.WorkLocationCode}", ex.Message.ToString());
+                return new ApiResponse(
+                    HttpStatusCode.InternalServerError,
+                    $"Failed to delete {request.WorkLocationCode}",
+                    ex.Message
+                );
             }
 
         }
@@ -288,14 +312,14 @@ namespace ThePatho.Features.Organization.WorkLocation.Service
                     {
                         ws.Cell(row, 1).Value = item.WorkLocationCode;
                         ws.Cell(row, 2).Value = item.WorkLocationName;
-                        ws.Cell(row, 3).Value = item.IsActive.HasValue
-                            ? (item.IsActive.Value ? "Active" : "Inactive")
+                        ws.Cell(row, 3).Value = item.IsActive
+                            ? (item.IsActive ? "Active" : "Inactive")
                             : string.Empty;
                         ws.Cell(row, 4).Value = item.TimeZone ?? string.Empty;
                         ws.Cell(row, 5).Value = item.TaxLocationCode ?? string.Empty;
-                        ws.Cell(row, 6).Value = item.Latitude?.ToString() ?? string.Empty;
-                        ws.Cell(row, 7).Value = item.Longitude?.ToString() ?? string.Empty;
-                        ws.Cell(row, 8).Value = item.Radius?.ToString() ?? string.Empty;
+                        ws.Cell(row, 6).Value = item.Latitude.ToString() ?? string.Empty;
+                        ws.Cell(row, 7).Value = item.Longitude.ToString() ?? string.Empty;
+                        ws.Cell(row, 8).Value = item.Radius.ToString() ?? string.Empty;
                         ws.Cell(row, 9).Value = item.HazardInformation ?? string.Empty;
                         row++;
                     }
@@ -400,7 +424,7 @@ namespace ThePatho.Features.Organization.WorkLocation.Service
                                         .Style(normalTextStyle);
 
                                     table.Cell().Border(1).Padding(3).AlignMiddle()
-                                        .Text(item.IsActive.HasValue ? (item.IsActive.Value ? "Yes" : "No") : "-")
+                                        .Text(item.IsActive ? (item.IsActive ? "Yes" : "No") : "-")
                                         .Style(normalTextStyle);
 
                                     table.Cell().Border(1).Padding(3).AlignMiddle()
@@ -412,15 +436,15 @@ namespace ThePatho.Features.Organization.WorkLocation.Service
                                         .Style(normalTextStyle);
 
                                     table.Cell().Border(1).Padding(3).AlignMiddle()
-                                        .Text(item.Latitude?.ToString() ?? "-")
+                                        .Text(item.Latitude.ToString() ?? "-")
                                         .Style(normalTextStyle);
 
                                     table.Cell().Border(1).Padding(3).AlignMiddle()
-                                        .Text(item.Longitude?.ToString() ?? "-")
+                                        .Text(item.Longitude.ToString() ?? "-")
                                         .Style(normalTextStyle);
 
                                     table.Cell().Border(1).Padding(3).AlignMiddle()
-                                        .Text(item.Radius?.ToString() ?? "-")
+                                        .Text(item.Radius.ToString() ?? "-")
                                         .Style(normalTextStyle);
 
                                     table.Cell().Border(1).Padding(3).AlignMiddle()

@@ -35,23 +35,26 @@ namespace ThePatho.Features.Organization.JobClass.Service
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
                 var query = new Query(TableOrganization.JobClass)
-                    .Select("*")
-                    .When(
-                         !string.IsNullOrWhiteSpace(request.JobClassCode),
-                        q => q.WhereContains("JobClassCode", request.JobClassCode)
-                    )
-                    .When(
-                       !string.IsNullOrWhiteSpace(request.JobClassName),
-                        q => q.WhereContains("JobClassName", request.JobClassName)
-                    )
-                    .When(
-                        !string.IsNullOrWhiteSpace(request.GradeCode),
-                        q => q.WhereContains("GradeCode", request.GradeCode)
-                    )
-                    .When(
-                        !string.IsNullOrWhiteSpace(request.RankCode),
-                        q => q.WhereContains("RankCode", request.RankCode)
-                    );
+                        .Select("*")
+                        .Where("IsDeleted", false)
+                        .When(
+                            !string.IsNullOrWhiteSpace(request.FilterJobClass),
+                            q => q.Where(w => w
+                                .WhereContains("JobClassCode", request.FilterJobClass)
+                                .OrWhereContains("JobClassName", request.FilterJobClass)
+                                .OrWhereContains("GradeCode", request.FilterJobClass)
+                                .OrWhereContains("RankCode", request.FilterJobClass)
+                            )
+                        )
+                        .When(
+                            !string.IsNullOrWhiteSpace(request.FilterStatus)
+                            && request.FilterStatus.ToLower() != "all",
+                            q =>
+                            {
+                                bool isActive = request.FilterStatus == "1";
+                                return q.Where("IsActive", isActive);
+                            }
+                        );
 
                 query = query.OrderByRaw(
                     $"{(!string.IsNullOrWhiteSpace(request.SortBy) ? request.SortBy : "InsertedBy")} {(!string.IsNullOrWhiteSpace(request.OrderBy) && (request.OrderBy.ToUpper() == "ASC" || request.OrderBy.ToUpper() == "DESC") ? request.OrderBy.ToUpper() : "DESC")}"
@@ -86,6 +89,7 @@ namespace ThePatho.Features.Organization.JobClass.Service
                 var db = new QueryFactory(connection, dapperContext.Compiler);
                 var query = new Query(TableOrganization.JobClass)
                     .Select("*")
+                    .Where("IsDeleted", false)
                     .When(
                          !string.IsNullOrWhiteSpace(request.JobClassCode),
                         q => q.WhereContains("JobClassCode", request.JobClassCode)
@@ -185,20 +189,37 @@ namespace ThePatho.Features.Organization.JobClass.Service
                 if (string.IsNullOrWhiteSpace(request.JobClassCode))
                 {
                     return new ApiResponse<JobClassDto>(
-                         HttpStatusCode.BadRequest,
-                         "JobClass is required"
-                     );
+                        HttpStatusCode.BadRequest,
+                        "JobClass is required"
+                    );
                 }
 
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
 
-                var deleteQuery = new Query(TableOrganization.JobClass)
-                                .Where("JobClassCode", request.JobClassCode)
-                                .AsDelete();
+                // Soft delete (UPDATE IsDeleted = true)
+                var updateResult = await db
+                    .Query(TableOrganization.JobClass)
+                    .Where("JobClassCode", request.JobClassCode)
+                    .UpdateAsync(new
+                    {
+                        IsDeleted = true,
+                        ModifiedBy = "system",
+                        ModifiedDate = DateTime.UtcNow
+                    });
 
-                var deleteResult = await db.ExecuteAsync(deleteQuery);
-                return new ApiResponse(HttpStatusCode.OK, $"Delete {request.JobClassCode} successfully");
+                if (updateResult == 0)
+                {
+                    return new ApiResponse(
+                        HttpStatusCode.NotFound,
+                        $"JobClass {request.JobClassCode} not found"
+                    );
+                }
+
+                return new ApiResponse(
+                    HttpStatusCode.OK,
+                    $"Delete {request.JobClassCode} successfully"
+                );
             }
             catch (Exception ex)
             {

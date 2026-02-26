@@ -9,7 +9,7 @@ namespace ThePatho.Controllers
     [ApiController]
     [Route(ApiRoutes.OrganizationMenu.HistOrgStructure)]
     [ApiExplorerSettings(GroupName = "Organization")]
-    //[Authorize]
+    [Authorize]
     public class HistOrgStructureController : ControllerBase
     {
         private readonly IMediator mediator;

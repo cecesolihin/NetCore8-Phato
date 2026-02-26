@@ -7,13 +7,13 @@ namespace ThePatho.Features.Global.City.Commands
 {
     public class GetCityByCriteriaCommand : IRequest<ApiResponse<CityItemDto>>
     {
-        [JsonPropertyName("filter_Name")]
-        public string? FilterName { get; set; }
+        [JsonPropertyName("name")]
+        public string? Name { get; set; }
 
-        [JsonPropertyName("filter_CityCode")]
-        public string? FilterCityCode { get; set; }
+        [JsonPropertyName("cityCode")]
+        public string? CityCode { get; set; }
 
-        [JsonPropertyName("filter_ProvinceId")]
-        public int FilterProvinceId { get; set; }
+        [JsonPropertyName("provinceId")]
+        public int? ProvinceId { get; set; }
     }
 }

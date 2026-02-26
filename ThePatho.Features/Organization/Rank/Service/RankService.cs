@@ -33,15 +33,15 @@ namespace ThePatho.Features.Organization.Rank.Service
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
                 var query = new Query(TableOrganization.Rank)
-                    .Select("*")
-                    .When(
-                        !string.IsNullOrWhiteSpace(request.RankCode),
-                        q => q.WhereContains("RankCode", request.RankCode)
-                    )
-                    .When(
-                        !string.IsNullOrWhiteSpace(request.RankCode),
-                        q => q.WhereContains("RankName", request.RankName)
-                    );
+                        .Select("*")
+                        .Where("IsDeleted", false)
+                        .When(
+                            !string.IsNullOrWhiteSpace(request.FilterRank),
+                            q => q.Where(w => w
+                                .WhereContains("RankCode", request.FilterRank)
+                                .OrWhereContains("RankName", request.FilterRank)
+                            )
+                        );
 
                 query = query.OrderByRaw(
                     $"{(!string.IsNullOrWhiteSpace(request.SortBy) ? request.SortBy : "InsertedBy")} {(!string.IsNullOrWhiteSpace(request.OrderBy) && (request.OrderBy.ToUpper() == "ASC" || request.OrderBy.ToUpper() == "DESC") ? request.OrderBy.ToUpper() : "DESC")}"
@@ -76,6 +76,7 @@ namespace ThePatho.Features.Organization.Rank.Service
                 var db = new QueryFactory(connection, dapperContext.Compiler);
                 var query = new Query(TableOrganization.Rank)
                     .Select("*")
+                    .Where("IsDeleted", false)
                     .When(
                         !string.IsNullOrWhiteSpace(request.RankCode),
                         q => q.WhereContains("RankCode", request.RankCode)
@@ -123,7 +124,7 @@ namespace ThePatho.Features.Organization.Rank.Service
                     {
                         RankCode = request.RankCode,
                         RankName = request.RankName,
-                        Order = request.Order,
+                        SortOrder = request.SortOrder,
                         Remarks = request.Remarks,
                         IsDeleted = false,
                         InsertedBy = "system",
@@ -140,7 +141,7 @@ namespace ThePatho.Features.Organization.Rank.Service
                         .AsUpdate(new
                         {
                             RankName = request.RankName,
-                            Order = request.Order,
+                            SortOrder = request.SortOrder,
                             Remarks = request.Remarks,
                             IsDeleted = false,
                             ModifiedBy = "system",
@@ -171,11 +172,24 @@ namespace ThePatho.Features.Organization.Rank.Service
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
 
-                var deleteQuery = new Query(TableOrganization.Rank)
-                                .Where("RankCode", request.RankCode)
-                                .AsDelete();
+                var updateResult = await db
+                                 .Query(TableOrganization.Rank)
+                                 .Where("RankCode", request.RankCode)
+                                 .UpdateAsync(new
+                                 {
+                                     IsDeleted = true,
+                                     ModifiedBy = "system",
+                                     ModifiedDate = DateTime.UtcNow           // optional
+                                 });
 
-                var deleteResult = await db.ExecuteAsync(deleteQuery);
+                if (updateResult == 0)
+                {
+                    return new ApiResponse(
+                        HttpStatusCode.NotFound,
+                        $"Rank {request.RankCode} not found"
+                    );
+                }
+
                 return new ApiResponse(HttpStatusCode.OK, $"Delete {request.RankCode} successfully");
             }
             catch (Exception ex)
@@ -266,7 +280,7 @@ namespace ThePatho.Features.Organization.Rank.Service
                     {
                         ws.Cell(row, 1).Value = item.RankCode;
                         ws.Cell(row, 2).Value = item.RankName;
-                        ws.Cell(row, 3).Value = item.Order;
+                        ws.Cell(row, 3).Value = item.SortOrder;
                         ws.Cell(row, 4).Value = item.Remarks ?? string.Empty;
                         row++;
                     }
@@ -362,7 +376,7 @@ namespace ThePatho.Features.Organization.Rank.Service
                                         .Style(normalTextStyle);
 
                                     table.Cell().Border(1).Padding(5).AlignMiddle()
-                                        .Text(item.Order.ToString())
+                                        .Text(item.SortOrder.ToString())
                                         .Style(normalTextStyle);
 
                                     table.Cell().Border(1).Padding(5).AlignMiddle()
