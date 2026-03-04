@@ -8,14 +8,14 @@ namespace ThePatho.Features.PersonalInformation.EmployeeFamily.Commands
 {
     public class GetEmployeeFamilyByCriteriaCommand : IRequest<ApiResponse<EmployeeFamilyItemDto>>
     {
-        [JsonPropertyName("filter_employee_id")]
-        public int? FilterEmployeeId { get; set; }
+        [JsonPropertyName("employeeId")]
+        public int? EmployeeId { get; set; }
 
-        [JsonPropertyName("filter_relation_code")]
-        public string? FilterRelationCode { get; set; }
+        [JsonPropertyName("relationCode")]
+        public string? RelationCode { get; set; }
 
-        [JsonPropertyName("filter_family_name")]
-        public string? FilterFamilyName { get; set; }
+        [JsonPropertyName("familyName")]
+        public string? FamilyName { get; set; }
     }
 }
 

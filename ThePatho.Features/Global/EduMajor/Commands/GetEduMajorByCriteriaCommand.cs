@@ -8,11 +8,11 @@ namespace ThePatho.Features.Global.EduMajor.Commands
 {
     public class GetEduMajorByCriteriaCommand : IRequest<ApiResponse<EduMajorItemDto>>
     {
-        [JsonPropertyName("filter_MajorCode")]
-        public string? FilterMajorCode { get; set; }
+        [JsonPropertyName("majorCode")]
+        public string? MajorCode { get; set; }
 
-        [JsonPropertyName("filter_MajorName")]
-        public string? FilterMajorName { get; set; }
+        [JsonPropertyName("majorName")]
+        public string? MajorName { get; set; }
     }
 }
 

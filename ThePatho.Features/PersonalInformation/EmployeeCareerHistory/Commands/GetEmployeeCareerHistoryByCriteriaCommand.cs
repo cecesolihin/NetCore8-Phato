@@ -8,18 +8,18 @@ namespace ThePatho.Features.PersonalInformation.EmployeeCareerHistory.Commands
 {
     public class GetEmployeeCareerHistoryByCriteriaCommand : IRequest<ApiResponse<EmployeeCareerHistoryItemDto>>
     {
-        [JsonPropertyName("filter_employee_id")]
-        public int? FilterEmployeeId { get; set; }
+        [JsonPropertyName("employeeid")]
+        public int? EmployeeId { get; set; }
 
-        [JsonPropertyName("filter_company_code")]
-        public string? FilterCompanyCode { get; set; }
+        [JsonPropertyName("companycode")]
+        public string? CompanyCode { get; set; }
 
-        [JsonPropertyName("filter_position_code")]
-        public string? FilterPositionCode { get; set; }
+        [JsonPropertyName("positioncode")]
+        public string? PositionCode { get; set; }
 
-        [JsonPropertyName("filter_career_history_no")]
-        public string? FilterCareerHistoryNo { get; set; }
-        
+        [JsonPropertyName("careerhistoryno")]
+        public string? CareerHistoryNo { get; set; }
+
     }
 }
 

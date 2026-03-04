@@ -8,7 +8,7 @@ namespace ThePatho.Features.PersonalInformation.EmployeeAddress.Commands
 {
     public class GetSingleEmployeeAddressCommand : IRequest<ApiResponse<EmployeeAddressDto>>
     {
-        [JsonPropertyName("employee_id")]
+        [JsonPropertyName("employeeId")]
         public int EmployeeId { get; set; }
 
     }

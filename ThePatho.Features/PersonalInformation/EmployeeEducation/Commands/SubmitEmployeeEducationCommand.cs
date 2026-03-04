@@ -6,34 +6,34 @@ namespace ThePatho.Features.PersonalInformation.EmployeeEducation.Commands
 {
     public class SubmitEmployeeEducationCommand : IRequest<ApiResponse>
     {
-        [JsonPropertyName("employee_education_id")]
+        [JsonPropertyName("employeeEducationId")]
         public int EmployeeEducationId { get; set; }
 
-        [JsonPropertyName("employee_id")]
+        [JsonPropertyName("employeeId")]
         public int EmployeeId { get; set; }
 
-        [JsonPropertyName("edu_level_code")]
+        [JsonPropertyName("eduLevelCode")]
         public string EduLevelCode { get; set; } = null!;
 
         [JsonPropertyName("faculty")]
         public string Faculty { get; set; } = null!;
 
-        [JsonPropertyName("major_code")]
+        [JsonPropertyName("majorCode")]
         public string MajorCode { get; set; } = null!;
 
-        [JsonPropertyName("other_major")]
+        [JsonPropertyName("otherMajor")]
         public string OtherMajor { get; set; } = null!;
 
-        [JsonPropertyName("start_year")]
+        [JsonPropertyName("startYear")]
         public string? StartYear { get; set; }
 
-        [JsonPropertyName("end_year")]
+        [JsonPropertyName("endYear")]
         public string? EndYear { get; set; }
 
         [JsonPropertyName("gpa")]
         public string Gpa { get; set; } = null!;
 
-        [JsonPropertyName("max_gpa")]
+        [JsonPropertyName("maxGpa")]
         public string MaxGpa { get; set; } = null!;
 
         [JsonPropertyName("institution")]
@@ -42,16 +42,16 @@ namespace ThePatho.Features.PersonalInformation.EmployeeEducation.Commands
         [JsonPropertyName("address")]
         public string Address { get; set; } = null!;
 
-        [JsonPropertyName("city_code")]
+        [JsonPropertyName("cityCode")]
         public string CityCode { get; set; } = null!;
 
-        [JsonPropertyName("grad_type_code")]
+        [JsonPropertyName("gradTypeCode")]
         public string GradTypeCode { get; set; } = null!;
 
-        [JsonPropertyName("certificate_no")]
+        [JsonPropertyName("certificateNo")]
         public string CertificateNo { get; set; } = null!;
 
-        [JsonPropertyName("certificate_date")]
+        [JsonPropertyName("certificateDate")]
         public string? CertificateDate { get; set; }
 
         [JsonPropertyName("remarks")]

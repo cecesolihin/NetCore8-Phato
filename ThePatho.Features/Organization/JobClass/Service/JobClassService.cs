@@ -1,18 +1,19 @@
+using ClosedXML.Excel;
+using Microsoft.IdentityModel.Tokens;
+using QuestPDF.Fluent;
+using QuestPDF.Helpers;
+using QuestPDF.Infrastructure;
 using SqlKata;
 using SqlKata.Execution;
+using System.IO;
 using System.Net;
 using ThePatho.Domain.Constants;
+using ThePatho.Features.Common.DTO;
 using ThePatho.Features.Organization.JobClass.Commands;
 using ThePatho.Features.Organization.JobClass.DTO;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.ApiResponse;
-using ClosedXML.Excel;
-using System.IO;
-using QuestPDF.Fluent;
-using QuestPDF.Helpers;
-using QuestPDF.Infrastructure;
-using Microsoft.IdentityModel.Tokens;
-using ThePatho.Features.Common.DTO;
+using ThePatho.Provider.UserContext;
 
 namespace ThePatho.Features.Organization.JobClass.Service
 {
@@ -20,10 +21,12 @@ namespace ThePatho.Features.Organization.JobClass.Service
     {
         #region [FIELDS & CTOR]
         private readonly DapperContext dapperContext;
+        private readonly ICurrentUserService currentUserService;
 
-        public JobClassService(DapperContext _dapperContext)
+        public JobClassService(DapperContext _dapperContext, ICurrentUserService _currentUserService)
         {
             dapperContext = _dapperContext;
+            currentUserService = _currentUserService;
         }
         #endregion
 
@@ -150,7 +153,7 @@ namespace ThePatho.Features.Organization.JobClass.Service
                         Remarks = request.Remarks,
                         IsDeleted = false,
                         IsActive = request.IsActive,
-                        InsertedBy = "system",
+                        InsertedBy = currentUserService.GetUserName() ?? "system",
                         InsertedDate = DateTime.UtcNow
                     });
 
@@ -169,7 +172,7 @@ namespace ThePatho.Features.Organization.JobClass.Service
                             Remarks = request.Remarks,
                             IsDeleted = false,
                             IsActive = request.IsActive,
-                            ModifiedBy = "system",
+                            ModifiedBy  = currentUserService.GetUserName() ?? "system",
                             ModifiedDate = DateTime.UtcNow
                         });
 
@@ -204,7 +207,7 @@ namespace ThePatho.Features.Organization.JobClass.Service
                     .UpdateAsync(new
                     {
                         IsDeleted = true,
-                        ModifiedBy = "system",
+                        ModifiedBy  = currentUserService.GetUserName() ?? "system",
                         ModifiedDate = DateTime.UtcNow
                     });
 
@@ -332,7 +335,7 @@ namespace ThePatho.Features.Organization.JobClass.Service
                     fileName = $"JobClass.xlsx";
                     var dto = new AttachmentFileDto
                     {
-                        FileBytes = fileBytes,
+                        Base64Data = Convert.ToBase64String(fileBytes),
                         FileName = fileName,
                         ContentType = MimeTypesConstants.VND_OPENXML_EXCEL
                     };
@@ -433,7 +436,7 @@ namespace ThePatho.Features.Organization.JobClass.Service
 
                     var dto = new AttachmentFileDto
                     {
-                        FileBytes = bytes,
+                        Base64Data = Convert.ToBase64String(bytes),
                         FileName = "JobClassList.pdf",
                         ContentType = MimeTypesConstants.PDF
                     };

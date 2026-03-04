@@ -87,8 +87,8 @@ namespace ThePatho.Features.Global.Identity.Service
             try
             {
                 var parameters = new DynamicParameters();
-                parameters.Add("@IdentityCode", request.FilterIdentityCode ?? string.Empty);
-                parameters.Add("@IdentityName", request.FilterIdentityName ?? string.Empty);
+                parameters.Add("@IdentityCode", request.IdentityCode ?? string.Empty);
+                parameters.Add("@IdentityName", request.IdentityName ?? string.Empty);
 
                 var query = await queryLoader.LoadQueryAsync("Global/Identity/Sql/get_criteria_identity");
                 var data = await dbConnection.QueryAsync<IdentityDto>(query, parameters);

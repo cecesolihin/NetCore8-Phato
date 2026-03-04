@@ -8,11 +8,11 @@ namespace ThePatho.Features.Global.Religion.Commands
 {
     public class GetReligionByCriteriaCommand : IRequest<ApiResponse<ReligionItemDto>>
     {
-        [JsonPropertyName("filter_ReligionName")]
-        public string? FilterReligionName { get; set; }
+        [JsonPropertyName("religionName")]
+        public string? ReligionName { get; set; }
 
-        [JsonPropertyName("filter_ReligionId")]
-        public int? FilterReligionId { get; set; }
+        [JsonPropertyName("religionId")]
+        public int? ReligionId { get; set; }
 
     }
 }

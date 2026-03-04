@@ -8,11 +8,11 @@ namespace ThePatho.Features.Global.MaritalStatus.Commands
 {
     public class GetMaritalStatusByCriteriaCommand : IRequest<ApiResponse<MaritalStatusItemDto>>
     {
-        [JsonPropertyName("filter_MaritalStatusName")]
-        public string? FilterMaritalStatusName { get; set; }
+        [JsonPropertyName("maritalStatusName")]
+        public string? MaritalStatusName { get; set; }
 
-        [JsonPropertyName("filter_MaritalStatusCode")]
-        public string? FilterMaritalStatusCode { get; set; }
+        [JsonPropertyName("maritalStatusCode")]
+        public string? MaritalStatusCode { get; set; }
 
     }
 }

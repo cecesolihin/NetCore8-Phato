@@ -6,10 +6,10 @@ namespace ThePatho.Features.PersonalInformation.EmployeeSkill.Commands
 {
     public class DeleteEmployeeSkillCommand : IRequest<ApiResponse>
     {
-        [JsonPropertyName("employee_id")]
+        [JsonPropertyName("employeeId")]
         public int EmployeeId { get; set; }
 
-        [JsonPropertyName("skill_code")]
+        [JsonPropertyName("skillCode")]
         public string SkillCode { get; set; } = null!;
     }
 }

@@ -15,7 +15,7 @@ namespace ThePatho.Features.Global.City.Commands
         [JsonPropertyName("province_id")]
         public int ProvinceId { get; set; }
 
-        [JsonPropertyName("sort")]
+        [JsonPropertyName("SortOrder")]
         public int? Sort { get; set; }
 
         [JsonPropertyName("is_deleted")]

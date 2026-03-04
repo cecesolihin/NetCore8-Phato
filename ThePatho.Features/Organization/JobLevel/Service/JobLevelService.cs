@@ -18,6 +18,7 @@ using ThePatho.Features.Organization.OrgLevel.DTO;
 using ThePatho.Features.Organization.OrgStructure.DTO;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.ApiResponse;
+using ThePatho.Provider.UserContext;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ThePatho.Features.Organization.JobLevel.Service
@@ -25,10 +26,12 @@ namespace ThePatho.Features.Organization.JobLevel.Service
     public class JobLevelService : IJobLevelService
     {
         private readonly DapperContext dapperContext; 
+        private readonly ICurrentUserService currentUserService;
 
-        public JobLevelService(DapperContext _dapperContext)
+        public JobLevelService(DapperContext _dapperContext, ICurrentUserService _currentUserService)
         {
             dapperContext = _dapperContext;
+            currentUserService = _currentUserService;
         }
 
         public async Task<ApiResponse<JobLevelItemDto>> GetJobLevel(GetJobLevelCommand request)
@@ -192,7 +195,7 @@ namespace ThePatho.Features.Organization.JobLevel.Service
                         SortOrder = request.SortOrder,
                         Remarks = request.Remarks,
                         IsDeleted = false,
-                        InsertedBy = "system",
+                        InsertedBy = currentUserService.GetUserName() ?? "system",
                         InsertedDate = DateTime.UtcNow,
                         IsActive = request.IsActive
                     });
@@ -209,7 +212,7 @@ namespace ThePatho.Features.Organization.JobLevel.Service
                                 JobLevelCode = request.JobLevelCode,
                                 JobClassCode = jobClassCode,
                                 IsDeleted = false,
-                                InsertedBy = "system",
+                                InsertedBy = currentUserService.GetUserName() ?? "system",
                                 InsertedDate = DateTime.UtcNow
                             });
 
@@ -227,7 +230,7 @@ namespace ThePatho.Features.Organization.JobLevel.Service
                             JobLevelName = request.JobLevelName,
                             SortOrder = request.SortOrder,
                             Remarks = request.Remarks,
-                            ModifiedBy = "system",
+                            ModifiedBy  = currentUserService.GetUserName() ?? "system",
                             ModifiedDate = DateTime.UtcNow,
                             IsActive = request.IsActive
                         });
@@ -252,7 +255,7 @@ namespace ThePatho.Features.Organization.JobLevel.Service
                                 JobLevelCode = request.JobLevelCode,
                                 JobClassCode = jobClassCode,
                                 IsDeleted = false,
-                                InsertedBy = "system",
+                                InsertedBy = currentUserService.GetUserName() ?? "system",
                                 InsertedDate = DateTime.UtcNow
                             });
 
@@ -289,7 +292,7 @@ namespace ThePatho.Features.Organization.JobLevel.Service
                     .UpdateAsync(new
                     {
                         IsDeleted = true,
-                        ModifiedBy = "system",
+                        ModifiedBy  = currentUserService.GetUserName() ?? "system",
                         ModifiedDate = DateTime.UtcNow,
                     });
                 await db
@@ -298,7 +301,7 @@ namespace ThePatho.Features.Organization.JobLevel.Service
                     .UpdateAsync(new
                     {
                         IsDeleted = true,
-                        ModifiedBy = "system",
+                        ModifiedBy  = currentUserService.GetUserName() ?? "system",
                         ModifiedDate = DateTime.UtcNow,
                     });
 
@@ -398,7 +401,7 @@ namespace ThePatho.Features.Organization.JobLevel.Service
 
                 var data = await db.Query(TableOrganization.JobLevel)
                     .Where("IsDeleted", false)
-                    .OrderBy("Sort")
+                    .OrderBy("SortOrder")
                     .GetAsync<JobLevelDto>();
 
                 var exportType = (type ?? "").Trim().ToLowerInvariant();
@@ -420,7 +423,7 @@ namespace ThePatho.Features.Organization.JobLevel.Service
                     // ===== HEADER =====
                     worksheet.Cell(3, 1).Value = "Job Level Code";
                     worksheet.Cell(3, 2).Value = "Job Level Name";
-                    worksheet.Cell(3, 3).Value = "Sort";
+                    worksheet.Cell(3, 3).Value = "SortOrder";
                     worksheet.Cell(3, 4).Value = "Remarks";
                     worksheet.Cell(3, 5).Value = "Is Active";
 
@@ -460,7 +463,7 @@ namespace ThePatho.Features.Organization.JobLevel.Service
 
                     var dto = new AttachmentFileDto
                     {
-                        FileBytes = fileBytes,
+                        Base64Data = Convert.ToBase64String(fileBytes),
                         FileName = fileName,
                         ContentType = MimeTypesConstants.VND_OPENXML_EXCEL
                     };
@@ -508,7 +511,7 @@ namespace ThePatho.Features.Organization.JobLevel.Service
                                 // ===== TABLE HEADER =====
                                 table.Header(header =>
                                 {
-                                    string[] headers = { "Job Level Code", "Job Level Name", "Sort", "Remarks",  "Active" };
+                                    string[] headers = { "Job Level Code", "Job Level Name", "SortOrder", "Remarks",  "Active" };
 
                                     foreach (var title in headers)
                                     {
@@ -557,7 +560,7 @@ namespace ThePatho.Features.Organization.JobLevel.Service
 
                     var dto = new AttachmentFileDto
                     {
-                        FileBytes = fileBytes,
+                        Base64Data = Convert.ToBase64String(fileBytes),
                         FileName = "JobLevel.pdf",
                         ContentType = MimeTypesConstants.PDF
                     };

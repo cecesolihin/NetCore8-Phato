@@ -94,8 +94,8 @@ namespace ThePatho.Features.Global.Building.Service
             try
             {
                 var parameters = new DynamicParameters();
-                parameters.Add("@BuildingCode", request.FilterBuildingCode ?? string.Empty);
-                parameters.Add("@BuildingName", request.FilterBuildingName ?? string.Empty);
+                parameters.Add("@BuildingCode", request.BuildingCode ?? string.Empty);
+                parameters.Add("@BuildingName", request.BuildingName ?? string.Empty);
 
 
                 var query = await queryLoader.LoadQueryAsync("Global/Building/Sql/get_criteria_building");

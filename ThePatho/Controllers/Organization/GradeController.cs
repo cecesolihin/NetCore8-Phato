@@ -72,7 +72,7 @@ namespace ThePatho.Controllers
         {
             var templateResponse = await mediator.Send(new DownloadGradeTemplateCommand(), cancellationToken);
 
-            if (templateResponse.Code != 200 || templateResponse.Data == null || templateResponse.Data.FileBytes.Length == 0)
+            if (templateResponse.Code != 200 || templateResponse.Data == null || templateResponse.Data.Base64Data != null)
             {
                 return ApiResult(templateResponse);
             }
@@ -87,7 +87,7 @@ namespace ThePatho.Controllers
                 }
             }
 
-            return File(templateResponse.Data.FileBytes, contentType, templateResponse.Data.FileName);
+            return File(templateResponse.Data.Base64Data, contentType, templateResponse.Data.FileName);
         }
 
         [HttpGet(ApiRoutes.Methods.Export)]
@@ -95,7 +95,7 @@ namespace ThePatho.Controllers
         {
             var exportResponse = await mediator.Send(new ExportGradeCommand { Type = type }, cancellationToken);
 
-            if (exportResponse.Code != 200 || exportResponse.Data == null || exportResponse.Data.FileBytes.Length == 0)
+            if (exportResponse.Code != 200 || exportResponse.Data == null || exportResponse.Data.Base64Data != null)
             {
                 return ApiResult(exportResponse);
             }
@@ -110,7 +110,7 @@ namespace ThePatho.Controllers
                 }
             }
 
-            return File(exportResponse.Data.FileBytes, contentType, exportResponse.Data.FileName);
+            return File(exportResponse.Data.Base64Data, contentType, exportResponse.Data.FileName);
         }
 
         [HttpPost(ApiRoutes.Methods.upload)]

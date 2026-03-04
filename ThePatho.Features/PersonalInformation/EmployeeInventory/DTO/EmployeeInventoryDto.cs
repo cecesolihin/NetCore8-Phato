@@ -3,25 +3,25 @@
     public class EmployeeInventoryDto
     {
         public int EmployeeId { get; set; }
-        public string EmployeeNo { get; set; } = null!;
-        public string EmployeeName { get; set; } = null!;
-        public string InventoryNo { get; set; } = null!;
-        public string InventoryTpyeCode { get; set; } = null!;
-        public string InventoryName { get; set; } = null!;
+        public string EmployeeNo { get; set; }
+        public string EmployeeName { get; set; }
+        public string PostionCode { get; set; }
+        public string PositionName { get; set; }
+        public string InventoryNo { get; set; }
+        public string InventoryTpyeCode { get; set; }
+        public string InventoryName { get; set; }
 
         public string? ReceivedDate { get; set; }
         public short ReceivedQty { get; set; }
-        public string ReceivedCondition { get; set; } = null!;
-        public string ReceivedInRemark { get; set; } = null!;
+        public string ReceivedCondition { get; set; }
+        public string ReceivedRemark { get; set; }
         public string? ReturnDate { get; set; }
-        public string ReturnCondition { get; set; } = null!;
-        public string ReturnRemark { get; set; } = null!;
+        public string ReturnCondition { get; set; }
+        public string ReturnRemark { get; set; }
         public string? ReturnPlanDate { get; set; }
-      
-        public string Size { get; set; } = null!;
-        public string InsertedBy { get; set; } = null!;
+        public string InsertedBy { get; set; }
         public string? InsertedDate { get; set; }
-        public string ModifiedBy { get; set; } = null!;
+        public string ModifiedBy { get; set; }
         public string? ModifiedDate { get; set; }
     }
 

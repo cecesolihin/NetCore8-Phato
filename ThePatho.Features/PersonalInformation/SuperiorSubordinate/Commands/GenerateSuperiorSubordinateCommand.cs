@@ -6,7 +6,7 @@ namespace ThePatho.Features.PersonalInformation.SuperiorSubordinate.Commands
 {
     public class GenerateSuperiorSubordinateCommand : IRequest<ApiResponse>
     {
-        [JsonPropertyName("effective_date")]
+        [JsonPropertyName("effectiveDate")]
         public DateTime EffectiveDate { get; set; }
 
         [JsonPropertyName("override")]
@@ -14,7 +14,7 @@ namespace ThePatho.Features.PersonalInformation.SuperiorSubordinate.Commands
         [JsonPropertyName("remarks")]
         public string? Remarks { get; set; }
 
-        [JsonPropertyName("employee_list")]
+        [JsonPropertyName("employeeList")]
         public List<int> EmployeeList { get; set; } = new();
     }
 }

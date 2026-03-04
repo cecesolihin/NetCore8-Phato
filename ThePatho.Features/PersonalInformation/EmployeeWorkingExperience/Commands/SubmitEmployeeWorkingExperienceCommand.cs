@@ -6,19 +6,19 @@ namespace ThePatho.Features.PersonalInformation.EmployeeWorkingExperience.Comman
 {
     public class SubmitEmployeeWorkingExperienceCommand : IRequest<ApiResponse>
     {
-        [JsonPropertyName("emp_work_experience_id")]
+        [JsonPropertyName("empWorkExperienceId")]
         public int EmpWorkExperienceId { get; set; }
 
-        [JsonPropertyName("employee_id")]
+        [JsonPropertyName("employeeId")]
         public int EmployeeId { get; set; }
 
-        [JsonPropertyName("start_working")]
+        [JsonPropertyName("startWorking")]
         public string StartWorking { get; set; } = null!;
 
-        [JsonPropertyName("end_working")]
+        [JsonPropertyName("endWorking")]
         public string? EndWorking { get; set; }
 
-        [JsonPropertyName("employment_type_code")]
+        [JsonPropertyName("employmentTypeCode")]
         public string EmploymentTypeCode { get; set; } = null!;
 
         [JsonPropertyName("organization")]
@@ -27,19 +27,19 @@ namespace ThePatho.Features.PersonalInformation.EmployeeWorkingExperience.Comman
         [JsonPropertyName("company")]
         public string Company { get; set; } = null!;
 
-        [JsonPropertyName("business_field")]
+        [JsonPropertyName("businessField")]
         public string BusinessField { get; set; } = null!;
 
         [JsonPropertyName("address")]
         public string Address { get; set; } = null!;
 
-        [JsonPropertyName("city_code")]
-        public int? CityId { get; set; } = null;
+        [JsonPropertyName("cityId")]
+        public int? CityId { get; set; }
 
-        [JsonPropertyName("job_level")]
+        [JsonPropertyName("jobLevel")]
         public string JobLevel { get; set; } = null!;
 
-        [JsonPropertyName("job_description")]
+        [JsonPropertyName("jobDescription")]
         public string JobDescription { get; set; } = null!;
 
         [JsonPropertyName("phone")]
@@ -48,25 +48,25 @@ namespace ThePatho.Features.PersonalInformation.EmployeeWorkingExperience.Comman
         [JsonPropertyName("website")]
         public string? Website { get; set; }
 
-        [JsonPropertyName("reference_name")]
+        [JsonPropertyName("referenceName")]
         public string? ReferenceName { get; set; }
 
-        [JsonPropertyName("reference_phone")]
+        [JsonPropertyName("referencePhone")]
         public string? ReferencePhone { get; set; }
 
-        [JsonPropertyName("reference_email")]
+        [JsonPropertyName("referenceEmail")]
         public string? ReferenceEmail { get; set; }
 
-        [JsonPropertyName("currency_code21")]
+        [JsonPropertyName("currencyCode21")]
         public string? CurrencyCode21 { get; set; }
 
-        [JsonPropertyName("currency_code15")]
+        [JsonPropertyName("currencyCode15")]
         public string? CurrencyCode15 { get; set; }
 
-        [JsonPropertyName("pph_a21")]
+        [JsonPropertyName("pphA21")]
         public double? PphA21 { get; set; }
 
-        [JsonPropertyName("pph_a15")]
+        [JsonPropertyName("pphA15")]
         public double? PphA15 { get; set; }
 
         [JsonPropertyName("remarks")]

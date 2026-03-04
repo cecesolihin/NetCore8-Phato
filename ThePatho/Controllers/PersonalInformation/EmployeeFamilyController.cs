@@ -63,5 +63,19 @@ namespace ThePatho.Controllers
             var result = await mediator.Send(command, cancellationToken);
             return ApiResult(result);
         }
+
+        [HttpGet(ApiRoutes.Methods.Export)]
+        public async Task<IActionResult> ExportEmployeeFamily([FromQuery] string type, CancellationToken cancellationToken)
+        {
+            var exportResponse = await mediator.Send(new ExportEmployeeFamilyCommand { Type = type }, cancellationToken);
+
+            if (exportResponse.Code != 200 || exportResponse.Data == null)
+            {
+                return ApiResult(exportResponse);
+            }
+
+            var contentType = exportResponse.Data.ContentType;
+            return File(Convert.FromBase64String(exportResponse.Data.Base64Data), contentType, exportResponse.Data.FileName);
+        }
     }
 }

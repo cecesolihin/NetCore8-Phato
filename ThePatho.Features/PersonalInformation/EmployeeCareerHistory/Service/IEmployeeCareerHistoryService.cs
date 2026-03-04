@@ -1,6 +1,7 @@
 ﻿using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.PersonalInformation.EmployeeCareerHistory.Commands;
 using ThePatho.Features.PersonalInformation.EmployeeCareerHistory.DTO;
+using ThePatho.Features.Common.DTO;
 
 namespace ThePatho.Features.PersonalInformation.EmployeeCareerHistory.Service
 {
@@ -11,5 +12,6 @@ namespace ThePatho.Features.PersonalInformation.EmployeeCareerHistory.Service
         Task<ApiResponse> SubmitEmployeeCareerHistory(SubmitEmployeeCareerHistoryCommand request);
         Task<ApiResponse> DeleteEmployeeCareerHistory(DeleteEmployeeCareerHistoryCommand request);
         Task<ApiResponse<EmployeeCareerHistoryDto>> GetSingleEmployeeCareerHistory(GetSingleEmployeeCareerHistoryCommand request);
+        Task<ApiResponse<AttachmentFileDto>> ExportEmployeeCareerHistoryAsync(string type);
     }
 }

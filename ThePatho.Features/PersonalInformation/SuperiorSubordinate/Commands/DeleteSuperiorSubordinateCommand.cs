@@ -6,7 +6,7 @@ namespace ThePatho.Features.PersonalInformation.SuperiorSubordinate.Commands
 {
     public class DeleteSuperiorSubordinateCommand : IRequest<ApiResponse>
     {
-        [JsonPropertyName("employee_superior_id")]
+        [JsonPropertyName("employeeSuperiorID")]
         public int EmployeeSuperiorID { get; set; }
     }
 }

@@ -6,27 +6,28 @@ namespace ThePatho.Features.PersonalInformation.EmployeeIdentity.Commands
 {
     public class SubmitEmployeeIdentityCommand : IRequest<ApiResponse>
     {
-        [JsonPropertyName("employee_id")]
+        [JsonPropertyName("employeeId")]
         public int EmployeeId { get; set; }
 
-        [JsonPropertyName("identity_code")]
+        [JsonPropertyName("identityCode")]
         public string IdentityCode { get; set; } = null!;
 
-        [JsonPropertyName("company_code")]
+        [JsonPropertyName("companyCode")]
         public string CompanyCode { get; set; } = null!;
 
-        [JsonPropertyName("identity_no")]
+        [JsonPropertyName("identityNo")]
         public string IdentityNo { get; set; } = null!;
 
-        [JsonPropertyName("issued_date")]
+        [JsonPropertyName("issuedDate")]
         public string? IssuedDate { get; set; }
 
-        [JsonPropertyName("expired_date")]
+        [JsonPropertyName("expiredDate")]
         public string? ExpiredDate { get; set; }
 
-        [JsonPropertyName("file_upload")]
+        [JsonPropertyName("fileUpload")]
         public string? FileUpload { get; set; }
-        [JsonPropertyName("file_name")]
+
+        [JsonPropertyName("fileName")]
         public string? FileName { get; set; }
 
         [JsonPropertyName("remarks")]

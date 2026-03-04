@@ -88,8 +88,8 @@ namespace ThePatho.Features.Global.Skill.Service
             try
             {
                 var parameters = new DynamicParameters();
-                parameters.Add("@SkillCode", request.FilterSkillCode ?? string.Empty);
-                parameters.Add("@SkillName", request.FilterSkillName ?? string.Empty);
+                parameters.Add("@SkillCode", request.SkillCode ?? string.Empty);
+                parameters.Add("@SkillName", request.SkillName ?? string.Empty);
 
                 var query = await queryLoader.LoadQueryAsync("Global/Skill/Sql/get_criteria_skill");
                 var data = await dbConnection.QueryAsync<SkillDto>(query, parameters);

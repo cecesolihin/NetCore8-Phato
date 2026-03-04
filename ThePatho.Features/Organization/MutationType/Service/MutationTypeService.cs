@@ -1,17 +1,18 @@
-using SqlKata;
-using SqlKata.Execution;
-using System.Net;
-using System.IO;
-using ThePatho.Domain.Constants;
-using ThePatho.Features.Organization.MutationType.Commands;
-using ThePatho.Features.Organization.MutationType.DTO;
-using ThePatho.Infrastructure.Persistance;
-using ThePatho.Provider.ApiResponse;
 using ClosedXML.Excel;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
+using SqlKata;
+using SqlKata.Execution;
+using System.IO;
+using System.Net;
+using ThePatho.Domain.Constants;
 using ThePatho.Features.Common.DTO;
+using ThePatho.Features.Organization.MutationType.Commands;
+using ThePatho.Features.Organization.MutationType.DTO;
+using ThePatho.Infrastructure.Persistance;
+using ThePatho.Provider.ApiResponse;
+using ThePatho.Provider.UserContext;
 
 namespace ThePatho.Features.Organization.MutationType.Service
 {
@@ -19,10 +20,12 @@ namespace ThePatho.Features.Organization.MutationType.Service
     {
         #region [FIELDS & CTOR]
         private readonly DapperContext dapperContext;
+        private readonly ICurrentUserService currentUserService;
 
-        public MutationTypeService(DapperContext _dapperContext)
+        public MutationTypeService(DapperContext _dapperContext, ICurrentUserService _currentUserService)
         {
             dapperContext = _dapperContext;
+            currentUserService = _currentUserService;
         }
         #endregion
 
@@ -126,7 +129,7 @@ namespace ThePatho.Features.Organization.MutationType.Service
                         MutationTypeCode = request.MutationTypeCode,
                         MutationTypeName = request.MutationTypeName,
                         IsDeleted = false,
-                        InsertedBy = "system",
+                        InsertedBy = currentUserService.GetUserName() ?? "system",
                         InsertedDate = DateTime.UtcNow
                     });
 
@@ -141,7 +144,7 @@ namespace ThePatho.Features.Organization.MutationType.Service
                         {
                             MutationTypeName = request.MutationTypeName,
                             IsDeleted = false,
-                            ModifiedBy = "system",
+                            ModifiedBy  = currentUserService.GetUserName() ?? "system",
                             ModifiedDate = DateTime.UtcNow
                         });
 
@@ -280,7 +283,7 @@ namespace ThePatho.Features.Organization.MutationType.Service
 
                     return new ApiResponse<AttachmentFileDto>(HttpStatusCode.OK, new AttachmentFileDto
                     {
-                        FileBytes = bytes,
+                        Base64Data = Convert.ToBase64String(bytes),
                         FileName = fileName,
                         ContentType = MimeTypesConstants.VND_OPENXML_EXCEL
                     });
@@ -349,7 +352,7 @@ namespace ThePatho.Features.Organization.MutationType.Service
 
                     return new ApiResponse<AttachmentFileDto>(HttpStatusCode.OK, new AttachmentFileDto
                     {
-                        FileBytes = bytes,
+                        Base64Data = Convert.ToBase64String(bytes),
                         FileName = $"MutationType.pdf",
                         ContentType = MimeTypesConstants.PDF
                     });

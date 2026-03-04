@@ -8,10 +8,10 @@ namespace ThePatho.Features.Global.MedicalGroup.Commands
 {
     public class GetMedicalGroupByCriteriaCommand : IRequest<ApiResponse<MedicalGroupItemDto>>
     {
-        [JsonPropertyName("filter_MedicalGroupName")]
-        public string? FilterMedicalGroupName { get; set; }
+        [JsonPropertyName("medicalGroupName")]
+        public string? MedicalGroupName { get; set; }
 
-        [JsonPropertyName("filter_MedicalGroupCode")]
-        public string? FilterMedicalGroupCode { get; set; }
+        [JsonPropertyName("medicalGroupCode")]
+        public string? MedicalGroupCode { get; set; }
     }
 }

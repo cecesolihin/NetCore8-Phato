@@ -8,17 +8,28 @@ namespace ThePatho.Features.PersonalInformation.EmployeePunishment.Commands
 {
     public class GetEmployeePunishmentCommand : IRequest<ApiResponse<EmployeePunishmentItemDto>>
     {
+        [JsonPropertyName("filter_employeeId")]
+        public int? FilterEmployeeId { get; set; }
+        
+        [JsonPropertyName("filter_punishment")]
+        public string? FilterPunishment { get; set; }
 
-        [JsonPropertyName("filter_letter_no")]
-        public string FilterLetterNo { get; set; } = null!;
+        [JsonPropertyName("filter_letterDateFrom")]
+        public DateTime? FilterLetterDateFrom { get; set; } = null;
 
-        [JsonPropertyName("filter_employee_id")]
-        public int FilterEmployeeId { get; set; }
+        [JsonPropertyName("filter_letterDateTo")]
+        public DateTime? FilterLetterDateTo { get; set; } = null;
 
-        [JsonPropertyName("filter_letter_date")]
-        public string FilterLetterDate { get; set; } = null!;
-        [JsonPropertyName("filter_punishment_type")]
-        public string FilterPunishmentType { get; set; } = null!;
+        [JsonPropertyName("filter_validFrom")]
+        public DateTime? FilterValidFrom { get; set; } = null;
+        [JsonPropertyName("filter_validTo")]
+        public DateTime? FilterValidTo { get; set; } = null;
+
+        [JsonPropertyName("filter_recoveryDateFrom")]
+        public DateTime? FilterRecoveryDateFrom { get; set; } = null;
+
+        [JsonPropertyName("filter_recoveryDateTo")]
+        public DateTime? FilterRecoveryDateTo { get; set; } = null;
 
         [JsonPropertyName("sortBy")]
         [DefaultValue("InsertedDate")]

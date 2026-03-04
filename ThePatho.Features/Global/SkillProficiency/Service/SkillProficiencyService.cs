@@ -87,8 +87,8 @@ namespace ThePatho.Features.Global.SkillProficiency.Service
             try
             {
                 var parameters = new DynamicParameters();
-                parameters.Add("@ProfiencyCode", request.FilterProfiencyCode ?? string.Empty);
-                parameters.Add("@ProfiencyName", request.FilterProfiencyName ?? string.Empty);
+                parameters.Add("@ProfiencyCode", request.ProfiencyCode ?? string.Empty);
+                parameters.Add("@ProfiencyName", request.ProfiencyName ?? string.Empty);
 
                 var query = await queryLoader.LoadQueryAsync("Global/SkillProficiency/Sql/get_criteria_skillproficiency");
                 var data = await dbConnection.QueryAsync<SkillProficiencyDto>(query, parameters);

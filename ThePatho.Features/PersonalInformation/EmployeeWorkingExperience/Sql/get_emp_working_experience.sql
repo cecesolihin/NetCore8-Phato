@@ -34,8 +34,8 @@ FROM
     dbo.TEPDEmployeeWorkingExperience
 WHERE IsDeleted = 0 AND
     (@EmployeeID IS NULL OR EmployeeID = @EmployeeID) AND
-    (@Company IS NULL OR Company LIKE '%' + @Company + '%') AND
-    (@EmploymentTypeCode IS NULL OR EmploymentTypeCode LIKE '%' + @EmploymentTypeCode + '%')
+    (@WorkExperience IS NULL OR @WorkExperience ='' OR Company LIKE '%' + @WorkExperience + '%'
+    OR EmploymentTypeCode LIKE '%' + @WorkExperience + '%')
 ORDER BY
     CASE WHEN @SortBy = 'EmployeeID' THEN EmployeeID END,
     CASE WHEN @SortBy = 'Company' THEN Company END,

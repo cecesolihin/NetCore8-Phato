@@ -1,16 +1,17 @@
+using ClosedXML.Excel;
+using QuestPDF.Fluent;
+using QuestPDF.Helpers;
+using QuestPDF.Infrastructure;
 using SqlKata;
 using SqlKata.Execution;
 using System.Net;
 using ThePatho.Domain.Constants;
+using ThePatho.Features.Common.DTO;
 using ThePatho.Features.Organization.WorkLocation.Commands;
 using ThePatho.Features.Organization.WorkLocation.DTO;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.ApiResponse;
-using ClosedXML.Excel;
-using QuestPDF.Fluent;
-using QuestPDF.Infrastructure;
-using ThePatho.Features.Common.DTO;
-using QuestPDF.Helpers;
+using ThePatho.Provider.UserContext;
 
 namespace ThePatho.Features.Organization.WorkLocation.Service
 {
@@ -18,10 +19,12 @@ namespace ThePatho.Features.Organization.WorkLocation.Service
     {
         #region [FIELDS & CTOR]
         private readonly DapperContext dapperContext;
+        private readonly ICurrentUserService currentUserService;
 
-        public WorkLocationService(DapperContext _dapperContext)
+        public WorkLocationService(DapperContext _dapperContext, ICurrentUserService _currentUserService)
         {
             dapperContext = _dapperContext;
+            currentUserService = _currentUserService;
         }
         #endregion
 
@@ -139,7 +142,7 @@ namespace ThePatho.Features.Organization.WorkLocation.Service
                     {
                         WorkLocationCode = request.WorkLocationCode,
                         WorkLocationName = request.WorkLocationName,
-                        InsertedBy = "system",
+                        InsertedBy = currentUserService.GetUserName() ?? "system",
                         InsertedDate = DateTime.UtcNow,
                         Latitude = request.Latitude,
                         Longitude = request.Longitude,
@@ -160,7 +163,7 @@ namespace ThePatho.Features.Organization.WorkLocation.Service
                         .AsUpdate(new
                         {
                             WorkLocationName = request.WorkLocationName,
-                            ModifiedBy = "system",
+                            ModifiedBy  = currentUserService.GetUserName() ?? "system",
                             ModifiedDate = DateTime.UtcNow,
                             Latitude = request.Latitude,
                             Longitude = request.Longitude,
@@ -201,7 +204,7 @@ namespace ThePatho.Features.Organization.WorkLocation.Service
                     .UpdateAsync(new
                     {
                         IsDeleted = true,
-                        ModifiedBy = "system",
+                        ModifiedBy  = currentUserService.GetUserName() ?? "system",
                         ModifiedDate = DateTime.UtcNow,
                     });
 
@@ -344,7 +347,7 @@ namespace ThePatho.Features.Organization.WorkLocation.Service
 
                     var dto = new AttachmentFileDto
                     {
-                        FileBytes = fileBytes,
+                        Base64Data = Convert.ToBase64String(fileBytes),
                         FileName = $"WorkLocation.xlsx",
                         ContentType = MimeTypesConstants.VND_OPENXML_EXCEL
                     };
@@ -461,7 +464,7 @@ namespace ThePatho.Features.Organization.WorkLocation.Service
 
                     var dto = new AttachmentFileDto
                     {
-                        FileBytes = bytes,
+                        Base64Data = Convert.ToBase64String(bytes),
                         FileName = "WorkLocation.pdf",
                         ContentType = MimeTypesConstants.PDF
                     };

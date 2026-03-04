@@ -6,10 +6,10 @@ namespace ThePatho.Features.PersonalInformation.EmployeeCareerHistory.Commands
 {
     public class DeleteEmployeeCareerHistoryCommand : IRequest<ApiResponse>
     {
-        [JsonPropertyName("employee_id")]
+        [JsonPropertyName("employeeId")]
         public int? EmployeeId { get; set; }
 
-        [JsonPropertyName("career_history_no")]
+        [JsonPropertyName("careerHistoryNo")]
         public string CareerHistoryNo { get; set; } = null!;
     }
 }

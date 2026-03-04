@@ -8,14 +8,17 @@ namespace ThePatho.Features.PersonalInformation.EmployeeReward.Commands
 {
     public class GetEmployeeRewardCommand : IRequest<ApiResponse<EmployeeRewardItemDto>>
     {
-        [JsonPropertyName("filter_letter_no")]
-        public string? FilterLetterNo { get; set; }
 
-        [JsonPropertyName("filter_employee_id")]
+        [JsonPropertyName("filter_EmployeeId")]
         public int? FilterEmployeeId { get; set; }
 
-        [JsonPropertyName("filter_reward_type_code")]
-        public string? FilterRewardTypeCode { get; set; }
+        [JsonPropertyName("filter_reward")]
+        public string? FilterReward { get; set; }
+        [JsonPropertyName("filter_letterDateFrom")]
+        public DateTime? FilterLetterDateFrom { get; set; } = null;
+
+        [JsonPropertyName("filter_letterDateTo")]
+        public DateTime? FilterLetterDateTo { get; set; } = null;
 
         [JsonPropertyName("sortBy")]
         [DefaultValue("InsertedDate")]

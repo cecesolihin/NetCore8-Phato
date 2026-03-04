@@ -8,8 +8,8 @@ namespace ThePatho.Features.PersonalInformation.EmployeeReward.Commands
 {
     public class GetSingleEmployeeRewardCommand : IRequest<ApiResponse<EmployeeRewardDto>>
     {
-        [JsonPropertyName("filter_em_reward_id")]
-        public int FilterEmRewardId { get; set; }
+        [JsonPropertyName("EmRewardId")]
+        public int EmRewardId { get; set; }
 
     }
 }

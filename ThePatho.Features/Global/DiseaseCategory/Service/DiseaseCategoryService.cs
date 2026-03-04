@@ -89,8 +89,8 @@ namespace ThePatho.Features.Global.DiseaseCategory.Service
             try
             {
                 var parameters = new DynamicParameters();
-                parameters.Add("@DiseaseCategoryCode", request.FilterDiseaseCategoryCode ?? string.Empty);
-                parameters.Add("@DiseaseCategoryName", request.FilterDiseaseCategoryName ?? string.Empty);
+                parameters.Add("@DiseaseCategoryCode", request.DiseaseCategoryCode ?? string.Empty);
+                parameters.Add("@DiseaseCategoryName", request.DiseaseCategoryName ?? string.Empty);
 
                 var query = await queryLoader.LoadQueryAsync("Global/DiseaseCategory/Sql/get_criteria_diseasecategory");
                 var data = await dbConnection.QueryAsync<DiseaseCategoryDto>(query, parameters);

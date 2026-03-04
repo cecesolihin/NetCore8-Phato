@@ -6,25 +6,25 @@ namespace ThePatho.Features.PersonalInformation.EmployeeReward.Commands
 {
     public class SubmitEmployeeRewardCommand : IRequest<ApiResponse>
     {
-        [JsonPropertyName("em_reward_id")]
+        [JsonPropertyName("emRewardId")]
         public int? EmRewardId { get; set; }
 
-        [JsonPropertyName("letter_no")]
+        [JsonPropertyName("letterNo")]
         public string LetterNo { get; set; } = null!;
 
-        [JsonPropertyName("employee_id")]
+        [JsonPropertyName("employeeId")]
         public List<int> EmployeeId { get; set; }
 
-        [JsonPropertyName("letter_date")]
+        [JsonPropertyName("letterDate")]
         public string LetterDate { get; set; } = null!;
 
-        [JsonPropertyName("reward_type_code")]
+        [JsonPropertyName("rewardTypeCode")]
         public string RewardTypeCode { get; set; } = null!;
 
         [JsonPropertyName("remarks")]
         public string? Remarks { get; set; }
 
-        [JsonPropertyName("currency_code")]
+        [JsonPropertyName("currencyCode")]
         public string CurrencyCode { get; set; } = null!;
 
         [JsonPropertyName("amount")]

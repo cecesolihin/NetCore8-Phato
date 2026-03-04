@@ -1,6 +1,7 @@
 ﻿using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.PersonalInformation.EmployeeWorkingExperience.Commands;
 using ThePatho.Features.PersonalInformation.EmployeeWorkingExperience.DTO;
+using ThePatho.Features.Common.DTO;
 
 namespace ThePatho.Features.PersonalInformation.EmployeeWorkingExperience.Service
 {
@@ -12,5 +13,6 @@ namespace ThePatho.Features.PersonalInformation.EmployeeWorkingExperience.Servic
         Task<ApiResponse> DeleteEmployeeWorkingExperience(DeleteEmployeeWorkingExperienceCommand request);
 
         Task<ApiResponse<EmployeeWorkingExperienceDto>> GetSingleEmployeeWorkingExperience(GetSingleEmployeeWorkingExperienceCommand request);
+        Task<ApiResponse<AttachmentFileDto>> ExportEmployeeWorkingExperienceAsync(string type);
     }
 }

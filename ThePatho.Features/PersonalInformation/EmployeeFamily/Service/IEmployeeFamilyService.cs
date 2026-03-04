@@ -1,6 +1,7 @@
 ﻿using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.PersonalInformation.EmployeeFamily.Commands;
 using ThePatho.Features.PersonalInformation.EmployeeFamily.DTO;
+using ThePatho.Features.Common.DTO;
 
 namespace ThePatho.Features.PersonalInformation.EmployeeFamily.Service
 {
@@ -11,5 +12,6 @@ namespace ThePatho.Features.PersonalInformation.EmployeeFamily.Service
         Task<ApiResponse> SubmitEmployeeFamily(SubmitEmployeeFamilyCommand request);
         Task<ApiResponse> DeleteEmployeeFamily(DeleteEmployeeFamilyCommand request);
         Task<ApiResponse<EmployeeFamilyDto>> GetSingleEmployeeFamily(GetSingleEmployeeFamilyCommand request);
+        Task<ApiResponse<AttachmentFileDto>> ExportEmployeeFamilyAsync(string type);
     }
 }

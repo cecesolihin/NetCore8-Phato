@@ -87,8 +87,8 @@ namespace ThePatho.Features.Global.GraduationType.Service
             try
             {
                 var parameters = new DynamicParameters();
-                parameters.Add("@GradTypeCode", request.FilterGradTypeCode ?? string.Empty);
-                parameters.Add("@GradTypeName", request.FilterGradTypeName ?? string.Empty);
+                parameters.Add("@GradTypeCode", request.GradTypeCode ?? string.Empty);
+                parameters.Add("@GradTypeName", request.GradTypeName ?? string.Empty);
 
 
                 var query = await queryLoader.LoadQueryAsync("Global/GraduationType/Sql/get_criteria_graduationtype");

@@ -6,7 +6,7 @@ namespace ThePatho.Features.PersonalInformation.EmployeeWorkingExperience.Comman
 {
     public class DeleteEmployeeWorkingExperienceCommand : IRequest<ApiResponse>
     {
-        [JsonPropertyName("emp_work_experience_id")]
+        [JsonPropertyName("EmpWorkExperienceId")]
         public int EmpWorkExperienceId { get; set; }
     }
 }

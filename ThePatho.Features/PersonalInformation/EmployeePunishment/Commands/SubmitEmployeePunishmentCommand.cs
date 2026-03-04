@@ -6,28 +6,28 @@ namespace ThePatho.Features.PersonalInformation.EmployeePunishment.Commands
 {
     public class SubmitEmployeePunishmentCommand : IRequest<ApiResponse>
     {
-        [JsonPropertyName("em_punishment_id")]
+        [JsonPropertyName("emPunishmentId")]
         public int? EmPunishmentId { get; set; }
 
-        [JsonPropertyName("letter_no")]
+        [JsonPropertyName("letterNo")]
         public string LetterNo { get; set; } = null!;
 
-        [JsonPropertyName("employee_id")]
+        [JsonPropertyName("employeeId")]
         public List<int> EmployeeId { get; set; }
 
-        [JsonPropertyName("letter_date")]
+        [JsonPropertyName("letterDate")]
         public string LetterDate { get; set; } = null!;
 
-        [JsonPropertyName("punishment_type")]
+        [JsonPropertyName("punishmentType")]
         public string PunishmentType { get; set; } = null!;
 
-        [JsonPropertyName("valid_from")]
+        [JsonPropertyName("validFrom")]
         public string ValidFrom { get; set; } = null!;
 
-        [JsonPropertyName("valid_to")]
+        [JsonPropertyName("validTo")]
         public string ValidTo { get; set; } = null!;
 
-        [JsonPropertyName("recovery_date")]
+        [JsonPropertyName("recoveryDate")]
         public string? RecoveryDate { get; set; }
 
         [JsonPropertyName("remarks")]

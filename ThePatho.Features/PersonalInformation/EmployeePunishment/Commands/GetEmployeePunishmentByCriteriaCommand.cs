@@ -9,32 +9,18 @@ namespace ThePatho.Features.PersonalInformation.EmployeePunishment.Commands
     public class GetEmployeePunishmentByCriteriaCommand : IRequest<ApiResponse<EmployeePunishmentItemDto>>
     {
 
-        [JsonPropertyName("filter_letter_no")]
-        public string FilterLetterNo { get; set; } = null!;
 
-        [JsonPropertyName("filter_employee_id")]
-        public int FilterEmployeeId { get; set; }
+        [JsonPropertyName("employeeId")]
+        public int EmployeeId { get; set; }
 
-        [JsonPropertyName("filter_letter_date")]
-        public string FilterLetterDate { get; set; } = null!;
-        [JsonPropertyName("filter_punishment_type")]
-        public string FilterPunishmentType { get; set; } = null!;
+        [JsonPropertyName("letterNo")]
+        public string LetterNo { get; set; } = null!;
 
-        [JsonPropertyName("sortBy")]
-        [DefaultValue("InsertedDate")]
-        public string? SortBy { get; set; } = "InsertedDate";
+        [JsonPropertyName("letterDate")]
+        public string LetterDate { get; set; } = null!;
+        [JsonPropertyName("punishment")]
+        public string Punishment { get; set; } = null!;
 
-        [JsonPropertyName("orderBy")]
-        [DefaultValue("DESC")]
-        public string? OrderBy { get; set; } = "DESC";
-
-        [JsonPropertyName("pageNumber")]
-        [DefaultValue(1)]
-        public int PageNumber { get; set; } = 1;
-
-        [JsonPropertyName("pageSize")]
-        [DefaultValue(10)]
-        public int PageSize { get; set; } = 10;
     }
 }
 

@@ -1,19 +1,20 @@
-using Microsoft.EntityFrameworkCore;
-using SqlKata;
-using SqlKata.Execution;
-using System.Net;
-using ThePatho.Domain.Constants;
-using ThePatho.Provider.ApiResponse;
-using ThePatho.Features.Organization.OrgStructure.Commands;
-using ThePatho.Features.Organization.OrgStructure.DTO;
-using ThePatho.Infrastructure.Persistance;
-using ThePatho.Domain.Models.Organization;
-using System.IO;
 using ClosedXML.Excel;
+using Microsoft.EntityFrameworkCore;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
+using SqlKata;
+using SqlKata.Execution;
+using System.IO;
+using System.Net;
+using ThePatho.Domain.Constants;
+using ThePatho.Domain.Models.Organization;
 using ThePatho.Features.Common.DTO;
+using ThePatho.Features.Organization.OrgStructure.Commands;
+using ThePatho.Features.Organization.OrgStructure.DTO;
+using ThePatho.Infrastructure.Persistance;
+using ThePatho.Provider.ApiResponse;
+using ThePatho.Provider.UserContext;
 
 namespace ThePatho.Features.Organization.OrgStructure.Service
 {
@@ -21,10 +22,12 @@ namespace ThePatho.Features.Organization.OrgStructure.Service
     {
         #region [FIELDS & CTOR]
         private readonly DapperContext dapperContext;
+        private readonly ICurrentUserService currentUserService;
 
-        public OrgStructureService(DapperContext _dapperContext)
+        public OrgStructureService(DapperContext _dapperContext, ICurrentUserService _currentUserService)
         {
             dapperContext = _dapperContext;
+            currentUserService = _currentUserService;
         }
         #endregion
 
@@ -188,7 +191,7 @@ namespace ThePatho.Features.Organization.OrgStructure.Service
                         Phone = request.Phone,
                         SortOrder = request.SortOrder,
                         IsDeleted = false,
-                        InsertedBy = "system",
+                        InsertedBy = currentUserService.GetUserName() ?? "system",
                         InsertedDate = DateTime.UtcNow
                     });
 
@@ -255,7 +258,7 @@ namespace ThePatho.Features.Organization.OrgStructure.Service
                             CostCenter = request.CostCenter,
                             Phone = request.Phone,
                             SortOrder = request.SortOrder,
-                            ModifiedBy = "system",
+                            ModifiedBy  = currentUserService.GetUserName() ?? "system",
                             ModifiedDate = DateTime.UtcNow
                         });
 
@@ -306,7 +309,7 @@ namespace ThePatho.Features.Organization.OrgStructure.Service
                     .UpdateAsync(new
                     {
                         IsDeleted = true,
-                        ModifiedBy = "system",
+                        ModifiedBy  = currentUserService.GetUserName() ?? "system",
                         ModifiedDate = DateTime.UtcNow
                     });
 
@@ -452,7 +455,7 @@ namespace ThePatho.Features.Organization.OrgStructure.Service
 
                     return new ApiResponse<AttachmentFileDto>(HttpStatusCode.OK, new AttachmentFileDto
                     {
-                        FileBytes = bytes,
+                        Base64Data = Convert.ToBase64String(bytes),
                         FileName = fileName,
                         ContentType = MimeTypesConstants.VND_OPENXML_EXCEL
                     });
@@ -565,7 +568,7 @@ namespace ThePatho.Features.Organization.OrgStructure.Service
 
                     var dto = new AttachmentFileDto
                     {
-                        FileBytes = bytes,
+                        Base64Data = Convert.ToBase64String(bytes),
                         FileName = $"OrgStructure.pdf",
                         ContentType = MimeTypesConstants.PDF
                     };

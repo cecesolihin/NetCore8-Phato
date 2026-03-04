@@ -1,30 +1,33 @@
+using ClosedXML.Excel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.IO;
-using ClosedXML.Excel;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
 using SqlKata;
 using SqlKata.Execution;
+using System.IO;
 using System.Net;
 using ThePatho.Domain.Constants;
-using ThePatho.Provider.ApiResponse;
+using ThePatho.Features.Common.DTO;
 using ThePatho.Features.Organization.Position.Commands;
 using ThePatho.Features.Organization.Position.DTO;
 using ThePatho.Infrastructure.Persistance;
-using ThePatho.Features.Common.DTO;
+using ThePatho.Provider.ApiResponse;
+using ThePatho.Provider.UserContext;
 
 namespace ThePatho.Features.Organization.Position.Service
 {
     public class PositionService : IPositionService
     {
         #region [FIELDS & CTOR]
-        private readonly DapperContext dapperContext; 
+        private readonly DapperContext dapperContext;
+        private readonly ICurrentUserService currentUserService;
 
-        public PositionService(DapperContext _dapperContext)
+        public PositionService(DapperContext _dapperContext, ICurrentUserService _currentUserService)
         {
             dapperContext = _dapperContext;
+            currentUserService = _currentUserService;
         }
         #endregion
 
@@ -149,7 +152,7 @@ namespace ThePatho.Features.Organization.Position.Service
                         Objective = request.Objective,
                         JobDescription = request.JobDescription,
                         IsDeleted = false,
-                        InsertedBy = "system",
+                        InsertedBy = currentUserService.GetUserName() ?? "system",
                         InsertedDate = DateTime.UtcNow
                     });
 
@@ -168,7 +171,7 @@ namespace ThePatho.Features.Organization.Position.Service
                             ActAsHead = request.ActAsHead,
                             Objective = request.Objective,
                             JobDescription = request.JobDescription,
-                            ModifiedBy = "system",
+                            ModifiedBy  = currentUserService.GetUserName() ?? "system",
                             ModifiedDate = DateTime.UtcNow
                         });
 
@@ -203,7 +206,7 @@ namespace ThePatho.Features.Organization.Position.Service
                     .UpdateAsync(new
                     {
                         IsDeleted = true,
-                        ModifiedBy = "system",
+                        ModifiedBy  = currentUserService.GetUserName() ?? "system",
                         ModifiedDate = DateTime.UtcNow
                     });
 
@@ -356,7 +359,7 @@ namespace ThePatho.Features.Organization.Position.Service
 
                     var dto = new AttachmentFileDto
                     {
-                        FileBytes = bytes,
+                        Base64Data = Convert.ToBase64String(bytes),
                         FileName = $"Positions.xlsx",
                         ContentType = MimeTypesConstants.VND_OPENXML_EXCEL
                     };
@@ -455,7 +458,7 @@ namespace ThePatho.Features.Organization.Position.Service
 
                     var dto = new AttachmentFileDto
                     {
-                        FileBytes = bytes,
+                        Base64Data = Convert.ToBase64String(bytes),
                         FileName = "Positions.pdf",
                         ContentType = MimeTypesConstants.PDF
                     };

@@ -87,8 +87,8 @@ namespace ThePatho.Features.Global.FamilyRelation.Service
             try
             {
                 var parameters = new DynamicParameters();
-                parameters.Add("@RelationCode", request.FilterRelationCode ?? string.Empty);
-                parameters.Add("@RelationName", request.FilterRelationCode ?? string.Empty);
+                parameters.Add("@RelationCode", request.RelationCode ?? string.Empty);
+                parameters.Add("@RelationName", request.RelationCode ?? string.Empty);
 
                 var query = await queryLoader.LoadQueryAsync("Global/FamilyRelation/Sql/get_criteria_familyrelation");
                 var data = await dbConnection.QueryAsync<FamilyRelationDto>(query, parameters);

@@ -11,11 +11,9 @@ namespace ThePatho.Features.PersonalInformation.EmployeeWorkingExperience.Comman
         [JsonPropertyName("filter_EmployeeId")]
         public int? FilterEmployeeId { get; set; }
 
-        [JsonPropertyName("filter_Company")]
-        public string? FilterCompany { get; set; }
+        [JsonPropertyName("filter_WorkExperience")]
+        public string? FilterWorkExperience { get; set; }
 
-        [JsonPropertyName("filter_EmploymentTypeCode")]
-        public string? FilterEmploymentTypeCode { get; set; }
 
         [JsonPropertyName("sortBy")]
         [DefaultValue("InsertedDate")]

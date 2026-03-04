@@ -83,8 +83,8 @@ namespace ThePatho.Features.Global.BloodType.Service
             {
                 using var db = dapperContext.CreateConnection();
                 var parameters = new DynamicParameters();
-                parameters.Add("@BloodTypeCode", request.FilterBloodTypeCode);
-                parameters.Add("@BloodTypeName", request.FilterBloodTypeName);
+                parameters.Add("@BloodTypeCode", request.BloodTypeCode);
+                parameters.Add("@BloodTypeName", request.BloodTypeName);
 
                 var query = await queryLoader.LoadQueryAsync("Global/BloodType/Sql/get_criteria_blood_type");
                 var data = await db.QueryAsync<BloodTypeDto>(query, parameters);

@@ -88,8 +88,8 @@ namespace ThePatho.Features.Global.InventoryType.Service
             try
             {
                 var parameters = new DynamicParameters();
-                parameters.Add("@InventoryTypeCode", request.FilterInventoryTypeCode ?? string.Empty);
-                parameters.Add("@InventoryName", request.FilterInventoryName ?? string.Empty);
+                parameters.Add("@InventoryTypeCode", request.InventoryTypeCode ?? string.Empty);
+                parameters.Add("@InventoryName", request.InventoryName ?? string.Empty);
 
                 var query = await queryLoader.LoadQueryAsync("Global/InventoryType/Sql/get_criteria_inventorytype");
                 var data = await dbConnection.QueryAsync<InventoryTypeDto>(query, parameters);

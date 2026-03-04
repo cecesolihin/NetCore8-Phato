@@ -1,6 +1,7 @@
 ﻿using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.PersonalInformation.EmployeePunishment.Commands;
 using ThePatho.Features.PersonalInformation.EmployeePunishment.DTO;
+using ThePatho.Features.Common.DTO;
 
 namespace ThePatho.Features.PersonalInformation.EmployeePunishment.Service
 {
@@ -11,5 +12,6 @@ namespace ThePatho.Features.PersonalInformation.EmployeePunishment.Service
         Task<ApiResponse> SubmitEmployeePunishment(SubmitEmployeePunishmentCommand request);
         Task<ApiResponse> DeleteEmployeePunishment(DeleteEmployeePunishmentCommand request);
         Task<ApiResponse<EmployeePunishmentDto>> GetSingleEmployeePunishment(GetSingleEmployeePunishmentCommand request);
+        Task<ApiResponse<AttachmentFileDto>> ExportEmployeePunishmentAsync(string type);
     }   
 }

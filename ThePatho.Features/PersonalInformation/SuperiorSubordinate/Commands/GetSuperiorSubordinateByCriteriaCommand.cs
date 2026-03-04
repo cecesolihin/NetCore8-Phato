@@ -8,16 +8,16 @@ namespace ThePatho.Features.PersonalInformation.SuperiorSubordinate.Commands
 {
     public class GetSuperiorSubordinateByCriteriaCommand : IRequest<ApiResponse<SuperiorSubordinateItemDto>>
     {
-        [JsonPropertyName("filter_Employee")]
-        public string? FilterEmployee { get; set; }
+        [JsonPropertyName("employee")]
+        public string? Employee { get; set; }
 
-        [JsonPropertyName("filter_EffectiveDate")]
-        public string? FilterEffectiveDate { get; set; }
+        [JsonPropertyName("effectiveDate")]
+        public string? FffectiveDate { get; set; }
 
-        [JsonPropertyName("filter_Superior")]
-        public string? FilterSuperior { get; set; }
-        [JsonPropertyName("filter_Status")]
-        public string? FilterStatus { get; set; }
+        [JsonPropertyName("superior")]
+        public string? Superior { get; set; }
+        [JsonPropertyName("status")]
+        public string? Status { get; set; }
     }
 }
 

@@ -8,11 +8,11 @@ namespace ThePatho.Features.Global.SkillProficiency.Commands
 {
     public class GetSkillProficiencyByCriteriaCommand : IRequest<ApiResponse<SkillProficiencyItemDto>>
     {
-        [JsonPropertyName("filter_ProfiencyName")]
-        public string? FilterProfiencyName { get; set; }
+        [JsonPropertyName("profiencyName")]
+        public string? ProfiencyName { get; set; }
 
-        [JsonPropertyName("filter_ProfiencyCode")]
-        public string? FilterProfiencyCode { get; set; }
+        [JsonPropertyName("profiencyCode")]
+        public string? ProfiencyCode { get; set; }
 
     }
 }

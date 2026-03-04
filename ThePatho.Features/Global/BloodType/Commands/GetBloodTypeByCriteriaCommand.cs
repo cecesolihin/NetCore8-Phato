@@ -7,10 +7,10 @@ namespace ThePatho.Features.Global.BloodType.Commands
 {
     public class GetBloodTypeByCriteriaCommand : IRequest<ApiResponse<BloodTypeItemDto>>
     {
-        [JsonPropertyName("filter_BloodTypeCode")]
-        public string? FilterBloodTypeCode { get; set; }
-        [JsonPropertyName("filter_BloodTypeName")]
-        public string? FilterBloodTypeName { get; set; }
+        [JsonPropertyName("bloodTypeCode")]
+        public string? BloodTypeCode { get; set; }
+        [JsonPropertyName("bloodTypeName")]
+        public string? BloodTypeName { get; set; }
 
     }
 }

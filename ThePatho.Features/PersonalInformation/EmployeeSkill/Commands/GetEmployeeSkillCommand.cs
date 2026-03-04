@@ -11,11 +11,8 @@ namespace ThePatho.Features.PersonalInformation.EmployeeSkill.Commands
         [JsonPropertyName("filter_EmployeeId")]
         public int? FilterEmployeeId { get; set; }
 
-        [JsonPropertyName("filter_SkillCode")]
-        public string? FilterSkillCode { get; set; }
-
-        [JsonPropertyName("filter_ProfiencyCode")]
-        public string? FilterProfiencyCode { get; set; }
+        [JsonPropertyName("filter_Skill")]
+        public string? FilterSkill { get; set; }
 
         [JsonPropertyName("sortBy")]
         [DefaultValue("InsertedDate")]

@@ -9,7 +9,7 @@ namespace ThePatho.Features.Organization.ResignType.Commands
     public class GetResignTypeByCriteriaCommand : IRequest<ApiResponse<ResignTypeItemDto>>
     {
         [JsonPropertyName("resignTypeCode")]
-        public string ResignTypeCode { get; set; }
+        public string? ResignTypeCode { get; set; }
 
         [JsonPropertyName("resignTypeName")]
         public string? ResignTypeName { get; set; }

@@ -1,17 +1,18 @@
+using ClosedXML.Excel;
 using Microsoft.EntityFrameworkCore;
+using QuestPDF.Fluent;
+using QuestPDF.Helpers;
+using QuestPDF.Infrastructure;
 using SqlKata;
 using SqlKata.Execution;
 using System.Net;
 using ThePatho.Domain.Constants;
-using ThePatho.Provider.ApiResponse;
+using ThePatho.Features.Common.DTO;
 using ThePatho.Features.Organization.OrgLevel.Commands;
 using ThePatho.Features.Organization.OrgLevel.DTO;
 using ThePatho.Infrastructure.Persistance;
-using ClosedXML.Excel;
-using QuestPDF.Fluent;
-using QuestPDF.Helpers;
-using QuestPDF.Infrastructure;
-using ThePatho.Features.Common.DTO;
+using ThePatho.Provider.ApiResponse;
+using ThePatho.Provider.UserContext;
 
 namespace ThePatho.Features.Organization.OrgLevel.Service
 {
@@ -19,10 +20,12 @@ namespace ThePatho.Features.Organization.OrgLevel.Service
     {
         #region [FIELDS & CTOR]
         private readonly DapperContext dapperContext;
+        private readonly ICurrentUserService currentUserService;
 
-        public OrgLevelService(DapperContext _dapperContext)
+        public OrgLevelService(DapperContext _dapperContext, ICurrentUserService _currentUserService)
         {
             dapperContext = _dapperContext;
+            currentUserService = _currentUserService;
         }
         #endregion
 
@@ -129,7 +132,7 @@ namespace ThePatho.Features.Organization.OrgLevel.Service
                         OrgLevelName = request.OrgLevelName,
                         SortOrder = request.SortOrder,
                         IsDeleted = false,
-                        InsertedBy = "system",
+                        InsertedBy = currentUserService.GetUserName() ?? "system",
                         InsertedDate = DateTime.UtcNow
                     });
 
@@ -145,7 +148,7 @@ namespace ThePatho.Features.Organization.OrgLevel.Service
                             OrgLevelName = request.OrgLevelName,
                             SortOrder = request.SortOrder,
                             IsDeleted = false,
-                            ModifiedBy = "system",
+                            ModifiedBy  = currentUserService.GetUserName() ?? "system",
                             ModifiedDate = DateTime.UtcNow
                         });
 
@@ -180,7 +183,7 @@ namespace ThePatho.Features.Organization.OrgLevel.Service
                     .UpdateAsync(new
                     {
                         IsDeleted = true,
-                        ModifiedBy = "system",
+                        ModifiedBy  = currentUserService.GetUserName() ?? "system",
                         ModifiedDate = DateTime.UtcNow
                     });
 
@@ -248,7 +251,7 @@ namespace ThePatho.Features.Organization.OrgLevel.Service
 
                 var data = await db.Query(TableOrganization.OrgLevel)
                     .Where("IsDeleted", false)
-                    .OrderBy("Sort")
+                    .OrderBy("SortOrder")
                     .GetAsync<OrgLevelDto>();
 
                 var exportType = (type ?? "").Trim().ToLowerInvariant();
@@ -270,7 +273,7 @@ namespace ThePatho.Features.Organization.OrgLevel.Service
                     // ===== HEADER =====
                     worksheet.Cell(3, 1).Value = "Org Level Code";
                     worksheet.Cell(3, 2).Value = "Org Level Name";
-                    worksheet.Cell(3, 3).Value = "Sort";
+                    worksheet.Cell(3, 3).Value = "SortOrder";
 
                     worksheet.Range(3, 1, 3, 3).Style
                         .Font.SetBold()
@@ -306,7 +309,7 @@ namespace ThePatho.Features.Organization.OrgLevel.Service
 
                     return new ApiResponse<AttachmentFileDto>(HttpStatusCode.OK, new AttachmentFileDto
                     {
-                        FileBytes = bytes,
+                        Base64Data = Convert.ToBase64String(bytes),
                         FileName = fileName,
                         ContentType = MimeTypesConstants.VND_OPENXML_EXCEL
                     });
@@ -349,7 +352,7 @@ namespace ThePatho.Features.Organization.OrgLevel.Service
                                 // ===== TABLE HEADER =====
                                 table.Header(header =>
                                 {
-                                    string[] headers = { "Org Level Code", "Org Level Name", "Sort" };
+                                    string[] headers = { "Org Level Code", "Org Level Name", "SortOrder" };
 
                                     foreach (var title in headers)
                                     {
@@ -390,7 +393,7 @@ namespace ThePatho.Features.Organization.OrgLevel.Service
 
                     var dto = new AttachmentFileDto
                     {
-                        FileBytes = fileBytes,
+                        Base64Data = Convert.ToBase64String(fileBytes),
                         FileName = "OrgLevel.pdf",
                         ContentType = MimeTypesConstants.PDF
                     };

@@ -6,12 +6,14 @@ using ThePatho.Features.Global.Bank.Service;
 using ThePatho.Features.Global.BloodType.Service;
 using ThePatho.Features.Global.BranchBank.Service;
 using ThePatho.Features.Global.Building.Service;
+using ThePatho.Features.Global.CareerType.Service;
 using ThePatho.Features.Global.City.Service;
 using ThePatho.Features.Global.ClothSize.Service;
 using ThePatho.Features.Global.Country.Service;
 using ThePatho.Features.Global.Course.Service;
 using ThePatho.Features.Global.Currency.Service;
 using ThePatho.Features.Global.DiseaseCategory.Service;
+using ThePatho.Features.Global.DocumentType.Service;
 using ThePatho.Features.Global.EduLevel.Service;
 using ThePatho.Features.Global.EduMajor.Service;
 using ThePatho.Features.Global.FamilyRelation.Service;
@@ -158,6 +160,8 @@ public static class ServiceRegistrationExtensions
         services.AddScoped<IRadiusUnitService, RadiusUnitService>();
         services.AddScoped<ITimeZoneService, TimeZoneService>();
         services.AddScoped<ITaxLocationService, TaxLocationService>();
+        services.AddScoped<ICareerTypeService, CareerTypeService>();
+        services.AddScoped<IDocumentTypeService, DocumentTypeService>();
         #endregion
 
         #region [Personal Information]

@@ -87,7 +87,7 @@ namespace ThePatho.Features.Global.Nationality.Service
             try
             {
                 var parameters = new DynamicParameters();
-                parameters.Add("@NationalityName", request.FilterNationalityName ?? string.Empty);
+                parameters.Add("@NationalityName", request.NationalityName ?? string.Empty);
 
                 var query = await queryLoader.LoadQueryAsync("Global/Nationality/Sql/get_criteria_nationality");
                 var data = await dbConnection.QueryAsync<NationalityDto>(query, parameters);

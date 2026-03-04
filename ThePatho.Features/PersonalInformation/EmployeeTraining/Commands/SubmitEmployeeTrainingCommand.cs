@@ -6,22 +6,22 @@ namespace ThePatho.Features.PersonalInformation.EmployeeTraining.Commands
 {
     public class SubmitEmployeeTrainingCommand : IRequest<ApiResponse>
     {
-        [JsonPropertyName("emp_training_id")]
+        [JsonPropertyName("empTrainingId")]
         public int EmpTrainingId { get; set; }
 
-        [JsonPropertyName("employee_id")]
+        [JsonPropertyName("employeeId")]
         public int EmployeeId { get; set; }
 
-        [JsonPropertyName("training_course_code")]
+        [JsonPropertyName("trainingCourseCode")]
         public string TrainingCourseCode { get; set; } = null!;
 
-        [JsonPropertyName("start_date")]
+        [JsonPropertyName("startDate")]
         public string StartDate { get; set; } = null!;
 
-        [JsonPropertyName("training_type_code")]
+        [JsonPropertyName("trainingTypeCode")]
         public string TrainingTypeCode { get; set; } = null!;
 
-        [JsonPropertyName("training_field_code")]
+        [JsonPropertyName("trainingFieldCode")]
         public string TrainingFieldCode { get; set; } = null!;
 
         [JsonPropertyName("institution")]
@@ -30,31 +30,31 @@ namespace ThePatho.Features.PersonalInformation.EmployeeTraining.Commands
         [JsonPropertyName("address")]
         public string? Address { get; set; }
 
-        [JsonPropertyName("city_code")]
+        [JsonPropertyName("cityCode")]
         public string CityCode { get; set; } = null!;
 
-        [JsonPropertyName("certificate_no")]
+        [JsonPropertyName("certificateNo")]
         public string? CertificateNo { get; set; }
 
-        [JsonPropertyName("certificate_date")]
+        [JsonPropertyName("certificateDate")]
         public string? CertificateDate { get; set; }
 
-        [JsonPropertyName("end_date")]
+        [JsonPropertyName("endDate")]
         public string? EndDate { get; set; }
 
-        [JsonPropertyName("training_payer_code")]
+        [JsonPropertyName("trainingPayerCode")]
         public string TrainingPayerCode { get; set; } = null!;
 
-        [JsonPropertyName("company_bond_date")]
+        [JsonPropertyName("companyBondDate")]
         public string? CompanyBondDate { get; set; }
 
         [JsonPropertyName("remarks")]
         public string? Remarks { get; set; }
 
-        [JsonPropertyName("training_batch_code")]
+        [JsonPropertyName("trainingBatchCode")]
         public string? TrainingBatchCode { get; set; }
 
-        [JsonPropertyName("is_deleted")]
+        [JsonPropertyName("isDeleted")]
         public bool IsDeleted { get; set; }
 
         [JsonPropertyName("action")]

@@ -8,7 +8,7 @@ namespace ThePatho.Features.PersonalInformation.EmployeePunishment.Commands
 {
     public class GetSingleEmployeePunishmentCommand : IRequest<ApiResponse<EmployeePunishmentDto>>
     {
-        [JsonPropertyName("empunishment_id")]
+        [JsonPropertyName("emPunishmentId")]
         public int EmPunishmentId { get; set; }
 
     }

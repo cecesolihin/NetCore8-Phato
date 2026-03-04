@@ -28,8 +28,11 @@ FROM
     dbo.TEPDEmployeeMedical
 WHERE
     (@EmployeeId > 0 OR EmployeeID = @EmployeeId) AND
-    (@DiseaseName = '' OR DiseaseName LIKE '%' + @DiseaseName + '%') AND
-    (@Hospital = '' OR Hospital LIKE '%' + @Hospital + '%') AND
+    (
+        @Medical IS NULL OR @Medical = ''
+        OR Hospital LIKE '%' + @Hospital + '%'
+        OR DiseaseName LIKE '%' + @DiseaseName + '%'
+    ) AND
     (IsDeleted = 0 OR IsDeleted IS NULL)
 ORDER BY
     CASE WHEN @SortBy = 'DiseaseName' AND @OrderBy = 'ASC' THEN DiseaseName END ASC,

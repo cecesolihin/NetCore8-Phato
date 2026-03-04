@@ -39,7 +39,7 @@ namespace ThePatho.Features.Organization.HistOrgStructure.Commands
         [JsonPropertyName("phoneExt")]
         public string? PhoneExt { get; set; }
 
-        [JsonPropertyName("sort")]
+        [JsonPropertyName("SortOrder")]
         public byte SortOrder { get; set; }
 
         [JsonPropertyName("companyCode")]

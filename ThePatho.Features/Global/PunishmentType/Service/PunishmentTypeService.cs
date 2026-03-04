@@ -87,8 +87,8 @@ namespace ThePatho.Features.Global.PunishmentType.Service
             try
             {
                 var parameters = new DynamicParameters();
-                parameters.Add("@PunishmentCode", request.FilterPunishmentCode ?? string.Empty);
-                parameters.Add("@PunishmentName", request.FilterPunishmentName ?? string.Empty);
+                parameters.Add("@PunishmentCode", request.PunishmentCode ?? string.Empty);
+                parameters.Add("@PunishmentName", request.PunishmentName ?? string.Empty);
 
                 var query = await queryLoader.LoadQueryAsync("Global/PunishmentType/Sql/get_criteria_punishmenttype");
                 var data = await dbConnection.QueryAsync<PunishmentTypeDto>(query, parameters);

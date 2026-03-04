@@ -2,20 +2,24 @@
 {
     public class EmployeeCareerHistoryDto
     {
-        public string CareerHistoryNo { get; set; } = null!;
+        public string CareerHistoryNo { get; set; } 
         public int EmployeeId { get; set; }
         public string? EmployeeNo { get; set; }
-        public string CompanyCode { get; set; } = null!;
-        public string EmploymentTypeCode { get; set; } = null!;
+        public string? EmployeeName { get; set; }
+        public string? PositionName { get; set; }
+        public string? JobLevelName { get; set; }
+        public string? CompanyName { get; set; }
+        public string CompanyCode { get; set; } 
+        public string EmploymentTypeCode { get; set; } 
         public string? ChangeType { get; set; }
-        public string PositionCode { get; set; } = null!;
+        public string PositionCode { get; set; } 
         public int OrgStructureId { get; set; }
-        public string JobLevelCode { get; set; } = null!;
-        public string JobClassCode { get; set; } = null!;
-        public string GradeCode { get; set; } = null!;
-        public string RankCode { get; set; } = null!;
-        public string CostCenterCode { get; set; } = null!;
-        public string StartDate { get; set; } = null!;
+        public string JobLevelCode { get; set; } 
+        public string JobClassCode { get; set; } 
+        public string GradeCode { get; set; } 
+        public string RankCode { get; set; } 
+        public string CostCenterCode { get; set; } 
+        public string StartDate { get; set; } 
         public string? EndDate { get; set; }
         public string? Remark { get; set; }
         public bool IsDeleted { get; set; }

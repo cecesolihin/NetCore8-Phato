@@ -89,8 +89,8 @@ namespace ThePatho.Features.Global.EduMajor.Service
             try
             {
                 var parameters = new DynamicParameters();
-                parameters.Add("@MajorCode", request.FilterMajorCode ?? string.Empty);
-                parameters.Add("@MajorName", request.FilterMajorName ?? string.Empty);
+                parameters.Add("@MajorCode", request.MajorCode ?? string.Empty);
+                parameters.Add("@MajorName", request.MajorName ?? string.Empty);
 
                 var query = await queryLoader.LoadQueryAsync("Global/EduMajor/Sql/get_criteria_edumajor");
                 var data = await dbConnection.QueryAsync<EduMajorDto>(query, parameters);

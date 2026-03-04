@@ -8,11 +8,11 @@ namespace ThePatho.Features.Global.DiseaseCategory.Commands
 {
     public class GetDiseaseCategoryByCriteriaCommand : IRequest<ApiResponse<DiseaseCategoryItemDto>>
     {
-        [JsonPropertyName("filter_DiseaseCategoryCode")]
-        public string? FilterDiseaseCategoryCode { get; set; }
+        [JsonPropertyName("diseaseCategoryCode")]
+        public string? DiseaseCategoryCode { get; set; }
 
-        [JsonPropertyName("filter_DiseaseCategoryName")]
-        public string? FilterDiseaseCategoryName { get; set; }
+        [JsonPropertyName("diseaseCategoryName")]
+        public string? DiseaseCategoryName { get; set; }
     }
 }
 

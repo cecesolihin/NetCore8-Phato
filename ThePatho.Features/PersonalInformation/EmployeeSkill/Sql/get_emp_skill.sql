@@ -17,8 +17,11 @@ FROM
     dbo.TEPDEmployeeSkill
 WHERE
     (@EmployeeId = 0 OR EmployeeID = @EmployeeId) AND
-    (@SkillCode IS NULL OR SkillCode LIKE '%' + @SkillCode + '%') AND
-    (@ProfiencyCode IS NULL OR ProfiencyCode LIKE '%' + @ProfiencyCode + '%') AND
+    (   
+        @Skill IS NULL OR @Skill = '' 
+        OR SkillCode LIKE '%' + @SkillCode + '%'
+        OR ProfiencyCode LIKE '%' + @ProfiencyCode + '%'
+     ) AND
     IsDeleted = 0
 ORDER BY
     CASE WHEN @SortBy = 'SkillCode' THEN SkillCode END,

@@ -1,6 +1,7 @@
 ﻿using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.PersonalInformation.EmployeeSkill.Commands;
 using ThePatho.Features.PersonalInformation.EmployeeSkill.DTO;
+using ThePatho.Features.Common.DTO;
 
 namespace ThePatho.Features.PersonalInformation.EmployeeSkill.Service
 {
@@ -12,5 +13,6 @@ namespace ThePatho.Features.PersonalInformation.EmployeeSkill.Service
         Task<ApiResponse> DeleteEmployeeSkill(DeleteEmployeeSkillCommand request);
 
         Task<ApiResponse<EmployeeSkillDto>> GetSingleEmployeeSkill(GetSingleEmployeeSkillCommand request);
+        Task<ApiResponse<AttachmentFileDto>> ExportEmployeeSkillAsync(string type);
     }
 }

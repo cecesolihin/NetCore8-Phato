@@ -8,10 +8,10 @@ namespace ThePatho.Features.Global.InventoryType.Commands
 {
     public class GetInventoryTypeByCriteriaCommand : IRequest<ApiResponse<InventoryTypeItemDto>>
     {
-        [JsonPropertyName("filter_InventoryName")]
-        public string? FilterInventoryName { get; set; }
+        [JsonPropertyName("inventoryName")]
+        public string? InventoryName { get; set; }
 
-        [JsonPropertyName("filter_InventoryTypeCode")]
-        public string? FilterInventoryTypeCode { get; set; }
+        [JsonPropertyName("inventoryTypeCode")]
+        public string? InventoryTypeCode { get; set; }
     }
 }

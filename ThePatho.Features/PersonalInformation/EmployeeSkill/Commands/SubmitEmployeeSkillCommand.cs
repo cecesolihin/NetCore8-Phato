@@ -6,28 +6,28 @@ namespace ThePatho.Features.PersonalInformation.EmployeeSkill.Commands
 {
     public class SubmitEmployeeSkillCommand : IRequest<ApiResponse>
     {
-        [JsonPropertyName("employee_id")]
+        [JsonPropertyName("employeeId")]
         public int EmployeeId { get; set; }
 
-        [JsonPropertyName("skill_code")]
+        [JsonPropertyName("skillCode")]
         public string SkillCode { get; set; } = null!;
 
-        [JsonPropertyName("profiency_code")]
+        [JsonPropertyName("profiencyCode")]
         public string ProfiencyCode { get; set; } = null!;
 
         [JsonPropertyName("description")]
         public string? Description { get; set; }
 
-        [JsonPropertyName("taken_date")]
+        [JsonPropertyName("takenDate")]
         public string? TakenDate { get; set; }
 
-        [JsonPropertyName("expired_date")]
+        [JsonPropertyName("expiredDate")]
         public string? ExpiredDate { get; set; }
 
         [JsonPropertyName("remarks")]
         public string? Remarks { get; set; }
 
-        [JsonPropertyName("is_deleted")]
+        [JsonPropertyName("isDeleted")]
         public bool IsDeleted { get; set; }
 
         [JsonPropertyName("action")]

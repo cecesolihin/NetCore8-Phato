@@ -18,8 +18,11 @@ FROM
     dbo.TEPDEmployeeIdentity
 WHERE
     (@EmployeeId > 0 OR EmployeeID = @EmployeeId) AND
-    (@IdentityNo = '' OR IdentityNo LIKE '%' + @IdentityNo + '%') AND
-    (@IdentityCode = '' OR IdentityCode LIKE '%' + @IdentityCode + '%') AND
+    (
+        @Identity IS NULL OR @Identity = '' 
+        OR IdentityCode LIKE '%' + @Identity + '%'
+        OR IdentityNo LIKE '%' + @Identity + '%'
+    ) AND
     (IsDeleted = 0)
 ORDER BY
     CASE 

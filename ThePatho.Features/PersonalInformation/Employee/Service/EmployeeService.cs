@@ -7,6 +7,13 @@ using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.ApiResponse;
 using ThePatho.Provider.QueryExecute;
 using ThePatho.Provider.UserContext;
+using ClosedXML.Excel;
+using QuestPDF.Fluent;
+using QuestPDF.Helpers;
+using QuestPDF.Infrastructure;
+using ThePatho.Features.Common.DTO;
+using ThePatho.Domain.Constants;
+using System.IO;
 
 namespace ThePatho.Features.PersonalInformation.Employee.Service
 {
@@ -89,12 +96,12 @@ namespace ThePatho.Features.PersonalInformation.Employee.Service
             {
                 using var db = dapperContext.CreateConnection();
                 var parameters = new DynamicParameters();
-                parameters.Add("@EmployeeNo", request.FilterEmployeeNo ?? string.Empty);
-                parameters.Add("@Fullname", request.FilterFullname ?? string.Empty);
-                parameters.Add("@EmploymentType", request.FilterEmploymentType ?? string.Empty);
-                parameters.Add("@JobClass", request.FilterJobClass ?? string.Empty);
-                parameters.Add("@Position", request.FilterPosition ?? string.Empty);
-                parameters.Add("@WorkLocation", request.FilterWorkLocation ?? string.Empty);
+                parameters.Add("@EmployeeNo", request.EmployeeNo ?? string.Empty);
+                parameters.Add("@Fullname", request.Fullname ?? string.Empty);
+                parameters.Add("@EmploymentType", request.EmploymentType ?? string.Empty);
+                parameters.Add("@JobClass", request.JobClass ?? string.Empty);
+                parameters.Add("@Position", request.Position ?? string.Empty);
+                parameters.Add("@WorkLocation", request.WorkLocation ?? string.Empty);
 
                 var query = await queryLoader.LoadQueryAsync("PersonalInformation/Employee/Sql/get_criteria_employee");
                 var data = await db.QueryAsync<EmployeeDto>(query, parameters);
@@ -231,6 +238,152 @@ namespace ThePatho.Features.PersonalInformation.Employee.Service
             catch (Exception ex)
             {
                 return new ApiResponse(HttpStatusCode.BadRequest, $"Failed to delete", ex.Message);
+            }
+        }
+
+        public async Task<ApiResponse<AttachmentFileDto>> ExportEmployeeAsync(string type)
+        {
+            try
+            {
+                using var db = dapperContext.CreateConnection();
+                var parameters = new DynamicParameters();
+                // We use empty filters to get all (non-deleted) employees for export, or we could pass filters from a command if needed.
+                // For simplicity and matching EmploymentType, we'll export all.
+                parameters.Add("@PageNumber", 0);
+                parameters.Add("@PageSize", 1000000); 
+                parameters.Add("@EmployeeNo", "");
+                parameters.Add("@Fullname", "");
+                parameters.Add("@EmploymentType", "");
+                parameters.Add("@JobClass", "");
+                parameters.Add("@Position", "");
+                parameters.Add("@WorkLocation", "");
+                parameters.Add("@SortBy", "EmployeeNo");
+                parameters.Add("@OrderBy", "ASC");
+
+                var query = await queryLoader.LoadQueryAsync("PersonalInformation/Employee/Sql/get_employee");
+                var data = await db.QueryAsync<EmployeeDto>(query, parameters);
+
+                var fileName = string.Empty;
+                byte[] fileBytes;
+
+                if (string.Equals(type, "excel", StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(type, "xlsx", StringComparison.OrdinalIgnoreCase))
+                {
+                    using var workbook = new XLWorkbook();
+                    var ws = workbook.Worksheets.Add("Employee");
+
+                    // Judul
+                    ws.Cell("A1").Value = "Employee List";
+                    ws.Range("A1:G1").Merge().Style
+                        .Font.SetBold()
+                        .Font.SetFontSize(16)
+                        .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center)
+                        .Alignment.SetVertical(XLAlignmentVerticalValues.Center);
+
+                    // Header
+                    string[] headers = { "Employee No", "Full Name", "Company", "Position", "Job Class", "Employment Type", "Work Location" };
+                    for (int i = 0; i < headers.Length; i++)
+                    {
+                        var cell = ws.Cell(3, i + 1);
+                        cell.Value = headers[i];
+                        cell.Style.Font.SetBold()
+                            .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center)
+                            .Alignment.SetVertical(XLAlignmentVerticalValues.Center)
+                            .Fill.SetBackgroundColor(XLColor.FromHtml("#3DCBE0"));
+                    }
+
+                    // Data
+                    var row = 4;
+                    foreach (var item in data)
+                    {
+                        ws.Cell(row, 1).Value = item.EmployeeNo;
+                        ws.Cell(row, 2).Value = item.Fullname;
+                        ws.Cell(row, 3).Value = item.CompanyName;
+                        ws.Cell(row, 4).Value = item.PositionName;
+                        ws.Cell(row, 5).Value = item.JobClassName;
+                        ws.Cell(row, 6).Value = item.EmploymentTypeName;
+                        ws.Cell(row, 7).Value = item.WorkLocationName;
+                        row++;
+                    }
+
+                    ws.Columns(1, 7).AdjustToContents();
+                    var tableRange = ws.Range(3, 1, row - 1, 7);
+                    tableRange.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                    tableRange.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+
+                    using var ms = new MemoryStream();
+                    workbook.SaveAs(ms);
+                    fileBytes = ms.ToArray();
+                    fileName = $"EmployeeList_{DateTime.Now:yyyyMMdd}.xlsx";
+
+                    return new ApiResponse<AttachmentFileDto>(HttpStatusCode.OK, new AttachmentFileDto
+                    {
+                        Base64Data = Convert.ToBase64String(fileBytes),
+                        FileName = fileName,
+                        ContentType = MimeTypesConstants.VND_OPENXML_EXCEL
+                    });
+                }
+                else if (string.Equals(type, "pdf", StringComparison.OrdinalIgnoreCase))
+                {
+                    var document = Document.Create(container =>
+                    {
+                        container.Page(page =>
+                        {
+                            page.Margin(30);
+                            page.Size(PageSizes.A4.Landscape());
+                            page.Header().AlignCenter().Text("Employee List").SemiBold().FontSize(16);
+
+                            page.Content().PaddingTop(10).Table(table =>
+                            {
+                                table.ColumnsDefinition(columns =>
+                                {
+                                    columns.ConstantColumn(80);  // No
+                                    columns.RelativeColumn();    // Name
+                                    columns.RelativeColumn();    // Position
+                                    columns.RelativeColumn();    // Dept/Org
+                                    columns.ConstantColumn(100); // Type
+                                });
+
+                                table.Header(header =>
+                                {
+                                    string[] pdfHeaders = { "Employee No", "Full Name", "Position", "Work Location", "Type" };
+                                    foreach (var h in pdfHeaders)
+                                    {
+                                        header.Cell().Border(1).Padding(5).Background(QuestPDF.Helpers.Colors.BlueGrey.Lighten2)
+                                            .AlignCenter().Text(h).Bold().FontSize(10);
+                                    }
+                                });
+
+                                foreach (var item in data)
+                                {
+                                    table.Cell().Border(1).Padding(5).Text(item.EmployeeNo ?? "-").FontSize(9);
+                                    table.Cell().Border(1).Padding(5).Text(item.Fullname ?? "-").FontSize(9);
+                                    table.Cell().Border(1).Padding(5).Text(item.PositionName ?? "-").FontSize(9);
+                                    table.Cell().Border(1).Padding(5).Text(item.WorkLocationName ?? "-").FontSize(9);
+                                    table.Cell().Border(1).Padding(5).Text(item.EmploymentTypeName ?? "-").FontSize(9);
+                                }
+                            });
+                        });
+                    });
+
+                    using var ms = new MemoryStream();
+                    document.GeneratePdf(ms);
+                    fileBytes = ms.ToArray();
+                    fileName = $"EmployeeList_{DateTime.Now:yyyyMMdd}.pdf";
+
+                    return new ApiResponse<AttachmentFileDto>(HttpStatusCode.OK, new AttachmentFileDto
+                    {
+                        Base64Data = Convert.ToBase64String(fileBytes),
+                        FileName = fileName,
+                        ContentType = MimeTypesConstants.PDF
+                    });
+                }
+
+                return new ApiResponse<AttachmentFileDto>(HttpStatusCode.BadRequest, null, "Invalid export type.");
+            }
+            catch (Exception ex)
+            {
+                return new ApiResponse<AttachmentFileDto>(HttpStatusCode.InternalServerError, null, ex.Message);
             }
         }
         #endregion

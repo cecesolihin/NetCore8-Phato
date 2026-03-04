@@ -1,17 +1,18 @@
+using ClosedXML.Excel;
+using QuestPDF.Fluent;
+using QuestPDF.Helpers;
+using QuestPDF.Infrastructure;
 using SqlKata;
 using SqlKata.Execution;
+using System.IO;
 using System.Net;
 using ThePatho.Domain.Constants;
+using ThePatho.Features.Common.DTO;
 using ThePatho.Features.Organization.CostCenter.Commands;
 using ThePatho.Features.Organization.CostCenter.DTO;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.ApiResponse;
-using ClosedXML.Excel;
-using System.IO;
-using QuestPDF.Fluent;
-using QuestPDF.Helpers;
-using QuestPDF.Infrastructure;
-using ThePatho.Features.Common.DTO;
+using ThePatho.Provider.UserContext;
 
 namespace ThePatho.Features.Organization.CostCenter.Service
 {
@@ -19,10 +20,12 @@ namespace ThePatho.Features.Organization.CostCenter.Service
     {
         #region [FIELDS & CTOR]
         private readonly DapperContext dapperContext;
+        private readonly ICurrentUserService currentUserService;
 
-        public CostCenterService(DapperContext _dapperContext)
+        public CostCenterService(DapperContext _dapperContext, ICurrentUserService _currentUserService)
         {
             dapperContext = _dapperContext;
+            currentUserService = _currentUserService;
         }
         #endregion
 
@@ -136,7 +139,7 @@ namespace ThePatho.Features.Organization.CostCenter.Service
                         SortOrder = request.SortOrder,
                         CostCenterType = request.CostCenterType,
                         IsDeleted = 0,
-                        InsertedBy = "system",
+                        InsertedBy = currentUserService.GetUserName() ?? "system",
                         InsertedDate = DateTime.UtcNow
                     });
 
@@ -152,7 +155,7 @@ namespace ThePatho.Features.Organization.CostCenter.Service
                             CostCenterName = request.CostCenterName,
                             SortOrder = request.SortOrder,
                             CostCenterType = request.CostCenterType,
-                            ModifiedBy = "system",
+                            ModifiedBy  = currentUserService.GetUserName() ?? "system",
                             ModifiedDate = DateTime.UtcNow
                         });
 
@@ -187,7 +190,7 @@ namespace ThePatho.Features.Organization.CostCenter.Service
                     .UpdateAsync(new
                     {
                         IsDeleted = true,
-                        ModifiedBy = "system",
+                        ModifiedBy  = currentUserService.GetUserName() ?? "system",
                         ModifiedDate = DateTime.UtcNow
                     });
 
@@ -248,7 +251,7 @@ namespace ThePatho.Features.Organization.CostCenter.Service
                     .Select(
                         "CostCenterCode",
                         "CostCenterName",
-                        "Sort",
+                        "SortOrder",
                         "CostCenterType"
                     )
                     .Where("IsDeleted", 0)
@@ -273,7 +276,7 @@ namespace ThePatho.Features.Organization.CostCenter.Service
 
                     worksheet.Cell(3, 1).Value = "Cost Center Code";
                     worksheet.Cell(3, 2).Value = "Cost Center Name";
-                    worksheet.Cell(3, 3).Value = "Sort";
+                    worksheet.Cell(3, 3).Value = "SortOrder";
                     worksheet.Cell(3, 4).Value = "Type";
 
                     worksheet.Range(3, 1, 3, 4).Style
@@ -305,7 +308,7 @@ namespace ThePatho.Features.Organization.CostCenter.Service
 
                     var dto = new AttachmentFileDto
                     {
-                        FileBytes = bytes,
+                        Base64Data = Convert.ToBase64String(bytes),
                         FileName = "CostCenter.xlsx",
                         ContentType = MimeTypesConstants.VND_OPENXML_EXCEL
                     };
@@ -348,7 +351,7 @@ namespace ThePatho.Features.Organization.CostCenter.Service
                                 // Header
                                 table.Header(header =>
                                 {
-                                    string[] headers = { "Cost Center Code", "Cost Center Name", "Sort", "Type" };
+                                    string[] headers = { "Cost Center Code", "Cost Center Name", "SortOrder", "Type" };
 
                                     foreach (var title in headers)
                                     {
@@ -393,7 +396,7 @@ namespace ThePatho.Features.Organization.CostCenter.Service
 
                     var dto = new AttachmentFileDto
                     {
-                        FileBytes = bytes,
+                        Base64Data = Convert.ToBase64String(bytes),
                         FileName = "CostCenter.pdf",
                         ContentType = MimeTypesConstants.PDF
                     };

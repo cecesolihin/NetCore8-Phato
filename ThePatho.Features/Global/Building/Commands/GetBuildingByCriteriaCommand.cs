@@ -8,11 +8,11 @@ namespace ThePatho.Features.Global.Building.Commands
 {
     public class GetBuildingByCriteriaCommand : IRequest<ApiResponse<BuildingItemDto>>
     {
-        [JsonPropertyName("filter_BuildingName")]
-        public string? FilterBuildingName { get; set; }
+        [JsonPropertyName("buildingName")]
+        public string? BuildingName { get; set; }
 
-        [JsonPropertyName("filter_BuildingCode")]
-        public string? FilterBuildingCode { get; set; }
+        [JsonPropertyName("buildingCode")]
+        public string? BuildingCode { get; set; }
 
         
     }

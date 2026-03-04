@@ -91,8 +91,8 @@ namespace ThePatho.Features.Global.MaritalStatus.Service
             try
             {
                 var parameters = new DynamicParameters();
-                parameters.Add("@MaritalStatusCode", request.FilterMaritalStatusCode ?? string.Empty);
-                parameters.Add("@MaritalStatusName", request.FilterMaritalStatusName ?? string.Empty);
+                parameters.Add("@MaritalStatusCode", request.MaritalStatusCode ?? string.Empty);
+                parameters.Add("@MaritalStatusName", request.MaritalStatusName ?? string.Empty);
 
                 var query = await queryLoader.LoadQueryAsync("Global/MaritalStatus/Sql/get_criteria_maritalstatus");
                 var data = await dbConnection.QueryAsync<MaritalStatusDto>(query, parameters);

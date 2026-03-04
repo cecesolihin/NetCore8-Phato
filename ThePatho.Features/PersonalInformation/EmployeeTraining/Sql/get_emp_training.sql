@@ -1,40 +1,49 @@
 DECLARE @Offset INT = (@PageNumber - 1) * @PageSize;
 
 SELECT 
-    EmpTrainingId,
-    EmployeeID,
-    TrainingCourseCode,
-    CONVERT(VARCHAR, StartDate, 106) AS StartDate,  -- dd MMM yyyy,
-    TrainingTypeCode,
-    TrainingFieldCode,
-    Institution,
-    Address,
-    CityId,
-    CertificateNo,
-    CertificateDate,
-    EndDate,
-    TrainingPayerCode,
-    CompanyBondDate,
-    Remarks,
-    TrainingBatchCode,
-    IsDeleted,
-    InsertedBy,
-    CONVERT(VARCHAR, InsertedDate, 106) AS InsertedDate,  -- dd MMM yyyy
-    ModifiedBy,
-    CONVERT(VARCHAR, ModifiedDate, 106) AS ModifiedDate   -- dd MMM yyyy
+    t.EmpTrainingId,
+    t.EmployeeID,
+    t.TrainingCourseCode,
+    CONVERT(VARCHAR, t.StartDate, 106) AS StartDate,
+    t.TrainingTypeCode,
+    t.TrainingFieldCode,
+    t.Institution,
+    t.Address,
+    t.CityId,
+    t.CertificateNo,
+    t.CertificateDate,
+    t.EndDate,
+    t.TrainingPayerCode,
+    t.CompanyBondDate,
+    t.Remarks,
+    t.TrainingBatchCode,
+    t.IsDeleted,
+    t.InsertedBy,
+    CONVERT(VARCHAR, t.InsertedDate, 106) AS InsertedDate,
+    t.ModifiedBy,
+    CONVERT(VARCHAR, t.ModifiedDate, 106) AS ModifiedDate,
+    emp.EmployeeNo,
+    emp.Fullname AS EmployeeName,
+    pos.PositionName
 FROM 
-    dbo.TEPDEmployeeTraining
+    dbo.TEPDEmployeeTraining t
+INNER JOIN TEPMEmployee emp 
+    ON t.EmployeeID = emp.EmployeeID
+LEFT JOIN TOGMPosition pos 
+    ON emp.PositionCode = pos.PositionCode
 WHERE
-    (@EmployeeId = 0 OR EmployeeID = @EmployeeId) AND
-    (@TrainingCourseCode IS NULL OR TrainingCourseCode LIKE '%' + @TrainingCourseCode + '%') AND
-    (@TrainingTypeCode IS NULL OR TrainingTypeCode LIKE '%' + @TrainingTypeCode + '%') AND
-    (@TrainingFieldCode IS NULL OR TrainingFieldCode LIKE '%' + @TrainingFieldCode + '%') AND
-    IsDeleted = 0
+    (@EmployeeId = 0 OR t.EmployeeID = @EmployeeId) AND
+    (
+        @Training IS NULL OR @Training = ''
+        OR t.TrainingCourseCode LIKE '%' + @Training + '%'
+        OR t.TrainingTypeCode LIKE '%' + @Training + '%'
+        OR t.TrainingFieldCode LIKE '%' + @Training + '%') AND
+    ISNULL(t.IsDeleted, 0) = 0
 ORDER BY
-    CASE WHEN @SortBy = 'TrainingCourseCode' THEN TrainingCourseCode END,
-    CASE WHEN @SortBy = 'TrainingTypeCode' THEN TrainingTypeCode END,
-    CASE WHEN @SortBy = 'TrainingFieldCode' THEN TrainingFieldCode END,
-    CASE WHEN @SortBy = 'StartDate' THEN StartDate END,
-    CASE WHEN @SortBy = 'InsertedDate' THEN InsertedDate END,
-    CASE WHEN @SortBy = 'ModifiedDate' THEN ModifiedDate END
+    CASE WHEN @SortBy = 'TrainingCourseCode' THEN t.TrainingCourseCode END,
+    CASE WHEN @SortBy = 'TrainingTypeCode' THEN t.TrainingTypeCode END,
+    CASE WHEN @SortBy = 'TrainingFieldCode' THEN t.TrainingFieldCode END,
+    CASE WHEN @SortBy = 'StartDate' THEN t.StartDate END,
+    CASE WHEN @SortBy = 'InsertedDate' THEN t.InsertedDate END,
+    CASE WHEN @SortBy = 'ModifiedDate' THEN t.ModifiedDate END
 OFFSET @Offset ROWS FETCH NEXT @PageSize ROWS ONLY;

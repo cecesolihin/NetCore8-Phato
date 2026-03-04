@@ -6,7 +6,7 @@ namespace ThePatho.Features.PersonalInformation.EmployeeTraining.Commands
 {
     public class DeleteEmployeeTrainingCommand : IRequest<ApiResponse>
     {
-        [JsonPropertyName("emp_training_id")]
+        [JsonPropertyName("empTrainingId")]
         public int EmpTrainingId { get; set; }
     }
 }

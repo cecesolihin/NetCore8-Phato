@@ -8,14 +8,14 @@ namespace ThePatho.Features.PersonalInformation.EmployeeWorkingExperience.Comman
 {
     public class GetEmployeeWorkingExperienceByCriteriaCommand : IRequest<ApiResponse<EmployeeWorkingExperienceItemDto>>
     {
-        [JsonPropertyName("filter_EmployeeId")]
-        public int? FilterEmployeeId { get; set; }
+        [JsonPropertyName("employeeId")]
+        public int? EmployeeId { get; set; }
 
-        [JsonPropertyName("filter_Company")]
-        public string? FilterCompany { get; set; }
+        [JsonPropertyName("company")]
+        public string? Company { get; set; }
 
-        [JsonPropertyName("filter_EmploymentTypeCode")]
-        public string? FilterEmploymentTypeCode { get; set; }
+        [JsonPropertyName("employmentTypeCode")]
+        public string? EmploymentTypeCode { get; set; }
     }
 }
 

@@ -6,25 +6,25 @@ namespace ThePatho.Features.PersonalInformation.EmployeeFamily.Commands
 {
     public class SubmitEmployeeFamilyCommand : IRequest<ApiResponse>
     {
-        [JsonPropertyName("employee_family_id")]
+        [JsonPropertyName("employeeFamilyId")]
         public int EmployeeFamilyId { get; set; }
 
-        [JsonPropertyName("employee_id")]
+        [JsonPropertyName("employeeId")]
         public int EmployeeId { get; set; }
 
-        [JsonPropertyName("relation_code")]
+        [JsonPropertyName("relationCode")]
         public string RelationCode { get; set; } = null!;
 
-        [JsonPropertyName("family_name")]
+        [JsonPropertyName("familyName")]
         public string FamilyName { get; set; } = null!;
 
         [JsonPropertyName("gender")]
         public string Gender { get; set; } = null!;
 
-        [JsonPropertyName("birth_place")]
+        [JsonPropertyName("birthPlace")]
         public string BirthPlace { get; set; } = null!;
 
-        [JsonPropertyName("birth_date")]
+        [JsonPropertyName("birthDate")]
         public string? BirthDate { get; set; }
 
         [JsonPropertyName("address")]
@@ -33,25 +33,25 @@ namespace ThePatho.Features.PersonalInformation.EmployeeFamily.Commands
         [JsonPropertyName("phone")]
         public string Phone { get; set; } = null!;
 
-        [JsonPropertyName("blood_type_code")]
+        [JsonPropertyName("bloodTypeCode")]
         public string BloodTypeCode { get; set; } = null!;
 
-        [JsonPropertyName("edu_level_code")]
+        [JsonPropertyName("eduLevelCode")]
         public string EduLevelCode { get; set; } = null!;
 
-        [JsonPropertyName("marital_status_code")]
+        [JsonPropertyName("maritalStatusCode")]
         public string MaritalStatusCode { get; set; } = null!;
 
-        [JsonPropertyName("dependent_status")]
+        [JsonPropertyName("dependentStatus")]
         public string DependentStatus { get; set; } = null!;
 
-        [JsonPropertyName("emergency_contact")]
+        [JsonPropertyName("emergencyContact")]
         public bool EmergencyContact { get; set; }
 
-        [JsonPropertyName("working_status")]
+        [JsonPropertyName("workingStatus")]
         public bool? WorkingStatus { get; set; }
 
-        [JsonPropertyName("vital_status")]
+        [JsonPropertyName("vitalStatus")]
         public bool? VitalStatus { get; set; }
 
         [JsonPropertyName("company")]
@@ -60,19 +60,19 @@ namespace ThePatho.Features.PersonalInformation.EmployeeFamily.Commands
         [JsonPropertyName("position")]
         public string Position { get; set; } = null!;
 
-        [JsonPropertyName("kk_no")]
+        [JsonPropertyName("kkNo")]
         public string KkNo { get; set; } = null!;
 
-        [JsonPropertyName("identity_no")]
+        [JsonPropertyName("identityNo")]
         public string IdentityNo { get; set; } = null!;
 
-        [JsonPropertyName("bpjs_no")]
+        [JsonPropertyName("bpjsNo")]
         public string BpjsNo { get; set; } = null!;
 
-        [JsonPropertyName("insurance_name")]
+        [JsonPropertyName("insuranceName")]
         public string InsuranceName { get; set; } = null!;
 
-        [JsonPropertyName("polis_no")]
+        [JsonPropertyName("polisNo")]
         public string PolisNo { get; set; } = null!;
 
         [JsonPropertyName("remarks")]

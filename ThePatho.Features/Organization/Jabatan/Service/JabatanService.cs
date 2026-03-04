@@ -1,17 +1,18 @@
+using ClosedXML.Excel;
+using QuestPDF.Fluent;
+using QuestPDF.Helpers;
+using QuestPDF.Infrastructure;
 using SqlKata;
 using SqlKata.Execution;
+using System.IO;
 using System.Net;
 using ThePatho.Domain.Constants;
+using ThePatho.Features.Common.DTO;
 using ThePatho.Features.Organization.Jabatan.Commands;
 using ThePatho.Features.Organization.Jabatan.DTO;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.ApiResponse;
-using ClosedXML.Excel;
-using System.IO;
-using QuestPDF.Fluent;
-using QuestPDF.Helpers;
-using QuestPDF.Infrastructure;
-using ThePatho.Features.Common.DTO;
+using ThePatho.Provider.UserContext;
 
 namespace ThePatho.Features.Organization.Jabatan.Service
 {
@@ -19,10 +20,12 @@ namespace ThePatho.Features.Organization.Jabatan.Service
     {
         #region [FIELDS & CTOR]
         private readonly DapperContext dapperContext;
+        private readonly ICurrentUserService currentUserService;
 
-        public JabatanService(DapperContext _dapperContext)
+        public JabatanService(DapperContext _dapperContext, ICurrentUserService _currentUserService)
         {
             dapperContext = _dapperContext;
+            currentUserService = _currentUserService;
         }
         #endregion
 
@@ -135,7 +138,7 @@ namespace ThePatho.Features.Organization.Jabatan.Service
                         JabatanCode = request.JabatanCode,
                         JabatanName = request.JabatanName,
                         JabatanDescription = request.JabatanDescription,
-                        InsertedBy = "system",
+                        InsertedBy = currentUserService.GetUserName() ?? "system",
                         InsertedDate = DateTime.UtcNow
                     });
 
@@ -151,7 +154,7 @@ namespace ThePatho.Features.Organization.Jabatan.Service
                             JabatanName = request.JabatanName,
                             JabatanDescription = request.JabatanDescription,
                             IsDeleted = false,
-                            ModifiedBy = "system",
+                            ModifiedBy  = currentUserService.GetUserName() ?? "system",
                             ModifiedDate = DateTime.UtcNow
                         });
 
@@ -292,7 +295,7 @@ namespace ThePatho.Features.Organization.Jabatan.Service
                     fileName = $"Jabatan.xlsx";
                     var dto = new AttachmentFileDto
                     {
-                        FileBytes = fileBytes,
+                        Base64Data = Convert.ToBase64String(fileBytes),
                         FileName = fileName,
                         ContentType = MimeTypesConstants.VND_OPENXML_EXCEL
                     };
@@ -378,7 +381,7 @@ namespace ThePatho.Features.Organization.Jabatan.Service
 
                     var dto = new AttachmentFileDto
                     {
-                        FileBytes = bytes,
+                        Base64Data = Convert.ToBase64String(bytes),
                         FileName = "JabatanList.pdf",
                         ContentType = MimeTypesConstants.PDF
                     };

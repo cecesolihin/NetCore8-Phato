@@ -7,31 +7,31 @@ namespace ThePatho.Features.PersonalInformation.EmployeeDocument.Commands
     public class SubmitEmployeeDocumentCommand : IRequest<ApiResponse>
     {
 
-        [JsonPropertyName("employee_document_id")]
+        [JsonPropertyName("employeeDocumentId")]
         public int EmployeeDocumentId { get; set; }
 
-        [JsonPropertyName("employee_id")]
+        [JsonPropertyName("employeeId")]
         public int EmployeeId { get; set; }
 
-        [JsonPropertyName("document_type_code")]
+        [JsonPropertyName("documentTypeCode")]
         public string DocumentTypeCode { get; set; } = null!;
 
-        [JsonPropertyName("file_path")]
+        [JsonPropertyName("filePath")]
         public string FilePath { get; set; } = null!;
 
         [JsonPropertyName("remark")]
         public string? Remark { get; set; }
 
-        [JsonPropertyName("inserted_by")]
+        [JsonPropertyName("insertedBy")]
         public string? InsertedBy { get; set; }
 
-        [JsonPropertyName("inserted_date")]
+        [JsonPropertyName("insertedDate")]
         public string? InsertedDate { get; set; }
 
-        [JsonPropertyName("modified_by")]
+        [JsonPropertyName("modifiedBy")]
         public string? ModifiedBy { get; set; }
 
-        [JsonPropertyName("modified_date")]
+        [JsonPropertyName("modifiedDate")]
         public string? ModifiedDate { get; set; }
 
         [JsonPropertyName("action")]

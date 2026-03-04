@@ -8,10 +8,10 @@ namespace ThePatho.Features.PersonalInformation.EmployeeDocument.Commands
 {
     public class GetEmployeeDocumentCommand : IRequest<ApiResponse<EmployeeDocumentItemDto>>
     {
-        [JsonPropertyName("filter_employee_id")]
+        [JsonPropertyName("filter_EmployeeId")]
         public int? FilterEmployeeId { get; set; }
 
-        [JsonPropertyName("filter_document_type_code")]
+        [JsonPropertyName("filter_DocumentTypeCode")]
         public string? FilterDocumentTypeCode { get; set; }
 
         [JsonPropertyName("sortBy")]

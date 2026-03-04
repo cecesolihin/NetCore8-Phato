@@ -8,11 +8,11 @@ namespace ThePatho.Features.Global.EduLevel.Commands
 {
     public class GetEduLevelByCriteriaCommand : IRequest<ApiResponse<EduLevelItemDto>>
     {
-        [JsonPropertyName("filter_EduLevelCode")]
-        public string? FilterEduLevelCode { get; set; }
+        [JsonPropertyName("eduLevelCode")]
+        public string? EduLevelCode { get; set; }
 
-        [JsonPropertyName("filter_EduLevelName")]
-        public string? FilterEduLevelName { get; set; }
+        [JsonPropertyName("eduLevelName")]
+        public string? EduLevelName { get; set; }
     }
 }
 

@@ -1,16 +1,17 @@
-using SqlKata;
-using SqlKata.Execution;
-using System.Net;
-using ThePatho.Domain.Constants;
-using ThePatho.Features.Organization.ResignType.Commands;
-using ThePatho.Features.Organization.ResignType.DTO;
-using ThePatho.Infrastructure.Persistance;
-using ThePatho.Provider.ApiResponse;
 using ClosedXML.Excel;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
+using SqlKata;
+using SqlKata.Execution;
+using System.Net;
+using ThePatho.Domain.Constants;
 using ThePatho.Features.Common.DTO;
+using ThePatho.Features.Organization.ResignType.Commands;
+using ThePatho.Features.Organization.ResignType.DTO;
+using ThePatho.Infrastructure.Persistance;
+using ThePatho.Provider.ApiResponse;
+using ThePatho.Provider.UserContext;
 
 namespace ThePatho.Features.Organization.ResignType.Service
 {
@@ -18,10 +19,12 @@ namespace ThePatho.Features.Organization.ResignType.Service
     {
         #region [FIELDS & CTOR]
         private readonly DapperContext dapperContext;
+        private readonly ICurrentUserService currentUserService;
 
-        public ResignTypeService(DapperContext _dapperContext)
+        public ResignTypeService(DapperContext _dapperContext, ICurrentUserService _currentUserService)
         {
             dapperContext = _dapperContext;
+            currentUserService = _currentUserService;
         }
         #endregion
 
@@ -123,7 +126,7 @@ namespace ThePatho.Features.Organization.ResignType.Service
                         ResignTypeCode = request.ResignTypeCode,
                         ResignTypeName = request.ResignTypeName,
                         IsDeleted = false,
-                        InsertedBy = "system",
+                        InsertedBy = currentUserService.GetUserName() ?? "system",
                         InsertedDate = DateTime.UtcNow
                     });
 
@@ -138,7 +141,7 @@ namespace ThePatho.Features.Organization.ResignType.Service
                         {
                             ResignTypeName = request.ResignTypeName,
                             IsDeleted = false,
-                            ModifiedBy = "system",
+                            ModifiedBy  = currentUserService.GetUserName() ?? "system",
                             ModifiedDate = DateTime.UtcNow
                         });
 
@@ -281,7 +284,7 @@ namespace ThePatho.Features.Organization.ResignType.Service
 
                     var dto = new AttachmentFileDto
                     {
-                        FileBytes = fileBytes,
+                        Base64Data = Convert.ToBase64String(fileBytes),
                         FileName = $"ResignType.xlsx",
                         ContentType = MimeTypesConstants.VND_OPENXML_EXCEL
                     };
@@ -362,7 +365,7 @@ namespace ThePatho.Features.Organization.ResignType.Service
 
                     var dto = new AttachmentFileDto
                     {
-                        FileBytes = fileBytes,
+                        Base64Data = Convert.ToBase64String(fileBytes),
                         FileName = "ResignType.pdf",
                         ContentType = MimeTypesConstants.PDF
                     };

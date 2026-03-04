@@ -11,7 +11,7 @@ namespace ThePatho.Features.Global.EduLevel.Commands
 
         [JsonPropertyName("edu_level_name")]
         public string? EduLevelName { get; set; }
-        [JsonPropertyName("sort")]
+        [JsonPropertyName("SortOrder")]
         public int Sort { get; set; }
 
         [JsonPropertyName("action")]

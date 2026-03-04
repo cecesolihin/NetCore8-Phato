@@ -3,8 +3,13 @@
     public class EmployeeSkillDto
     {
         public int EmployeeId { get; set; }
-        public string SkillCode { get; set; } = null!;
-        public string ProfiencyCode { get; set; } = null!;
+        public string? EmployeeNo { get; set; }
+        public string? EmployeeName { get; set; }
+        public string? PositionName { get; set; }
+        public string? JobLevelName { get; set; }
+        public string? CompanyName { get; set; }
+        public string SkillCode { get; set; } 
+        public string ProfiencyCode { get; set; } 
         public string? Description { get; set; }
         public string? TakenDate { get; set; }
         public string? ExpiredDate { get; set; }

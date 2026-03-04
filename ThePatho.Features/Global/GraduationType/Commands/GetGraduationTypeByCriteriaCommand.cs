@@ -8,11 +8,11 @@ namespace ThePatho.Features.Global.GraduationType.Commands
 {
     public class GetGraduationTypeByCriteriaCommand : IRequest<ApiResponse<GraduationTypeItemDto>>
     {
-        [JsonPropertyName("filter_GradTypeName")]
-        public string? FilterGradTypeName { get; set; }
+        [JsonPropertyName("gradTypeName")]
+        public string? GradTypeName { get; set; }
 
-        [JsonPropertyName("filter_GradTypeCode")]
-        public string? FilterGradTypeCode { get; set; }
+        [JsonPropertyName("gradTypeCode")]
+        public string? GradTypeCode { get; set; }
 
     }
 }

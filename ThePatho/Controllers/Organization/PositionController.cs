@@ -73,7 +73,7 @@ namespace ThePatho.Controllers
         {
             var exportResponse = await mediator.Send(new ExportPositionCommand { Type = type }, cancellationToken);
 
-            if (exportResponse.Code != 200 || exportResponse.Data == null || exportResponse.Data.FileBytes.Length == 0)
+            if (exportResponse.Code != 200 || exportResponse.Data == null || exportResponse.Data.Base64Data != null)
             {
                 return ApiResult(exportResponse);
             }
@@ -88,7 +88,7 @@ namespace ThePatho.Controllers
                 }
             }
 
-            return File(exportResponse.Data.FileBytes, contentType, exportResponse.Data.FileName);
+            return File(exportResponse.Data.Base64Data, contentType, exportResponse.Data.FileName);
         }
     }
 }

@@ -8,7 +8,7 @@ SELECT
     CONVERT(VARCHAR, ModifiedDate, 106) AS ModifiedDate  -- dd MMM yyyy
 
 FROM 
-    dbo.TGEMBloodType
+    dbo.TGEMFamilyRelation
 WHERE
     (@RelationCode IS NULL OR RelationCode LIKE '%' + @RelationCode + '%') AND
     (@RelationName IS NULL OR RelationName LIKE '%' + @RelationName + '%') 

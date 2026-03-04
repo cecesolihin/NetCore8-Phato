@@ -7,6 +7,13 @@ using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.ApiResponse;
 using ThePatho.Provider.QueryExecute;
 using ThePatho.Provider.UserContext;
+using ClosedXML.Excel;
+using QuestPDF.Fluent;
+using QuestPDF.Helpers;
+using QuestPDF.Infrastructure;
+using ThePatho.Features.Common.DTO;
+using ThePatho.Domain.Constants;
+using System.IO;
 
 namespace ThePatho.Features.PersonalInformation.EmployeeCareerHistory.Service
 {
@@ -39,9 +46,9 @@ namespace ThePatho.Features.PersonalInformation.EmployeeCareerHistory.Service
                 parameters.Add("@PageNumber", request.PageNumber);
                 parameters.Add("@PageSize", request.PageSize);
                 parameters.Add("@EmployeeId", request.FilterEmployeeId ?? 0);
-                parameters.Add("@CareerHistoryNo", request.FilterCareerHistoryNo ?? string.Empty);
-                parameters.Add("@PositionCode", request.FilterPositionCode ?? string.Empty);
-                parameters.Add("@CompanyCode", request.FilterCompanyCode ?? string.Empty);
+                parameters.Add("@CareerHistory", request.FilterCareerHistory ?? string.Empty);
+                parameters.Add("@EffectiveDateFrom", request.FilterEffectiveDateFrom);
+                parameters.Add("@EffectiveDateTo", request.FilterEffectiveDateTo);
                 parameters.Add("@SortBy", request.SortBy);
                 parameters.Add("@OrderBy", request.OrderBy);
 
@@ -92,10 +99,10 @@ namespace ThePatho.Features.PersonalInformation.EmployeeCareerHistory.Service
             {
                 using var db = dapperContext.CreateConnection();
                 var parameters = new DynamicParameters();
-                parameters.Add("@EmployeeId", request.FilterEmployeeId ?? 0);
-                parameters.Add("@CareerHistoryNo", request.FilterCareerHistoryNo ?? string.Empty);
-                parameters.Add("@PositionCode", request.FilterPositionCode ?? string.Empty);
-                parameters.Add("@CompanyCode", request.FilterCompanyCode ?? string.Empty);
+                parameters.Add("@EmployeeId", request.EmployeeId ?? 0);
+                parameters.Add("@CareerHistoryNo", request.CareerHistoryNo ?? string.Empty);
+                parameters.Add("@PositionCode", request.PositionCode ?? string.Empty);
+                parameters.Add("@CompanyCode", request.CompanyCode ?? string.Empty);
 
                 var query = await queryLoader.LoadQueryAsync("PersonalInformation/EmployeeCareerHistory/Sql/get_criteria_emp_career");
                 var data = await db.QueryAsync<EmployeeCareerHistoryDto>(query, parameters);
@@ -199,6 +206,130 @@ namespace ThePatho.Features.PersonalInformation.EmployeeCareerHistory.Service
             catch (Exception ex)
             {
                 return new ApiResponse(HttpStatusCode.BadRequest, $"Failed to delete", ex.Message);
+            }
+        }
+
+        public async Task<ApiResponse<AttachmentFileDto>> ExportEmployeeCareerHistoryAsync(string type)
+        {
+            try
+            {
+                using var db = dapperContext.CreateConnection();
+                var parameters = new DynamicParameters();
+                parameters.Add("@PageNumber", 0);
+                parameters.Add("@PageSize", 1000000);
+                parameters.Add("@EmployeeId", 0);
+                parameters.Add("@CareerHistory", "");
+                parameters.Add("@EffectiveDateFrom", null);
+                parameters.Add("@EffectiveDateTo", null);
+                parameters.Add("@SortBy", "EmployeeId");
+                parameters.Add("@OrderBy", "ASC");
+
+                var query = await queryLoader.LoadQueryAsync("PersonalInformation/EmployeeCareerHistory/Sql/get_emp_career");
+                var data = await db.QueryAsync<EmployeeCareerHistoryDto>(query, parameters);
+
+                var fileName = string.Empty;
+                byte[] fileBytes;
+
+                if (string.Equals(type, "excel", StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(type, "xlsx", StringComparison.OrdinalIgnoreCase))
+                {
+                    using var workbook = new XLWorkbook();
+                    var ws = workbook.Worksheets.Add("CareerHistory");
+
+                    ws.Cell("A1").Value = "Employee Career History List";
+                    ws.Range("A1:H1").Merge().Style.Font.SetBold().Font.SetFontSize(16).Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+
+                    string[] headers = { "Employee No", "Full Name", "Company", "Position", "Job Level", "Start Date", "End Date", "Remark" };
+                    for (int i = 0; i < headers.Length; i++)
+                    {
+                        var cell = ws.Cell(3, i + 1);
+                        cell.Value = headers[i];
+                        cell.Style.Font.SetBold().Fill.SetBackgroundColor(XLColor.FromHtml("#3DCBE0"));
+                    }
+
+                    var row = 4;
+                    foreach (var item in data)
+                    {
+                        ws.Cell(row, 1).Value = item.EmployeeNo;
+                        ws.Cell(row, 2).Value = item.EmployeeName;
+                        ws.Cell(row, 3).Value = item.CompanyName;
+                        ws.Cell(row, 4).Value = item.PositionName;
+                        ws.Cell(row, 5).Value = item.JobLevelName;
+                        ws.Cell(row, 6).Value = item.StartDate;
+                        ws.Cell(row, 7).Value = item.Remark;
+                        row++;
+                    }
+
+                    ws.Columns(1, 8).AdjustToContents();
+                    using var ms = new MemoryStream();
+                    workbook.SaveAs(ms);
+                    fileBytes = ms.ToArray();
+                    fileName = $"EmployeeCareerHistory_{DateTime.Now:yyyyMMdd}.xlsx";
+
+                    return new ApiResponse<AttachmentFileDto>(HttpStatusCode.OK, new AttachmentFileDto
+                    {
+                        Base64Data = Convert.ToBase64String(fileBytes),
+                        FileName = fileName,
+                        ContentType = MimeTypesConstants.VND_OPENXML_EXCEL
+                    });
+                }
+                else if (string.Equals(type, "pdf", StringComparison.OrdinalIgnoreCase))
+                {
+                    var document = Document.Create(container =>
+                    {
+                        container.Page(page =>
+                        {
+                            page.Margin(30);
+                            page.Size(PageSizes.A4.Landscape());
+                            page.Header().AlignCenter().Text("Employee Career History List").SemiBold().FontSize(16);
+                            page.Content().PaddingTop(10).Table(table =>
+                            {
+                                table.ColumnsDefinition(columns =>
+                                {
+                                    columns.ConstantColumn(80);
+                                    columns.RelativeColumn();
+                                    columns.RelativeColumn();
+                                    columns.RelativeColumn();
+                                    columns.ConstantColumn(100);
+                                });
+                                table.Header(header =>
+                                {
+                                    header.Cell().Border(1).Padding(5).Background(QuestPDF.Helpers.Colors.BlueGrey.Lighten2).Text("No").Bold();
+                                    header.Cell().Border(1).Padding(5).Background(QuestPDF.Helpers.Colors.BlueGrey.Lighten2).Text("Employee").Bold();
+                                    header.Cell().Border(1).Padding(5).Background(QuestPDF.Helpers.Colors.BlueGrey.Lighten2).Text("Position").Bold();
+                                    header.Cell().Border(1).Padding(5).Background(QuestPDF.Helpers.Colors.BlueGrey.Lighten2).Text("Company").Bold();
+                                    header.Cell().Border(1).Padding(5).Background(QuestPDF.Helpers.Colors.BlueGrey.Lighten2).Text("Start Date").Bold();
+                                });
+                                foreach (var item in data)
+                                {
+                                    table.Cell().Border(1).Padding(5).Text(item.EmployeeNo ?? "-");
+                                    table.Cell().Border(1).Padding(5).Text(item.EmployeeName ?? "-");
+                                    table.Cell().Border(1).Padding(5).Text(item.PositionName ?? "-");
+                                    table.Cell().Border(1).Padding(5).Text(item.CompanyName ?? "-");
+                                    table.Cell().Border(1).Padding(5).Text(item.StartDate);
+                                }
+                            });
+                        });
+                    });
+
+                    using var ms = new MemoryStream();
+                    document.GeneratePdf(ms);
+                    fileBytes = ms.ToArray();
+                    fileName = $"EmployeeCareerHistory_{DateTime.Now:yyyyMMdd}.pdf";
+
+                    return new ApiResponse<AttachmentFileDto>(HttpStatusCode.OK, new AttachmentFileDto
+                    {
+                        Base64Data = Convert.ToBase64String(fileBytes),
+                        FileName = fileName,
+                        ContentType = MimeTypesConstants.PDF
+                    });
+                }
+
+                return new ApiResponse<AttachmentFileDto>(HttpStatusCode.BadRequest, null, "Invalid export type.");
+            }
+            catch (Exception ex)
+            {
+                return new ApiResponse<AttachmentFileDto>(HttpStatusCode.InternalServerError, null, ex.Message);
             }
         }
         #endregion

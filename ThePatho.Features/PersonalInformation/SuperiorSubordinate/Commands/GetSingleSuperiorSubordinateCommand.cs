@@ -8,7 +8,7 @@ namespace ThePatho.Features.PersonalInformation.SuperiorSubordinate.Commands
 {
     public class GetSingleSuperiorSubordinateCommand : IRequest<ApiResponse<SuperiorSubordinateDto>>
     {
-        [JsonPropertyName("filter_EmployeeSuperiorID")]
+        [JsonPropertyName("employeeSuperiorID")]
         public int EmployeeSuperiorID { get; set; }
 
     }

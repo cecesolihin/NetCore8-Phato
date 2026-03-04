@@ -1,6 +1,7 @@
 ﻿using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.PersonalInformation.EmployeeTraining.Commands;
 using ThePatho.Features.PersonalInformation.EmployeeTraining.DTO;
+using ThePatho.Features.Common.DTO;
 
 namespace ThePatho.Features.PersonalInformation.EmployeeTraining.Service
 {
@@ -12,5 +13,6 @@ namespace ThePatho.Features.PersonalInformation.EmployeeTraining.Service
         Task<ApiResponse> DeleteEmployeeTraining(DeleteEmployeeTrainingCommand request);
 
         Task<ApiResponse<EmployeeTrainingDto>> GetSingleEmployeeTraining(GetSingleEmployeeTrainingCommand request);
+        Task<ApiResponse<AttachmentFileDto>> ExportEmployeeTrainingAsync(string type);
     }
 }

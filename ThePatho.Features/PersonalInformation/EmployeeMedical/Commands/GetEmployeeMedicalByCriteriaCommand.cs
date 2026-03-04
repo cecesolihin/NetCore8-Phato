@@ -8,14 +8,14 @@ namespace ThePatho.Features.PersonalInformation.EmployeeMedical.Commands
 {
     public class GetEmployeeMedicalByCriteriaCommand : IRequest<ApiResponse<EmployeeMedicalItemDto>>
     {
-        [JsonPropertyName("filter_employee_id")]
-        public int? FilterEmployeeId { get; set; }
+        [JsonPropertyName("employeeId")]
+        public int? EmployeeId { get; set; }
 
-        [JsonPropertyName("filter_disease_name")]
-        public string? FilterDiseaseName { get; set; }
+        [JsonPropertyName("diseaseName")]
+        public string? DiseaseName { get; set; }
 
-        [JsonPropertyName("filter_hospital")]
-        public string? FilterHospital { get; set; }
+        [JsonPropertyName("hospital")]
+        public string? Hospital { get; set; }
 
         
     }

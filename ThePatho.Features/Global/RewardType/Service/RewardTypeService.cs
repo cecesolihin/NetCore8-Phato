@@ -88,8 +88,8 @@ namespace ThePatho.Features.Global.RewardType.Service
             try
             {
                 var parameters = new DynamicParameters();
-                parameters.Add("@RewardTypeCode", request.FilterRewardTypeCode ?? string.Empty);
-                parameters.Add("@RewardTypeName", request.FilterRewardTypeName ?? string.Empty);
+                parameters.Add("@RewardTypeCode", request.RewardTypeCode ?? string.Empty);
+                parameters.Add("@RewardTypeName", request.RewardTypeName ?? string.Empty);
 
                 var query = await queryLoader.LoadQueryAsync("Global/RewardType/Sql/get_criteria_rewardtype");
                 var data = await dbConnection.QueryAsync<RewardTypeDto>(query, parameters);

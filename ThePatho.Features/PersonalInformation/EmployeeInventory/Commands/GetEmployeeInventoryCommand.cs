@@ -8,17 +8,25 @@ namespace ThePatho.Features.PersonalInformation.EmployeeInventory.Commands
 {
     public class GetEmployeeInventoryCommand : IRequest<ApiResponse<EmployeeInventoryItemDto>>
     {
-        [JsonPropertyName("filter_inventory_name")]
-        public string? FilterInventoryName { get; set; }
-
-        [JsonPropertyName("filter_inventory_no")]
-        public string? FilterInventoryNo { get; set; }
-
-        [JsonPropertyName("filter_inventory_type_code")]
-        public string? FilterInventoryTypeCode { get; set; }
-
-        [JsonPropertyName("filter_employee_id")]
+        [JsonPropertyName("filter_employeeId")]
         public int? FilterEmployeeId { get; set; }
+        [JsonPropertyName("filter_inventory")]
+        public string? FilterInventory { get; set; }
+
+        [JsonPropertyName("filter_receivedDateFrom")]
+        public DateTime? FilterReceivedDateFrom { get; set; }
+
+        [JsonPropertyName("filter_receivedDateTo")]
+        public DateTime? FilterReceivedDateTo { get; set; }
+
+        [JsonPropertyName("filter_returnDateFrom")]
+        public DateTime? FilterReturnDateFrom { get; set; }
+        [JsonPropertyName("filter_returnDateTo")]
+        public DateTime? FilterReturnDateTo { get; set; }
+        [JsonPropertyName("filter_returnPlanDateFrom")]
+        public DateTime? FilterReturnPlanDateFrom { get; set; }
+        [JsonPropertyName("filter_returnPlanDateTo")]
+        public DateTime? FilterReturnPlanDateTo { get; set; }
 
         [JsonPropertyName("sortBy")]
         [DefaultValue("InsertedDate")]

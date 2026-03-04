@@ -7,15 +7,15 @@ namespace ThePatho.Features.Global.TaxStatus.Commands
 {
     public class GetTaxStatusByCriteriaCommand : IRequest<ApiResponse<TaxStatusItemDto>>
     {
-        [JsonPropertyName("filter_TaxStatusName")]
-        public string? FilterTaxStatusName { get; set; }
+        [JsonPropertyName("taxStatusName")]
+        public string? TaxStatusName { get; set; }
 
-        [JsonPropertyName("filter_TaxStatusCode")]
-        public string? FilterTaxStatusCode { get; set; }
-        [JsonPropertyName("filter_Married")]
-        public string? FilterMarried { get; set; }
-        [JsonPropertyName("filter_TotalDependents")]
-        public int? FilterTotalDependents { get; set; }
+        [JsonPropertyName("taxStatusCode")]
+        public string? TaxStatusCode { get; set; }
+        [JsonPropertyName("married")]
+        public string? Married { get; set; }
+        [JsonPropertyName("totalDependents")]
+        public int? TotalDependents { get; set; }
 
     }
 }

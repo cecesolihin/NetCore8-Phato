@@ -6,19 +6,19 @@ namespace ThePatho.Features.PersonalInformation.EmployeeMedical.Commands
 {
     public class SubmitEmployeeMedicalCommand : IRequest<ApiResponse>
     {
-        [JsonPropertyName("employee_id")]
+        [JsonPropertyName("employeeId")]
         public int EmployeeId { get; set; }
 
-        [JsonPropertyName("disease_category_code")]
+        [JsonPropertyName("diseaseCategoryCode")]
         public string DiseaseCategoryCode { get; set; } = null!;
 
-        [JsonPropertyName("disease_name")]
+        [JsonPropertyName("diseaseName")]
         public string DiseaseName { get; set; } = null!;
 
-        [JsonPropertyName("start_date")]
+        [JsonPropertyName("startDate")]
         public string StartDate { get; set; } = null!;
 
-        [JsonPropertyName("end_date")]
+        [JsonPropertyName("endDate")]
         public string EndDate { get; set; } = null!;
 
         [JsonPropertyName("therapy")]
@@ -27,13 +27,13 @@ namespace ThePatho.Features.PersonalInformation.EmployeeMedical.Commands
         [JsonPropertyName("hospital")]
         public string Hospital { get; set; } = null!;
 
-        [JsonPropertyName("country_id")]
+        [JsonPropertyName("countryId")]
         public string CountryId { get; set; } = null!;
 
-        [JsonPropertyName("province_id")]
+        [JsonPropertyName("provinceId")]
         public string ProvinceId { get; set; } = null!;
 
-        [JsonPropertyName("city_code")]
+        [JsonPropertyName("cityCode")]
         public string CityCode { get; set; } = null!;
 
         [JsonPropertyName("doctor")]
@@ -45,34 +45,34 @@ namespace ThePatho.Features.PersonalInformation.EmployeeMedical.Commands
         [JsonPropertyName("remarks")]
         public string Remarks { get; set; } = null!;
 
-        [JsonPropertyName("is_deleted")]
+        [JsonPropertyName("isDeleted")]
         public bool IsDeleted { get; set; }
 
-        [JsonPropertyName("inserted_by")]
+        [JsonPropertyName("insertedBy")]
         public string InsertedBy { get; set; } = null!;
 
-        [JsonPropertyName("inserted_date")]
+        [JsonPropertyName("insertedDate")]
         public string? InsertedDate { get; set; }
 
-        [JsonPropertyName("modified_by")]
+        [JsonPropertyName("modifiedBy")]
         public string ModifiedBy { get; set; } = null!;
 
-        [JsonPropertyName("modified_date")]
+        [JsonPropertyName("modifiedDate")]
         public string? ModifiedDate { get; set; }
 
-        [JsonPropertyName("time_in")]
+        [JsonPropertyName("timeIn")]
         public string? TimeIn { get; set; }
 
-        [JsonPropertyName("time_out")]
+        [JsonPropertyName("timeOut")]
         public string? TimeOut { get; set; }
 
         [JsonPropertyName("obat")]
         public string Obat { get; set; } = null!;
 
-        [JsonPropertyName("tindakan_pertama")]
+        [JsonPropertyName("tindakanPertama")]
         public string TindakanPertama { get; set; } = null!;
 
-        [JsonPropertyName("tindakan_kedua")]
+        [JsonPropertyName("tindakanKedua")]
         public string TindakanKedua { get; set; } = null!;
 
         [JsonPropertyName("action")]

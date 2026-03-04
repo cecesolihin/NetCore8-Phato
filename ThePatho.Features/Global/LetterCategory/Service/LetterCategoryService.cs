@@ -90,9 +90,9 @@ namespace ThePatho.Features.Global.LetterCategory.Service
             try
             {
                 var parameters = new DynamicParameters();
-                parameters.Add("@LetterCategoryCode", request.FilterLetterCategoryCode ?? string.Empty);
-                parameters.Add("@LetterCategoryName", request.FilterLetterCategoryName ?? string.Empty);
-                parameters.Add("@DocPattern", request.FilterDocPattern ?? string.Empty);
+                parameters.Add("@LetterCategoryCode", request.LetterCategoryCode ?? string.Empty);
+                parameters.Add("@LetterCategoryName", request.LetterCategoryName ?? string.Empty);
+                parameters.Add("@DocPattern", request.DocPattern ?? string.Empty);
                 parameters.Add("@ResetType", request.ResetType ?? string.Empty);
 
 

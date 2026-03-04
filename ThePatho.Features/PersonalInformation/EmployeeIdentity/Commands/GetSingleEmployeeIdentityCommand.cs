@@ -8,10 +8,10 @@ namespace ThePatho.Features.PersonalInformation.EmployeeIdentity.Commands
 {
     public class GetSingleEmployeeIdentityCommand : IRequest<ApiResponse<EmployeeIdentityDto>>
     {
-        [JsonPropertyName("employee_id")]
+        [JsonPropertyName("employeeId")]
         public int EmployeeId { get; set; }
 
-        [JsonPropertyName("identity_code")]
+        [JsonPropertyName("identityCode")]
         public string IdentityCode { get; set; } = null!;
 
     }

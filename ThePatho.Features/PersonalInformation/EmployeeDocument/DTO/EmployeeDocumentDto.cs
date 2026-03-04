@@ -4,8 +4,13 @@
     {
         public int EmployeeDocumentId { get; set; }
         public int EmployeeId { get; set; }
-        public string DocumentTypeCode { get; set; } = null!;
-        public string FilePath { get; set; } = null!;
+        public string? EmployeeNo { get; set; }
+        public string? EmployeeName { get; set; }
+        public string? PositionName { get; set; }
+        public string? JobLevelName { get; set; }
+        public string? CompanyName { get; set; }
+        public string DocumentTypeCode { get; set; }
+        public string FilePath { get; set; } 
         public string? Remark { get; set; }
         public string? InsertedBy { get; set; }
         public string? InsertedDate { get; set; }

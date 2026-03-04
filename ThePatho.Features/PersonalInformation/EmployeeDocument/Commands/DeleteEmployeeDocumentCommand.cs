@@ -6,7 +6,7 @@ namespace ThePatho.Features.PersonalInformation.EmployeeDocument.Commands
 {
     public class DeleteEmployeeDocumentCommand : IRequest<ApiResponse>
     {
-        [JsonPropertyName("employee_document_id")]
+        [JsonPropertyName("employeeDocumentId")]
         public int EmployeeDocumentId { get; set; }
     }
 }

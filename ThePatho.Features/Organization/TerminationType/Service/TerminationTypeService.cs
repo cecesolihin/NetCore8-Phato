@@ -1,16 +1,17 @@
-using SqlKata;
-using SqlKata.Execution;
-using System.Net;
-using ThePatho.Domain.Constants;
-using ThePatho.Features.Organization.TerminationType.Commands;
-using ThePatho.Features.Organization.TerminationType.DTO;
-using ThePatho.Infrastructure.Persistance;
-using ThePatho.Provider.ApiResponse;
 using ClosedXML.Excel;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
+using SqlKata;
+using SqlKata.Execution;
+using System.Net;
+using ThePatho.Domain.Constants;
 using ThePatho.Features.Common.DTO;
+using ThePatho.Features.Organization.TerminationType.Commands;
+using ThePatho.Features.Organization.TerminationType.DTO;
+using ThePatho.Infrastructure.Persistance;
+using ThePatho.Provider.ApiResponse;
+using ThePatho.Provider.UserContext;
 
 namespace ThePatho.Features.Organization.TerminationType.Service
 {
@@ -18,10 +19,12 @@ namespace ThePatho.Features.Organization.TerminationType.Service
     {
         #region [FIELDS & CTOR]
         private readonly DapperContext dapperContext;
+        private readonly ICurrentUserService currentUserService;
 
-        public TerminationTypeService(DapperContext _dapperContext)
+        public TerminationTypeService(DapperContext _dapperContext, ICurrentUserService _currentUserService)
         {
             dapperContext = _dapperContext;
+            currentUserService = _currentUserService;
         }
         #endregion
 
@@ -123,7 +126,7 @@ namespace ThePatho.Features.Organization.TerminationType.Service
                         TerminationTypeCode = request.TerminationTypeCode,
                         TerminationTypeName = request.TerminationTypeName,
                         IsDeleted = false,
-                        InsertedBy = "system",
+                        InsertedBy = currentUserService.GetUserName() ?? "system",
                         InsertedDate = DateTime.UtcNow
                     });
 
@@ -138,7 +141,7 @@ namespace ThePatho.Features.Organization.TerminationType.Service
                         {
                             TerminationTypeName = request.TerminationTypeName,
                             IsDeleted = false,
-                            ModifiedBy = "system",
+                            ModifiedBy  = currentUserService.GetUserName() ?? "system",
                             ModifiedDate = DateTime.UtcNow
                         });
 
@@ -279,7 +282,7 @@ namespace ThePatho.Features.Organization.TerminationType.Service
 
                     var dto = new AttachmentFileDto
                     {
-                        FileBytes = fileBytes,
+                        Base64Data = Convert.ToBase64String(fileBytes),
                         FileName = $"TerminationType.xlsx",
                         ContentType = MimeTypesConstants.VND_OPENXML_EXCEL
                     };
@@ -361,7 +364,7 @@ namespace ThePatho.Features.Organization.TerminationType.Service
 
                     var dto = new AttachmentFileDto
                     {
-                        FileBytes = bytes,
+                        Base64Data = Convert.ToBase64String(bytes),
                         FileName = "TerminationType.pdf",
                         ContentType = MimeTypesConstants.PDF
                     };

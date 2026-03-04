@@ -31,8 +31,12 @@ SELECT
 FROM TEPDEmployeeFamily ef
 WHERE ef.IsDeleted = 0
   AND (@EmployeeId > 0 OR ef.EmployeeID = @EmployeeId)
-  AND (@RelationCode = '' OR ef.RelationCode = @RelationCode)
-  AND (@FamilyName = '' OR ef.FamilyName LIKE '%' + @FamilyName + '%')
+  AND ( @Family IS NULL OR @Family = ''
+        OR ef.FamilyName LIKE '%' + @Family + '%'
+        OR ef.RelationCode LIKE '%' + @Family + '%'
+        OR ef.MaritalStatusCode LIKE '%' + @Family + '%'
+        OR ef.EduLevelCode LIKE '%' + @Family + '%'
+  )
 ORDER BY
     CASE WHEN @OrderBy = 'ASC' THEN
         CASE 

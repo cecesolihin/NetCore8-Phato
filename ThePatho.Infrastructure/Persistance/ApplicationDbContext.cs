@@ -103,6 +103,8 @@ namespace ThePatho.Infrastructure.Persistance
             modelBuilder.ApplyConfiguration(new InventoryGroupConfiguration());
             modelBuilder.ApplyConfiguration(new InventoryGroupDetailsConfiguration());
             modelBuilder.ApplyConfiguration(new InventoryGroupOrgConfiguration());
+            modelBuilder.ApplyConfiguration(new CareerTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new DocumentTypeConfiguration());
             #endregion
 
             #region [GLOBAL]

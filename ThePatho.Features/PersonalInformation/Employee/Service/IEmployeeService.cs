@@ -1,6 +1,7 @@
 ﻿using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.PersonalInformation.Employee.Commands;
 using ThePatho.Features.PersonalInformation.Employee.DTO;
+using ThePatho.Features.Common.DTO;
 
 namespace ThePatho.Features.PersonalInformation.Employee.Service
 {
@@ -11,6 +12,6 @@ namespace ThePatho.Features.PersonalInformation.Employee.Service
         Task<ApiResponse> SubmitEmployee(SubmitEmployeeCommand request);
         Task<ApiResponse> DeleteEmployee(DeleteEmployeeCommand request);
         Task<ApiResponse<EmployeeDto>> GetSingleEmployee(GetSingleEmployeeCommand request);
+        Task<ApiResponse<AttachmentFileDto>> ExportEmployeeAsync(string type);
     }
-        
 }

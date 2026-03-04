@@ -8,10 +8,10 @@ namespace ThePatho.Features.PersonalInformation.EmployeeInventory.Commands
 {
     public class GetSingleEmployeeInventoryCommand : IRequest<ApiResponse<EmployeeInventoryDto>>
     {
-        [JsonPropertyName("employee_id")]
+        [JsonPropertyName("employeeId")]
         public int EmployeeId { get; set; }
 
-        [JsonPropertyName("inventory_no")]
+        [JsonPropertyName("inventoryNo")]
         public string InventoryNo { get; set; } = null!;
 
     }

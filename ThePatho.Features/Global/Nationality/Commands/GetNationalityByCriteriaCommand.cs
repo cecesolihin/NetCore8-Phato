@@ -8,8 +8,8 @@ namespace ThePatho.Features.Global.Nationality.Commands
 {
     public class GetNationalityByCriteriaCommand : IRequest<ApiResponse<NationalityItemDto>>
     {
-        [JsonPropertyName("filter_NationalityName")]
-        public string? FilterNationalityName { get; set; }
+        [JsonPropertyName("NationalityName")]
+        public string? NationalityName { get; set; }
 
 
     }

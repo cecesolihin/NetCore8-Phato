@@ -1,17 +1,18 @@
+using ClosedXML.Excel;
+using QuestPDF.Fluent;
+using QuestPDF.Helpers;
+using QuestPDF.Infrastructure;
 using SqlKata;
 using SqlKata.Execution;
+using System.IO;
 using System.Net;
 using ThePatho.Domain.Constants;
+using ThePatho.Features.Common.DTO;
 using ThePatho.Features.Organization.Grade.Commands;
 using ThePatho.Features.Organization.Grade.DTO;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.ApiResponse;
-using ClosedXML.Excel;
-using System.IO;
-using QuestPDF.Fluent;
-using QuestPDF.Helpers;
-using QuestPDF.Infrastructure;
-using ThePatho.Features.Common.DTO;
+using ThePatho.Provider.UserContext;
 
 namespace ThePatho.Features.Organization.Grade.Service
 {
@@ -19,10 +20,12 @@ namespace ThePatho.Features.Organization.Grade.Service
     {
         #region [FIELDS & CTOR]
         private readonly DapperContext dapperContext;
+        private readonly ICurrentUserService currentUserService;
 
-        public GradeService(DapperContext _dapperContext)
+        public GradeService(DapperContext _dapperContext, ICurrentUserService _currentUserService)
         {
             dapperContext = _dapperContext;
+            currentUserService = _currentUserService;
         }
         #endregion
 
@@ -141,7 +144,7 @@ namespace ThePatho.Features.Organization.Grade.Service
                         SortOrder = request.SortOrder,
                         Remarks = request.Remarks,
                         IsDeleted = false,
-                        InsertedBy = "system",
+                        InsertedBy = currentUserService.GetUserName() ?? "system",
                         InsertedDate = DateTime.UtcNow
                     });
 
@@ -159,7 +162,7 @@ namespace ThePatho.Features.Organization.Grade.Service
                             SortOrder = request.SortOrder,
                             Remarks = request.Remarks,
                             IsDeleted = false,
-                            ModifiedBy = "system",
+                            ModifiedBy  = currentUserService.GetUserName() ?? "system",
                             ModifiedDate = DateTime.UtcNow
                         });
 
@@ -194,7 +197,7 @@ namespace ThePatho.Features.Organization.Grade.Service
                     .UpdateAsync(new
                     {
                         IsDeleted = true,
-                        ModifiedBy = "system",
+                        ModifiedBy  = currentUserService.GetUserName() ?? "system",
                         ModifiedDate = DateTime.UtcNow
                     });
 
@@ -258,7 +261,7 @@ namespace ThePatho.Features.Organization.Grade.Service
                 // ===== HEADER =====
                 worksheet.Cell(1, 1).Value = "GradeCode";
                 worksheet.Cell(1, 2).Value = "GradeName";
-                worksheet.Cell(1, 3).Value = "Sort";
+                worksheet.Cell(1, 3).Value = "SortOrder";
                 worksheet.Cell(1, 4).Value = "Status";
                 worksheet.Cell(1, 5).Value = "Remarks";
 
@@ -308,7 +311,7 @@ namespace ThePatho.Features.Organization.Grade.Service
 
                 var dto = new AttachmentFileDto
                 {
-                    FileBytes = bytes,
+                    Base64Data = Convert.ToBase64String(bytes),
                     FileName = "GradeTemplate.xlsx",
                     ContentType = MimeTypesConstants.VND_OPENXML_EXCEL
                 };
@@ -421,7 +424,7 @@ namespace ThePatho.Features.Organization.Grade.Service
                                 Order = sort,
                                 Remarks = remarks,
                                 IsDeleted = false,
-                                InsertedBy = "system",
+                                InsertedBy = currentUserService.GetUserName() ?? "system",
                                 InsertedDate = DateTime.UtcNow
                             });
                             await db.ExecuteAsync(insertQuery);
@@ -438,7 +441,7 @@ namespace ThePatho.Features.Organization.Grade.Service
                                     Order = sort,
                                     Remarks = remarks,
                                     IsDeleted = false,
-                                    ModifiedBy = "system",
+                                    ModifiedBy  = currentUserService.GetUserName() ?? "system",
                                     ModifiedDate = DateTime.UtcNow
                                 });
                             await db.ExecuteAsync(updateQuery);
@@ -468,8 +471,8 @@ namespace ThePatho.Features.Organization.Grade.Service
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
                 var query = new Query(TableOrganization.Grade)
-                    .Select("GradeCode", "GradeName", "Status", "Order", "Remarks")
-                    .OrderBy("Order");
+                    .Select("*")
+                    .OrderBy("SortOrder");
 
                 var data = await db.GetAsync<GradeDto>(query);
 
@@ -493,8 +496,8 @@ namespace ThePatho.Features.Organization.Grade.Service
                     worksheet.Cell(3, 1).Value = "No";
                     worksheet.Cell(3, 2).Value = "Grade Code";
                     worksheet.Cell(3, 3).Value = "Grade Name";
-                    worksheet.Cell(3, 4).Value = "Status";
-                    worksheet.Cell(3, 5).Value = "Order";
+                    worksheet.Cell(3, 4).Value = "IsActive";
+                    worksheet.Cell(3, 5).Value = "SortOrder";
                     worksheet.Cell(3, 6).Value = "Remarks";
 
                     worksheet.Range(3, 1, 3, 6).Style
@@ -535,7 +538,7 @@ namespace ThePatho.Features.Organization.Grade.Service
                     // DTO hasil export
                     var dto = new AttachmentFileDto
                     {
-                        FileBytes = bytes,
+                        Base64Data = Convert.ToBase64String(bytes),
                         FileName = "GradeList.xlsx",
                         ContentType = MimeTypesConstants.VND_OPENXML_EXCEL
                     };
@@ -584,7 +587,7 @@ namespace ThePatho.Features.Organization.Grade.Service
                                 // ===== TABLE HEADER =====
                                 table.Header(header =>
                                 {
-                                    string[] headers = { "No", "Grade Code", "Grade Name", "Status", "Order", "Remarks" };
+                                    string[] headers = { "No", "Grade Code", "Grade Name", "Status", "SortOrder", "Remarks" };
 
                                     foreach (var title in headers)
                                     {
@@ -619,7 +622,7 @@ namespace ThePatho.Features.Organization.Grade.Service
                     var bytes = doc.GeneratePdf();
                     var dto = new AttachmentFileDto
                     {
-                        FileBytes = bytes,
+                        Base64Data = Convert.ToBase64String(bytes),
                         FileName = "Grades.pdf",
                         ContentType = MimeTypesConstants.PDF
                     };
@@ -646,8 +649,8 @@ namespace ThePatho.Features.Organization.Grade.Service
                 using var connection = dapperContext.CreateConnection();
                 var db = new QueryFactory(connection, dapperContext.Compiler);
                 var query = new Query(TableOrganization.Grade)
-                    .Select("GradeCode", "GradeName", "Status", "Order", "Remarks")
-                    .OrderBy("Order");
+                    .Select("GradeCode", "GradeName", "Status", "SortOrder", "Remarks")
+                    .OrderBy("SortOrder");
 
                 var data = await db.GetAsync<GradeDto>(query);
 
@@ -674,7 +677,7 @@ namespace ThePatho.Features.Organization.Grade.Service
                     worksheet.Cell(2, 1).Value = "GradeCode";
                     worksheet.Cell(2, 2).Value = "GradeName";
                     worksheet.Cell(2, 3).Value = "Status";
-                    worksheet.Cell(2, 4).Value = "Order";
+                    worksheet.Cell(2, 4).Value = "SortOrder";
                     worksheet.Cell(2, 5).Value = "Remarks";
 
                     var headerRange = worksheet.Range(2, 1, 2, 5);
@@ -734,7 +737,7 @@ namespace ThePatho.Features.Organization.Grade.Service
 
                     var dto = new AttachmentFileDto
                     {
-                        FileBytes = bytes,
+                        Base64Data = Convert.ToBase64String(bytes),
                     FileName = "Grades.xlsx",
                     ContentType = MimeTypesConstants.VND_OPENXML_EXCEL
                     };
@@ -799,7 +802,7 @@ namespace ThePatho.Features.Organization.Grade.Service
                                         HeaderCell(header.Cell(), "GradeCode");
                                         HeaderCell(header.Cell(), "GradeName");
                                         HeaderCell(header.Cell(), "Status");
-                                        HeaderCell(header.Cell(), "Order");
+                                        HeaderCell(header.Cell(), "SortOrder");
                                         HeaderCell(header.Cell(), "Remarks");
                                     });
 
@@ -846,7 +849,7 @@ namespace ThePatho.Features.Organization.Grade.Service
 
                     var dto = new AttachmentFileDto
                     {
-                        FileBytes = bytes,
+                        Base64Data = Convert.ToBase64String(bytes),
                     FileName = "Grades.pdf",
                     ContentType = MimeTypesConstants.PDF
                     };

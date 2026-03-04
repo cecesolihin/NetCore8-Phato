@@ -1,18 +1,19 @@
+using ClosedXML.Excel;
+using QuestPDF.Fluent;
+using QuestPDF.Helpers;
+using QuestPDF.Infrastructure;
 using SqlKata;
 using SqlKata.Execution;
 using System;
 using System.IO;
 using System.Net;
 using ThePatho.Domain.Constants;
+using ThePatho.Features.Common.DTO;
 using ThePatho.Features.Organization.CompanyBank.Commands;
 using ThePatho.Features.Organization.CompanyBank.DTO;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.ApiResponse;
-using ClosedXML.Excel;
-using QuestPDF.Fluent;
-using QuestPDF.Helpers;
-using QuestPDF.Infrastructure;
-using ThePatho.Features.Common.DTO;
+using ThePatho.Provider.UserContext;
 
 namespace ThePatho.Features.Organization.CompanyBank.Service
 {
@@ -20,10 +21,11 @@ namespace ThePatho.Features.Organization.CompanyBank.Service
     {
         #region [FIELDS & CTOR]
         private readonly DapperContext dapperContext;
-
-        public CompanyBankService(DapperContext _dapperContext)
+        private readonly ICurrentUserService currentUserService;
+        public CompanyBankService(DapperContext _dapperContext, ICurrentUserService _currentUserService)
         {
             dapperContext = _dapperContext;
+            currentUserService = _currentUserService;
         }
         #endregion
 
@@ -154,7 +156,7 @@ namespace ThePatho.Features.Organization.CompanyBank.Service
 
                     var dto = new AttachmentFileDto
                     {
-                        FileBytes = bytes,
+                        Base64Data = Convert.ToBase64String(bytes),
                         FileName = "CompanyBank.xlsx",
                         ContentType = MimeTypesConstants.VND_OPENXML_EXCEL
                     };
@@ -260,7 +262,7 @@ namespace ThePatho.Features.Organization.CompanyBank.Service
 
                     var dto = new AttachmentFileDto
                     {
-                        FileBytes = bytes,
+                        Base64Data = Convert.ToBase64String(bytes),
                         FileName = "CompanyBank.pdf",
                         ContentType = MimeTypesConstants.PDF
                     };
@@ -374,7 +376,7 @@ namespace ThePatho.Features.Organization.CompanyBank.Service
                         AccountName = request.AccountName,
                         IsDeleted = request.IsDeleted,
                         IsDefault = request.IsDefault,
-                        InsertedBy = "system",
+                        InsertedBy = currentUserService.GetUserName() ?? "system",
                         InsertedDate = DateTime.UtcNow
                     });
 
@@ -423,7 +425,7 @@ namespace ThePatho.Features.Organization.CompanyBank.Service
                             AccountName = request.AccountName,
                             IsDeleted = request.IsDeleted,
                             IsDefault = request.IsDefault,
-                            ModifiedBy = "system",
+                            ModifiedBy  = currentUserService.GetUserName() ?? "system",
                             ModifiedDate = DateTime.UtcNow
                         });
 
@@ -469,7 +471,7 @@ namespace ThePatho.Features.Organization.CompanyBank.Service
                     .AsUpdate(new
                     {
                         IsDeleted = true,
-                        ModifiedBy = "system",
+                        ModifiedBy  = currentUserService.GetUserName() ?? "system",
                         ModifiedDate = DateTime.UtcNow
                     });
 

@@ -2,6 +2,11 @@
 {
     public class EmployeePickUpDto
     {
+        public string? EmployeeNo { get; set; }
+        public string? EmployeeName { get; set; }
+        public string? PositionName { get; set; }
+        public string? JobLevelName { get; set; }
+        public string? CompanyName { get; set; }
         public byte PickUpId { get; set; }
         public string PickUpLocation { get; set; } = null!;
         public bool IsDeleted { get; set; }

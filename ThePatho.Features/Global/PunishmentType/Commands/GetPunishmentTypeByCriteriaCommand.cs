@@ -8,10 +8,10 @@ namespace ThePatho.Features.Global.PunishmentType.Commands
 {
     public class GetPunishmentTypeByCriteriaCommand : IRequest<ApiResponse<PunishmentTypeItemDto>>
     {
-        [JsonPropertyName("filter_PunishmentName")]
-        public string? FilterPunishmentName { get; set; }
+        [JsonPropertyName("PunishmentName")]
+        public string? PunishmentName { get; set; }
 
-        [JsonPropertyName("filter_PunishmentCode")]
-        public string? FilterPunishmentCode { get; set; }
+        [JsonPropertyName("PunishmentCode")]
+        public string? PunishmentCode { get; set; }
     }
 }

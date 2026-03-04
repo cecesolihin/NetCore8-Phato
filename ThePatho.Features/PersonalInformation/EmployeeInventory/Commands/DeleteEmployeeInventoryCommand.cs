@@ -6,10 +6,10 @@ namespace ThePatho.Features.PersonalInformation.EmployeeInventory.Commands
 {
     public class DeleteEmployeeInventoryCommand : IRequest<ApiResponse>
     {
-        [JsonPropertyName("employee_id")]
+        [JsonPropertyName("employeeId")]
         public int EmployeeId { get; set; }
 
-        [JsonPropertyName("inventory_no")]
+        [JsonPropertyName("inventoryNo")]
         public string InventoryNo { get; set; } = null!;
     }
 }

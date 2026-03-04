@@ -7,6 +7,7 @@ using ThePatho.Features.Organization.HistOrgStructure.Commands;
 using ThePatho.Features.Organization.HistOrgStructure.DTO;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.ApiResponse;
+using ThePatho.Provider.UserContext;
 
 namespace ThePatho.Features.Organization.HistOrgStructure.Service
 {
@@ -14,10 +15,12 @@ namespace ThePatho.Features.Organization.HistOrgStructure.Service
     {
         #region [FIELDS & CTOR]
         private readonly DapperContext dapperContext;
+        private readonly ICurrentUserService currentUserService;
 
-        public HistOrgStructureService(DapperContext _dapperContext)
+        public HistOrgStructureService(DapperContext _dapperContext, ICurrentUserService _currentUserService)
         {
             dapperContext = _dapperContext;
+            currentUserService = _currentUserService;
         }
         #endregion
 
@@ -180,7 +183,7 @@ namespace ThePatho.Features.Organization.HistOrgStructure.Service
                         IsDeleted = request.IsDeleted,
                         Path = request.Path,
                         Function = request.Function,
-                        InsertedBy = "system",
+                        InsertedBy = currentUserService.GetUserName() ?? "system",
                         InsertedDate = DateTime.UtcNow
                     });
 
@@ -222,7 +225,7 @@ namespace ThePatho.Features.Organization.HistOrgStructure.Service
                             IsDeleted = request.IsDeleted,
                             Path = request.Path,
                             Function = request.Function,
-                            ModifiedBy = "system",
+                            ModifiedBy  = currentUserService.GetUserName() ?? "system",
                             ModifiedDate = DateTime.UtcNow
                         });
 

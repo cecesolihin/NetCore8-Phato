@@ -9,5 +9,5 @@ SELECT
 FROM 
     dbo.TGEMPunishmentType
 WHERE
-    (@PunishmentTypeCode IS NULL OR PunishmentTypeCode LIKE '%' + @PunishmentTypeCode + '%') AND
-    (@PunishmentTypeName IS NULL OR PunishmentTypeName LIKE '%' + @PunishmentTypeName + '%') 
+    (@PunishmentCode IS NULL OR PunishmentCode LIKE '%' + @PunishmentCode + '%') AND
+    (@PunishmentName IS NULL OR PunishmentName LIKE '%' + @PunishmentName + '%') 

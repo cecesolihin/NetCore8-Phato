@@ -8,10 +8,10 @@ namespace ThePatho.Features.PersonalInformation.EmployeeMedical.Commands
 {
     public class GetSingleEmployeeMedicalCommand : IRequest<ApiResponse<EmployeeMedicalDto>>
     {
-        [JsonPropertyName("employee_id")]
+        [JsonPropertyName("employeeId")]
         public int EmployeeId { get; set; }
 
-        [JsonPropertyName("disease_category_code")]
+        [JsonPropertyName("diseaseCategoryCode")]
         public string DiseaseCategoryCode { get; set; } = null!;
 
     }

@@ -1,21 +1,40 @@
 SELECT 
-    EmRewardID,
-    LetterNo,
-    EmployeeID,
-     CONVERT(VARCHAR, LetterDate, 106) AS LetterDate,  -- dd MMM yyyy LetterDate,
-    RewardTypeCode,
-    Remarks,
-    CurrencyCode,
-    Amount,
-    Attachment,
-    IsDeleted,
-    InsertedBy,
-    CONVERT(VARCHAR, InsertedDate, 106) AS InsertedDate,  -- dd MMM yyyy
-    ModifiedBy,
-    CONVERT(VARCHAR, ModifiedDate, 106) AS ModifiedDate   -- dd MMM yyyy
-FROM 
-    dbo.TEPDEmployeeReward
+    r.EmRewardID,
+    r.LetterNo,
+    r.EmployeeID,
+
+    emp.EmployeeNo,
+    emp.Fullname as EmployeeName,
+    emp.PositionCode,
+    pos.PositionName,
+
+    CONVERT(VARCHAR, r.LetterDate, 106) AS LetterDate,
+    r.RewardTypeCode,
+    r.Remarks,
+    r.CurrencyCode,
+    r.Amount,
+    r.Attachment,
+    r.IsDeleted,
+    r.InsertedBy,
+    CONVERT(VARCHAR, r.InsertedDate, 106) AS InsertedDate,
+    r.ModifiedBy,
+    CONVERT(VARCHAR, r.ModifiedDate, 106) AS ModifiedDate
+
+FROM dbo.TEPDEmployeeReward r
+INNER JOIN TEPMEmployee emp 
+    ON r.EmployeeID = emp.EmployeeID
+LEFT JOIN TOGMPosition pos 
+    ON emp.PositionCode = pos.PositionCode
+
 WHERE
-    (@EmployeeId = 0 OR EmployeeID = @EmployeeId) AND
-    (@LetterNo = '' OR LetterNo LIKE '%' + @LetterNo + '%') AND
-    (@RewardTypeCode = '' OR RewardTypeCode LIKE '%' + @RewardTypeCode + '%') AND
+    (@EmployeeId = 0 OR r.EmployeeID = @EmployeeId)
+    AND
+    (
+        @LetterNo IS NULL OR @LetterNo = ''
+        OR r.LetterNo LIKE '%' + @LetterNo + '%'
+    )
+    AND
+    (
+        @RewardTypeCode IS NULL OR @RewardTypeCode = ''
+        OR r.RewardTypeCode LIKE '%' + @RewardTypeCode + '%'
+    )

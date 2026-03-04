@@ -8,7 +8,7 @@ namespace ThePatho.Features.PersonalInformation.EmployeeEducation.Commands
 {
     public class GetSingleEmployeeEducationCommand : IRequest<ApiResponse<EmployeeEducationDto>>
     {
-        [JsonPropertyName("employee_education_id")]
+        [JsonPropertyName("EmployeeEducationId")]
         public int EmployeeEducationId { get; set; }
 
     }

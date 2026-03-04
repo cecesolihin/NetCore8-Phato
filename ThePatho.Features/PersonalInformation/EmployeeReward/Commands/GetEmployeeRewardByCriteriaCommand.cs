@@ -8,13 +8,13 @@ namespace ThePatho.Features.PersonalInformation.EmployeeReward.Commands
 {
     public class GetEmployeeRewardByCriteriaCommand : IRequest<ApiResponse<EmployeeRewardItemDto>>
     {
-        [JsonPropertyName("filter_employee_id")]
-        public int? FilterEmployeeId { get; set; }
-        [JsonPropertyName("filter_letter_no")]
-        public string? FilterLetterNo { get; set; }
+        [JsonPropertyName("employeeId")]
+        public int? EmployeeId { get; set; }
+        [JsonPropertyName("letterNo")]
+        public string? LetterNo { get; set; }
 
-        [JsonPropertyName("filter_reward_type_code")]
-        public string? FilterRewardTypeCode { get; set; }
+        [JsonPropertyName("rewardTypeCode")]
+        public string? RewardTypeCode { get; set; }
     }
 }
 

@@ -894,6 +894,36 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Global\CareerType\Sql\delete_careertype.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Global\CareerType\Sql\get_criteria_careertype.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Global\CareerType\Sql\get_careertype.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Global\CareerType\Sql\get_single_careertype.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Global\CareerType\Sql\submit_careertype.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Global\DocumentType\Sql\delete_documenttype.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Global\DocumentType\Sql\get_criteria_documenttype.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Global\DocumentType\Sql\get_documenttype.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Global\DocumentType\Sql\get_single_documenttype.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Global\DocumentType\Sql\submit_documenttype.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Global\RadiusUnit\Sql\delete_radiusunit.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

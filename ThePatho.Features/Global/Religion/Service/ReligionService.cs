@@ -87,7 +87,7 @@ namespace ThePatho.Features.Global.Religion.Service
             try
             {
                 var parameters = new DynamicParameters();
-                parameters.Add("@ReligionName", request.FilterReligionName ?? string.Empty);
+                parameters.Add("@ReligionName", request.ReligionName ?? string.Empty);
 
                 var query = await queryLoader.LoadQueryAsync("Global/Religion/Sql/get_criteria_religion");
                 var data = await dbConnection.QueryAsync<ReligionDto>(query, parameters);

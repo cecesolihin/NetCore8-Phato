@@ -1,6 +1,7 @@
 ﻿using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.PersonalInformation.EmployeeReward.Commands;
 using ThePatho.Features.PersonalInformation.EmployeeReward.DTO;
+using ThePatho.Features.Common.DTO;
 
 namespace ThePatho.Features.PersonalInformation.EmployeeReward.Service
 {
@@ -12,5 +13,6 @@ namespace ThePatho.Features.PersonalInformation.EmployeeReward.Service
         Task<ApiResponse> DeleteEmployeeReward(DeleteEmployeeRewardCommand request);
 
         Task<ApiResponse<EmployeeRewardDto>> GetSingleEmployeeReward(GetSingleEmployeeRewardCommand request);
+        Task<ApiResponse<AttachmentFileDto>> ExportEmployeeRewardAsync(string type);
     }
 }

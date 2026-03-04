@@ -111,6 +111,8 @@ namespace ThePatho.Provider.ApiResponse
             public const string RadiusUnit = BaseApiPathGlobal + "radius-unit";
             public const string TimeZone = BaseApiPathGlobal + "time-zone";
             public const string TaxLocation = BaseApiPathGlobal + "tax-location";
+            public const string CareerType = BaseApiPathGlobal + "career-type";
+            public const string DocumentType = BaseApiPathGlobal + "document-type";
         }
         public static class Methods
         {

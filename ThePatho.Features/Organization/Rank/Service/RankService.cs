@@ -1,16 +1,17 @@
-using SqlKata;
-using SqlKata.Execution;
-using System.Net;
-using ThePatho.Domain.Constants;
-using ThePatho.Features.Organization.Rank.Commands;
-using ThePatho.Features.Organization.Rank.DTO;
-using ThePatho.Infrastructure.Persistance;
-using ThePatho.Provider.ApiResponse;
 using ClosedXML.Excel;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
+using SqlKata;
+using SqlKata.Execution;
+using System.Net;
+using ThePatho.Domain.Constants;
 using ThePatho.Features.Common.DTO;
+using ThePatho.Features.Organization.Rank.Commands;
+using ThePatho.Features.Organization.Rank.DTO;
+using ThePatho.Infrastructure.Persistance;
+using ThePatho.Provider.ApiResponse;
+using ThePatho.Provider.UserContext;
 
 namespace ThePatho.Features.Organization.Rank.Service
 {
@@ -18,10 +19,12 @@ namespace ThePatho.Features.Organization.Rank.Service
     {
         #region [FIELDS & CTOR]
         private readonly DapperContext dapperContext;
+        private readonly ICurrentUserService currentUserService;
 
-        public RankService(DapperContext _dapperContext)
+        public RankService(DapperContext _dapperContext, ICurrentUserService _currentUserService)
         {
             dapperContext = _dapperContext;
+            currentUserService = _currentUserService;
         }
         #endregion
 
@@ -127,7 +130,7 @@ namespace ThePatho.Features.Organization.Rank.Service
                         SortOrder = request.SortOrder,
                         Remarks = request.Remarks,
                         IsDeleted = false,
-                        InsertedBy = "system",
+                        InsertedBy = currentUserService.GetUserName() ?? "system",
                         InsertedDate = DateTime.UtcNow
                     });
 
@@ -144,7 +147,7 @@ namespace ThePatho.Features.Organization.Rank.Service
                             SortOrder = request.SortOrder,
                             Remarks = request.Remarks,
                             IsDeleted = false,
-                            ModifiedBy = "system",
+                            ModifiedBy  = currentUserService.GetUserName() ?? "system",
                             ModifiedDate = DateTime.UtcNow
                         });
 
@@ -178,7 +181,7 @@ namespace ThePatho.Features.Organization.Rank.Service
                                  .UpdateAsync(new
                                  {
                                      IsDeleted = true,
-                                     ModifiedBy = "system",
+                                     ModifiedBy  = currentUserService.GetUserName() ?? "system",
                                      ModifiedDate = DateTime.UtcNow           // optional
                                  });
 
@@ -239,7 +242,7 @@ namespace ThePatho.Features.Organization.Rank.Service
                 var db = new QueryFactory(connection, dapperContext.Compiler);
 
                 var data = await db.Query(TableOrganization.Rank)
-                    .OrderBy("Order")
+                    .OrderBy("SortOrder")
                     .GetAsync<RankDto>();
 
                 var exportType = (type ?? "").Trim().ToLowerInvariant();
@@ -263,7 +266,7 @@ namespace ThePatho.Features.Organization.Rank.Service
                         .Alignment.SetVertical(XLAlignmentVerticalValues.Center);
 
                     // ===== HEADER =====
-                    var headers = new[] { "Rank Code", "Rank Name", "Order", "Remarks" };
+                    var headers = new[] { "Rank Code", "Rank Name", "SortOrder", "Remarks" };
                     for (int i = 0; i < headers.Length; i++)
                     {
                         ws.Cell(3, i + 1).Value = headers[i];
@@ -302,7 +305,7 @@ namespace ThePatho.Features.Organization.Rank.Service
 
                     var dto = new AttachmentFileDto
                     {
-                        FileBytes = fileBytes,
+                        Base64Data = Convert.ToBase64String(fileBytes),
                         FileName = $"Rank.xlsx",
                         ContentType = MimeTypesConstants.VND_OPENXML_EXCEL
                     };
@@ -347,7 +350,7 @@ namespace ThePatho.Features.Organization.Rank.Service
                                 table.Header(header =>
                                 {
                                     string[] headers = {
-                                        "Rank Code", "Rank Name", "Order", "Remarks"
+                                        "Rank Code", "Rank Name", "SortOrder", "Remarks"
                                     };
 
                                     foreach (var title in headers)
@@ -393,7 +396,7 @@ namespace ThePatho.Features.Organization.Rank.Service
 
                     var dto = new AttachmentFileDto
                     {
-                        FileBytes = fileBytes,
+                        Base64Data = Convert.ToBase64String(fileBytes),
                         FileName = "Rank.pdf",
                         ContentType = MimeTypesConstants.PDF
                     };

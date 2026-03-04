@@ -6,10 +6,10 @@ namespace ThePatho.Features.PersonalInformation.EmployeeAddress.Commands
 {
     public class SubmitEmployeeAddressCommand : IRequest<ApiResponse>
     {
-        [JsonPropertyName("employee_id")]
+        [JsonPropertyName("employeeid")]
         public int EmployeeId { get; set; }
 
-        [JsonPropertyName("company_code")]
+        [JsonPropertyName("companycode")]
         public string CompanyCode { get; set; } = null!;
 
         [JsonPropertyName("address")]
@@ -21,70 +21,70 @@ namespace ThePatho.Features.PersonalInformation.EmployeeAddress.Commands
         [JsonPropertyName("rw")]
         public string? Rw { get; set; }
 
-        [JsonPropertyName("sub_district")]
+        [JsonPropertyName("subdistrict")]
         public string? SubDistrict { get; set; }
 
         [JsonPropertyName("district")]
         public string? District { get; set; }
 
-        [JsonPropertyName("city_id")]
+        [JsonPropertyName("cityid")]
         public string CityId { get; set; } = null!;
 
-        [JsonPropertyName("province_id")]
+        [JsonPropertyName("provinceid")]
         public string ProvinceId { get; set; } = null!;
 
-        [JsonPropertyName("country_id")]
+        [JsonPropertyName("countryid")]
         public string CountryId { get; set; } = null!;
 
-        [JsonPropertyName("zip_code")]
+        [JsonPropertyName("zipcode")]
         public string? ZipCode { get; set; }
 
-        [JsonPropertyName("ownership_code")]
+        [JsonPropertyName("ownershipcode")]
         public string OwnershipCode { get; set; } = null!;
 
-        [JsonPropertyName("curr_address")]
+        [JsonPropertyName("curraddress")]
         public string CurrAddress { get; set; } = null!;
 
-        [JsonPropertyName("curr_rt")]
+        [JsonPropertyName("currrt")]
         public string? CurrRt { get; set; }
 
-        [JsonPropertyName("curr_rw")]
+        [JsonPropertyName("currrw")]
         public string? CurrRw { get; set; }
 
-        [JsonPropertyName("curr_sub_district")]
+        [JsonPropertyName("currsubdistrict")]
         public string? CurrSubDistrict { get; set; }
 
-        [JsonPropertyName("curr_district")]
+        [JsonPropertyName("currdistrict")]
         public string? CurrDistrict { get; set; }
 
-        [JsonPropertyName("curr_city_id")]
+        [JsonPropertyName("currcityid")]
         public string CurrCityId { get; set; } = null!;
 
-        [JsonPropertyName("curr_province_id")]
+        [JsonPropertyName("currprovinceid")]
         public string CurrProvinceId { get; set; } = null!;
 
-        [JsonPropertyName("curr_country_id")]
+        [JsonPropertyName("currcountryid")]
         public string CurrCountryId { get; set; } = null!;
 
-        [JsonPropertyName("curr_zip_code")]
+        [JsonPropertyName("currzipcode")]
         public string? CurrZipCode { get; set; }
 
-        [JsonPropertyName("curr_ownership_code")]
+        [JsonPropertyName("currownershipcode")]
         public string CurrOwnershipCode { get; set; } = null!;
 
-        [JsonPropertyName("is_deleted")]
+        [JsonPropertyName("isdeleted")]
         public bool IsDeleted { get; set; }
 
-        [JsonPropertyName("inserted_by")]
+        [JsonPropertyName("insertedby")]
         public string? InsertedBy { get; set; }
 
-        [JsonPropertyName("inserted_date")]
+        [JsonPropertyName("inserteddate")]
         public string? InsertedDate { get; set; }
 
-        [JsonPropertyName("modified_by")]
+        [JsonPropertyName("modifiedby")]
         public string? ModifiedBy { get; set; }
 
-        [JsonPropertyName("modified_date")]
+        [JsonPropertyName("modifieddate")]
         public string? ModifiedDate { get; set; }
 
         [JsonPropertyName("action")]

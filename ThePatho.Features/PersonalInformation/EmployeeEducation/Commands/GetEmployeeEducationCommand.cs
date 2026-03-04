@@ -8,14 +8,11 @@ namespace ThePatho.Features.PersonalInformation.EmployeeEducation.Commands
 {
     public class GetEmployeeEducationCommand : IRequest<ApiResponse<EmployeeEducationItemDto>>
     {
-        [JsonPropertyName("filter_employee_id")]
+        [JsonPropertyName("filter_EmployeeId")]
         public int? FilterEmployeeId { get; set; }
 
-        [JsonPropertyName("filter_edu_level_code")]
-        public string? FilterEduLevelCode { get; set; }
-
-        [JsonPropertyName("filter_institution")]
-        public string? FilterInstitution { get; set; }
+        [JsonPropertyName("filter_EduLevel")]
+        public string? FilterEduLevel { get; set; }
 
         [JsonPropertyName("sortBy")]
         [DefaultValue("InsertedDate")]

@@ -8,14 +8,11 @@ namespace ThePatho.Features.PersonalInformation.EmployeeMedical.Commands
 {
     public class GetEmployeeMedicalCommand : IRequest<ApiResponse<EmployeeMedicalItemDto>>
     {
-        [JsonPropertyName("filter_employee_id")]
+        [JsonPropertyName("filter_employeeId")]
         public int? FilterEmployeeId { get; set; }
 
-        [JsonPropertyName("filter_disease_name")]
-        public string? FilterDiseaseName { get; set; }
-
-        [JsonPropertyName("filter_hospital")]
-        public string? FilterHospital { get; set; }
+        [JsonPropertyName("filter_medical")]
+        public string? FilterMedical { get; set; }
 
         [JsonPropertyName("sortBy")]
         [DefaultValue("InsertedDate")]

@@ -11,14 +11,8 @@ namespace ThePatho.Features.PersonalInformation.EmployeeTraining.Commands
         [JsonPropertyName("filter_EmployeeId")]
         public int? FilterEmployeeId { get; set; }
 
-        [JsonPropertyName("filter_TrainingCourseCode")]
-        public string? FilterTrainingCourseCode { get; set; }
-
-        [JsonPropertyName("filter_TrainingTypeCode")]
-        public string? FilterTrainingTypeCode { get; set; }
-
-        [JsonPropertyName("filter_TrainingFieldCode")]
-        public string? FilterTrainingFieldCode { get; set; }
+        [JsonPropertyName("filter_Training")]
+        public string? FilterTraining { get; set; }
 
         [JsonPropertyName("sortBy")]
         [DefaultValue("InsertedDate")]

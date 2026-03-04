@@ -8,11 +8,11 @@ namespace ThePatho.Features.Global.Identity.Commands
 {
     public class GetIdentityByCriteriaCommand : IRequest<ApiResponse<IdentityItemDto>>
     {
-        [JsonPropertyName("filter_IdentityCode")]
-        public string? FilterIdentityCode { get; set; }
+        [JsonPropertyName("identityCode")]
+        public string? IdentityCode { get; set; }
 
-        [JsonPropertyName("filter_IdentityName")]
-        public string? FilterIdentityName { get; set; }
+        [JsonPropertyName("identityName")]
+        public string? IdentityName { get; set; }
 
     }
 }

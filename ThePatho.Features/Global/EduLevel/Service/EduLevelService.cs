@@ -89,8 +89,8 @@ namespace ThePatho.Features.Global.EduLevel.Service
             try
             {
                 var parameters = new DynamicParameters();
-                parameters.Add("@EduLevelCode", request.FilterEduLevelCode ?? string.Empty);
-                parameters.Add("@EduLevelName", request.FilterEduLevelName ?? string.Empty);
+                parameters.Add("@EduLevelCode", request.EduLevelCode ?? string.Empty);
+                parameters.Add("@EduLevelName", request.EduLevelName ?? string.Empty);
 
                 var query = await queryLoader.LoadQueryAsync("Global/EduLevel/Sql/get_criteria_edulevel");
                 var data = await dbConnection.QueryAsync<EduLevelDto>(query, parameters);

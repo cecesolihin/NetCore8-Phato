@@ -8,11 +8,11 @@ namespace ThePatho.Features.PersonalInformation.EmployeeDocument.Commands
 {
     public class GetEmployeeDocumentByCriteriaCommand : IRequest<ApiResponse<EmployeeDocumentItemDto>>
     {
-        [JsonPropertyName("filter_employee_id")]
-        public int? FilterEmployeeId { get; set; }
+        [JsonPropertyName("employeeId")]
+        public int? EmployeeId { get; set; }
 
-        [JsonPropertyName("filter_document_type_code")]
-        public string? FilterDocumentTypeCode { get; set; }
+        [JsonPropertyName("documentTypeCode")]
+        public string? DocumentTypeCode { get; set; }
     }
 }
 

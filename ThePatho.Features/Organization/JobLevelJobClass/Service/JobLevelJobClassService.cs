@@ -1,17 +1,18 @@
-using SqlKata;
-using SqlKata.Execution;
-using System.Net;
-using System.IO;
-using ThePatho.Domain.Constants;
-using ThePatho.Features.Organization.JobLevelJobClass.Commands;
-using ThePatho.Features.Organization.JobLevelJobClass.DTO;
-using ThePatho.Infrastructure.Persistance;
-using ThePatho.Provider.ApiResponse;
 using ClosedXML.Excel;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
+using SqlKata;
+using SqlKata.Execution;
+using System.IO;
+using System.Net;
+using ThePatho.Domain.Constants;
 using ThePatho.Features.Common.DTO;
+using ThePatho.Features.Organization.JobLevelJobClass.Commands;
+using ThePatho.Features.Organization.JobLevelJobClass.DTO;
+using ThePatho.Infrastructure.Persistance;
+using ThePatho.Provider.ApiResponse;
+using ThePatho.Provider.UserContext;
 
 namespace ThePatho.Features.Organization.JobLevelJobClass.Service
 {
@@ -19,10 +20,12 @@ namespace ThePatho.Features.Organization.JobLevelJobClass.Service
     {
         #region [FIELDS & CTOR]
         private readonly DapperContext dapperContext;
+        private readonly ICurrentUserService currentUserService;
 
-        public JobLevelJobClassService(DapperContext _dapperContext)
+        public JobLevelJobClassService(DapperContext _dapperContext, ICurrentUserService _currentUserService)
         {
             dapperContext = _dapperContext;
+            currentUserService = _currentUserService;
         }
         #endregion
 
@@ -125,7 +128,7 @@ namespace ThePatho.Features.Organization.JobLevelJobClass.Service
                         JobLevelCode = request.JobLevelCode,
                         JobClassCode = request.JobClassCode,
                         IsDeleted = request.IsDeleted,
-                        InsertedBy = "system",
+                        InsertedBy = currentUserService.GetUserName() ?? "system",
                         InsertedDate = DateTime.UtcNow
                     });
 
@@ -140,7 +143,7 @@ namespace ThePatho.Features.Organization.JobLevelJobClass.Service
                         .AsUpdate(new
                         {
                             IsDeleted = request.IsDeleted,
-                            ModifiedBy = "system",
+                            ModifiedBy  = currentUserService.GetUserName() ?? "system",
                             ModifiedDate = DateTime.UtcNow
                         });
 
@@ -281,7 +284,7 @@ namespace ThePatho.Features.Organization.JobLevelJobClass.Service
 
                     return new ApiResponse<AttachmentFileDto>(HttpStatusCode.OK, new AttachmentFileDto
                     {
-                        FileBytes = bytes,
+                        Base64Data = Convert.ToBase64String(bytes),
                         FileName = fileName,
                         ContentType = MimeTypesConstants.VND_OPENXML_EXCEL
                     });
@@ -350,7 +353,7 @@ namespace ThePatho.Features.Organization.JobLevelJobClass.Service
 
                     return new ApiResponse<AttachmentFileDto>(HttpStatusCode.OK, new AttachmentFileDto
                     {
-                        FileBytes = bytes,
+                        Base64Data = Convert.ToBase64String(bytes),
                         FileName = $"JobLevel-JobClass.pdf",
                         ContentType = MimeTypesConstants.PDF
                     });

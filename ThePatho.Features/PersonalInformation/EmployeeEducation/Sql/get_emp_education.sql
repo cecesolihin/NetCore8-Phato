@@ -28,6 +28,12 @@ WHERE eed.IsDeleted = 0
   AND (@EmployeeId > 0 OR eed.EmployeeID = @EmployeeId)
   AND (@EduLevelCode = '' OR eed.EduLevelCode = @EduLevelCode)
   AND (@Institution = '' OR eed.Institution LIKE '%' + @Institution + '%')
+  AND ( @EduLevel IS NULL OR @EduLevel = ''
+        OR eed.EduLevelCode LIKE '%' +@EduLevel +'%'
+        OR eed.MajorCode LIKE '%' +@EduLevel +'%'
+        OR eed.Institution LIKE '%' +@EduLevel +'%'
+        OR eed.Faculty LIKE '%' +@EduLevel +'%'
+  )
 ORDER BY
     CASE WHEN @OrderBy = 'ASC' THEN
         CASE 

@@ -6,43 +6,43 @@ namespace ThePatho.Features.PersonalInformation.EmployeeInventory.Commands
 {
     public class SubmitEmployeeInventoryCommand : IRequest<ApiResponse>
     {
-        [JsonPropertyName("employee_id")]
+        [JsonPropertyName("employeeId")]
         public int EmployeeId { get; set; }
 
-        [JsonPropertyName("inventory_no")]
+        [JsonPropertyName("inventoryNo")]
         public string InventoryNo { get; set; } = null!;
 
-        [JsonPropertyName("inventory_type_code")]
+        [JsonPropertyName("inventoryTypeCode")]
         public string InventoryTypeCode { get; set; } = null!;
 
-        [JsonPropertyName("inventory_name")]
+        [JsonPropertyName("inventoryName")]
         public string InventoryName { get; set; } = null!;
 
-        [JsonPropertyName("received_date")]
+        [JsonPropertyName("receivedDate")]
         public string? ReceivedDate { get; set; }
 
-        [JsonPropertyName("return_plan_date")]
+        [JsonPropertyName("returnPlanDate")]
         public string? ReturnPlanDate { get; set; }
 
-        [JsonPropertyName("qty")]
-        public short Qty { get; set; }
+        [JsonPropertyName("receivedQty")]
+        public short ReceivedQty { get; set; }
 
         [JsonPropertyName("size")]
         public string Size { get; set; } = null!;
 
-        [JsonPropertyName("in_condition")]
-        public string InCondition { get; set; } = null!;
+        [JsonPropertyName("receivedCondition")]
+        public string ReceivedCondition { get; set; } = null!;
 
-        [JsonPropertyName("in_remark")]
-        public string InRemark { get; set; } = null!;
+        [JsonPropertyName("receivedRemark")]
+        public string ReceivedRemark { get; set; } = null!;
 
-        [JsonPropertyName("return_date")]
+        [JsonPropertyName("returnDate")]
         public string? ReturnDate { get; set; }
 
-        [JsonPropertyName("out_condition")]
+        [JsonPropertyName("outCondition")]
         public string OutCondition { get; set; } = null!;
 
-        [JsonPropertyName("out_remark")]
+        [JsonPropertyName("outRemark")]
         public string OutRemark { get; set; } = null!;
 
         [JsonPropertyName("action")]

@@ -6,7 +6,7 @@ namespace ThePatho.Features.PersonalInformation.EmployeeReward.Commands
 {
     public class DeleteEmployeeRewardCommand : IRequest<ApiResponse>
     {
-        [JsonPropertyName("em_reward_id")]
+        [JsonPropertyName("EmRewardId")]
         public int EmRewardId { get; set; }
     }
 }

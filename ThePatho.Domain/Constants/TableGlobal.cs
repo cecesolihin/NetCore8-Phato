@@ -27,6 +27,7 @@ namespace ThePatho.Domain.Constants
         public const string HireOrigin = CorePrefix + "HireOrigin";
         public const string Hospital = CorePrefix + "Hospital";
         public const string Insurance = CorePrefix + "Insurance";
+        public const string CareerType = CorePrefix + "CareerType";
         public const string InventoryCondition = CorePrefix + "InventoryCondition";
         public const string InventoryType = CorePrefix + "InventoryType";
         public const string LetterCategory = CorePrefix + "LetterCategory";

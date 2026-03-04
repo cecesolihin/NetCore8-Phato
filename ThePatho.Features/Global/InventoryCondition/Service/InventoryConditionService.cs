@@ -87,8 +87,8 @@ namespace ThePatho.Features.Global.InventoryCondition.Service
             try
             {
                 var parameters = new DynamicParameters();
-                parameters.Add("@InventoryConditionCode", request.FilterInventoryConditionCode ?? string.Empty);
-                parameters.Add("@InventoryConditionName", request.FilterInventoryConditionName ?? string.Empty);
+                parameters.Add("@InventoryConditionCode", request.InventoryConditionCode ?? string.Empty);
+                parameters.Add("@InventoryConditionName", request.InventoryConditionName ?? string.Empty);
 
                 var query = await queryLoader.LoadQueryAsync("Global/InventoryCondition/Sql/get_criteria_inventorycondition");
                 var data = await dbConnection.QueryAsync<InventoryConditionDto>(query, parameters);

@@ -88,8 +88,8 @@ namespace ThePatho.Features.Global.MedicalGroup.Service
             try
             {
                 var parameters = new DynamicParameters();
-                parameters.Add("@MedicalGroupCode", request.FilterMedicalGroupCode ?? string.Empty);
-                parameters.Add("@MedicalGroupName", request.FilterMedicalGroupName ?? string.Empty);
+                parameters.Add("@MedicalGroupCode", request.MedicalGroupCode ?? string.Empty);
+                parameters.Add("@MedicalGroupName", request.MedicalGroupName ?? string.Empty);
 
                 var query = await queryLoader.LoadQueryAsync("Global/MedicalGroup/Sql/get_criteria_medicalgroup");
                 var data = await dbConnection.QueryAsync<MedicalGroupDto>(query, parameters);

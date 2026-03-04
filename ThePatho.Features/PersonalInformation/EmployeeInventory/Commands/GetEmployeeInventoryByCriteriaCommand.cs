@@ -8,17 +8,17 @@ namespace ThePatho.Features.PersonalInformation.EmployeeInventory.Commands
 {
     public class GetEmployeeInventoryByCriteriaCommand : IRequest<ApiResponse<EmployeeInventoryItemDto>>
     {
-        [JsonPropertyName("filter_inventory_name")]
-        public string? FilterInventoryName { get; set; }
+        [JsonPropertyName("inventoryName")]
+        public string? InventoryName { get; set; }
 
-        [JsonPropertyName("filter_inventory_no")]
-        public string? FilterInventoryNo { get; set; }
+        [JsonPropertyName("inventoryNo")]
+        public string? InventoryNo { get; set; }
 
-        [JsonPropertyName("filter_inventory_type_code")]
-        public string? FilterInventoryTypeCode { get; set; }
+        [JsonPropertyName("inventoryTypeCode")]
+        public string? InventoryTypeCode { get; set; }
 
-        [JsonPropertyName("filter_employee_id")]
-        public int? FilterEmployeeId { get; set; }
+        [JsonPropertyName("employeeId")]
+        public int? EmployeeId { get; set; }
     }
 }
 

@@ -8,11 +8,11 @@ namespace ThePatho.Features.Global.RewardType.Commands
 {
     public class GetRewardTypeByCriteriaCommand : IRequest<ApiResponse<RewardTypeItemDto>>
     {
-        [JsonPropertyName("filter_RewardTypeName")]
-        public string? FilterRewardTypeName { get; set; }
+        [JsonPropertyName("rewardTypeName")]
+        public string? RewardTypeName { get; set; }
 
-        [JsonPropertyName("filter_RewardTypeCode")]
-        public string? FilterRewardTypeCode { get; set; }
+        [JsonPropertyName("rewardTypeCode")]
+        public string? RewardTypeCode { get; set; }
 
     }
 }

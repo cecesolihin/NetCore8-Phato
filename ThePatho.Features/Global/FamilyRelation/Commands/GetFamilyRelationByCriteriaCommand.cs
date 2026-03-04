@@ -8,27 +8,11 @@ namespace ThePatho.Features.Global.FamilyRelation.Commands
 {
     public class GetFamilyRelationByCriteriaCommand : IRequest<ApiResponse<FamilyRelationItemDto>>
     {
-        [JsonPropertyName("filter_RelationName")]
-        public string? FilterRelationName { get; set; }
+        [JsonPropertyName("relationName")]
+        public string? RelationName { get; set; }
 
-        [JsonPropertyName("filter_RelationCode")]
-        public string? FilterRelationCode { get; set; }
-
-        [JsonPropertyName("sortBy")]
-        [DefaultValue("InsertedDate")]
-        public string? SortBy { get; set; } = "InsertedDate";
-
-        [JsonPropertyName("orderBy")]
-        [DefaultValue("DESC")]
-        public string? OrderBy { get; set; } = "DESC";
-
-        [JsonPropertyName("pageNumber")]
-        [DefaultValue(1)]
-        public int PageNumber { get; set; } = 1;
-
-        [JsonPropertyName("pageSize")]
-        [DefaultValue(10)]
-        public int PageSize { get; set; } = 10;
+        [JsonPropertyName("relationCode")]
+        public string? RelationCode { get; set; }
     }
 }
 

@@ -4,16 +4,21 @@
     {
         public int EmpWorkExperienceId { get; set; }
         public int EmployeeId { get; set; }
-        public string StartWorking { get; set; } = null!;
-        public string EmploymentTypeCode { get; set; } = null!;
-        public string Organization { get; set; } = null!;
+        public string? EmployeeNo { get; set; }
+        public string? EmployeeName { get; set; }
+        public string? PositionName { get; set; }
+        public string? JobLevelName { get; set; }
+        public string? CompanyName { get; set; }
+        public string StartWorking { get; set; } 
+        public string EmploymentTypeCode { get; set; } 
+        public string Organization { get; set; } 
         public string? EndWorking { get; set; }
-        public string Company { get; set; } = null!;
-        public string BusinessField { get; set; } = null!;
-        public string Address { get; set; } = null!;
-        public int? CityId { get; set; } = null!;
-        public string JobLevel { get; set; } = null!;
-        public string JobDescription { get; set; } = null!;
+        public string Company { get; set; } 
+        public string BusinessField { get; set; } 
+        public string Address { get; set; } 
+        public int? CityId { get; set; } 
+        public string JobLevel { get; set; } 
+        public string JobDescription { get; set; } 
         public string? Phone { get; set; }
         public string? Website { get; set; }
         public string? ReferenceName { get; set; }

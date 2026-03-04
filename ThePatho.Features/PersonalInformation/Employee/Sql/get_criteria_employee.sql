@@ -13,7 +13,7 @@ SELECT
     e.JobClassCode,
     jc.JobClassName,
     e.EmploymentTypeCode,
-    et.EmployementTypeName,
+    et.EmploymentTypeName,
     e.WorkLocationCode,
     wl.WorkLocationName,
     e.CostCenterCode,
@@ -75,7 +75,7 @@ WHERE e.IsDeleted = 0
   AND ((@Fullname = '''' OR @Fullname IS NULL) OR e.Fullname LIKE ''%'' + @Fullname + ''%'')
   AND ((@EmploymentType = '''' OR @EmploymentType IS NULL)
         OR e.EmploymentTypeCode LIKE ''%'' + @EmploymentType + ''%''
-        OR et.EmployementTypeName LIKE ''%'' + @EmploymentType + ''%'')
+        OR et.EmploymentTypeName LIKE ''%'' + @EmploymentType + ''%'')
   AND ((@JobClass = '''' OR @JobClass IS NULL)
         OR e.JobClassCode LIKE ''%'' + @JobClass + ''%''
         OR jc.JobClassName LIKE ''%'' + @JobClass + ''%'')

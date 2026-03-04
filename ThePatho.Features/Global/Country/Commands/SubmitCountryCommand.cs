@@ -9,7 +9,7 @@ namespace ThePatho.Features.Global.Country.Commands
         [JsonPropertyName("country_id")]
         public int? CountryId { get; set; }
 
-        [JsonPropertyName("sort")]
+        [JsonPropertyName("SortOrder")]
         public int? Sort { get; set; }
 
         [JsonPropertyName("name")]

@@ -6,118 +6,118 @@ namespace ThePatho.Features.PersonalInformation.EmployeeCareerHistory.Commands
 {
     public class SubmitEmployeeCareerHistoryCommand : IRequest<ApiResponse>
     {
-        [JsonPropertyName("career_history_no")]
+        [JsonPropertyName("careerHistoryNo")]
         public string CareerHistoryNo { get; set; } = null!;
 
-        [JsonPropertyName("employee_id")]
+        [JsonPropertyName("employeeId")]
         public int EmployeeId { get; set; }
 
-        [JsonPropertyName("employee_no")]
+        [JsonPropertyName("employeeNo")]
         public string? EmployeeNo { get; set; }
 
-        [JsonPropertyName("company_code")]
+        [JsonPropertyName("companyCode")]
         public string CompanyCode { get; set; } = null!;
 
-        [JsonPropertyName("employment_type_code")]
+        [JsonPropertyName("employmentTypeCode")]
         public string EmploymentTypeCode { get; set; } = null!;
 
-        [JsonPropertyName("change_type")]
+        [JsonPropertyName("changeType")]
         public string? ChangeType { get; set; }
 
-        [JsonPropertyName("position_code")]
+        [JsonPropertyName("positionCode")]
         public string PositionCode { get; set; } = null!;
 
-        [JsonPropertyName("org_structure_id")]
+        [JsonPropertyName("orgStructureId")]
         public int OrgStructureId { get; set; }
 
-        [JsonPropertyName("job_level_code")]
+        [JsonPropertyName("jobLevelCode")]
         public string JobLevelCode { get; set; } = null!;
 
-        [JsonPropertyName("job_class_code")]
+        [JsonPropertyName("jobClassCode")]
         public string JobClassCode { get; set; } = null!;
 
-        [JsonPropertyName("grade_code")]
+        [JsonPropertyName("gradeCode")]
         public string GradeCode { get; set; } = null!;
 
-        [JsonPropertyName("rank_code")]
+        [JsonPropertyName("rankCode")]
         public string RankCode { get; set; } = null!;
 
-        [JsonPropertyName("cost_center_code")]
+        [JsonPropertyName("costCenterCode")]
         public string CostCenterCode { get; set; } = null!;
 
-        [JsonPropertyName("start_date")]
+        [JsonPropertyName("startDate")]
         public string StartDate { get; set; } = null!;
 
-        [JsonPropertyName("end_date")]
+        [JsonPropertyName("endDate")]
         public string? EndDate { get; set; }
 
         [JsonPropertyName("remark")]
         public string? Remark { get; set; }
 
-        [JsonPropertyName("is_deleted")]
+        [JsonPropertyName("isDeleted")]
         public bool IsDeleted { get; set; }
 
-        [JsonPropertyName("work_location_code")]
+        [JsonPropertyName("workLocationCode")]
         public string? WorkLocationCode { get; set; }
 
-        [JsonPropertyName("resign_type_code")]
+        [JsonPropertyName("resignTypeCode")]
         public string? ResignTypeCode { get; set; }
 
-        [JsonPropertyName("termination_type_code")]
+        [JsonPropertyName("terminationTypeCode")]
         public string? TerminationTypeCode { get; set; }
 
-        [JsonPropertyName("pension_type_code")]
+        [JsonPropertyName("pensionTypeCode")]
         public string? PensionTypeCode { get; set; }
 
-        [JsonPropertyName("assignment_location")]
+        [JsonPropertyName("assignmentLocation")]
         public string? AssignmentLocation { get; set; }
 
-        [JsonPropertyName("effective_date_to")]
+        [JsonPropertyName("effectiveDateTo")]
         public string? EffectiveDateTo { get; set; }
 
-        [JsonPropertyName("tax_location_id")]
+        [JsonPropertyName("taxLocationId")]
         public int? TaxLocationId { get; set; }
 
-        [JsonPropertyName("is_include_salary")]
+        [JsonPropertyName("isIncludeSalary")]
         public bool IsIncludeSalary { get; set; }
 
-        [JsonPropertyName("emp_sal_comp_id")]
+        [JsonPropertyName("empSalCompId")]
         public int EmpSalCompId { get; set; }
 
-        [JsonPropertyName("mutation_type_code")]
+        [JsonPropertyName("mutationTypeCode")]
         public string? MutationTypeCode { get; set; }
 
-        [JsonPropertyName("use_payroll_data")]
+        [JsonPropertyName("usePayrollData")]
         public bool UsePayrollData { get; set; }
 
-        [JsonPropertyName("use_old_join_date")]
+        [JsonPropertyName("useOldJoinDate")]
         public bool? UseOldJoinDate { get; set; }
 
-        [JsonPropertyName("join_date")]
+        [JsonPropertyName("joinDate")]
         public string? JoinDate { get; set; }
 
-        [JsonPropertyName("old_employee_id")]
+        [JsonPropertyName("oldEmployeeId")]
         public int? OldEmployeeId { get; set; }
 
         [JsonPropertyName("path")]
         public string? Path { get; set; }
 
-        [JsonPropertyName("jabatan_id")]
+        [JsonPropertyName("jabatanId")]
         public int? JabatanId { get; set; }
 
-        [JsonPropertyName("is_eligible_rehire")]
+        [JsonPropertyName("isEligibleRehire")]
         public bool IsEligibleRehire { get; set; }
 
-        [JsonPropertyName("inserted_by")]
+        [JsonPropertyName("insertedBy")]
         public string? InsertedBy { get; set; }
 
-        [JsonPropertyName("inserted_date")]
+        [JsonPropertyName("insertedDate")]
         public string? InsertedDate { get; set; }
 
-        [JsonPropertyName("modified_by")]
+        [JsonPropertyName("modifiedBy")]
         public string? ModifiedBy { get; set; }
 
-        [JsonPropertyName("modified_date")]
+        [JsonPropertyName("modifiedDate")]
         public string? ModifiedDate { get; set; }
 
         [JsonPropertyName("action")]

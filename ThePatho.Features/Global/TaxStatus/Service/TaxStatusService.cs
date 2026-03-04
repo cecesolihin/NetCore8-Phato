@@ -84,10 +84,10 @@ namespace ThePatho.Features.Global.TaxStatus.Service
             {
                 using var db = dapperContext.CreateConnection();
                 var parameters = new DynamicParameters();
-                parameters.Add("@TaxStatusCode", request.FilterTaxStatusCode);
-                parameters.Add("@TaxStatusName", request.FilterTaxStatusName);
-                parameters.Add("@Married", request.FilterMarried ?? string.Empty);
-                parameters.Add("@TotalDependents", request.FilterTotalDependents ?? 0);
+                parameters.Add("@TaxStatusCode", request.TaxStatusCode);
+                parameters.Add("@TaxStatusName", request.TaxStatusName);
+                parameters.Add("@Married", request.Married ?? string.Empty);
+                parameters.Add("@TotalDependents", request.TotalDependents ?? 0);
 
                 var query = await queryLoader.LoadQueryAsync("Global/TaxStatus/Sql/get_criteria_tax_status");
                 var data = await db.QueryAsync<TaxStatusDto>(query, parameters);

@@ -8,16 +8,16 @@ namespace ThePatho.Features.Global.LetterCategory.Commands
 {
     public class GetLetterCategoryByCriteriaCommand : IRequest<ApiResponse<LetterCategoryItemDto>>
     {
-        [JsonPropertyName("filter_LetterCategoryName")]
-        public string? FilterLetterCategoryName { get; set; }
+        [JsonPropertyName("letterCategoryName")]
+        public string? LetterCategoryName { get; set; }
 
-        [JsonPropertyName("filter_LetterCategoryCode")]
-        public string? FilterLetterCategoryCode { get; set; }
+        [JsonPropertyName("letterCategoryCode")]
+        public string? LetterCategoryCode { get; set; }
 
-        [JsonPropertyName("filter_DocPattern")]
-        public string? FilterDocPattern { get; set; }
+        [JsonPropertyName("docPattern")]
+        public string? DocPattern { get; set; }
 
-        [JsonPropertyName("filter_ResetType")]
+        [JsonPropertyName("resetType")]
         public string? ResetType { get; set; }
 
     }

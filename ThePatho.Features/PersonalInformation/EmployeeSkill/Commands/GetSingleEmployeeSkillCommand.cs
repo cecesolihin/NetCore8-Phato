@@ -8,10 +8,10 @@ namespace ThePatho.Features.PersonalInformation.EmployeeSkill.Commands
 {
     public class GetSingleEmployeeSkillCommand : IRequest<ApiResponse<EmployeeSkillDto>>
     {
-        [JsonPropertyName("filter_EmployeeId")]
+        [JsonPropertyName("employeeId")]
         public int EmployeeId { get; set; }
 
-        [JsonPropertyName("filter_SkillCode")]
+        [JsonPropertyName("skillCode")]
         public string SkillCode { get; set; } = null!;
 
     }
