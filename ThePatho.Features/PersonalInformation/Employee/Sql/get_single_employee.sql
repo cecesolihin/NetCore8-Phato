@@ -12,7 +12,7 @@ SELECT
     e.JobClassCode,
     jc.JobClassName,
     e.EmploymentTypeCode,
-    et.EmployementTypeName,
+    et.EmploymentTypeName,
     e.WorkLocationCode,
     wl.WorkLocationName,
     e.CostCenterCode,

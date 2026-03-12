@@ -8,11 +8,11 @@ namespace ThePatho.Features.PersonalInformation.EmployeeDocument.Commands
 {
     public class GetEmployeeDocumentCommand : IRequest<ApiResponse<EmployeeDocumentItemDto>>
     {
-        [JsonPropertyName("filter_EmployeeId")]
+        [JsonPropertyName("filter_employeeId")]
         public int? FilterEmployeeId { get; set; }
 
-        [JsonPropertyName("filter_DocumentTypeCode")]
-        public string? FilterDocumentTypeCode { get; set; }
+        [JsonPropertyName("filter_documentType")]
+        public string? FilterDocumentType { get; set; }
 
         [JsonPropertyName("sortBy")]
         [DefaultValue("InsertedDate")]

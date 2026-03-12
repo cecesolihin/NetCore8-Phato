@@ -1,4 +1,5 @@
-﻿using ThePatho.Provider.ApiResponse;
+using ThePatho.Features.Common.DTO;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Global.TaxStatus.Commands;
 using ThePatho.Features.Global.TaxStatus.DTO;
 
@@ -11,5 +12,7 @@ namespace ThePatho.Features.Global.TaxStatus.Service
         Task<ApiResponse<TaxStatusItemDto>> GetTaxStatusByCriteria(GetTaxStatusByCriteriaCommand request);
         Task<ApiResponse> SubmitTaxStatus(SubmitTaxStatusCommand request);
         Task<ApiResponse> DeleteTaxStatus(DeleteTaxStatusCommand request);
+        Task<ApiResponse<AttachmentFileDto>> ExportAsync(ExportTaxStatusCommand request);
     }
 }
+

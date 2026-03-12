@@ -16,11 +16,11 @@ SELECT
 FROM 
     dbo.TEPDEmployeeSkill
 WHERE
-    (@EmployeeId = 0 OR EmployeeID = @EmployeeId) AND
+    (@EmployeeId = 0 AND EmployeeID = @EmployeeId) AND
     (   
         @Skill IS NULL OR @Skill = '' 
-        OR SkillCode LIKE '%' + @SkillCode + '%'
-        OR ProfiencyCode LIKE '%' + @ProfiencyCode + '%'
+        OR SkillCode LIKE '%' + @Skill + '%'
+        OR ProfiencyCode LIKE '%' + @Skill + '%'
      ) AND
     IsDeleted = 0
 ORDER BY

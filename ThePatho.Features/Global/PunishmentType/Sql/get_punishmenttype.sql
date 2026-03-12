@@ -1,8 +1,8 @@
 DECLARE @Offset INT = (@PageNumber - 1) * @PageSize;
 
 SELECT 
-    PunishmentTypeCode,
-    PunishmentTypeName,
+    PunishmentCode,
+    PunishmentName,
     InsertedBy,
     CONVERT(VARCHAR, InsertedDate, 106) AS InsertedDate,  -- dd MMM yyyy
     ModifiedBy,
@@ -11,11 +11,11 @@ SELECT
 FROM 
     dbo.TGEMPunishmentType
 WHERE
-    (@PunishmentTypeCode IS NULL OR PunishmentTypeCode LIKE '%' + @PunishmentTypeCode + '%') AND
-    (@PunishmentTypeName IS NULL OR PunishmentTypeName LIKE '%' + @PunishmentTypeName + '%') 
+    (@PunishmentCode IS NULL OR PunishmentCode LIKE '%' + @PunishmentCode + '%') AND
+    (@PunishmentName IS NULL OR PunishmentName LIKE '%' + @PunishmentName + '%') 
 ORDER BY
-    CASE WHEN @SortBy = 'PunishmentTypeCode' THEN PunishmentTypeCode END,
-    CASE WHEN @SortBy = 'PunishmentTypeName' THEN PunishmentTypeName END,
+    CASE WHEN @SortBy = 'PunishmentCode' THEN PunishmentCode END,
+    CASE WHEN @SortBy = 'PunishmentName' THEN PunishmentName END,
     CASE WHEN @SortBy = 'InsertedDate' THEN CONVERT(DATETIME, InsertedDate, 120) END,
     CASE WHEN @SortBy = 'ModifiedDate' THEN CONVERT(DATETIME, ModifiedDate, 120) END,
     CASE @OrderBy

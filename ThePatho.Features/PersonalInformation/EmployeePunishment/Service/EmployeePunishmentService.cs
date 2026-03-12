@@ -1,18 +1,19 @@
+using Azure.Core;
+using ClosedXML.Excel;
 using Dapper;
+using QuestPDF.Fluent;
+using QuestPDF.Helpers;
+using QuestPDF.Infrastructure;
 using System.Data;
+using System.IO;
 using System.Net;
+using ThePatho.Domain.Constants;
+using ThePatho.Features.Common.DTO;
 using ThePatho.Features.PersonalInformation.EmployeePunishment.Commands;
 using ThePatho.Features.PersonalInformation.EmployeePunishment.DTO;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.ApiResponse;
 using ThePatho.Provider.UserContext;
-using ClosedXML.Excel;
-using QuestPDF.Fluent;
-using QuestPDF.Helpers;
-using QuestPDF.Infrastructure;
-using ThePatho.Features.Common.DTO;
-using ThePatho.Domain.Constants;
-using System.IO;
 
 namespace ThePatho.Features.PersonalInformation.EmployeePunishment.Service
 {
@@ -130,7 +131,7 @@ namespace ThePatho.Features.PersonalInformation.EmployeePunishment.Service
                 var parameters = new DynamicParameters();
                 parameters.Add("@EmPunishmentId", request.EmPunishmentId);
                 parameters.Add("@LetterNo", request.LetterNo);
-                parameters.Add("@EmployeeId", request.EmployeeId);
+                parameters.Add("@EmployeeId",request.EmployeeId );
                 parameters.Add("@LetterDate", request.LetterDate);
                 parameters.Add("@PunishmentType", request.PunishmentType);
                 parameters.Add("@ValidFrom", request.ValidFrom);
@@ -185,11 +186,16 @@ namespace ThePatho.Features.PersonalInformation.EmployeePunishment.Service
             {
                 using var db = dapperContext.CreateConnection();
                 var parameters = new DynamicParameters();
-                parameters.Add("@PageNumber", 0);
+                parameters.Add("@PageNumber", 1);
                 parameters.Add("@PageSize", 1000000);
-                parameters.Add("@LetterDate", "");
                 parameters.Add("@EmployeeId", 0);
-                parameters.Add("@Punishment", "");
+                parameters.Add("@Punishment", null);
+                parameters.Add("@LetterDateFrom", null);
+                parameters.Add("@LetterDateTo", null);
+                parameters.Add("@ValidFrom", null);
+                parameters.Add("@ValidTo", null);
+                parameters.Add("@RecoveryDateFrom", null);
+                parameters.Add("@RecoveryDateTo", null);
                 parameters.Add("@SortBy", "EmployeeId");
                 parameters.Add("@OrderBy", "ASC");
 

@@ -21,8 +21,8 @@ namespace ThePatho.Infrastructure.Persistance.Configuration.PersonalInformation
 
             builder.Property(e => e.EmployeeID).IsRequired();
             builder.Property(e => e.InventoryNo).HasMaxLength(128).IsRequired();
-            builder.Property(e => e.InventoryTpyeCode).HasMaxLength(128).IsRequired();
-            builder.Property(e => e.InventoryName).HasMaxLength(50).IsRequired();
+            builder.Property(e => e.InventoryTypeCode).HasMaxLength(128).IsRequired();
+            builder.Property(e => e.InventoryTypeName).HasMaxLength(50).IsRequired();
             builder.Property(e => e.ReceivedDate);
             builder.Property(e => e.ReturnPlanDate);
             builder.Property(e => e.ReceivedQty).IsRequired();

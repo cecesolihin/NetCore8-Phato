@@ -39,6 +39,9 @@ WHERE 1=1
         @Punishment IS NULL OR @Punishment = ''
         OR p.PunishmentType LIKE '%' + @Punishment + '%'
         OR p.LetterNo LIKE '%' + @Punishment + '%'
+        OR emp.EmployeeNo LIKE '%' + @Punishment + '%'
+        OR emp.Fullname LIKE '%' + @Punishment + '%'
+        OR pos.PositionName LIKE '%' + @Punishment + '%'
     )
     -- Letter Date Range
     AND (@LetterDateFrom IS NULL OR p.LetterDate >= @LetterDateFrom)

@@ -1,18 +1,19 @@
+using Azure.Core;
+using ClosedXML.Excel;
 using Dapper;
+using QuestPDF.Fluent;
+using QuestPDF.Helpers;
+using QuestPDF.Infrastructure;
 using System.Data;
+using System.IO;
 using System.Net;
+using ThePatho.Domain.Constants;
+using ThePatho.Features.Common.DTO;
 using ThePatho.Features.PersonalInformation.EmployeeReward.Commands;
 using ThePatho.Features.PersonalInformation.EmployeeReward.DTO;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.ApiResponse;
 using ThePatho.Provider.UserContext;
-using ClosedXML.Excel;
-using QuestPDF.Fluent;
-using QuestPDF.Helpers;
-using QuestPDF.Infrastructure;
-using ThePatho.Features.Common.DTO;
-using ThePatho.Domain.Constants;
-using System.IO;
 
 namespace ThePatho.Features.PersonalInformation.EmployeeReward.Service
 {
@@ -169,11 +170,13 @@ namespace ThePatho.Features.PersonalInformation.EmployeeReward.Service
             {
                 using var db = dapperContext.CreateConnection();
                 var parameters = new DynamicParameters();
-                parameters.Add("@PageNumber", 0);
+                parameters.Add("@PageNumber", 1);
                 parameters.Add("@PageSize", 1000000);
                 parameters.Add("@EmployeeId", 0);
-                parameters.Add("@Reward", "");
-                parameters.Add("@SortBy", "EmployeeId");
+                parameters.Add("@Reward", null);
+                parameters.Add("@LetterDateFrom", null);
+                parameters.Add("@LetterDateTo", null);
+                parameters.Add("@SortBy", "InsertedDate");
                 parameters.Add("@OrderBy", "ASC");
 
                 var query = await queryLoader.LoadQueryAsync("PersonalInformation/EmployeeReward/Sql/get_emp_reward");

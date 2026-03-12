@@ -30,7 +30,7 @@ SELECT
     CONVERT(VARCHAR, ModifiedDate, 106) AS ModifiedDate--ef.ModifiedDate
 FROM TEPDEmployeeFamily ef
 WHERE ef.IsDeleted = 0
-  AND (@EmployeeId > 0 OR ef.EmployeeID = @EmployeeId)
+  AND (@EmployeeId > 0 AND ef.EmployeeID = @EmployeeId)
   AND ( @Family IS NULL OR @Family = ''
         OR ef.FamilyName LIKE '%' + @Family + '%'
         OR ef.RelationCode LIKE '%' + @Family + '%'

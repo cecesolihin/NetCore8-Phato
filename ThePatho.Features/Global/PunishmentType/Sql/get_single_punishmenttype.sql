@@ -1,6 +1,6 @@
 SELECT 
-    PunishmentTypeCode,
-    PunishmentTypeName,
+    PunishmentCode,
+    PunishmentName,
     InsertedBy,
     CONVERT(VARCHAR, InsertedDate, 106) AS InsertedDate,
     ModifiedBy,
@@ -9,4 +9,4 @@ SELECT
 FROM 
     dbo.TGEMPunishmentType
 WHERE
-    PunishmentTypeCode = @PunishmentTypeCode
+    PunishmentCode = @PunishmentCode

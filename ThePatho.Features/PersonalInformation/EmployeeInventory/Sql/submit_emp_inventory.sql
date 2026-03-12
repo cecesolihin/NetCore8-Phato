@@ -1,59 +1,54 @@
-IF @Action = 'ADD'
+IF EXISTS (
+    SELECT 1
+    FROM TEPDEmployeePunishment
+    WHERE EmployeeID = @EmployeeId
+      AND LetterNo = @LetterNo
+)
 BEGIN
-    INSERT INTO dbo.TEPDEmployeeInventory
+    -- UPDATE
+    UPDATE TEPDEmployeePunishment
+    SET
+        LetterDate = @LetterDate,
+        PunishmentType = @PunishmentType,
+        ValidFrom = @ValidFrom,
+        ValidTo = @ValidTo,
+        RecoveryDate = @RecoveryDate,
+        Remarks = @Remarks,
+        Attachment = @Attachment,
+        ModifiedBy = @User,
+        ModifiedDate = GETDATE()
+    WHERE EmployeeID = @EmployeeId
+      AND LetterNo = @LetterNo;
+END
+ELSE
+BEGIN
+    -- INSERT
+    INSERT INTO TEPDEmployeePunishment
     (
         EmployeeID,
-        InventoryNo,
-        InventoryTpyeCode,
-        InventoryName,
-        ReceivedDate,
-        ReturnPlanDate,
-        ReceivedQty,
-        Size,
-        ReceivedCondition,
-        ReceivedRemark,
-        ReturnDate,
-        ReturnCondition,
-        ReturnRemark,
+        LetterNo,
+        LetterDate,
+        PunishmentType,
+        ValidFrom,
+        ValidTo,
+        RecoveryDate,
+        Remarks,
+        Attachment,
         InsertedBy,
         InsertedDate
     )
     VALUES
     (
         @EmployeeId,
-        @InventoryNo,
-        @InventoryTypeCode,
-        @InventoryName,
-        @ReceivedDate,
-        @ReturnPlanDate,
-        @ReceivedQty,
-        @Size,
-        @ReceivedCondition,
-        @ReceivedRemark,
-        @ReturnDate,
-        @ReturnCondition,
-        @ReturnRemark,
+        @LetterNo,
+        @LetterDate,
+        @PunishmentType,
+        @ValidFrom,
+        @ValidTo,
+        @RecoveryDate,
+        @Remarks,
+        @Attachment,
         @User,
         GETDATE()
     );
 END
-ELSE IF @Action = 'EDIT'
-BEGIN
-    UPDATE dbo.TEPDEmployeeInventory
-    SET
-        InventoryTpyeCode = @InventoryTypeCode,
-        InventoryName = @InventoryName,
-        ReceivedDate = @ReceivedDate,
-        ReturnPlanDate = @ReturnPlanDate,
-        Qty = @Qty,
-        Size = @Size,
-        InCondition = @InCondition,
-        InRemark = @InRemark,
-        ReturnDate = @ReturnDate,
-        OutCondition = @OutCondition,
-        OutRemark = @OutRemark,
-        ModifiedBy = @User,
-        ModifiedDate = GETDATE()
-    WHERE EmployeeID = @EmployeeId AND InventoryNo = @InventoryNo;
-END
-

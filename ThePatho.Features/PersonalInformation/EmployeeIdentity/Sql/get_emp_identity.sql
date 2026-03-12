@@ -17,7 +17,7 @@ SELECT
 FROM 
     dbo.TEPDEmployeeIdentity
 WHERE
-    (@EmployeeId > 0 OR EmployeeID = @EmployeeId) AND
+    (@EmployeeId > 0 AND EmployeeID = @EmployeeId) AND
     (
         @Identity IS NULL OR @Identity = '' 
         OR IdentityCode LIKE '%' + @Identity + '%'

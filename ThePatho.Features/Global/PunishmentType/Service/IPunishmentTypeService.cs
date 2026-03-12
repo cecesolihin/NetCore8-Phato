@@ -1,4 +1,5 @@
-﻿using ThePatho.Provider.ApiResponse;
+using ThePatho.Features.Common.DTO;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Global.PunishmentType.Commands;
 using ThePatho.Features.Global.PunishmentType.DTO;
 
@@ -11,5 +12,7 @@ namespace ThePatho.Features.Global.PunishmentType.Service
         Task<ApiResponse<PunishmentTypeItemDto>> GetPunishmentTypeByCriteria(GetPunishmentTypeByCriteriaCommand request);
         Task<ApiResponse> SubmitPunishmentType(SubmitPunishmentTypeCommand request);
         Task<ApiResponse> DeletePunishmentType(DeletePunishmentTypeCommand request);
+        Task<ApiResponse<AttachmentFileDto>> ExportAsync(ExportPunishmentTypeCommand request);
+
     }
 }

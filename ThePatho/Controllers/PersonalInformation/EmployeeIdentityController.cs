@@ -13,7 +13,7 @@ namespace ThePatho.Controllers
     [ApiController]
     [Route(ApiRoutes.PersonalInfoMenu.EmployeeIdentity)]
     [ApiExplorerSettings(GroupName = "PersonalInformation")]
-    //[Authorize]
+    [Authorize]
     public class EmployeeIdentityController : ControllerBase
     {
         private readonly IMediator mediator;
@@ -105,13 +105,22 @@ namespace ThePatho.Controllers
         {
             var exportResponse = await mediator.Send(new ExportEmployeeIdentityCommand { Type = type }, cancellationToken);
 
-            if (exportResponse.Code != 200 || exportResponse.Data == null)
+            if (exportResponse.Code != 200 || exportResponse.Data == null || exportResponse.Data.Base64Data != null)
             {
                 return ApiResult(exportResponse);
             }
 
             var contentType = exportResponse.Data.ContentType;
-            return File(Convert.FromBase64String(exportResponse.Data.Base64Data), contentType, exportResponse.Data.FileName);
+            if (string.IsNullOrWhiteSpace(contentType))
+            {
+                var provider = new FileExtensionContentTypeProvider();
+                if (!provider.TryGetContentType(exportResponse.Data.FileName, out contentType))
+                {
+                    contentType = MimeTypesConstants.APPLICATION_OCTET_STREAM;
+                }
+            }
+
+            return File(exportResponse.Data.Base64Data, contentType, exportResponse.Data.FileName);
         }
     }
 }

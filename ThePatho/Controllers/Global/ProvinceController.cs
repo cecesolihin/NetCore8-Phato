@@ -1,4 +1,6 @@
-﻿using MediatR;
+using ThePatho.Domain.Constants;
+using Microsoft.AspNetCore.StaticFiles;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Global.Province.Commands;
@@ -62,6 +64,28 @@ namespace ThePatho.Controllers
         {
             var result = await mediator.Send(command, cancellationToken);
             return ApiResult(result);
+        }
+        [HttpGet(ApiRoutes.Methods.Export)]
+        public async Task<IActionResult> ExportProvince([FromQuery] string type, CancellationToken cancellationToken)
+        {
+            var exportResponse = await mediator.Send(new ExportProvinceCommand { Type = type }, cancellationToken);
+
+            if (exportResponse.Code != 200 || exportResponse.Data == null || exportResponse.Data.Base64Data != null)
+            {
+                return ApiResult(exportResponse);
+            }
+
+            var contentType = exportResponse.Data.ContentType;
+            if (string.IsNullOrWhiteSpace(contentType))
+            {
+                var provider = new FileExtensionContentTypeProvider();
+                if (!provider.TryGetContentType(exportResponse.Data.FileName, out contentType))
+                {
+                    contentType = MimeTypesConstants.APPLICATION_OCTET_STREAM;
+                }
+            }
+
+            return File(exportResponse.Data.Base64Data, contentType, exportResponse.Data.FileName);
         }
     }
 }

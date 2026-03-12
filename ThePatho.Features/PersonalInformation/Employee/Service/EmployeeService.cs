@@ -1,19 +1,20 @@
+using Azure.Core;
+using ClosedXML.Excel;
 using Dapper;
+using QuestPDF.Fluent;
+using QuestPDF.Helpers;
+using QuestPDF.Infrastructure;
 using System.Data;
+using System.IO;
 using System.Net;
+using ThePatho.Domain.Constants;
+using ThePatho.Features.Common.DTO;
 using ThePatho.Features.PersonalInformation.Employee.Commands;
 using ThePatho.Features.PersonalInformation.Employee.DTO;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.ApiResponse;
 using ThePatho.Provider.QueryExecute;
 using ThePatho.Provider.UserContext;
-using ClosedXML.Excel;
-using QuestPDF.Fluent;
-using QuestPDF.Helpers;
-using QuestPDF.Infrastructure;
-using ThePatho.Features.Common.DTO;
-using ThePatho.Domain.Constants;
-using System.IO;
 
 namespace ThePatho.Features.PersonalInformation.Employee.Service
 {
@@ -45,12 +46,11 @@ namespace ThePatho.Features.PersonalInformation.Employee.Service
                 var parameters = new DynamicParameters();
                 parameters.Add("@PageNumber", request.PageNumber);
                 parameters.Add("@PageSize", request.PageSize);
-                parameters.Add("@EmployeeNo", request.FilterEmployeeNo ?? string.Empty);
-                parameters.Add("@Fullname", request.FilterFullname ?? string.Empty);
-                parameters.Add("@EmploymentType", request.FilterEmploymentType ?? string.Empty);
-                parameters.Add("@JobClass", request.FilterJobClass ?? string.Empty);
-                parameters.Add("@Position", request.FilterPosition ?? string.Empty);
-                parameters.Add("@WorkLocation", request.FilterWorkLocation ?? string.Empty);
+                parameters.Add("@Employee", request.FilterEmployee ?? string.Empty);
+                parameters.Add("@JoinDateFrom", request.FilterJoinDateFrom);
+                parameters.Add("@JoinDateTo", request.FilterJoinDateTo);
+                parameters.Add("@TerminateDateFrom", request.FilterTerminateDateFrom);
+                parameters.Add("@TerminateDateTo", request.FilterTerminateDateTo);
                 parameters.Add("@SortBy", request.SortBy);
                 parameters.Add("@OrderBy", request.OrderBy);
 
@@ -249,14 +249,13 @@ namespace ThePatho.Features.PersonalInformation.Employee.Service
                 var parameters = new DynamicParameters();
                 // We use empty filters to get all (non-deleted) employees for export, or we could pass filters from a command if needed.
                 // For simplicity and matching EmploymentType, we'll export all.
-                parameters.Add("@PageNumber", 0);
+                parameters.Add("@PageNumber", 1);
                 parameters.Add("@PageSize", 1000000); 
-                parameters.Add("@EmployeeNo", "");
-                parameters.Add("@Fullname", "");
-                parameters.Add("@EmploymentType", "");
-                parameters.Add("@JobClass", "");
-                parameters.Add("@Position", "");
-                parameters.Add("@WorkLocation", "");
+                parameters.Add("@Employee", null);
+                parameters.Add("@JoinDateFrom", null);
+                parameters.Add("@JoinDateTo", null);
+                parameters.Add("@TerminateDateFrom", null);
+                parameters.Add("@TerminateDateTo", null);
                 parameters.Add("@SortBy", "EmployeeNo");
                 parameters.Add("@OrderBy", "ASC");
 

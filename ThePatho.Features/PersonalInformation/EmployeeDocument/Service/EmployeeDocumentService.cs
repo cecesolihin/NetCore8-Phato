@@ -45,7 +45,7 @@ namespace ThePatho.Features.PersonalInformation.EmployeeDocument.Service
                 parameters.Add("@PageNumber", request.PageNumber);
                 parameters.Add("@PageSize", request.PageSize);
                 parameters.Add("@EmployeeId", request.FilterEmployeeId ?? 0);
-                parameters.Add("@DocumentTypeCode", request.FilterDocumentTypeCode ?? string.Empty);
+                parameters.Add("@DocumentType", request.FilterDocumentType ?? string.Empty);
                 parameters.Add("@SortBy", request.SortBy);
                 parameters.Add("@OrderBy", request.OrderBy);
 

@@ -1,4 +1,5 @@
-﻿using ThePatho.Provider.ApiResponse;
+using ThePatho.Features.Common.DTO;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Global.MedicalGroup.Commands;
 using ThePatho.Features.Global.MedicalGroup.DTO;
 
@@ -11,5 +12,7 @@ namespace ThePatho.Features.Global.MedicalGroup.Service
         Task<ApiResponse<MedicalGroupItemDto>> GetMedicalGroupByCriteria(GetMedicalGroupByCriteriaCommand request);
         Task<ApiResponse> SubmitMedicalGroup(SubmitMedicalGroupCommand request);
         Task<ApiResponse> DeleteMedicalGroup(DeleteMedicalGroupCommand request);
+        Task<ApiResponse<AttachmentFileDto>> ExportAsync(ExportMedicalGroupCommand request);
     }
 }
+

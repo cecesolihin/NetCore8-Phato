@@ -8,10 +8,10 @@ namespace ThePatho.Features.PersonalInformation.EmployeeWorkingExperience.Comman
 {
     public class GetEmployeeWorkingExperienceCommand : IRequest<ApiResponse<EmployeeWorkingExperienceItemDto>>
     {
-        [JsonPropertyName("filter_EmployeeId")]
+        [JsonPropertyName("filter_employeeId")]
         public int? FilterEmployeeId { get; set; }
 
-        [JsonPropertyName("filter_WorkExperience")]
+        [JsonPropertyName("filter_workExperience")]
         public string? FilterWorkExperience { get; set; }
 
 

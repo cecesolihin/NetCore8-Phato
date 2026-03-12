@@ -1,6 +1,6 @@
 SELECT 
-    PunishmentTypeCode,
-    PunishmentTypeName,
+    PunishmentCode,
+    PunishmentName,
     InsertedBy,
     CONVERT(VARCHAR, InsertedDate, 106) AS InsertedDate,  -- dd MMM yyyy
     ModifiedBy,

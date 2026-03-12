@@ -8,7 +8,7 @@ namespace ThePatho.Features.PersonalInformation.EmployeeFamily.Commands
 {
     public class GetSingleEmployeeFamilyCommand : IRequest<ApiResponse<EmployeeFamilyDto>>
     {
-        [JsonPropertyName("EmployeeFamilyId")]
+        [JsonPropertyName("employeeFamilyId")]
         public int EmployeeFamilyId { get; set; }
 
     }

@@ -1,3 +1,4 @@
+DECLARE @Punishment varchar(150) =(select top 1 tp.PunishmentName from TGEMPunishmentType tp where tp.PunishmentCode = @PunishmentType)
 IF @Action = 'ADD'
 BEGIN
     INSERT INTO dbo.TEPDEmployeePunishment
@@ -20,7 +21,7 @@ BEGIN
         @LetterNo,
         @EmployeeId,
         @LetterDate,
-        @PunishmentType,
+        @Punishment,
         @ValidFrom,
         @ValidTo,
         @RecoveryDate,
@@ -38,7 +39,7 @@ BEGIN
         LetterNo = @LetterNo,
         EmployeeID = @EmployeeId,
         LetterDate = @LetterDate,
-        PunishmentType = @PunishmentType,
+        PunishmentType = @Punishment,
         ValidFrom = @ValidFrom,
         ValidTo = @ValidTo,
         RecoveryDate = @RecoveryDate,

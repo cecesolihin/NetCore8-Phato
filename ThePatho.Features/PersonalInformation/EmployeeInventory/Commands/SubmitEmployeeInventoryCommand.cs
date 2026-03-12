@@ -15,8 +15,8 @@ namespace ThePatho.Features.PersonalInformation.EmployeeInventory.Commands
         [JsonPropertyName("inventoryTypeCode")]
         public string InventoryTypeCode { get; set; } = null!;
 
-        [JsonPropertyName("inventoryName")]
-        public string InventoryName { get; set; } = null!;
+        [JsonPropertyName("inventoryTypeName")]
+        public string InventoryTypeName { get; set; } = null!;
 
         [JsonPropertyName("receivedDate")]
         public string? ReceivedDate { get; set; }
@@ -39,11 +39,11 @@ namespace ThePatho.Features.PersonalInformation.EmployeeInventory.Commands
         [JsonPropertyName("returnDate")]
         public string? ReturnDate { get; set; }
 
-        [JsonPropertyName("outCondition")]
-        public string OutCondition { get; set; } = null!;
+        [JsonPropertyName("ReturnCondition")]
+        public string ReturnCondition { get; set; } = null!;
 
-        [JsonPropertyName("outRemark")]
-        public string OutRemark { get; set; } = null!;
+        [JsonPropertyName("ReturnRemark")]
+        public string ReturnRemark { get; set; } = null!;
 
         [JsonPropertyName("action")]
         public string Action { get; set; } = null!;

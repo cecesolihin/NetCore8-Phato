@@ -1,4 +1,5 @@
-﻿using ThePatho.Provider.ApiResponse;
+using ThePatho.Features.Common.DTO;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Global.BranchBank.Commands;
 using ThePatho.Features.Global.BranchBank.DTO;
 
@@ -11,5 +12,7 @@ namespace ThePatho.Features.Global.BranchBank.Service
         Task<ApiResponse<BranchBankItemDto>> GetBranchBankByCriteria(GetBranchBankByCriteriaCommand request);
         Task<ApiResponse> SubmitBranchBank(SubmitBranchBankCommand request);
         Task<ApiResponse> DeleteBranchBank(DeleteBranchBankCommand request);
+        Task<ApiResponse<AttachmentFileDto>> ExportAsync(ExportBranchBankCommand request);
     }
 }
+

@@ -30,8 +30,8 @@ WHERE
     (@EmployeeId > 0 OR EmployeeID = @EmployeeId) AND
     (
         @Medical IS NULL OR @Medical = ''
-        OR Hospital LIKE '%' + @Hospital + '%'
-        OR DiseaseName LIKE '%' + @DiseaseName + '%'
+        OR Hospital LIKE '%' + @Medical + '%'
+        OR DiseaseName LIKE '%' + @Medical + '%'
     ) AND
     (IsDeleted = 0 OR IsDeleted IS NULL)
 ORDER BY

@@ -1,20 +1,21 @@
+using Azure.Core;
+using ClosedXML.Excel;
 using Dapper;
 using Microsoft.AspNetCore.Mvc;
+using QuestPDF.Fluent;
+using QuestPDF.Helpers;
+using QuestPDF.Infrastructure;
 using System.Data;
+using System.IO;
 using System.Net;
+using ThePatho.Domain.Constants;
+using ThePatho.Features.Common.DTO;
 using ThePatho.Features.PersonalInformation.SuperiorSubordinate.Commands;
 using ThePatho.Features.PersonalInformation.SuperiorSubordinate.DTO;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.ApiResponse;
 using ThePatho.Provider.QueryExecute;
 using ThePatho.Provider.UserContext;
-using ClosedXML.Excel;
-using QuestPDF.Fluent;
-using QuestPDF.Helpers;
-using QuestPDF.Infrastructure;
-using ThePatho.Features.Common.DTO;
-using ThePatho.Domain.Constants;
-using System.IO;
 
 namespace ThePatho.Features.PersonalInformation.SuperiorSubordinate.Service
 {
@@ -254,12 +255,14 @@ namespace ThePatho.Features.PersonalInformation.SuperiorSubordinate.Service
             {
                 using var db = dapperContext.CreateConnection();
                 var parameters = new DynamicParameters();
-                parameters.Add("@PageNumber", 0);
-                parameters.Add("@PageSize", 1000000);
-                parameters.Add("@Employee", "");
-                parameters.Add("@Superior", "");
-                parameters.Add("@Status", "");
-                parameters.Add("@SortBy", "EmployeeSuperiorID");
+                parameters.Add("@PageNumber", 1);
+                parameters.Add("@PageSize", 999999);
+                parameters.Add("@Employee", 0);
+                parameters.Add("@Superior", null);
+                parameters.Add("@EffectiveDateFrom", null);
+                parameters.Add("@EffectiveDateTo", null);
+                //parameters.Add("@Status", request.FilterStatus ?? string.Empty);
+                parameters.Add("@SortBy", "InsertedDate");
                 parameters.Add("@OrderBy", "ASC");
 
                 var query = await queryLoader.LoadQueryAsync("PersonalInformation/SuperiorSubordinate/Sql/get_superior_subordinate");

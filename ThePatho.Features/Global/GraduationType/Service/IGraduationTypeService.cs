@@ -1,4 +1,5 @@
-﻿using ThePatho.Provider.ApiResponse;
+using ThePatho.Features.Common.DTO;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Global.GraduationType.Commands;
 using ThePatho.Features.Global.GraduationType.DTO;
 
@@ -11,5 +12,7 @@ namespace ThePatho.Features.Global.GraduationType.Service
         Task<ApiResponse<GraduationTypeItemDto>> GetGraduationTypeByCriteria(GetGraduationTypeByCriteriaCommand request);
         Task<ApiResponse> SubmitGraduationType(SubmitGraduationTypeCommand request);
         Task<ApiResponse> DeleteGraduationType(DeleteGraduationTypeCommand request);
+        Task<ApiResponse<AttachmentFileDto>> ExportAsync(ExportGraduationTypeCommand request);
     }
 }
+

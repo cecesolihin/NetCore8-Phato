@@ -75,7 +75,7 @@ namespace ThePatho.Features.PersonalInformation.EmployeeCareerHistory.Service
             {
                 using var db = dapperContext.CreateConnection();
                 var parameters = new DynamicParameters();
-                parameters.Add("@EmployeeId", request.EmployeeId);
+                //parameters.Add("@EmployeeId", request.EmployeeId);
                 parameters.Add("@CareerHistoryNo", request.CareerHistoryNo);
 
                 var query = await queryLoader.LoadQueryAsync("PersonalInformation/EmployeeCareerHistory/Sql/get_single_emp_career");
@@ -101,8 +101,7 @@ namespace ThePatho.Features.PersonalInformation.EmployeeCareerHistory.Service
                 var parameters = new DynamicParameters();
                 parameters.Add("@EmployeeId", request.EmployeeId ?? 0);
                 parameters.Add("@CareerHistoryNo", request.CareerHistoryNo ?? string.Empty);
-                parameters.Add("@PositionCode", request.PositionCode ?? string.Empty);
-                parameters.Add("@CompanyCode", request.CompanyCode ?? string.Empty);
+                parameters.Add("@CareerType", request.CareerType ?? string.Empty);
 
                 var query = await queryLoader.LoadQueryAsync("PersonalInformation/EmployeeCareerHistory/Sql/get_criteria_emp_career");
                 var data = await db.QueryAsync<EmployeeCareerHistoryDto>(query, parameters);

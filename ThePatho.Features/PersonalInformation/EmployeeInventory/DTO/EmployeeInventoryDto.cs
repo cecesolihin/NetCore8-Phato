@@ -8,8 +8,8 @@
         public string PostionCode { get; set; }
         public string PositionName { get; set; }
         public string InventoryNo { get; set; }
-        public string InventoryTpyeCode { get; set; }
-        public string InventoryName { get; set; }
+        public string InventoryTypeCode { get; set; }
+        public string InventoryTypeName { get; set; }
 
         public string? ReceivedDate { get; set; }
         public short ReceivedQty { get; set; }

@@ -6,8 +6,9 @@ SELECT
     pos.PositionName,
 
     inv.InventoryNo,
-    inv.InventoryTpyeCode AS InventoryTypeCode,
-    inv.InventoryName,
+    inv.InventoryTypeCode AS InventoryTypeCode,
+    --inv.InventoryTypeName,
+    (select top 1 tp.InventoryName from TGEMInventoryType tp where tp.InventoryTypeCode = inv.InventoryTypeCode) as InventoryTypeName,
     CONVERT(VARCHAR, inv.ReceivedDate, 106) AS ReceivedDate,
     CONVERT(VARCHAR, inv.ReturnPlanDate, 106) AS ReturnPlanDate,
     inv.Qty,

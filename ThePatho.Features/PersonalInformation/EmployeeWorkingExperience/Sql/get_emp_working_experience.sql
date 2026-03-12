@@ -33,7 +33,7 @@ SELECT
 FROM 
     dbo.TEPDEmployeeWorkingExperience
 WHERE IsDeleted = 0 AND
-    (@EmployeeID IS NULL OR EmployeeID = @EmployeeID) AND
+    (@EmployeeID > 0 AND EmployeeID = @EmployeeID) AND
     (@WorkExperience IS NULL OR @WorkExperience ='' OR Company LIKE '%' + @WorkExperience + '%'
     OR EmploymentTypeCode LIKE '%' + @WorkExperience + '%')
 ORDER BY

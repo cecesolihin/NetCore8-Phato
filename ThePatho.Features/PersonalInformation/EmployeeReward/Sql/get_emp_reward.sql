@@ -35,6 +35,9 @@ WHERE
         @Reward IS NULL OR @Reward = ''
         OR r.RewardTypeCode LIKE '%' + @Reward + '%'
         OR r.LetterNo LIKE '%' + @Reward + '%'
+        OR emp.EmployeeNo LIKE '%' + @Reward + '%'
+        OR emp.Fullname LIKE '%' + @Reward + '%'
+        OR pos.PositionName LIKE '%' + @Reward + '%'
     )
      -- Letter Date Range
     AND (@LetterDateFrom IS NULL OR r.LetterDate >= @LetterDateFrom)

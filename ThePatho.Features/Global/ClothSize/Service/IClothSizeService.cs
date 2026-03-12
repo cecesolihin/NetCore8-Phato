@@ -1,4 +1,5 @@
-﻿using ThePatho.Provider.ApiResponse;
+using ThePatho.Features.Common.DTO;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Global.ClothSize.Commands;
 using ThePatho.Features.Global.ClothSize.DTO;
 
@@ -11,5 +12,7 @@ namespace ThePatho.Features.Global.ClothSize.Service
         Task<ApiResponse<ClothSizeItemDto>> GetClothSizeByCriteria(GetClothSizeByCriteriaCommand request);
         Task<ApiResponse> SubmitClothSize(SubmitClothSizeCommand request);
         Task<ApiResponse> DeleteClothSize(DeleteClothSizeCommand request);
+        Task<ApiResponse<AttachmentFileDto>> ExportAsync(ExportClothSizeCommand request);
     }
 }
+

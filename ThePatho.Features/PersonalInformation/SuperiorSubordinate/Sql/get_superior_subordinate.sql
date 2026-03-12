@@ -8,7 +8,7 @@ SELECT
     t.EmployeeID,
     emp.EmployeeNo,
     emp.Fullname AS EmployeeName,
-    pos.PositionName AS Position,
+    pos.PositionName AS PositionName,
 
     CONVERT(VARCHAR, t.EffectiveDate, 106) AS EffectiveDate,
     CONVERT(VARCHAR, t.EndDate, 106) AS EndDate,

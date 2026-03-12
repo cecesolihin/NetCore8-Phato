@@ -8,10 +8,15 @@ namespace ThePatho.Features.PersonalInformation.EmployeeIdentity.Commands
 {
     public class GetEmployeeIdentityCommand : IRequest<ApiResponse<EmployeeIdentityItemDto>>
     {
-        [JsonPropertyName("filter_EmployeeId")]
+        [JsonPropertyName("filter_employeeId")]
         public int? FilterEmployeeId { get; set; }
-        [JsonPropertyName("filter_Identity")]
+        [JsonPropertyName("filter_identity")]
         public string? FilterIdentity { get; set; }
+
+        [JsonPropertyName("filter_expiredDateFrom")]
+        public DateTime? FilterExpiredDateFrom { get; set; }
+        [JsonPropertyName("filter_expiredDateTo")]
+        public DateTime? FilterExpiredDateTo { get; set; }
 
         [JsonPropertyName("sortBy")]
         [DefaultValue("InsertedDate")]

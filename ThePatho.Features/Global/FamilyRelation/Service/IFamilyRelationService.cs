@@ -1,4 +1,5 @@
-﻿using ThePatho.Provider.ApiResponse;
+using ThePatho.Features.Common.DTO;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Global.FamilyRelation.Commands;
 using ThePatho.Features.Global.FamilyRelation.DTO;
 
@@ -12,5 +13,7 @@ namespace ThePatho.Features.Global.FamilyRelation.Service
         Task<ApiResponse> DeleteFamilyRelation(DeleteFamilyRelationCommand request);
 
         Task<ApiResponse<FamilyRelationDto>> GetSingleFamilyRelation(GetSingleFamilyRelationCommand request);
+        Task<ApiResponse<AttachmentFileDto>> ExportAsync(ExportFamilyRelationCommand request);
     }
 }
+

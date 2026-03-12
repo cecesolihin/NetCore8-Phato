@@ -1,4 +1,5 @@
-﻿using ThePatho.Provider.ApiResponse;
+using ThePatho.Features.Common.DTO;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Global.MaritalStatus.Commands;
 using ThePatho.Features.Global.MaritalStatus.DTO;
 
@@ -11,5 +12,7 @@ namespace ThePatho.Features.Global.MaritalStatus.Service
         Task<ApiResponse<MaritalStatusItemDto>> GetMaritalStatusByCriteria(GetMaritalStatusByCriteriaCommand request);
         Task<ApiResponse> SubmitMaritalStatus(SubmitMaritalStatusCommand request);
         Task<ApiResponse> DeleteMaritalStatus(DeleteMaritalStatusCommand request);
+        Task<ApiResponse<AttachmentFileDto>> ExportAsync(ExportMaritalStatusCommand request);
     }
 }
+

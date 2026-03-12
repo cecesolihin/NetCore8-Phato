@@ -6,121 +6,121 @@ namespace ThePatho.Features.PersonalInformation.Employee.Commands
 {
     public class SubmitEmployeeCommand : IRequest<ApiResponse>
     {
-        [JsonPropertyName("employee_id")]
+        [JsonPropertyName("employeeId")]
         public int? EmployeeId { get; set; }
 
-        [JsonPropertyName("employee_no")]
+        [JsonPropertyName("employeeNo")]
         public string? EmployeeNo { get; set; }
 
-        [JsonPropertyName("company_code")]
-        public string CompanyCode { get; set; } = null!;
+        [JsonPropertyName("companyCode")]
+        public string CompanyCode { get; set; }
 
         [JsonPropertyName("firstname")]
-        public string Firstname { get; set; } = null!;
+        public string Firstname { get; set; }
 
-        [JsonPropertyName("middlename")]
+        [JsonPropertyName("middleName")]
         public string? MiddleName { get; set; }
 
-        [JsonPropertyName("lastname")]
+        [JsonPropertyName("lastName")]
         public string? LastName { get; set; }
 
-        [JsonPropertyName("fullname")]
+        [JsonPropertyName("fullName")]
         public string Fullname { get; set; } = null!;
 
         [JsonPropertyName("gender")]
         public string Gender { get; set; } = null!;
 
-        [JsonPropertyName("birth_place")]
+        [JsonPropertyName("birthPlace")]
         public string? BirthPlace { get; set; }
 
-        [JsonPropertyName("birth_date")]
+        [JsonPropertyName("birthDate")]
         public DateTime? BirthDate { get; set; }
 
-        [JsonPropertyName("join_date")]
+        [JsonPropertyName("joinDate")]
         public DateTime? JoinDate { get; set; }
 
-        [JsonPropertyName("terminate_date")]
+        [JsonPropertyName("terminateDate")]
         public DateTime? TerminateDate { get; set; }
 
-        [JsonPropertyName("permanent_date")]
+        [JsonPropertyName("permanentDate")]
         public DateTime? PermanentDate { get; set; }
 
-        [JsonPropertyName("pension_date")]
+        [JsonPropertyName("pensionDate")]
         public DateTime? PensionDate { get; set; }
 
-        [JsonPropertyName("contract_end_date")]
+        [JsonPropertyName("contractEndDate")]
         public DateTime? ContractEndDate { get; set; }
 
-        [JsonPropertyName("position_code")]
+        [JsonPropertyName("positionCode")]
         public string PositionCode { get; set; } = null!;
 
-        [JsonPropertyName("job_class_code")]
+        [JsonPropertyName("jobClassCode")]
         public string JobClassCode { get; set; } = null!;
 
-        [JsonPropertyName("employment_type_code")]
+        [JsonPropertyName("employmentTypeCode")]
         public string EmploymentTypeCode { get; set; } = null!;
 
-        [JsonPropertyName("cost_center_code")]
+        [JsonPropertyName("costCenterCode")]
         public string CostCenterCode { get; set; } = null!;
 
-        [JsonPropertyName("work_location_code")]
+        [JsonPropertyName("workLocationCode")]
         public string? WorkLocationCode { get; set; }
 
-        [JsonPropertyName("jabatan_id")]
+        [JsonPropertyName("jabatanId")]
         public int? JabatanId { get; set; }
 
-        [JsonPropertyName("is_eligible_rehire")]
+        [JsonPropertyName("isEligibleRehire")]
         public bool? IsEligibleRehire { get; set; }
 
-        [JsonPropertyName("tax_type")]
+        [JsonPropertyName("taxType")]
         public string TaxType { get; set; } = null!;
 
-        [JsonPropertyName("tax_status_code")]
+        [JsonPropertyName("taxStatusCode")]
         public string TaxStatusCode { get; set; } = null!;
 
         [JsonPropertyName("npwp")]
         public string? Npwp { get; set; }
 
-        [JsonPropertyName("tax_location_id")]
+        [JsonPropertyName("taxLocationId")]
         public int? TaxLocationId { get; set; }
 
-        [JsonPropertyName("need_replacement")]
+        [JsonPropertyName("needReplacement")]
         public bool? NeedReplacement { get; set; }
 
-        [JsonPropertyName("pay_group")]
+        [JsonPropertyName("payGroup")]
         public string? PayGroup { get; set; }
 
-        [JsonPropertyName("nationality_id")]
+        [JsonPropertyName("nationalityId")]
         public int? NationalityId { get; set; }
 
-        [JsonPropertyName("religion_id")]
+        [JsonPropertyName("religionId")]
         public int? ReligionId { get; set; }
 
-        [JsonPropertyName("marital_status")]
+        [JsonPropertyName("maritalStatus")]
         public string? MaritalStatus { get; set; }
 
-        [JsonPropertyName("married_date")]
+        [JsonPropertyName("marriedDate")]
         public DateTime? MarriedDate { get; set; }
 
         [JsonPropertyName("bpjstk")]
         public string? BPJSTK { get; set; }
 
-        [JsonPropertyName("bpjs_kes")]
+        [JsonPropertyName("bpjsKes")]
         public string? BPJSKES { get; set; }
 
-        [JsonPropertyName("nickname")]
+        [JsonPropertyName("nickName")]
         public string? NickName { get; set; }
 
         [JsonPropertyName("phone")]
         public string? Phone { get; set; }
 
-        [JsonPropertyName("mobile_phone")]
+        [JsonPropertyName("mobilePhone")]
         public string? MobilePhone { get; set; }
 
         [JsonPropertyName("email")]
         public string? Email { get; set; }
 
-        [JsonPropertyName("blood_type")]
+        [JsonPropertyName("bloodType")]
         public string? BloodType { get; set; }
 
         [JsonPropertyName("height")]
@@ -129,31 +129,31 @@ namespace ThePatho.Features.PersonalInformation.Employee.Commands
         [JsonPropertyName("weight")]
         public int? Weight { get; set; }
 
-        [JsonPropertyName("office_phone")]
+        [JsonPropertyName("officePhone")]
         public string? OfficePhone { get; set; }
 
-        [JsonPropertyName("office_email")]
+        [JsonPropertyName("officeEmail")]
         public string? OfficeEmail { get; set; }
 
-        [JsonPropertyName("building_code")]
+        [JsonPropertyName("buildingCode")]
         public string? BuildingCode { get; set; }
 
-        [JsonPropertyName("room_code")]
+        [JsonPropertyName("roomCode")]
         public string? RoomCode { get; set; }
 
-        [JsonPropertyName("computer_name")]
+        [JsonPropertyName("computerName")]
         public string? ComputerName { get; set; }
 
-        [JsonPropertyName("static_ip_address")]
+        [JsonPropertyName("staticIpAddress")]
         public string? StaticIPAddress { get; set; }
 
         [JsonPropertyName("glasses")]
         public bool? Glasses { get; set; }
 
-        [JsonPropertyName("left_eye")]
+        [JsonPropertyName("leftEye")]
         public string? LeftEye { get; set; }
 
-        [JsonPropertyName("right_eye")]
+        [JsonPropertyName("rightEye")]
         public string? RightEye { get; set; }
 
         [JsonPropertyName("hat")]
@@ -177,7 +177,7 @@ namespace ThePatho.Features.PersonalInformation.Employee.Commands
         [JsonPropertyName("boots")]
         public string? Boots { get; set; }
 
-        [JsonPropertyName("photo_path")]
+        [JsonPropertyName("photoPath")]
         public string? PhotoPath { get; set; }
 
         [JsonPropertyName("rfid")]
@@ -186,22 +186,22 @@ namespace ThePatho.Features.PersonalInformation.Employee.Commands
         [JsonPropertyName("recruiter")]
         public string? Recruiter { get; set; }
 
-        [JsonPropertyName("hire_origin")]
+        [JsonPropertyName("hireOrigin")]
         public string? HireOrigin { get; set; }
 
-        [JsonPropertyName("bpjstk_location")]
+        [JsonPropertyName("bpjstkLocation")]
         public string? BPJSTKLocation { get; set; }
 
-        [JsonPropertyName("bpjskes_location")]
+        [JsonPropertyName("bpjskesLocation")]
         public string? BPJSKesLocation { get; set; }
 
-        [JsonPropertyName("cap_color_id")]
+        [JsonPropertyName("capColorId")]
         public byte? CapColorId { get; set; }
 
-        [JsonPropertyName("pickup_id")]
+        [JsonPropertyName("pickUpId")]
         public byte? PickUpId { get; set; }
 
-        [JsonPropertyName("faskes_id")]
+        [JsonPropertyName("faskesId")]
         public int? FaskesId { get; set; }
 
         [JsonPropertyName("action")]

@@ -8,21 +8,19 @@ namespace ThePatho.Features.PersonalInformation.Employee.Commands
 {
     public class GetEmployeeCommand : IRequest<ApiResponse<EmployeeItemDto>>
     {
-        [JsonPropertyName("filter_EmployeeNo")]
-        public string? FilterEmployeeNo { get; set; }
+        [JsonPropertyName("filter_employee")]
+        public string? FilterEmployee { get; set; }
 
-        [JsonPropertyName("filter_Fullname")]
-        public string? FilterFullname { get; set; } = null!;
-        [JsonPropertyName("filter_JobClass")]
-        public string? FilterJobClass { get; set; }
+        [JsonPropertyName("filter_joinDateFrom")]
+        public DateTime? FilterJoinDateFrom { get; set; }
 
-        [JsonPropertyName("filter_EmploymentType")]
-        public string? FilterEmploymentType { get; set; }
+        [JsonPropertyName("filter_joinDateTo")]
+        public DateTime? FilterJoinDateTo { get; set; }
+        [JsonPropertyName("filter_terminateDateFrom")]
+        public DateTime? FilterTerminateDateFrom { get; set; }
 
-        [JsonPropertyName("filter_Position")]
-        public string? FilterPosition { get; set; } = null!;
-        [JsonPropertyName("filter_WorkLocation")]
-        public string? FilterWorkLocation { get; set; }
+        [JsonPropertyName("filter_terminateDateTo")]
+        public DateTime? FilterTerminateDateTo { get; set; }
 
         [JsonPropertyName("sortBy")]
         [DefaultValue("InsertedDate")]

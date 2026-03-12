@@ -67,7 +67,7 @@ namespace ThePatho.Features.Organization.JobLevel.Service
                 );
 
                 // Pagination
-                query = query.Skip(request.PageNumber * request.PageSize).Take(request.PageSize);
+                query = query.Skip((request.PageNumber - 1) * request.PageSize).Take(request.PageSize);
 
                 // Eksekusi query JobLevel
                 var jobLevels = await db.GetAsync<JobLevelDto>(query);

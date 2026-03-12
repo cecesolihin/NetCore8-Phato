@@ -1,4 +1,5 @@
-﻿using ThePatho.Provider.ApiResponse;
+using ThePatho.Features.Common.DTO;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Global.Insurance.Commands;
 using ThePatho.Features.Global.Insurance.DTO;
 
@@ -11,5 +12,7 @@ namespace ThePatho.Features.Global.Insurance.Service
         Task<ApiResponse<InsuranceItemDto>> GetInsuranceByCriteria(GetInsuranceByCriteriaCommand request);
         Task<ApiResponse> SubmitInsurance(SubmitInsuranceCommand request);
         Task<ApiResponse> DeleteInsurance(DeleteInsuranceCommand request);
+        Task<ApiResponse<AttachmentFileDto>> ExportAsync(ExportInsuranceCommand request);
     }
 }
+

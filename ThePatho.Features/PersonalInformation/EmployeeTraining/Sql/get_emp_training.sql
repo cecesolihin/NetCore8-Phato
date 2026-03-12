@@ -32,7 +32,7 @@ INNER JOIN TEPMEmployee emp
 LEFT JOIN TOGMPosition pos 
     ON emp.PositionCode = pos.PositionCode
 WHERE
-    (@EmployeeId = 0 OR t.EmployeeID = @EmployeeId) AND
+    (@EmployeeId > 0 AND t.EmployeeID = @EmployeeId) AND
     (
         @Training IS NULL OR @Training = ''
         OR t.TrainingCourseCode LIKE '%' + @Training + '%'

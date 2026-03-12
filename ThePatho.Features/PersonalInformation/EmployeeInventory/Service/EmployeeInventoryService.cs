@@ -1,18 +1,19 @@
+using Azure.Core;
+using ClosedXML.Excel;
 using Dapper;
+using QuestPDF.Fluent;
+using QuestPDF.Helpers;
+using QuestPDF.Infrastructure;
 using System.Data;
+using System.IO;
 using System.Net;
+using ThePatho.Domain.Constants;
+using ThePatho.Features.Common.DTO;
 using ThePatho.Features.PersonalInformation.EmployeeInventory.Commands;
 using ThePatho.Features.PersonalInformation.EmployeeInventory.DTO;
 using ThePatho.Infrastructure.Persistance;
 using ThePatho.Provider.ApiResponse;
 using ThePatho.Provider.UserContext;
-using ClosedXML.Excel;
-using QuestPDF.Fluent;
-using QuestPDF.Helpers;
-using QuestPDF.Infrastructure;
-using ThePatho.Features.Common.DTO;
-using ThePatho.Domain.Constants;
-using System.IO;
 
 namespace ThePatho.Features.PersonalInformation.EmployeeInventory.Service
 {
@@ -126,13 +127,16 @@ namespace ThePatho.Features.PersonalInformation.EmployeeInventory.Service
                 var parameters = new DynamicParameters();
                 parameters.Add("@EmployeeId", request.EmployeeId);
                 parameters.Add("@InventoryNo", request.InventoryNo);
-                parameters.Add("@InventoryTpyeCode", request.InventoryTypeCode);
-                parameters.Add("@InventoryName", request.InventoryName);
+                parameters.Add("@InventoryTypeCode", request.InventoryTypeCode);
+                parameters.Add("@InventoryTypeName", request.InventoryTypeName);
                 parameters.Add("@ReceivedDate", request.ReceivedDate);
                 parameters.Add("@ReceivedQty", request.ReceivedQty);
                 parameters.Add("@ReceivedCondition", request.ReceivedCondition);
                 parameters.Add("@ReceivedRemark", request.ReceivedRemark);
                 parameters.Add("@ReturnPlanDate", request.ReturnPlanDate);
+                parameters.Add("@ReturnDate", request.ReturnDate);
+                parameters.Add("@ReturnCondition", request.ReturnCondition);
+                parameters.Add("@ReturnRemark", request.ReturnRemark);
                 parameters.Add("@Size", request.Size);
                 parameters.Add("@Action", request.Action);
                 parameters.Add("@User", currentUserService.GetUserName() ?? "admin");
@@ -178,8 +182,14 @@ namespace ThePatho.Features.PersonalInformation.EmployeeInventory.Service
                 parameters.Add("@PageNumber", 1);
                 parameters.Add("@PageSize", 1000000);
                 parameters.Add("@EmployeeId", 0);
-                parameters.Add("@Inventory", "");
-                parameters.Add("@SortBy", "EmployeeId");
+                parameters.Add("@Inventory", null);
+                parameters.Add("@ReceivedDateFrom", null);
+                parameters.Add("@ReceivedDateTo", null);
+                parameters.Add("@ReturnDateFrom", null);
+                parameters.Add("@ReturnDateTo", null);
+                parameters.Add("@ReturnPlanDateFrom", null);
+                parameters.Add("@ReturnPlanDateTo", null);
+                parameters.Add("@SortBy", "InsertedDate");
                 parameters.Add("@OrderBy", "ASC");
 
                 var query = await queryLoader.LoadQueryAsync("PersonalInformation/EmployeeInventory/Sql/get_emp_inventory");
@@ -211,7 +221,7 @@ namespace ThePatho.Features.PersonalInformation.EmployeeInventory.Service
                         ws.Cell(row, 1).Value = item.EmployeeNo;
                         ws.Cell(row, 2).Value = item.EmployeeName;
                         ws.Cell(row, 3).Value = item.InventoryNo;
-                        ws.Cell(row, 4).Value = item.InventoryName;
+                        ws.Cell(row, 4).Value = item.InventoryTypeName;
                         ws.Cell(row, 5).Value = item.ReceivedDate;
                         ws.Cell(row, 6).Value = item.ReturnPlanDate;
                         ws.Cell(row, 7).Value = item.ReceivedQty;
@@ -262,7 +272,7 @@ namespace ThePatho.Features.PersonalInformation.EmployeeInventory.Service
                                 {
                                     table.Cell().Border(1).Padding(5).Text(item.EmployeeNo ?? "-");
                                     table.Cell().Border(1).Padding(5).Text(item.EmployeeName ?? "-");
-                                    table.Cell().Border(1).Padding(5).Text(item.InventoryName ?? "-");
+                                    table.Cell().Border(1).Padding(5).Text(item.InventoryTypeName ?? "-");
                                     table.Cell().Border(1).Padding(5).Text(item.ReceivedDate ?? "-");
                                     table.Cell().Border(1).Padding(5).Text(item.ReturnPlanDate ?? "-");
                                 }

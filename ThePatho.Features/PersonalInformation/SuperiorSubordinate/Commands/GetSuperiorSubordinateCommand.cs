@@ -26,7 +26,7 @@ namespace ThePatho.Features.PersonalInformation.SuperiorSubordinate.Commands
 
         [JsonPropertyName("orderBy")]
         [DefaultValue("DESC")]
-        public string? OrderBy { get; set; } = "DESC";
+        public string? OrderBy { get; set; } = "ASC";
 
         [JsonPropertyName("pageNumber")]
         [DefaultValue(1)]

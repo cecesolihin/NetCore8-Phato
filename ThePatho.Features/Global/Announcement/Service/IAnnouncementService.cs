@@ -1,4 +1,5 @@
-﻿using ThePatho.Provider.ApiResponse;
+using ThePatho.Features.Common.DTO;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Global.Announcement.Commands;
 using ThePatho.Features.Global.Announcement.DTO;
 
@@ -11,5 +12,7 @@ namespace ThePatho.Features.Global.Announcement.Service
         Task<ApiResponse<AnnouncementItemDto>> GetAnnouncementByCriteria(GetAnnouncementByCriteriaCommand request);
         Task<ApiResponse> SubmitAnnouncement(SubmitAnnouncementCommand request);
         Task<ApiResponse> DeleteAnnouncement(DeleteAnnouncementCommand request);
+        Task<ApiResponse<AttachmentFileDto>> ExportAsync(ExportAnnouncementCommand request);
     }
 }
+

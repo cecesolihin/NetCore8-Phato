@@ -52,7 +52,7 @@ namespace ThePatho.Features.Organization.CostCenter.Service
                     $"{(!string.IsNullOrWhiteSpace(request.SortBy) ? request.SortBy : "InsertedBy")} {(!string.IsNullOrWhiteSpace(request.OrderBy) && (request.OrderBy.ToUpper() == "ASC" || request.OrderBy.ToUpper() == "DESC") ? request.OrderBy.ToUpper() : "DESC")}"
                 );
 
-                query = query.Skip(request.PageNumber * request.PageSize).Take(request.PageSize);
+                query = query.Skip((request.PageNumber - 1) * request.PageSize).Take(request.PageSize);
 
                 var data = await db.GetAsync<CostCenterDto>(query);
 

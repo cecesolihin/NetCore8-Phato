@@ -9,7 +9,7 @@ namespace ThePatho.Controllers
     [ApiController]
     [Route(ApiRoutes.PersonalInfoMenu.EmployeeAddress)]
     [ApiExplorerSettings(GroupName = "PersonalInformation")]
-    //[Authorize]
+    [Authorize]
     public class EmployeeAddressController : ControllerBase
     {
         private readonly IMediator mediator;
@@ -51,7 +51,7 @@ namespace ThePatho.Controllers
             }
 
             var contentType = exportResponse.Data.ContentType;
-            return File(Convert.FromBase64String(exportResponse.Data.Base64Data), contentType, exportResponse.Data.FileName);
+            return File(exportResponse.Data.Base64Data, contentType, exportResponse.Data.FileName);
         }
     }
 }

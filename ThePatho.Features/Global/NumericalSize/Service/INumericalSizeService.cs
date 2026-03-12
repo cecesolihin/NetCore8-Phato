@@ -1,4 +1,5 @@
-﻿using ThePatho.Provider.ApiResponse;
+using ThePatho.Features.Common.DTO;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Global.NumericalSize.Commands;
 using ThePatho.Features.Global.NumericalSize.DTO;
 
@@ -11,5 +12,7 @@ namespace ThePatho.Features.Global.NumericalSize.Service
         Task<ApiResponse<NumericalSizeItemDto>> GetNumericalSizeByCriteria(GetNumericalSizeByCriteriaCommand request);
         Task<ApiResponse> SubmitNumericalSize(SubmitNumericalSizeCommand request);
         Task<ApiResponse> DeleteNumericalSize(DeleteNumericalSizeCommand request);
+        Task<ApiResponse<AttachmentFileDto>> ExportAsync(ExportNumericalSizeCommand request);
     }
 }
+

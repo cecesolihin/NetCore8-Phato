@@ -1,4 +1,5 @@
-﻿using ThePatho.Provider.ApiResponse;
+using ThePatho.Features.Common.DTO;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Global.DiseaseCategory.Commands;
 using ThePatho.Features.Global.DiseaseCategory.DTO;
 
@@ -11,6 +12,7 @@ namespace ThePatho.Features.Global.DiseaseCategory.Service
         Task<ApiResponse> SubmitDiseaseCategory(SubmitDiseaseCategoryCommand request);
         Task<ApiResponse> DeleteDiseaseCategory(DeleteDiseaseCategoryCommand request);
         Task<ApiResponse<DiseaseCategoryDto>> GetSingleDiseaseCategory(GetSingleDiseaseCategoryCommand request);
+        Task<ApiResponse<AttachmentFileDto>> ExportAsync(ExportDiseaseCategoryCommand request);
     }
-
 }
+

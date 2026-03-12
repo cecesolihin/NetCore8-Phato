@@ -1,4 +1,5 @@
-﻿using ThePatho.Provider.ApiResponse;
+using ThePatho.Features.Common.DTO;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Global.LetterCategory.Commands;
 using ThePatho.Features.Global.LetterCategory.DTO;
 
@@ -11,5 +12,7 @@ namespace ThePatho.Features.Global.LetterCategory.Service
         Task<ApiResponse<LetterCategoryItemDto>> GetLetterCategoryByCriteria(GetLetterCategoryByCriteriaCommand request);
         Task<ApiResponse> SubmitLetterCategory(SubmitLetterCategoryCommand request);
         Task<ApiResponse> DeleteLetterCategory(DeleteLetterCategoryCommand request);
+        Task<ApiResponse<AttachmentFileDto>> ExportAsync(ExportLetterCategoryCommand request);
     }
 }
+

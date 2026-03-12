@@ -2,8 +2,8 @@ namespace ThePatho.Features.Global.PunishmentType.DTO
 {
     public class PunishmentTypeDto
     {
-        public string PunishmentCode { get; set; } = null!;
-        public string PunishmentName { get; set; } = null!;
+        public string PunishmentCode { get; set; }
+        public string PunishmentName { get; set; }
         public string? InsertedBy { get; set; }
         public string? InsertedDate { get; set; }
         public string? ModifiedBy { get; set; }

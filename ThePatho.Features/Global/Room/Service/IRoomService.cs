@@ -1,4 +1,5 @@
-﻿using ThePatho.Provider.ApiResponse;
+using ThePatho.Features.Common.DTO;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Global.Room.Commands;
 using ThePatho.Features.Global.Room.DTO;
 
@@ -11,5 +12,7 @@ namespace ThePatho.Features.Global.Room.Service
         Task<ApiResponse<RoomItemDto>> GetRoomByCriteria(GetRoomByCriteriaCommand request);
         Task<ApiResponse> SubmitRoom(SubmitRoomCommand request);
         Task<ApiResponse> DeleteRoom(DeleteRoomCommand request);
+        Task<ApiResponse<AttachmentFileDto>> ExportAsync(ExportRoomCommand request);
     }
 }
+

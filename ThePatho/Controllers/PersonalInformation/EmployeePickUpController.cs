@@ -75,7 +75,7 @@ namespace ThePatho.Controllers
             }
 
             var contentType = exportResponse.Data.ContentType;
-            return File(Convert.FromBase64String(exportResponse.Data.Base64Data), contentType, exportResponse.Data.FileName);
+            return File(exportResponse.Data.Base64Data, contentType, exportResponse.Data.FileName);
         }
     }
 }

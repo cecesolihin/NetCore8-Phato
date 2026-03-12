@@ -1,4 +1,5 @@
-﻿using ThePatho.Provider.ApiResponse;
+using ThePatho.Features.Common.DTO;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Global.Currency.Commands;
 using ThePatho.Features.Global.Currency.DTO;
 
@@ -11,5 +12,7 @@ namespace ThePatho.Features.Global.Currency.Service
         Task<ApiResponse<CurrencyItemDto>> GetCurrencyByCriteria(GetCurrencyByCriteriaCommand request);
         Task<ApiResponse> SubmitCurrency(SubmitCurrencyCommand request);
         Task<ApiResponse> DeleteCurrency(DeleteCurrencyCommand request);
+        Task<ApiResponse<AttachmentFileDto>> ExportAsync(ExportCurrencyCommand request);
     }
 }
+

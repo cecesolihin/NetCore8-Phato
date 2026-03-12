@@ -1,4 +1,5 @@
-﻿using ThePatho.Provider.ApiResponse;
+using ThePatho.Features.Common.DTO;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Global.InventoryGroup.Commands;
 using ThePatho.Features.Global.InventoryGroup.DTO;
 
@@ -12,5 +13,6 @@ namespace ThePatho.Features.Global.InventoryGroup.Service
         Task<ApiResponse> DeleteInventoryGroup(DeleteInventoryGroupCommand request);
 
         Task<ApiResponse<InventoryGroupDto>> GetSingleInventoryGroup(GetSingleInventoryGroupCommand request);
+        Task<ApiResponse<AttachmentFileDto>> ExportAsync(ExportInventoryGroupCommand request);
     }
 }

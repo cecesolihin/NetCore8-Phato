@@ -1,4 +1,5 @@
-﻿using ThePatho.Provider.ApiResponse;
+using ThePatho.Features.Common.DTO;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Global.TaxLocation.Commands;
 using ThePatho.Features.Global.TaxLocation.DTO;
 
@@ -11,5 +12,7 @@ namespace ThePatho.Features.Global.TaxLocation.Service
         Task<ApiResponse<TaxLocationItemDto>> GetTaxLocationByCriteria(GetTaxLocationByCriteriaCommand request);
         Task<ApiResponse> SubmitTaxLocation(SubmitTaxLocationCommand request);
         Task<ApiResponse> DeleteTaxLocation(DeleteTaxLocationCommand request);
+        Task<ApiResponse<AttachmentFileDto>> ExportAsync(ExportTaxLocationCommand request);
     }
 }
+

@@ -6,6 +6,7 @@
         public int EmployeeID { get; set; }
         public string EmployeeNo { get; set; }
         public string EmployeeName { get; set; }
+        public string PositionName { get; set; }
         public string? EffectiveDate { get; set; }
         public string? EndDate { get; set; }
         public string? Remarks { get; set; }

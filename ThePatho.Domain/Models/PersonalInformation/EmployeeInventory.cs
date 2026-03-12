@@ -10,8 +10,8 @@ namespace ThePatho.Domain.Models.PersonalInformation
     {
         public int EmployeeID { get; set; }
         public string InventoryNo { get; set; }
-        public string InventoryTpyeCode { get; set; }
-        public string InventoryName { get; set; }
+        public string InventoryTypeCode { get; set; }
+        public string InventoryTypeName { get; set; }
         public DateTime? ReceivedDate { get; set; }
         public DateTime? ReturnPlanDate { get; set; }
         public short ReceivedQty { get; set; }

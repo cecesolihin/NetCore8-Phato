@@ -2,8 +2,8 @@ IF (@Action = 'ADD')
 BEGIN
     INSERT INTO dbo.TGEMPunishmentType
     (
-        PunishmentTypeCode,
-        PunishmentTypeName,
+        PunishmentCode,
+        PunishmentName,
         InsertedBy,
         InsertedDate
     )
@@ -19,10 +19,10 @@ ELSE IF (@Action = 'EDIT')
 BEGIN
     UPDATE dbo.TGEMPunishmentType
     SET
-        PunishmentTypeCode = @PunishmentTypeCode,
-        PunishmentTypeName   = @PunishmentTypeName,
+        PunishmentCode = @PunishmentCode,
+        PunishmentName   = @PunishmentName,
         ModifiedBy      = @User,
         ModifiedDate    = GETDATE()
     WHERE
-        PunishmentTypeCode = @PunishmentTypeCode;
+        PunishmentCode = @PunishmentCode;
 END	

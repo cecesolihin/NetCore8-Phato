@@ -15,7 +15,7 @@ SELECT
     e.JobClassCode,
     jc.JobClassName,
     e.EmploymentTypeCode,
-    et.EmployementTypeName,
+    et.EmploymentTypeName,
     e.WorkLocationCode,
     wl.WorkLocationName,
     e.CostCenterCode,
@@ -73,29 +73,71 @@ LEFT JOIN TGEMBloodType bt ON bt.BloodTypeCode = pd.BloodType
 LEFT JOIN TGEMBuilding b ON b.BuildingCode = pd.BuildingCode
 LEFT JOIN TGEMRoom rm ON rm.RoomCode = pd.RoomCode
 WHERE e.IsDeleted = 0
-  AND ((@EmployeeNo = '''' OR @EmployeeNo IS NULL) OR e.EmployeeNo LIKE ''%'' + @EmployeeNo + ''%'' OR e.Fullname LIKE ''%'' + @EmployeeNo + ''%'')
-  AND ((@Fullname = '''' OR @Fullname IS NULL) OR e.Fullname LIKE ''%'' + @Fullname + ''%'')
-  AND ((@EmploymentType = '''' OR @EmploymentType IS NULL)
-        OR e.EmploymentTypeCode LIKE ''%'' + @EmploymentType + ''%''
-        OR et.EmployementTypeName LIKE ''%'' + @EmploymentType + ''%'')
-  AND ((@JobClass = '''' OR @JobClass IS NULL)
-        OR e.JobClassCode LIKE ''%'' + @JobClass + ''%''
-        OR jc.JobClassName LIKE ''%'' + @JobClass + ''%'')
-  AND ((@Position = '''' OR @Position IS NULL)
-        OR e.PositionCode LIKE ''%'' + @Position + ''%''
-        OR p.PositionName LIKE ''%'' + @Position + ''%'')
-  AND ((@WorkLocation = '''' OR @WorkLocation IS NULL)
-        OR e.WorkLocationCode LIKE ''%'' + @WorkLocation + ''%''
-        OR wl.WorkLocationName LIKE ''%'' + @WorkLocation + ''%'')
 ';
 
+-- Filter Employee
+SET @SQL += N'
+AND (
+    @Employee IS NULL 
+    OR @Employee = ''''
+    OR e.EmployeeNo LIKE ''%'' + @Employee + ''%''
+    OR e.Fullname LIKE ''%'' + @Employee + ''%''
+    OR et.EmploymentTypeCode LIKE ''%'' + @Employee + ''%''
+    OR et.EmploymentTypeName LIKE ''%'' + @Employee + ''%''
+    OR jc.JobClassCode LIKE ''%'' + @Employee + ''%''
+    OR jc.JobClassName LIKE ''%'' + @Employee + ''%''
+    OR p.PositionCode LIKE ''%'' + @Employee + ''%''
+    OR p.PositionName LIKE ''%'' + @Employee + ''%''
+    OR wl.WorkLocationCode LIKE ''%'' + @Employee + ''%''
+    OR wl.WorkLocationName LIKE ''%'' + @Employee + ''%''
+)';
 
-SET @SQL += N' ORDER BY ' + QUOTENAME(@SortBy) + ' ' + CASE WHEN UPPER(@OrderBy) = 'DESC' THEN 'DESC' ELSE 'ASC' END;
+-- Join Date Filter
+SET @SQL += N'
+AND (
+    @JoinDateFrom IS NULL 
+    OR e.JoinDate >= @JoinDateFrom
+)';
 
-SET @SQL += N' OFFSET ' + CAST(@Offset AS NVARCHAR(10)) + ' ROWS FETCH NEXT ' + CAST(@PageSize AS NVARCHAR(10)) + ' ROWS ONLY;';
+SET @SQL += N'
+AND (
+    @JoinDateTo IS NULL 
+    OR e.JoinDate <= @JoinDateTo
+)';
+
+-- Terminate Date Filter
+SET @SQL += N'
+AND (
+    @TerminateDateFrom IS NULL 
+    OR e.TerminateDate >= @TerminateDateFrom
+)';
+
+SET @SQL += N'
+AND (
+    @TerminateDateTo IS NULL 
+    OR e.TerminateDate <= @TerminateDateTo
+)';
+
+-- Sorting
+SET @SQL += N' ORDER BY ' + QUOTENAME(@SortBy) + ' ' + 
+CASE WHEN UPPER(@OrderBy) = 'DESC' THEN 'DESC' ELSE 'ASC' END;
+
+-- Paging
+SET @SQL += N'
+OFFSET ' + CAST(@Offset AS NVARCHAR) + ' ROWS
+FETCH NEXT ' + CAST(@PageSize AS NVARCHAR) + ' ROWS ONLY';
 
 EXEC sp_executesql 
     @SQL,
-    N'@EmployeeNo VARCHAR(MAX), @Fullname VARCHAR(MAX), @EmploymentType VARCHAR(MAX),
-      @JobClass VARCHAR(MAX), @Position VARCHAR(MAX), @WorkLocation VARCHAR(MAX)',
-    @EmployeeNo, @Fullname, @EmploymentType, @JobClass, @Position, @WorkLocation;
+    N'
+    @Employee VARCHAR(MAX),
+    @JoinDateFrom DATE,
+    @JoinDateTo DATE,
+    @TerminateDateFrom DATE,
+    @TerminateDateTo DATE
+    ',
+    @Employee,
+    @JoinDateFrom,
+    @JoinDateTo,
+    @TerminateDateFrom,
+    @TerminateDateTo;

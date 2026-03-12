@@ -1,4 +1,5 @@
-﻿using ThePatho.Provider.ApiResponse;
+using ThePatho.Features.Common.DTO;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Global.BloodType.Commands;
 using ThePatho.Features.Global.BloodType.DTO;
 
@@ -11,5 +12,7 @@ namespace ThePatho.Features.Global.BloodType.Service
         Task<ApiResponse<BloodTypeItemDto>> GetBloodTypeByCriteria(GetBloodTypeByCriteriaCommand request);
         Task<ApiResponse> SubmitBloodType(SubmitBloodTypeCommand request);
         Task<ApiResponse> DeleteBloodType(DeleteBloodTypeCommand request);
+        Task<ApiResponse<AttachmentFileDto>> ExportAsync(ExportBloodTypeCommand request);
     }
 }
+

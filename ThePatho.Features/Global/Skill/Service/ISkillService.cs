@@ -1,4 +1,5 @@
-﻿using ThePatho.Provider.ApiResponse;
+using ThePatho.Features.Common.DTO;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Global.Skill.Commands;
 using ThePatho.Features.Global.Skill.DTO;
 
@@ -11,5 +12,7 @@ namespace ThePatho.Features.Global.Skill.Service
         Task<ApiResponse<SkillItemDto>> GetSkillByCriteria(GetSkillByCriteriaCommand request);
         Task<ApiResponse> SubmitSkill(SubmitSkillCommand request);
         Task<ApiResponse> DeleteSkill(DeleteSkillCommand request);
+        Task<ApiResponse<AttachmentFileDto>> ExportAsync(ExportSkillCommand request);
     }
 }
+

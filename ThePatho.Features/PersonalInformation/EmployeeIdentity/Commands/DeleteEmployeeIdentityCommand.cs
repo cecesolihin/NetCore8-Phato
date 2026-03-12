@@ -6,10 +6,10 @@ namespace ThePatho.Features.PersonalInformation.EmployeeIdentity.Commands
 {
     public class DeleteEmployeeIdentityCommand : IRequest<ApiResponse>
     {
-        [JsonPropertyName("EduLevelCode")]
+        [JsonPropertyName("employeeId")]
         public int EmployeeId { get; set; }
 
-        [JsonPropertyName("identitycode")]
+        [JsonPropertyName("identityCode")]
         public string IdentityCode { get; set; } = null!;
     }
 }

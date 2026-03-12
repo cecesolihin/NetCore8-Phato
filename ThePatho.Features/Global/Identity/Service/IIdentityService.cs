@@ -1,4 +1,5 @@
-﻿using ThePatho.Provider.ApiResponse;
+using ThePatho.Features.Common.DTO;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Global.Identity.Commands;
 using ThePatho.Features.Global.Identity.DTO;
 
@@ -12,5 +13,7 @@ namespace ThePatho.Features.Global.Identity.Service
         Task<ApiResponse> DeleteIdentity(DeleteIdentityCommand request);
 
         Task<ApiResponse<IdentityDto>> GetSingleIdentity(GetSingleIdentityCommand request);
+        Task<ApiResponse<AttachmentFileDto>> ExportAsync(ExportIdentityCommand request);
     }
 }
+

@@ -1,4 +1,5 @@
-﻿using ThePatho.Provider.ApiResponse;
+using ThePatho.Features.Common.DTO;
+using ThePatho.Provider.ApiResponse;
 using ThePatho.Features.Global.LetterTemplate.Commands;
 using ThePatho.Features.Global.LetterTemplate.DTO;
 
@@ -11,5 +12,7 @@ namespace ThePatho.Features.Global.LetterTemplate.Service
         Task<ApiResponse<LetterTemplateItemDto>> GetLetterTemplateByCriteria(GetLetterTemplateByCriteriaCommand request);
         Task<ApiResponse> SubmitLetterTemplate(SubmitLetterTemplateCommand request);
         Task<ApiResponse> DeleteLetterTemplate(DeleteLetterTemplateCommand request);
+        Task<ApiResponse<AttachmentFileDto>> ExportAsync(ExportLetterTemplateCommand request);
+
     }
 }
